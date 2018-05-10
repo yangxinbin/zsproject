@@ -12,7 +12,7 @@
     </FrameLayout>
 
     <com.mango.leo.zsproject.viewutil.BottomBar
-        android:background="#FFFFFF"
+        android:background="@color/common_white"
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
