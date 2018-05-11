@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.mango.leo.zsproject.industrialservice.show.FragmentOfIndustrialService">
     <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tabLayout1"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         app:tabGravity="center"
@@ -23,7 +23,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
     <ImageView
-        android:id="@+id/image_msg"
+        android:id="@+id/image_msg1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -34,7 +34,7 @@
         android:layout_marginTop="18dp" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/viewPager1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -47,6 +47,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout1"
         app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

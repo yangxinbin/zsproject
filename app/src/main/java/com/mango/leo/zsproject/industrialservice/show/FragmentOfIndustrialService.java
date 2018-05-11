@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 
 
 public class FragmentOfIndustrialService extends Fragment {
-    @Bind(R.id.tabLayout)
+    @Bind(R.id.tabLayout1)
     TabLayout mTableLayout;
-    @Bind(R.id.viewPager)
+    @Bind(R.id.viewPager1)
     ViewPager mViewPager;
     List<Fragment> mfragments = new ArrayList<Fragment>();
     private List<String> mDatas;
@@ -53,7 +53,6 @@ public class FragmentOfIndustrialService extends Fragment {
         mfragments.add(new DemandManagementFragment());
         mfragments.add(new IndustrialDatabaseFragment());
         mfragments.add(new StarInvestorFragment());
-        //Toast.makeText(this,mDatas.toString(),Toast.LENGTH_SHORT).show();
         mViewPager.setAdapter(vp);
         mViewPager.setCurrentItem(0);
     }
