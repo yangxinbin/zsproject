@@ -48,10 +48,17 @@
     <string name="sharenews">分享新闻详情</string>
     <string name="webologin">微博登录</string>
     <string name="mine">我的</string>
+    <string name="give">为您推荐了</string>
     <string-array name="spingarr">
         <item>北京</item>
         <item>上海</item>
         <item>广州</item>
         <item>深圳</item>
+    </string-array>
+    <string-array name="spState">
+        <item>全部</item>
+        <item>招商计划</item>
+        <item>定制</item>
+        <item>草稿</item>
     </string-array>
 </resources>

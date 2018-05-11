@@ -9,4 +9,5 @@
     <color name="gray">#ededed</color>
     <color name="black">#000000</color>
     <color name="grayBlack">#4b4b4b</color>
+    <color name="buttonBg">#f7f7f7</color>
 </resources>

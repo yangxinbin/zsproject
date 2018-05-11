@@ -4,5 +4,6 @@
     <dimen name="commom_tv_size_12">12dp</dimen>
     <dimen name="commom_margin_2">2dp</dimen>
     <dimen name="textSize">16dp</dimen>
-    <dimen name="min_textSize">14dp</dimen>
+    <dimen name="min_textSize">10dp</dimen>
+    <dimen name="sencond_textSize">14dp</dimen>
 </resources>

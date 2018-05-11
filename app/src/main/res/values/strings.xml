@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">CIFIT</string>
     <string name="mine">mine</string>
+    <string name="give">为您推荐了</string>
     <string-array name="spingarr">
         <item>北京</item>
         <item>上海</item>
         <item>广州</item>
         <item>深圳</item>
     </string-array>
+    <string name="transition_news_img">transition_news_img</string>
+    <string name="createItem">+创建需求</string>
 </resources>
 
 

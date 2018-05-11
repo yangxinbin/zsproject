@@ -51,7 +51,6 @@
 
     <Spinner
         android:id="@+id/spinner"
-        style="@style/Theme.AppCompat.Light.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_marginEnd="2dp"

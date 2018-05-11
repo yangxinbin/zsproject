@@ -13,7 +13,7 @@ import com.mango.leo.zsproject.R;
  * Created by Administrator on 2018/5/10 0010.
  */
 
-public class IndustrialDatabaseFragment extends Fragment{
+public class IndustrialDatabaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,15 +1,26 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,15 +34,76 @@ public class DemandManagementFragment extends Fragment {
     RecyclerView recycleView11;
     @Bind(R.id.refresh11)
     SwipeRefreshLayout refresh11;
+    private LinearLayoutManager mLayoutManager;
+    private DemandManagementAdapter adapter;
+    private Spinner mSpinner;
+    private Button createButton;
+    private ConstraintLayout h;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.demandmanagement, container, false);
         ButterKnife.bind(this, view);
-
+        initSwipeRefreshLayout ();
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recycleView11.setLayoutManager(mLayoutManager);
+        recycleView11.setItemAnimator(new DefaultItemAnimator());//设置默认动画
+        adapter = new DemandManagementAdapter(getActivity().getApplicationContext());
+        adapter.setOnItemnewsClickListener(mOnItemClickListener);
+        recycleView11.removeAllViews();
+        initHeader();
+        recycleView11.setAdapter(adapter);
         return view;
     }
+    public void initSwipeRefreshLayout (){
+        refresh11.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh11.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh11.setRefreshing(false);
+                    }
+                },2000);
+            }
+        });
+        refresh11.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+    private void initHeader() {
+        //渲染header布局
+        View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
+        h = (ConstraintLayout)header.findViewById(R.id.header);
+        mSpinner = (Spinner) header.findViewById(R.id.spinnerState);
+        String[] arrays = new String[] {"全部", "招商计划", "定制", "草稿"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, arrays);
+        mSpinner.setAdapter(arrayAdapter);
+        createButton = (Button) header.findViewById(R.id.create_button);
+        //设置banner的高度为手机屏幕的四分之一
+        //mBanner.setLayoutParams(new Banner.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 800));
+        h.setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (getActivity().getResources().getDisplayMetrics().heightPixels) / 3 - 10));
+        //设置headerview
+        //h.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));//除top隐藏headerview
+        adapter.setHeaderView(h);
+    }
+    private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+/*
+            String newsurl = adapter.getItem(opsition).getResult().getData().get(position).getUrl();
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra("newsurl", newsurl);//传输内容
+            View transitionView = view.findViewById(R.id.item_news_img);
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                            transitionView, getString(R.string.transition_news_img));
+            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+        }
+    };
 
     @Override
     public void onDestroyView() {
