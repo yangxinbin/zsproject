@@ -7,6 +7,7 @@
     <color name="red">#fc2b2b</color>
     <color name="none">#00FFFFFF</color>
     <color name="gray">#ededed</color>
+    <color name="maskgray">#c4c4c4</color>
     <color name="black">#000000</color>
     <color name="grayBlack">#4b4b4b</color>
     <color name="buttonBg">#f7f7f7</color>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dropDownMemu">
+        <attr name="underlineColor" format="color"></attr>
+        <attr name="dividerColor" format="color"></attr>
+        <attr name="textSeletedlineColor" format="color"></attr>
+        <attr name="textUnSeletedlineColor" format="color"></attr>
+        <attr name="menuBackgroudColor" format="color"></attr>
+        <attr name="maskColor" format="color"></attr>
+        <attr name="menuTextSize" format="dimension"></attr>
+        <attr name="menuSelectedIcon" format="reference"></attr>
+        <attr name="menuUnSelectedIcon" format="reference"></attr>
+    </declare-styleable>
+
+</resources>

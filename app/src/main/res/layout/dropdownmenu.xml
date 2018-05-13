@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mango.leo.zsproject.utils.DropdownMenuLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dropdownmenu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:textSeletedlineColor = "@color/red"
+    app:textUnSeletedlineColor = "@color/black"
+    app:dividerColor = "@color/black"
+    app:underlineColor = "@color/gray"
+    app:menuTextSize = "14sp"
+    app:menuSelectedIcon = "@drawable/common_icon_arrow_down_black"
+    app:menuUnSelectedIcon = "@drawable/common_icon_arrow_up_black"
+    app:maskColor = "@color/maskgray"
+    app:menuBackgroudColor = "@color/common_white"
+    >
+</com.mango.leo.zsproject.utils.DropdownMenuLayout>
