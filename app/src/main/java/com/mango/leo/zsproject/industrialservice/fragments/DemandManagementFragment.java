@@ -123,10 +123,6 @@ public class DemandManagementFragment extends Fragment {
         //mSpinner.setAdapter(arrayAdapter1);
         adapter.setHeaderView(h);
     }
-    private int dp2px(float v) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
-    }
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {

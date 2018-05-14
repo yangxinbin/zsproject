@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
+import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,10 @@ import java.util.List;
  * Created by admin on 2018/5/11.
  */
 
-public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private OnItemnewsClickListener mOnItemnewsClickListener;//自注册的接口给调用者用于点击逻辑
-    private List<DemandManagementBean> mData;
+    private List<AllItemBean> mData;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     public static final int TYPE_HEADER = 2;
@@ -31,12 +31,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean mShowHeader = true;
     private View mHeaderView;
 
-    public void setmDate(List<DemandManagementBean> data) {
+    public void setmDate(List<AllItemBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
     public void reMove(){
-        List<DemandManagementBean> m = new ArrayList<DemandManagementBean>();
+        List<AllItemBean> m = new ArrayList<AllItemBean>();
         this.mData = m;
         this.notifyDataSetChanged();
     }
@@ -48,12 +48,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * 添加列表项     * @param item
      */
-    public void addItem(DemandManagementBean bean) {
+    public void addItem(AllItemBean bean) {
         mData.add(bean);
         this.notifyDataSetChanged();
     }
 
-    public DemandManagementAdapter(Context context) {
+    public AllItemAdapter(Context context) {
         this.context = context;
     }
     @Override
@@ -63,10 +63,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.demandmanagement_item, parent, false);
+                    .inflate(R.layout.all_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
-        } else {
+        }
+        else
+        {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.footer, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -84,6 +86,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             return TYPE_HEADER;//add header
         }
         if ((position + 1 == getItemCount() || mHeaderView == null) && isShowFooter()) { //加载到最后不显示footter
+            Log.v("yxbbbb","uuuuuTYPE_FOOTERuuuu");
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
@@ -105,27 +108,13 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
-//            DemandManagementBean dm = mData.get(pos);//add header
+//            AllItemBean dm = mData.get(pos);//add header
 //            if (dm == null) {
  //               return;
  //           }
             if (((ItemViewHolder) holder) != null) {
-                ((ItemViewHolder) holder).itemName.setText("sdfsd");
-                ((ItemViewHolder) holder).state.setText("来自");
-                ((ItemViewHolder) holder).itemTime.setText("时间");
-                ((ItemViewHolder) holder).numCompany.setText("50");
-                ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
-                ((ItemViewHolder) holder).numInvestmentActivities.setText("200");
-
-                if (true) {
-                    ((ItemViewHolder) holder).itemType.setImageResource(R.drawable.newrequirement_icon_zhaoshang);
-                } else {
-                    Glide.with(context)
-                            .load(R.drawable.newrequirement_icon_zhaoshang)
-                            .placeholder(R.drawable.newrequirement_icon_zhaoshang)//图片加载出来前，显示的图片
-                            .error(R.drawable.newrequirement_icon_zhaoshang)//图片加载失败后，显示的图片
-                            .into(((ItemViewHolder) holder).itemType);
-                }
+                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getAllItemName());
+                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getAllItemContent());
             }
         }
     }
@@ -135,14 +124,14 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
     @Override
     public int getItemCount() {
-/*        int isFooter = mShowFooter ? 1 : 0;
+        int isFooter = mShowFooter ? 1 : 0;
         int isHeader = mShowHeader ? 1 : 0;
 
         if (mData == null) {
             return isFooter + isHeader;
         }
-        return mData.size() + isFooter + isHeader;*/
-        return 6;
+        return mData.size() + isFooter + isHeader;
+       // return 4;
     }
     public void setOnItemnewsClickListener(OnItemnewsClickListener onItemnewsClickListener) {
         this.mOnItemnewsClickListener = onItemnewsClickListener;
@@ -154,7 +143,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    public DemandManagementBean getItem(int position) {
+    public AllItemBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
     public interface OnItemnewsClickListener {
@@ -162,20 +151,13 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView itemName,state,itemTime,numCompany,numInvestmentInstitution,numInvestmentActivities;
-        public ImageView itemType;
-
+        public TextView allItemName,allItemContent;
         public ItemViewHolder(View v) {
             super(v);
             if(v == mHeaderView)
                 return;
-            itemName = (TextView) v.findViewById(R.id.item_name);
-            state = (TextView) v.findViewById(R.id.item_state);
-            itemTime = (TextView) v.findViewById(R.id.item_time);
-            numCompany = (TextView) v.findViewById(R.id.num_Company);
-            numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
-            numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
-            itemType = (ImageView) v.findViewById(R.id.item_state_img);
+            allItemName = (TextView) v.findViewById(R.id.allitemName);
+            allItemContent = (TextView) v.findViewById(R.id.allitemContent);
             v.setOnClickListener(this);
         }
 
