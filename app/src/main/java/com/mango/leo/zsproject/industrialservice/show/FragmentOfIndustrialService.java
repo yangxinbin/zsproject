@@ -43,7 +43,7 @@ public class FragmentOfIndustrialService extends Fragment {
     }
 
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("需求管理", "产业数据库", "明星投资人"));
+        mDatas = new ArrayList<String>(Arrays.asList("需求管理", "产业数据库"/*, "明星投资人"*/));
     }
 
     private void init() {
@@ -52,7 +52,7 @@ public class FragmentOfIndustrialService extends Fragment {
         mTableLayout.setupWithViewPager(mViewPager);
         mfragments.add(new DemandManagementFragment());
         mfragments.add(new IndustrialDatabaseFragment());
-        mfragments.add(new StarInvestorFragment());
+       // mfragments.add(new StarInvestorFragment());
         mViewPager.setAdapter(vp);
         mViewPager.setCurrentItem(0);
     }

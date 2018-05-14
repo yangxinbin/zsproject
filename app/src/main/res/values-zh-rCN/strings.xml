@@ -61,4 +61,5 @@
         <item>定制</item>
         <item>草稿</item>
     </string-array>
+    <string name="allplan">全部招商计划</string>
 </resources>

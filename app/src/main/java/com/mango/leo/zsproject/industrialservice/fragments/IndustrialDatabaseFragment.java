@@ -70,9 +70,10 @@ public class IndustrialDatabaseFragment extends Fragment implements DemandManage
         popViews.add(lvWays);
         popViews.add(lvWhere);
         popViews.add(lvHow);
+
         ImageView iv = new ImageView(getActivity());
-        iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
-iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         dropdownMenuLayout.setDropDownMemu(Arrays.asList(headers), popViews, iv);
 
     }

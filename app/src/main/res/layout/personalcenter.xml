@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mango.leo.zsproject.industrialservice.show.FragmentOfIndustrialService">
+
     <ImageView
         android:id="@+id/image_msg5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="18dp"
         android:src="@drawable/common_nav_icon_msg"
-        android:layout_marginRight="25dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="18dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager5"

@@ -60,7 +60,6 @@ public class DropDownAdapter extends BaseAdapter {
     }
 
     public static class MyViewHolder {
-        ImageView iv;
         TextView tv;
     }
 }

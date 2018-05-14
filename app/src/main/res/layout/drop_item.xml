@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="35dp"
+    android:background="@color/common_gray"
     android:orientation="horizontal" >
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/drop_id"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:textSize="@dimen/textSize"
         android:layout_height="wrap_content"
         />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/common_white"/>
 </LinearLayout>

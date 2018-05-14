@@ -10,6 +10,7 @@
     </string-array>
     <string name="transition_news_img">transition_news_img</string>
     <string name="createItem">+创建需求</string>
+    <string name="allplan">全部招商计划</string>
 </resources>
 
 

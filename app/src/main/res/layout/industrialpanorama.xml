@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:src="@drawable/common_nav_icon_share"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="18dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="18dp" />
