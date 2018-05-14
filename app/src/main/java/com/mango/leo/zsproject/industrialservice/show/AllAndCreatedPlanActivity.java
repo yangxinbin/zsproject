@@ -1,8 +1,11 @@
 package com.mango.leo.zsproject.industrialservice.show;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -63,8 +66,11 @@ public class AllAndCreatedPlanActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.allAndCreated_image_back:
+                finish();
                 break;
             case R.id.allAndCreated_image_add:
+                Intent intent = new Intent(this, CreatedStyleActivity.class);
+                startActivity(intent);
                 break;
         }
     }

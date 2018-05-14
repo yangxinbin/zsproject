@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CIFIT</string>
-    <string name="mine">mine</string>
+    <string name="mine">我的</string>
     <string name="give">为您推荐了</string>
     <string-array name="spingarr">
         <item>北京</item>
@@ -9,8 +9,9 @@
         <item>深圳</item>
     </string-array>
     <string name="transition_news_img">transition_news_img</string>
-    <string name="createItem">+创建需求</string>
+    <string name="created">创建需求</string>
     <string name="allplan">全部招商计划</string>
+    <string name="how_to_created">请选择您需创建的需求</string>
 </resources>
 
 

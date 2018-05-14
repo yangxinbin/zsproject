@@ -51,7 +51,7 @@ public class DraftBoxFragment extends Fragment {
         initHeader();
         recycleDraftBox.setAdapter(adapter);
         List<AllItemBean> d = new ArrayList<AllItemBean>();
-        for (int i =1;i<6;i++){
+        for (int i =1;i<9;i++){
             AllItemBean de = new AllItemBean(i+"fsdafasd",i+"dssdvcdafdasd");
             d.add(de);
         }

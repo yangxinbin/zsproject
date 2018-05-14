@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".industrialservice.show.AllAndCreatedPlanActivity"></activity>
+        <activity android:name=".industrialservice.show.AllAndCreatedPlanActivity" />
+        <activity android:name=".industrialservice.show.CreatedStyleActivity" />
+        <activity android:name=".industrialservice.show.BusinessPlanActivity" />
+        <activity android:name=".industrialservice.show.CustomRequirementsActivity"></activity>
     </application>
 
 </manifest>
