@@ -13,10 +13,7 @@ import android.widget.ImageView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.datacenter.fragments.IndustrialDataFragment;
 import com.mango.leo.zsproject.datacenter.fragments.PlatformDataFragment;
-import com.mango.leo.zsproject.industrialservice.adapte.ViewPageAdapter;
-import com.mango.leo.zsproject.industrialservice.fragments.DemandManagementFragment;
-import com.mango.leo.zsproject.industrialservice.fragments.IndustrialDatabaseFragment;
-import com.mango.leo.zsproject.industrialservice.fragments.StarInvestorFragment;
+import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

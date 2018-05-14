@@ -8,14 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.adapte.ViewPageAdapter;
+import com.mango.leo.zsproject.utils.ViewPageAdapter;
 import com.mango.leo.zsproject.industrialservice.fragments.DemandManagementFragment;
 import com.mango.leo.zsproject.industrialservice.fragments.IndustrialDatabaseFragment;
-import com.mango.leo.zsproject.industrialservice.fragments.StarInvestorFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

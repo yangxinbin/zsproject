@@ -15,7 +15,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CustomRequirementsFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentPlanFragment;
-import com.mango.leo.zsproject.industrialservice.adapte.ViewPageAdapter;
+import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

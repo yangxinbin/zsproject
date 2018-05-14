@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.datacenter.fragments.IndustrialDataFragment;
-import com.mango.leo.zsproject.datacenter.fragments.PlatformDataFragment;
 import com.mango.leo.zsproject.eventexhibition.fragments.CampaignFragment;
 import com.mango.leo.zsproject.eventexhibition.fragments.ExhibitionFragment;
 import com.mango.leo.zsproject.eventexhibition.fragments.InformationFragment;
-import com.mango.leo.zsproject.industrialservice.adapte.ViewPageAdapter;
+import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

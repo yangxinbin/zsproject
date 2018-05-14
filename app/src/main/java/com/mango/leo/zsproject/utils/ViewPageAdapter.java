@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.industrialservice.adapte;
+package com.mango.leo.zsproject.utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
