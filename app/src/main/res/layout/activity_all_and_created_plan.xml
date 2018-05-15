@@ -16,7 +16,9 @@
         android:src="@drawable/common_nav_icon_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlCompat" />
+        tools:ignore="RtlCompat"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
     <android.support.design.widget.TabLayout
         android:id="@+id/allAndCreated_tabLayout"
         android:layout_width="wrap_content"

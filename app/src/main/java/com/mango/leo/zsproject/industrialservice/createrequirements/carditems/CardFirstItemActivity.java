@@ -28,8 +28,7 @@ public class CardFirstItemActivity extends BaseActivity {
     LinedEditText itemContent;
     @Bind(R.id.add_iv_photo)
     ImageView addIvPhoto;
-    @Bind(R.id.add_iv_show)
-    ImageView addIvShow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
