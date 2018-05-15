@@ -1,13 +1,13 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.ButterKnife;
 
-public class CustomRequirementsActivity extends AppCompatActivity {
+public class CustomRequirementsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

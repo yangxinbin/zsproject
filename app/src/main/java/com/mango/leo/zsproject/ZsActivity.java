@@ -1,8 +1,8 @@
 package com.mango.leo.zsproject;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.datacenter.show.FragmentOfDateCenter;
 import com.mango.leo.zsproject.eventexhibition.show.FragmentOfEventExhibition;
 import com.mango.leo.zsproject.industrialpanorama.show.FragmentOfIndustrialPanorama;
@@ -10,7 +10,7 @@ import com.mango.leo.zsproject.industrialservice.show.FragmentOfIndustrialServic
 import com.mango.leo.zsproject.personalcenter.show.FragmentOfPersonalCenter;
 import com.mango.leo.zsproject.viewutil.BottomBar;
 
-public class ZsActivity extends AppCompatActivity {
+public class ZsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

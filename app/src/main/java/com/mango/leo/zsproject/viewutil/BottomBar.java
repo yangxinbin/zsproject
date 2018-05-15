@@ -11,10 +11,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -292,7 +293,7 @@ public class BottomBar extends View {
         int frameLayoutId = containerId;
 
         if (fragment != null) {
-            FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = ((BaseActivity)context).getSupportFragmentManager().beginTransaction();
             if (fragment.isAdded()) {
                 if (currentFragment != null) {
                     transaction.hide(currentFragment).show(fragment);

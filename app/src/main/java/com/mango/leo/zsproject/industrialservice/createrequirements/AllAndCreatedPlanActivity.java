@@ -1,19 +1,15 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.fragments.AuditedFragment;
 import com.mango.leo.zsproject.industrialservice.fragments.DraftBoxFragment;
 import com.mango.leo.zsproject.industrialservice.fragments.SubmissionFragment;
@@ -27,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllAndCreatedPlanActivity extends AppCompatActivity {
+public class AllAndCreatedPlanActivity extends BaseActivity {
 
     @Bind(R.id.allAndCreated_image_back)
     ImageView allAndCreatedImageBack;
@@ -71,6 +67,7 @@ public class AllAndCreatedPlanActivity extends AppCompatActivity {
             case R.id.allAndCreated_image_add:
                 Intent intent = new Intent(this, CreatedStyleActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -3,7 +3,6 @@ package com.mango.leo.zsproject.industrialservice.createrequirements;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends AppCompatActivity {
+public class BusinessPlanActivity extends BaseActivity {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;

@@ -9,44 +9,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textSize="@dimen/title"
         android:textColor="@color/black"
         android:text="@string/created"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="142dp" />
 
     <ImageView
         android:id="@+id/imageView_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_nav_icon_back" />
+        app:srcCompat="@drawable/common_nav_icon_back"
+        tools:layout_editor_absoluteX="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="10dp"
         android:text="@string/how_to_created"
         android:textColor="@color/grayBlack"
         android:textSize="@dimen/sencond_textSize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_back" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_back"
+        tools:layout_editor_absoluteX="18dp" />
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/carone"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="76dp"
         android:clickable="true"
         android:focusable="true"
@@ -57,7 +54,8 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        card_view:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -69,12 +67,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:srcCompat="@drawable/newrequirement_icon_zhaoshang"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="16dp"
+                card_view:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -82,23 +81,28 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize"
                 android:textColor="@color/black"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:text="招商需求"
                 card_view:layout_constraintStart_toEndOf="@+id/imageView3"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="16dp"
+                card_view:layout_constraintLeft_toRightOf="@+id/imageView3" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="14dp"
                 android:textSize="@dimen/sencond_textSize"
                 android:textColor="@color/grayBlack"
                 android:text="提供您选商择的具体要求"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView3" />
+                card_view:layout_constraintStart_toEndOf="@+id/imageView3"
+                card_view:layout_constraintLeft_toRightOf="@+id/imageView3"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/textView3"
+                card_view:layout_constraintVertical_bias="0.25" />
 
 
         </android.support.constraint.ConstraintLayout>
@@ -107,10 +111,8 @@
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cartwo"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="172dp"
         android:clickable="true"
         android:focusable="true"
@@ -121,7 +123,8 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        card_view:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -135,12 +138,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:srcCompat="@drawable/newrequirement_icon_dingzhi"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="16dp"
+                card_view:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
                 android:textSize="@dimen/textSize"
@@ -148,20 +152,24 @@
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:text="定制需求"
                 card_view:layout_constraintStart_toEndOf="@+id/imageView33"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintLeft_toRightOf="@+id/imageView33"
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="14dp"
                 android:text="个性化定制您的需求"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView33" />
+                card_view:layout_constraintStart_toEndOf="@+id/imageView33"
+                card_view:layout_constraintLeft_toRightOf="@+id/imageView33"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/textView33" />
 
 
         </android.support.constraint.ConstraintLayout>

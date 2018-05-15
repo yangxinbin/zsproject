@@ -10,18 +10,16 @@
         android:id="@+id/imageView1_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_nav_icon_back" />
+        app:srcCompat="@drawable/common_nav_icon_back"
+        tools:layout_editor_absoluteX="8dp" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="项目描述"
         android:textColor="@color/black"
@@ -29,25 +27,24 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView1_back"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="167dp" />
 
     <TextView
         android:id="@+id/textView1_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/save"
         android:textColor="@color/grayBlack"
         android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="283dp" />
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
@@ -58,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1_save">
+        app:layout_constraintTop_toBottomOf="@+id/textView1_save"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,53 +120,6 @@
                     android:textColorHint="@color/secondblack"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
-            <ImageView
-                android:id="@+id/add_iv_show"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone" />
-            <!--            <LinearLayout
-                            android:id="@+id/add_ll_weather"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:id="@+id/add_iv_qing"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@mipmap/ic_weather_qing" />
-
-                            <ImageView
-                                android:id="@+id/add_iv_yin"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="20dp"
-                                android:src="@mipmap/ic_weather_yin" />
-
-                            <ImageView
-                                android:id="@+id/add_iv_yu"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="20dp"
-                                android:src="@mipmap/ic_weather_yu" />
-
-                            <ImageView
-                                android:id="@+id/add_iv_leiyu"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="20dp"
-                                android:src="@mipmap/ic_weather_leiyu" />
-
-                            <ImageView
-                                android:id="@+id/add_iv_xue"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="20dp"
-                                android:src="@mipmap/ic_weather_xue" />
-                        </LinearLayout>-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="81dp"
@@ -177,8 +128,8 @@
 
                 <ImageView
                     android:id="@+id/add_iv_photo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:src="@drawable/msg_icon_feedback" />
             </LinearLayout>
         </LinearLayout>

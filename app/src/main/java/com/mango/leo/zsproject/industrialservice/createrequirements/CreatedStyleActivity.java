@@ -2,18 +2,18 @@ package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreatedStyleActivity extends AppCompatActivity {
+public class CreatedStyleActivity extends BaseActivity {
 
     @Bind(R.id.imageView_back)
     ImageView imageView_back;
