@@ -11,5 +11,5 @@
         <attr name="menuSelectedIcon" format="reference"></attr>
         <attr name="menuUnSelectedIcon" format="reference"></attr>
     </declare-styleable>
-
+    <attr name="backgroundBg" format="color|reference" />
 </resources>

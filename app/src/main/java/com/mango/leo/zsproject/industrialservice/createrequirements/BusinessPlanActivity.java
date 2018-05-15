@@ -102,4 +102,9 @@ public class BusinessPlanActivity extends AppCompatActivity {
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

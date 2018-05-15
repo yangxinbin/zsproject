@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.utils;
+package com.mango.leo.zsproject.viewutil;
 
 import android.content.Context;
 import android.content.res.TypedArray;

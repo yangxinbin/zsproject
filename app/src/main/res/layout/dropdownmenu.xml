@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mango.leo.zsproject.utils.DropdownMenuLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.mango.leo.zsproject.viewutil.DropdownMenuLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dropdownmenu"
     android:layout_width="match_parent"
@@ -14,4 +14,4 @@
     app:maskColor = "@color/maskgray"
     app:menuBackgroudColor = "@color/menucolor"
     >
-</com.mango.leo.zsproject.utils.DropdownMenuLayout>
+</com.mango.leo.zsproject.viewutil.DropdownMenuLayout>
