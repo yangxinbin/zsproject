@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mango.leo.zsproject.industrialservice.show.CustomRequirementsActivity">
+    tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.CustomRequirementsActivity">
 
 </android.support.constraint.ConstraintLayout>

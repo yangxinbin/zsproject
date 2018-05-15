@@ -1,15 +1,15 @@
-package com.mango.leo.zsproject.industrialservice.show;
+package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mango.leo.zsproject.R;
 
-public class BusinessPlanActivity extends AppCompatActivity {
+public class CustomRequirementsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_plan);
+        setContentView(R.layout.activity_custom_requirements);
     }
 }

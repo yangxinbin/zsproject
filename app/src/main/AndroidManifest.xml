@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".industrialservice.show.AllAndCreatedPlanActivity" />
-        <activity android:name=".industrialservice.show.CreatedStyleActivity" />
-        <activity android:name=".industrialservice.show.BusinessPlanActivity" />
-        <activity android:name=".industrialservice.show.CustomRequirementsActivity"></activity>
+        <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
+        <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
+        <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
+        <activity android:name=".industrialservice.createrequirements.CustomRequirementsActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity"></activity>
     </application>
 
 </manifest>

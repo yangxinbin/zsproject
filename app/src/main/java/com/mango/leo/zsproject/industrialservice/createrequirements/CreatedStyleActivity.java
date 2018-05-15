@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.industrialservice.show;
+package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.content.Intent;
 import android.os.Bundle;

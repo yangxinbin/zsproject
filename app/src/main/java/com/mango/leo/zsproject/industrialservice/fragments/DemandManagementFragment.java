@@ -20,7 +20,7 @@ import android.widget.Spinner;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
-import com.mango.leo.zsproject.industrialservice.show.AllAndCreatedPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

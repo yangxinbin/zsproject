@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.mango.leo.zsproject.industrialservice.show.BusinessPlanActivity">
+    android:layout_height="wrap_content"
+    tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/describeitems1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"></include>
+
+        <include
+            layout="@layout/describeitems2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"></include>
+
+        <include
+            layout="@layout/describeitems3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"></include>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="审核完成后将自动发布招商项目，请耐心等待。"
+            android:textColor="@color/grayBlack"
+            android:textSize="@dimen/commom_tv_size_12" />
+
+        <Button
+            android:id="@+id/send"
+            android:textSize="@dimen/title"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/submission_background"
+            android:text="提交审核" />
+    </LinearLayout>
+</ScrollView>

@@ -68,6 +68,8 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textSize="@dimen/title"
+            android:textColor="@color/grayBlack"
             android:text="@string/allplan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

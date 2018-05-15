@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mango.leo.zsproject.industrialservice.show.CreatedStyleActivity">
+    tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,6 +80,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/black"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="8dp"
                 android:text="招商需求"
@@ -92,6 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="14dp"
+                android:textSize="@dimen/sencond_textSize"
+                android:textColor="@color/grayBlack"
                 android:text="提供您选商择的具体要求"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/imageView3" />
@@ -126,6 +130,8 @@
 
             <ImageView
                 android:id="@+id/imageView33"
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -137,6 +143,8 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/black"
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
