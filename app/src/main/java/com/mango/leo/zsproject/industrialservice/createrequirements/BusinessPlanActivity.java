@@ -1,9 +1,13 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,12 +16,17 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends BaseActivity {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener{
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -61,12 +70,47 @@ public class BusinessPlanActivity extends BaseActivity {
     CardView carninth;
     @Bind(R.id.send)
     Button send;
+    private TextView title;
+    private TextView content;
+    private ImageView slider;
+    CardFirstItemBean bean1;
+    private TextView textView_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
+        bean1 = new CardFirstItemBean();
+        EventBus.getDefault().register(this);
+        //initFirstItem();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void EventBus(CardFirstItemBean bean) {
+        this.bean1 = bean;
+        carfirstContent.setVisibility(View.GONE);
+        carfirst.setEnabled(false);
+        //渲染card1布局
+        View item1 = LayoutInflater.from(this).inflate(R.layout.carditem1, null);
+        title = (TextView) item1.findViewById(R.id.textView_card1Name);
+        content = (TextView) item1.findViewById(R.id.textView_card1Content);
+        textView_edit = (TextView) item1.findViewById(R.id.textView_edit);
+        slider = (ImageView) item1.findViewById(R.id.slider_ad);
+        title.setText(bean.getItemName());
+        content.setText(bean.getItemContent());
+        slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(1).getPath()));
+        carfirst.addView(item1);
+        textView_edit.setOnClickListener(this);
+    }
+
+    public static Bitmap getSDCardImg(String imagePath) {
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inPreferredConfig = Bitmap.Config.RGB_565;
+        opt.inPurgeable = true;
+        opt.inInputShareable = true;
+//获取资源图片
+        return BitmapFactory.decodeFile(imagePath, opt);
     }
 
     @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth, R.id.carninth, R.id.send})
@@ -81,6 +125,7 @@ public class BusinessPlanActivity extends BaseActivity {
             case R.id.carfirst:
                 intent = new Intent(this, CardFirstItemActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.carsecond:
                 break;
@@ -102,9 +147,19 @@ public class BusinessPlanActivity extends BaseActivity {
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        EventBus.getDefault().postSticky(bean1);
+        Intent intent = new Intent(this, CardFirstItemActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

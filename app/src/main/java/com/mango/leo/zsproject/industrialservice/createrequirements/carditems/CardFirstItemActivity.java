@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,8 +19,14 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.viewutil.FullyGridLayoutManager;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.viewutil.LinedEditText;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,8 @@ public class CardFirstItemActivity extends BaseActivity {
     private int themeId;
     GridImageAdapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
+    private CardFirstItemBean cardFirstItemBean;
+    private List<LocalMedia> itemImagesPath = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +59,23 @@ public class CardFirstItemActivity extends BaseActivity {
         ButterKnife.bind(this);
         themeId = R.style.picture_default_style;
         initAddImage();
+        cardFirstItemBean = new CardFirstItemBean();
+        EventBus.getDefault().register(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void EventBus(CardFirstItemBean bean) {
+        itemTitle.setText(bean.getItemName());
+        itemContent.setText(bean.getItemContent());
+        adapter.setList(bean.getItemImagePath());
+    }
+
+    private void initDate() {
+        cardFirstItemBean.setItemName(itemTitle.getText().toString());
+        for (LocalMedia media : selectList) {
+            Log.v("yxb","====="+media.getPath());
+        }
+        cardFirstItemBean.setItemContent(itemContent.getText().toString());
+        cardFirstItemBean.setItemImagePath(selectList);
     }
 
     private void initAddImage() {
@@ -144,6 +170,16 @@ public class CardFirstItemActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.textView1_save:
+                initDate();
+                if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString())) {
+                    cardFirstItemBean.setEdit(true);
+                    EventBus.getDefault().postSticky(cardFirstItemBean);
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    AppUtils.showSnackar(textView1Save,"必填项不能为空！");
+                }
                 break;
         }
     }
@@ -160,13 +196,17 @@ public class CardFirstItemActivity extends BaseActivity {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
-                    for (LocalMedia media : selectList) {
-                        Log.i("图片-----》", media.getPath());
-                    }
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
                     break;
             }
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
+        finish();
     }
 }
