@@ -16,7 +16,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.viewutil.FullyGridLayoutManager;
 import com.mango.leo.zsproject.viewutil.LinedEditText;
@@ -139,7 +139,7 @@ public class CardFirstItemActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView1_back:
-                Intent intent = new Intent(this, AllAndCreatedPlanActivity.class);
+                Intent intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();
                 break;
