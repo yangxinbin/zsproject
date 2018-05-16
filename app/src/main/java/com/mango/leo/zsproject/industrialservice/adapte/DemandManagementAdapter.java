@@ -122,8 +122,6 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                 } else {
                     Glide.with(context)
                             .load(R.drawable.newrequirement_icon_zhaoshang)
-                            .placeholder(R.drawable.newrequirement_icon_zhaoshang)//图片加载出来前，显示的图片
-                            .error(R.drawable.newrequirement_icon_zhaoshang)//图片加载失败后，显示的图片
                             .into(((ItemViewHolder) holder).itemType);
                 }
             }
