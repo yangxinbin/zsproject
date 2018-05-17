@@ -1,14 +1,11 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +14,16 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardEigththItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFifthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSecondItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSeventhItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSixthItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
-import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -137,20 +141,44 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.carsecond:
+                intent = new Intent(this, CardSecondItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carthird:
+                intent = new Intent(this, CardThirdItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carfourth:
+                intent = new Intent(this, CardFourthItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carfifth:
+                intent = new Intent(this, CardFifthItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carsixth:
+                intent = new Intent(this, CardSixthItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carseventh:
+                intent = new Intent(this, CardSeventhItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.careighth:
+                intent = new Intent(this, CardEigththItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.carninth:
+                intent = new Intent(this, CardNinthItemActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.send:
                 break;
