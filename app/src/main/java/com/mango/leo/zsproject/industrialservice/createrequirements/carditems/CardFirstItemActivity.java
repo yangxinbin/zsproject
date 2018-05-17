@@ -18,6 +18,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.viewutil.FullyGridLayoutManager;
 import com.mango.leo.zsproject.utils.AppUtils;
@@ -34,7 +35,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardFirstItemActivity extends BaseActivity {
+public class CardFirstItemActivity extends BaseCardActivity {
 
     @Bind(R.id.imageView1_back)
     ImageView imageView1Back;
