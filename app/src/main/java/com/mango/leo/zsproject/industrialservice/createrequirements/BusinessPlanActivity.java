@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener{
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -75,6 +78,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private ImageView slider;
     CardFirstItemBean bean1;
     private TextView textView_edit;
+    // 声明存储首选项 对象
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,21 +90,26 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //initFirstItem();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void EventBus(CardFirstItemBean bean) {
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
         carfirstContent.setVisibility(View.GONE);
         carfirst.setEnabled(false);
         //渲染card1布局
         View item1 = LayoutInflater.from(this).inflate(R.layout.carditem1, null);
+        carfirst.addView(item1);
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         textView_edit = (TextView) item1.findViewById(R.id.textView_edit);
         slider = (ImageView) item1.findViewById(R.id.slider_ad);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
-        slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(1).getPath()));
-        carfirst.addView(item1);
+        if (bean.getItemImagePath().size() != 0) {
+            slider.setVisibility(View.VISIBLE);
+            slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(0).getPath()));
+        } else {
+            slider.setVisibility(View.GONE);
+        }
         textView_edit.setOnClickListener(this);
     }
 
@@ -146,6 +155,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.send:
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -8,6 +8,9 @@ import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,6 +39,7 @@ public class CreatedStyleActivity extends BaseActivity {
             case R.id.carone:
                 intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
+                EventBus.getDefault().removeAllStickyEvents();
                 break;
             case R.id.cartwo:
                 intent = new Intent(this, CustomRequirementsActivity.class);

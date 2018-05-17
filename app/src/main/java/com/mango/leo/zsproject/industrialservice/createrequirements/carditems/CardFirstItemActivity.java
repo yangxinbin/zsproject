@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,17 +62,15 @@ public class CardFirstItemActivity extends BaseActivity {
         EventBus.getDefault().register(this);
     }
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void EventBus(CardFirstItemBean bean) {
+    public void card1EventBus(CardFirstItemBean bean) {
         itemTitle.setText(bean.getItemName());
         itemContent.setText(bean.getItemContent());
         adapter.setList(bean.getItemImagePath());
+        selectList = bean.getItemImagePath();
     }
 
     private void initDate() {
         cardFirstItemBean.setItemName(itemTitle.getText().toString());
-        for (LocalMedia media : selectList) {
-            Log.v("yxb","====="+media.getPath());
-        }
         cardFirstItemBean.setItemContent(itemContent.getText().toString());
         cardFirstItemBean.setItemImagePath(selectList);
     }
@@ -172,7 +169,6 @@ public class CardFirstItemActivity extends BaseActivity {
             case R.id.textView1_save:
                 initDate();
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString())) {
-                    cardFirstItemBean.setEdit(true);
                     EventBus.getDefault().postSticky(cardFirstItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
@@ -205,8 +201,7 @@ public class CardFirstItemActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
-        finish();
+        EventBus.getDefault().unregister(this);
     }
 }

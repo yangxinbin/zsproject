@@ -12,24 +12,14 @@ public class CardFirstItemBean {
     private String itemName;
     private String itemContent;
     private List<LocalMedia> itemImagePath;
-    private boolean isEdit;
-
-    public boolean isEdit() {
-        return isEdit;
-    }
-
-    public void setEdit(boolean edit) {
-        isEdit = edit;
-    }
 
     public CardFirstItemBean() {
     }
 
-    public CardFirstItemBean(String itemName, String itemContent, List<LocalMedia> itemImagePath,boolean isEdit) {
+    public CardFirstItemBean(String itemName, String itemContent, List<LocalMedia> itemImagePath) {
         this.itemName = itemName;
         this.itemContent = itemContent;
         this.itemImagePath = itemImagePath;
-        this.isEdit = isEdit;
     }
 
     public String getItemContent() {
