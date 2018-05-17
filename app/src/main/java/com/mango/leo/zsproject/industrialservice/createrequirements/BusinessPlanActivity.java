@@ -125,9 +125,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             //图片与标题个数要对应
             slider.setImages(pathsImage)
                     .setBannerTitles(pathsTitle)
-                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                     .setImageLoader(new GlideImageLoader())
-                    .setIndicatorGravity(BannerConfig.CENTER)
+                    //.setIndicatorGravity(BannerConfig.CENTER)
                     .isAutoPlay(false)
                     .start();
             //slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(0).getPath()));
