@@ -24,10 +24,16 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSixthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.utils.GlideImageLoader;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,7 +85,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     Button send;
     private TextView title;
     private TextView content;
-    private ImageView slider;
+    private Banner slider;
     CardFirstItemBean bean1;
     private TextView textView_edit;
     // 声明存储首选项 对象
@@ -105,12 +111,26 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         textView_edit = (TextView) item1.findViewById(R.id.textView_edit);
-        slider = (ImageView) item1.findViewById(R.id.slider_ad);
+        slider = (Banner) item1.findViewById(R.id.slider_ad);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
         if (bean.getItemImagePath().size() != 0) {
             slider.setVisibility(View.VISIBLE);
-            slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(0).getPath()));
+            List<String> pathsImage = new ArrayList<>();
+            List<String> pathsTitle = new ArrayList<>();
+            for (int i = 0;i<bean.getItemImagePath().size();i++ ){
+                pathsImage.add(bean.getItemImagePath().get(i).getPath());
+                pathsTitle.add("");
+            }
+            //图片与标题个数要对应
+            slider.setImages(pathsImage)
+                    .setBannerTitles(pathsTitle)
+                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                    .setImageLoader(new GlideImageLoader())
+                    .setIndicatorGravity(BannerConfig.CENTER)
+                    .isAutoPlay(false)
+                    .start();
+            //slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(0).getPath()));
         } else {
             slider.setVisibility(View.GONE);
         }
@@ -205,4 +225,5 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         startActivity(intent);
         finish();
     }
+
 }
