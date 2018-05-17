@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mango.leo.zsproject">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_MEDIA_STORAGE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -48,8 +50,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity
-            android:name=".ZsActivity">
+
+        <activity android:name=".ZsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +62,15 @@
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CustomRequirementsActivity" />
-        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity"></activity>
+        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardSecondItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardThirdItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardFourthItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardFifthItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardSixthItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardSeventhItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardEigththItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardNinthItemActivity"></activity>
     </application>
 
 </manifest>
