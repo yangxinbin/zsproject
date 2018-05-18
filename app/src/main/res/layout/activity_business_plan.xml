@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="审核完成后将自动发布招商项目，请耐心等待。"
+            android:text="审核完成后将自动为您发布招商项目，请耐心等待。"
             android:textColor="@color/grayBlack"
             android:textSize="@dimen/commom_tv_size_12" />
 

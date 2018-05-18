@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -84,6 +85,10 @@ public class AppUtils {
      */
     public static void showSnackar(View view, String string) {
         Snackbar.make(view, string, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(Context context, String string) {
+        Toast.makeText(context,string,Toast.LENGTH_LONG).show();
     }
 
     /**

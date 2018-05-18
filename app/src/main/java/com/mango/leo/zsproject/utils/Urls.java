@@ -6,6 +6,6 @@ package com.mango.leo.zsproject.utils;
 
 public class Urls {
     public static final String HOST = "http://192.168.1.166:9999";
-    public static final String TYPE = "?type=";
-    public static final String HOST_TYPE =HOST+TYPE;
+    public static final String AUTH = "/user-service/user/auth";
+    public static final String HOST_AUTH =HOST+AUTH;
 }

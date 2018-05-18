@@ -2,25 +2,36 @@ package com.mango.leo.zsproject.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.bean.User;
+import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
+import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
+import com.mango.leo.zsproject.login.view.UserStateView;
+import com.mango.leo.zsproject.utils.AppUtils;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PwdLoginActivity extends BaseActivity {
+public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     @Bind(R.id.imageView_pwd_back)
     ImageView imageViewPwdBack;
@@ -36,6 +47,8 @@ public class PwdLoginActivity extends BaseActivity {
     TextView textViewPhnoelogin;
     @Bind(R.id.textView_for)
     TextView textViewFor;
+    UserStatePresenter userStatePresenter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +56,11 @@ public class PwdLoginActivity extends BaseActivity {
         setContentView(R.layout.activity_pwd_login);
         ButterKnife.bind(this);
         ifShowPwd();
+        userStatePresenter = new UserStatePresenterImpl(this);
+    }
+
+    private void initEdit() {
+        user = new User(editTextPhoneNum.getText().toString(), editTextPwd.getText().toString());
     }
 
     private void ifShowPwd() {
@@ -68,9 +86,11 @@ public class PwdLoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.button_login:
-                intent = new Intent(this, ZsActivity.class);
-                startActivity(intent);
-                finish();
+                initEdit();
+
+                userStatePresenter.visitPwdUserState(this, user);
+                Log.v("yyyy", user.getUserPwd() + "====initEdit=====" + user.getUserName());
+
                 break;
             case R.id.textView_phnoelogin:
                 intent = new Intent(this, PhoneLoginActivity.class);
@@ -79,6 +99,55 @@ public class PwdLoginActivity extends BaseActivity {
                 break;
             case R.id.textView_for:
                 break;
+        }
+    }
+
+    @Override
+    public void showPwdStateView(String s) {
+        Log.v("yyyyyyy","0000000000"+s);
+        //里面不能更新UI
+        Intent intent;
+        if (s.equals("SUCCESS")) {
+            mHandler.sendEmptyMessage(0);
+            // Toast.makeText(this, s, Toast.LENGTH_LONG);
+            intent = new Intent(this, ZsActivity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            mHandler.sendEmptyMessage(1);
+        }
+    }
+
+    @Override
+    public void showVisitFailMsg(String string) {
+        mHandler.sendEmptyMessage(0);
+    }
+
+    private final MyHandler mHandler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<PwdLoginActivity> mActivity;
+
+        public MyHandler(PwdLoginActivity activity) {
+            mActivity = new WeakReference<PwdLoginActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            PwdLoginActivity activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case 0:
+                        AppUtils.showToast(activity, "SUCCESS");
+                        break;
+                    case 1:
+                        AppUtils.showToast(activity, "ERROR");
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
