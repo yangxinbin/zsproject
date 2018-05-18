@@ -28,7 +28,6 @@ public class SubmissionFragment extends Fragment {
     SwipeRefreshLayout refreshSubmission;
     private LinearLayoutManager mLayoutManager;
     private AllItemAdapter adapter;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

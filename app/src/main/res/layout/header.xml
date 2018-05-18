@@ -21,11 +21,11 @@
         android:id="@+id/allPlanLayout"
         android:layout_width="368dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/spinnerlayout_background"
-        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/planbg"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:layout_editor_absoluteX="8dp">
@@ -42,7 +42,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
 
-<!--        <Spinner
+        <!--        <Spinner
             android:id="@+id/spinnerState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/allplan"
-            android:textColor="@color/grayBlack"
+            android:textColor="@color/red"
             android:textSize="@dimen/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,14 +80,12 @@
             android:layout_width="20dp"
             android:layout_height="21dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:src="@drawable/common_jump_arrow"
+            android:src="@drawable/addplan"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
     <!-- android:entries="@array/spState"-->

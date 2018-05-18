@@ -16,16 +16,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //定制流程
         setActivityState(this);
-        //initView(savedInstanceState);
-        //initData();
     }
-
-    //protected abstract void initData();
-
-    //protected abstract void initView(Bundle savedInstanceState);
 
     /**
      * 设置屏幕只能竖屏

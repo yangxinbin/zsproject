@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mango.leo.zsproject.login.PhoneLoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/common_gray"
+        android:gravity="center_vertical"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imageView_phonelogin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_phone"
+        android:layout_alignStart="@+id/editText_phone"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_marginTop="31dp"
+        android:text="验证码登录"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView14"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="47dp"
+        android:ems="10"
+        android:hint="请输入手机号吗"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editText_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_phone"
+        android:layout_alignStart="@+id/editText_phone"
+        android:layout_below="@+id/editText_phone"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="请输入验证码"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignBottom="@+id/editText_verification_code"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/editText_verification_code"
+        android:layout_toRightOf="@+id/editText_verification_code"
+        android:background="@drawable/tablayout_background"
+        android:text="发送验证码"
+        android:textColor="@color/blue" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_verification_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/submission_background"
+        android:text="@string/login"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_pwdlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button_login"
+        android:layout_alignRight="@+id/button_login"
+        android:layout_below="@+id/button_login"
+        android:layout_marginTop="13dp"
+        android:text="密码登录"
+        android:textColor="@color/secondblack"
+        android:textSize="@dimen/sencond_textSize" />
+
+
+</RelativeLayout>

@@ -38,7 +38,6 @@ public class FragmentOfIndustrialService extends Fragment {
         init();
         return view;
     }
-
     private void initDatas() {
         mDatas = new ArrayList<String>(Arrays.asList("需求管理", "产业数据库"/*, "明星投资人"*/));
     }
