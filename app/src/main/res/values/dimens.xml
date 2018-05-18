@@ -7,4 +7,5 @@
     <dimen name="min_textSize">10dp</dimen>
     <dimen name="sencond_textSize">14dp</dimen>
     <dimen name="title">18dp</dimen>
+    <dimen name="mine_setting">50dp</dimen>
 </resources>
