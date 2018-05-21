@@ -74,6 +74,25 @@ public class HttpUtils {
         call.enqueue(callback);
     }
     /**
+     * Put请求发送键值对数据
+     *
+     * @param url
+     * @param mapParams
+     * @param callback
+     */
+    public static void doPut(String url,Map<String,String> mapParams,Callback callback){
+        FormBody.Builder builder = new FormBody.Builder();
+        for (String key : mapParams.keySet()) {
+            builder.add(key, mapParams.get(key));
+        }
+        Request request = new Request.Builder()
+                .url(url)
+                .put(builder.build())
+                .build();
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
+    }
+    /**
      * Post请求发送JSON数据
      *
      * @param url
@@ -90,6 +109,7 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+
     /**
      * 上传文件
      *

@@ -6,10 +6,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.industrialservice.fragments.AuditedFragment;
 import com.mango.leo.zsproject.industrialservice.fragments.DraftBoxFragment;
 import com.mango.leo.zsproject.industrialservice.fragments.SubmissionFragment;
@@ -23,14 +26,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllAndCreatedPlanActivity extends BaseActivity {
+public class AllAndCreatedPlanActivity extends BaseActivity implements AllProjectsView {
 
     @Bind(R.id.allAndCreated_image_back)
     ImageView allAndCreatedImageBack;
     @Bind(R.id.allAndCreated_tabLayout)
     TabLayout allAndCreatedTabLayout;
     @Bind(R.id.allAndCreated_image_add)
-    ImageView allAndCreatedImageAdd;
+    Button allAndCreatedImageAdd;
     @Bind(R.id.allAndCreated_viewPager)
     ViewPager allAndCreatedViewPager;
     List<Fragment> mfragments = new ArrayList<Fragment>();
@@ -76,5 +79,15 @@ public class AllAndCreatedPlanActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
+
+    }
+
+    @Override
+    public void addProjectsFail() {
+
     }
 }

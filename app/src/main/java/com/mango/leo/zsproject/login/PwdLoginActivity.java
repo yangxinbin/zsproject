@@ -104,7 +104,6 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     @Override
     public void showPwdStateView(String s) {
-        Log.v("yyyyyyy","0000000000"+s);
         //里面不能更新UI
         Intent intent;
         if (s.equals("SUCCESS")) {

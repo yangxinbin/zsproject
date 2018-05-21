@@ -118,7 +118,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             slider.setVisibility(View.VISIBLE);
             List<String> pathsImage = new ArrayList<>();
             List<String> pathsTitle = new ArrayList<>();
-            for (int i = 0;i<bean.getItemImagePath().size();i++ ){
+            for (int i = 0; i < bean.getItemImagePath().size(); i++) {
                 pathsImage.add(bean.getItemImagePath().get(i).getPath());
                 pathsTitle.add("");
             }

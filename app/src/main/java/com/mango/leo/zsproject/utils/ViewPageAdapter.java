@@ -12,17 +12,13 @@ import java.util.List;
  */
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
-
-
     private List<Fragment> mfragments;
     private List<String> list_Title;
-
     public ViewPageAdapter(FragmentManager fm, List<Fragment> fragmentlists, List<String> list_Title) {
         super(fm);
         this.mfragments=fragmentlists;
         this.list_Title=list_Title;
     }
-
     @Override
     public Fragment getItem(int position) {
         return mfragments.get(position);

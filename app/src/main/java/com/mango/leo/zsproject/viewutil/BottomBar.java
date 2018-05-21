@@ -166,7 +166,7 @@ public class BottomBar extends View {
             int iconHeight = dp2px(this.iconHeight);
 
             //图标文字margin
-            int textIconMargin = dp2px(((float)titleIconMargin)/2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
+            int textIconMargin = dp2px(((float) titleIconMargin) / 2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
 
             //标题高度
             int titleSize = dp2px(titleSizeInDp);//这里先指定10dp
@@ -176,7 +176,7 @@ public class BottomBar extends View {
             int titleHeight = rect.height();
 
             //从而计算得出图标的起始top坐标、文本的baseLine
-            int iconTop = (parentItemHeight - iconHeight - textIconMargin - titleHeight)/2;
+            int iconTop = (parentItemHeight - iconHeight - textIconMargin - titleHeight) / 2;
             titleBaseLine = parentItemHeight - iconTop;
 
             //对icon的rect的参数进行赋值
@@ -187,13 +187,13 @@ public class BottomBar extends View {
                 Rect temp = iconRectList.get(i);
 
                 temp.left = rectX;
-                temp.top = iconTop ;
+                temp.top = iconTop;
                 temp.right = rectX + iconWidth;
                 temp.bottom = iconTop + iconHeight;
             }
 
             //标题（单位是个问题）
-            for (int i = 0; i < itemCount; i ++) {
+            for (int i = 0; i < itemCount; i++) {
                 String title = titleList.get(i);
                 paint.getTextBounds(title, 0, title.length(), rect);
                 titleXList.add((parentItemWidth - rect.width()) / 2 + parentItemWidth * i);
@@ -230,7 +230,7 @@ public class BottomBar extends View {
 
             //画文字
             paint.setAntiAlias(true);
-            for (int i = 0; i < itemCount; i ++) {
+            for (int i = 0; i < itemCount; i++) {
                 String title = titleList.get(i);
                 if (i == currentCheckedIndex) {
                     paint.setColor(titleColorAfter);
@@ -253,14 +253,14 @@ public class BottomBar extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN :
-                target = withinWhichArea((int)event.getX());
+            case MotionEvent.ACTION_DOWN:
+                target = withinWhichArea((int) event.getX());
                 break;
-            case MotionEvent.ACTION_UP :
+            case MotionEvent.ACTION_UP:
                 if (event.getY() < 0) {
                     break;
                 }
-                if (target == withinWhichArea((int)event.getX())) {
+                if (target == withinWhichArea((int) event.getX())) {
                     //这里触发点击事件
                     switchFragment(target);
                     currentCheckedIndex = target;
@@ -280,7 +280,9 @@ public class BottomBar extends View {
         // TouchEvent了
     }
 
-    private int withinWhichArea(int x) { return x/parentItemWidth; }//从0开始
+    private int withinWhichArea(int x) {
+        return x / parentItemWidth;
+    }//从0开始
 
     //////////////////////////////////////////////////
     //碎片处理代码
@@ -293,7 +295,7 @@ public class BottomBar extends View {
         int frameLayoutId = containerId;
 
         if (fragment != null) {
-            FragmentTransaction transaction = ((BaseActivity)context).getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = ((BaseActivity) context).getSupportFragmentManager().beginTransaction();
             if (fragment.isAdded()) {
                 if (currentFragment != null) {
                     transaction.hide(currentFragment).show(fragment);
