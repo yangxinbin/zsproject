@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
  * Created by admin on 2018/5/11.
  */
 
-public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private OnItemnewsClickListener mOnItemnewsClickListener;//自注册的接口给调用者用于点击逻辑
-    private List<AllItemBean> mData;
+    private List<AllProjectsBean> mData;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     public static final int TYPE_HEADER = 2;
@@ -31,12 +32,12 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean mShowHeader = true;
     private View mHeaderView;
 
-    public void setmDate(List<AllItemBean> data) {
+    public void setmDate(List<AllProjectsBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
     public void reMove(){
-        List<AllItemBean> m = new ArrayList<AllItemBean>();
+        List<AllProjectsBean> m = new ArrayList<AllProjectsBean>();
         this.mData = m;
         this.notifyDataSetChanged();
     }
@@ -48,12 +49,12 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     /**
      * 添加列表项     * @param item
      */
-    public void addItem(AllItemBean bean) {
+    public void addItem(AllProjectsBean bean) {
         mData.add(bean);
         this.notifyDataSetChanged();
     }
 
-    public AllItemAdapter(Context context) {
+    public AllProjectsAdapter(Context context) {
         this.context = context;
     }
     @Override
@@ -86,7 +87,6 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return TYPE_HEADER;//add header
         }
         if ((position + 1 == getItemCount() || mHeaderView == null) && isShowFooter()) { //加载到最后不显示footter
-            Log.v("yxbbbb","uuuuuTYPE_FOOTERuuuu");
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
@@ -113,8 +113,8 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
  //               return;
  //           }
             if (((ItemViewHolder) holder) != null) {
-                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getAllItemName());
-                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getAllItemContent());
+                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().get(pos).getName());
+                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().get(pos).getDescription());
             }
         }
     }
@@ -131,7 +131,6 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return isFooter + isHeader;
         }
         return mData.size() + isFooter + isHeader;
-       // return 4;
     }
     public void setOnItemnewsClickListener(OnItemnewsClickListener onItemnewsClickListener) {
         this.mOnItemnewsClickListener = onItemnewsClickListener;
@@ -143,7 +142,7 @@ public class AllItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public AllItemBean getItem(int position) {
+    public AllProjectsBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
     public interface OnItemnewsClickListener {

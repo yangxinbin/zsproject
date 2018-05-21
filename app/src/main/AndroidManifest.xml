@@ -2,16 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mango.leo.zsproject">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.WRITE_MEDIA_STORAGE"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -50,7 +40,13 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ZsActivity"></activity>
+        <activity android:name=".ZsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
@@ -68,11 +64,7 @@
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity"></activity>
         <activity android:name=".login.StartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

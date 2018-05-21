@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -13,20 +15,16 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
-import com.mango.leo.zsproject.industrialservice.fragments.AuditedFragment;
-import com.mango.leo.zsproject.industrialservice.fragments.DraftBoxFragment;
-import com.mango.leo.zsproject.industrialservice.fragments.SubmissionFragment;
-import com.mango.leo.zsproject.utils.ViewPageAdapter;
+import com.mango.leo.zsproject.industrialservice.fragments.ProjectsRecyclerviewFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllAndCreatedPlanActivity extends BaseActivity implements AllProjectsView {
+public class AllAndCreatedPlanActivity extends BaseActivity{
 
     @Bind(R.id.allAndCreated_image_back)
     ImageView allAndCreatedImageBack;
@@ -39,27 +37,32 @@ public class AllAndCreatedPlanActivity extends BaseActivity implements AllProjec
     List<Fragment> mfragments = new ArrayList<Fragment>();
     private List<String> mDatas;
 
+    public static final int PROJECTS_TYPE_DRAFTBOX = 0;
+    public static final int PROJECTS_TYPE_SUBMISSION = 1;
+    public static final int PROJECTS_TYPE_AUDITED = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_and_created_plan);
         ButterKnife.bind(this);
+        allAndCreatedViewPager.setOffscreenPageLimit(0);
+        setupViewPager(allAndCreatedViewPager);
         initDatas();
-        initFragments();
+        allAndCreatedTabLayout.setupWithViewPager(allAndCreatedViewPager);
     }
 
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("草稿箱", "已提交", "已审核"));
+        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.draftbox));
+        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.submission));
+        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.audited));
     }
-    private void initFragments() {
-        allAndCreatedTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        allAndCreatedTabLayout.setupWithViewPager(allAndCreatedViewPager);
-        mfragments.add(new DraftBoxFragment());
-        mfragments.add(new SubmissionFragment());
-        mfragments.add(new AuditedFragment());
-        ViewPageAdapter vp = new ViewPageAdapter(getSupportFragmentManager(), mfragments, mDatas);
-        allAndCreatedViewPager.setAdapter(vp);
-        allAndCreatedViewPager.setCurrentItem(0);
+    private void setupViewPager(ViewPager viewpager) {
+        ProjectsPagerAdapter adapter = new ProjectsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_DRAFTBOX), getString(R.string.draftbox));
+        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_SUBMISSION), getString(R.string.submission));
+        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_AUDITED), getString(R.string.audited));
+        viewpager.setAdapter(adapter);
     }
     @OnClick({R.id.allAndCreated_image_back, R.id.allAndCreated_image_add})
     public void onViewClicked(View view) {
@@ -80,14 +83,32 @@ public class AllAndCreatedPlanActivity extends BaseActivity implements AllProjec
         super.onDestroy();
         ButterKnife.unbind(this);
     }
+    private class ProjectsPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
 
-    @Override
-    public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
+        public ProjectsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    }
+        public void addFragment(Fragment fragment, String string) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(string);
+        }
 
-    @Override
-    public void addProjectsFail() {
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
 
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
     }
 }

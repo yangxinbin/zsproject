@@ -219,7 +219,6 @@ public void onResponse(Call call, Response response) throws IOException {
         if (fos != null) fos.close();
     }
 }
-
             */
         });
     }

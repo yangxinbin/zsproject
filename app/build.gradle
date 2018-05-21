@@ -45,8 +45,11 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.8'
     //网络框架
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
+
     compile 'com.squareup.okio:okio:1.11.0'
     //json语言解析框架
     compile 'com.google.code.gson:gson:2.8.4'
+
+   // compile 'com.squareup.okhttp:okhttp:2.7.5'//网络请求框架
 
 }

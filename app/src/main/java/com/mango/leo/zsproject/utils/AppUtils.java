@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.support.design.widget.Snackbar;
 import android.view.Display;
@@ -18,11 +19,15 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by mzaiy on 2017/6/2.
  */
 
 public class AppUtils {
+
+
 
     /**
      * 隐藏输入法
@@ -34,6 +39,19 @@ public class AppUtils {
         manager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    public static SharedPreferences.Editor putSharePreferences(Context context, String fileName, String flag, String state) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //通过editor对象写入数据
+        editor.putString(flag,state);
+        //提交数据存入到xml文件中
+        return editor;
+    }
+
+    public static String getSharePreferences(Context context,String fileName,String flag,String state) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName,MODE_PRIVATE);
+        return sharedPreferences.getString(flag, state);
+    }
     /**
      * 格式化时间
      *

@@ -1,8 +1,11 @@
 package com.mango.leo.zsproject.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 
 import java.lang.reflect.Type;
 
@@ -60,10 +63,5 @@ public class JsonUtils {
     public static <T> T deserialize(String json, Type type) throws JsonSyntaxException {
         return mGson.fromJson(json, type);
     }
-
-
-
-
-
 
 }

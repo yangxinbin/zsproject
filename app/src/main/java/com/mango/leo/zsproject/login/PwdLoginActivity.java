@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,6 +50,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     TextView textViewFor;
     UserStatePresenter userStatePresenter;
     private User user;
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +60,18 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         ButterKnife.bind(this);
         ifShowPwd();
         userStatePresenter = new UserStatePresenterImpl(this);
+        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     private void initEdit() {
         user = new User(editTextPhoneNum.getText().toString(), editTextPwd.getText().toString());
+        //通过editor对象写入数据
+        editor.putString("authPhone",editTextPhoneNum.getText().toString());
     }
 
     private void ifShowPwd() {
+        togglePwd.setChecked(false);
         togglePwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -87,10 +95,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                 break;
             case R.id.button_login:
                 initEdit();
-
                 userStatePresenter.visitPwdUserState(this, user);
                 Log.v("yyyy", user.getUserPwd() + "====initEdit=====" + user.getUserName());
-
                 break;
             case R.id.textView_phnoelogin:
                 intent = new Intent(this, PhoneLoginActivity.class);
@@ -138,6 +144,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
+                        editor.commit();
                         AppUtils.showToast(activity, "SUCCESS");
                         break;
                     case 1:
