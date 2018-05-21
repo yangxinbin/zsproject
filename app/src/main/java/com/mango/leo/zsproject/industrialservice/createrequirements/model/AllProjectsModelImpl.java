@@ -55,7 +55,8 @@ public class AllProjectsModelImpl implements AllProjectsModel {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                Log.v("yyyyyyyyy",getCurProcessName(context)+"*****onResponse******"+response.body().string());
+               // Log.v("yyyyyyyyy",getCurProcessName(context)+"*****onResponse******"+response.body().string());
+                //response.body().string() 只能用一次  java.lang.IllegalStateException异常, 该异常表示，当前对客户端的响应已经结束，不能在响应已经结束（或说消亡）后再向客户端（实际上是缓冲区）输出任何内容。
                 List<AllProjectsBean> beanList = ProjectsJsonUtils.readJsonNewsBeans(response.body().string(),"responseObject");//data是json字段获得data的值即对象数组
                 Log.v("yyyyyyyyy","***b**onResponse******"+beanList.toString());
                 listener.onSuccess(beanList);
