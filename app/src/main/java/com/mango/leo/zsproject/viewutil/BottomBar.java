@@ -306,7 +306,7 @@ public class BottomBar extends View {
                 if (currentFragment != null) {
                     transaction.hide(currentFragment).add(frameLayoutId, fragment);
                 } else {
-                    transaction.add(frameLayoutId, fragment);
+                    transaction.replace(frameLayoutId, fragment);//解决重叠问题
                 }
             }
             currentFragment = fragment;
