@@ -4,20 +4,12 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.listener.OnAllProjectsListener;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
-import com.mango.leo.zsproject.utils.OkHttpUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -58,7 +50,6 @@ public class AllProjectsModelImpl implements AllProjectsModel {
                // Log.v("yyyyyyyyy",getCurProcessName(context)+"*****onResponse******"+response.body().string());
                 //response.body().string() 只能用一次  java.lang.IllegalStateException异常, 该异常表示，当前对客户端的响应已经结束，不能在响应已经结束（或说消亡）后再向客户端（实际上是缓冲区）输出任何内容。
                 List<AllProjectsBean> beanList = ProjectsJsonUtils.readJsonNewsBeans(response.body().string(),"responseObject");//data是json字段获得data的值即对象数组
-                Log.v("yyyyyyyyy","***b**onResponse******"+beanList.toString());
                 listener.onSuccess(beanList);
                 } catch (Exception e) {
                     Log.e("yyyyy", "Exception = " + e);

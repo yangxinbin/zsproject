@@ -68,4 +68,6 @@
     <string name="draftbox">草稿箱</string>
     <string name="submission">已提交</string>
     <string name="audited">已审核</string>
+    <string name="no_more">没有更多的项目,请你刷新!</string>
+
 </resources>

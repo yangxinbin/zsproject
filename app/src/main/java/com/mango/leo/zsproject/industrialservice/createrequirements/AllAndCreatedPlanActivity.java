@@ -13,8 +13,6 @@ import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.industrialservice.fragments.ProjectsRecyclerviewFragment;
 
 import java.util.ArrayList;
@@ -34,8 +32,6 @@ public class AllAndCreatedPlanActivity extends BaseActivity{
     Button allAndCreatedImageAdd;
     @Bind(R.id.allAndCreated_viewPager)
     ViewPager allAndCreatedViewPager;
-    List<Fragment> mfragments = new ArrayList<Fragment>();
-    private List<String> mDatas;
 
     public static final int PROJECTS_TYPE_DRAFTBOX = 0;
     public static final int PROJECTS_TYPE_SUBMISSION = 1;
