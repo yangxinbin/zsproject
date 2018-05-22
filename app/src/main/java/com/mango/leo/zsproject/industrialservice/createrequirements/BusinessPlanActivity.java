@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -97,6 +98,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         bean1 = new CardFirstItemBean();
         EventBus.getDefault().register(this);
+        Log.v("yyyyy","**onCreate*****bean.getItemImagePath().size()********");
         //initFirstItem();
     }
 
@@ -114,6 +116,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         slider = (Banner) item1.findViewById(R.id.slider_ad);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
+        Log.v("yyyyy","*******bean.getItemImagePath().size()********"+bean.getItemImagePath().size());
+
         if (bean.getItemImagePath().size() != 0) {
             slider.setVisibility(View.VISIBLE);
             List<String> pathsImage = new ArrayList<>();
@@ -130,7 +134,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     //.setIndicatorGravity(BannerConfig.CENTER)
                     .isAutoPlay(false)
                     .start();
-            //slider.setImageBitmap(getSDCardImg(bean.getItemImagePath().get(0).getPath()));
         } else {
             slider.setVisibility(View.GONE);
         }
@@ -142,7 +145,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         opt.inPreferredConfig = Bitmap.Config.RGB_565;
         opt.inPurgeable = true;
         opt.inInputShareable = true;
-//获取资源图片
+        //获取资源图片
         return BitmapFactory.decodeFile(imagePath, opt);
     }
 

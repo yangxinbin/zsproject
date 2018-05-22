@@ -20,17 +20,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.luck.picture.lib.entity.LocalMedia;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.AllProjectsAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.login.PwdLoginActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -156,9 +160,15 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private AllProjectsAdapter.OnItemnewsClickListener mOnItemClickListener = new AllProjectsAdapter.OnItemnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
+            position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
+            CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
+            cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().get(position).getName());
+            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().get(position).getDescription());
+            cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().get(position).getPhotos());
+            EventBus.getDefault().postSticky(cardFirstItemBean);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
         }
@@ -197,7 +207,6 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             public void run() {
                 if (mData != null){
                     adapter.setmDate(mData);
-                    Log.v("yyyyyyyyyyyyyy",adapter.getItemCount()+"******addProjectsSuccess*******"+mDataAll.size());
                 }
             }
         });
