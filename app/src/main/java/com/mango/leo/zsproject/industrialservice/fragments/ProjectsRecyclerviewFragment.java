@@ -2,6 +2,8 @@ package com.mango.leo.zsproject.industrialservice.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -26,8 +28,11 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProj
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
+import com.mango.leo.zsproject.login.PwdLoginActivity;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/21.
  */
 
-public class ProjectsRecyclerviewFragment extends Fragment implements AllProjectsView,SwipeRefreshLayout.OnRefreshListener {
+public class ProjectsRecyclerviewFragment extends Fragment implements AllProjectsView {
     @Bind(R.id.recycle_items)
     RecyclerView recycleItems;
     @Bind(R.id.refresh_items)
@@ -48,6 +53,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private AllProjectsAdapter adapter;
     private LinearLayoutManager mLayoutManager;
     private List<AllProjectsBean> mData;
+    private List<AllProjectsBean> mDataAll;
+    private int lastVisibleItem;
+
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
         Bundle bundle = new Bundle();
@@ -62,7 +70,6 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onCreate(savedInstanceState);
         mNewsPresenter = new AllProjectsPresenterImpl(this);
         mType = getArguments().getInt("type");
-
         Log.v("yyyyy","====mType======"+mType);
     }
 
@@ -71,7 +78,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.project_items, null);
         ButterKnife.bind(this, view);
-        refreshItems.setOnRefreshListener(this);
+        initSwipeRefreshLayout();
         recycleItems.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleItems.setLayoutManager(mLayoutManager);
@@ -81,10 +88,71 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         recycleItems.removeAllViews();
         initHeader();
         recycleItems.setAdapter(adapter);
-        //recycleItems.addOnScrollListener(mOnScrollListener);
+        recycleItems.addOnScrollListener(mOnScrollListener);
         mNewsPresenter.visitProjects(getActivity(),mType);
         return view;
     }
+
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItem + 1 == adapter.getItemCount()
+                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                //加载更多
+                int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                Log.v("yyyyy","====onScrollStateChanged======"+count);
+                int i;
+                for (i = count; i < count + 6; i++) {
+                    if (mDataAll != null && i >= mDataAll.size()) {//到最后
+                        adapter.isShowFooter(false);
+                        noMoreMsg();
+                        return;
+                    }
+                    if (mDataAll == null) {
+                        return;//一开始断网报空指针的情况
+                    }
+                    adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                }
+            }
+        }
+    };
+
+    public void initSwipeRefreshLayout() {
+        refreshItems.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshItems.setRefreshing(false);
+                        if (mData != null && mDataAll != null) {
+                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                            mData.clear();
+                        }
+                        if (NetUtil.isNetConnect(getActivity())){
+                            mNewsPresenter.visitProjects(getActivity(),mType);
+                        }else {
+                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
+                        }
+                    }
+                }, 2000);
+            }
+        });
+        refreshItems.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+
     private AllProjectsAdapter.OnItemnewsClickListener mOnItemClickListener = new AllProjectsAdapter.OnItemnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
@@ -111,17 +179,28 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
-        Log.v("yyyyyyyyyyyyyy","88888888"+projectsList.toString());
-
-        /*if (mData == null) {
+        adapter.isShowFooter(true);//不能屏蔽 滑动监听条件，加载使用
+        if (mData == null) {
             mData = new ArrayList<AllProjectsBean>();
+            mDataAll = new ArrayList<AllProjectsBean>();
         }
         if (mData != null){
             mData.clear();
+            mDataAll.clear();
         }
-        Log.v("yyyyyyyyyyyyyy","88888888"+projectsList.toString());
-        mData.addAll(projectsList);
-        adapter.setmDate(mData);*/
+        mDataAll.addAll(projectsList);
+        for (int i = 0; i < 6; i++) {
+            mData.add(mDataAll.get(i)); //一次显示6条数据
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mData != null){
+                    adapter.setmDate(mData);
+                    Log.v("yyyyyyyyyyyyyy",adapter.getItemCount()+"******addProjectsSuccess*******"+mDataAll.size());
+                }
+            }
+        });
     }
 
     @Override
@@ -134,16 +213,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-    @Override
-    public void onRefresh() {
-        if (mData != null) {
-            mData.clear();
-        }
-        if (NetUtil.isNetConnect(getActivity())){
-            mNewsPresenter.visitProjects(getActivity(),mType);
-        }else {
-           // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
-        }
+    public void noMoreMsg() {
+        AppUtils.showToast(getActivity(),getResources().getString(R.string.no_more));
     }
 }
