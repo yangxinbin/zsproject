@@ -25,8 +25,8 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context context;
     private OnItemnewsClickListener mOnItemnewsClickListener;//自注册的接口给调用者用于点击逻辑
     private List<AllProjectsBean> mData;
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_FOOTER = 1;
+    public static final int TYPE_ITEM = 0;
+    public static final int TYPE_FOOTER = 1;
     public static final int TYPE_HEADER = 2;
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;

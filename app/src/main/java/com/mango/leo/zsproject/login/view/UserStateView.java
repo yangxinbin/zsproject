@@ -5,6 +5,6 @@ package com.mango.leo.zsproject.login.view;
  */
 
 public interface UserStateView {
-    void showPwdStateView(String string);
+    void showStateView(String string);
     void showVisitFailMsg(String string);
 }

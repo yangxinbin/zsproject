@@ -3,7 +3,7 @@ package com.mango.leo.zsproject.login.model;
 import android.content.Context;
 
 import com.mango.leo.zsproject.login.bean.User;
-import com.mango.leo.zsproject.login.listener.OnPwdUserListener;
+import com.mango.leo.zsproject.login.listener.OnUserStateListener;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.OkHttpUtils;
 
@@ -22,7 +22,7 @@ import okhttp3.Response;
 
 public class UserStateModelImpl implements UserStateModel {
     @Override
-    public void visitPwdUserState(Context context, String url, User user, final OnPwdUserListener listener) {
+    public void visitPwdUserState(Context context, String url, User user, final OnUserStateListener listener) {
 /*        List<OkHttpUtils.Param> mapParams = new ArrayList<>();
         mapParams.add(new OkHttpUtils.Param("username", user.getUserName()));
         mapParams.add(new OkHttpUtils.Param("password", user.getUserPwd()));*/

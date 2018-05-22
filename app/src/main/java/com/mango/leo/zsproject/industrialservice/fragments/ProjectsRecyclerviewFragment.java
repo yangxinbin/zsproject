@@ -168,6 +168,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().get(position).getDescription());
             cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().get(position).getPhotos());
+            cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);

@@ -20,6 +20,9 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlan
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.viewutil.FullyGridLayoutManager;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.viewutil.LinedEditText;
@@ -35,7 +38,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardFirstItemActivity extends BaseCardActivity {
+public class CardFirstItemActivity extends BaseCardActivity implements UpdateItemView {
 
     @Bind(R.id.imageView1_back)
     ImageView imageView1Back;
@@ -52,6 +55,8 @@ public class CardFirstItemActivity extends BaseCardActivity {
     private List<LocalMedia> selectList = new ArrayList<>();
     private CardFirstItemBean cardFirstItemBean;
     private List<LocalMedia> itemImagesPath = new ArrayList<>();
+    private UpdateItemPresenter updateItemPresenter;
+    public static final int TYPE1 = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,7 @@ public class CardFirstItemActivity extends BaseCardActivity {
         ButterKnife.bind(this);
         themeId = R.style.picture_default_style;
         initAddImage();
+        updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardFirstItemBean = new CardFirstItemBean();
         EventBus.getDefault().register(this);
     }
@@ -70,6 +76,7 @@ public class CardFirstItemActivity extends BaseCardActivity {
         itemContent.setText(bean.getItemContent());
         adapter.setList(bean.getItemImagePath());
         selectList = bean.getItemImagePath();
+        cardFirstItemBean.setProjectId(bean.getProjectId());
     }
 
     private void initDate() {
@@ -174,10 +181,11 @@ public class CardFirstItemActivity extends BaseCardActivity {
             case R.id.textView1_save:
                 initDate();
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString())) {
+                    updateItemPresenter.visitUpdateItem(this,TYPE1,cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
+                    //intent = new Intent(this, BusinessPlanActivity.class);
+                    //startActivity(intent);
+                    //finish();
                 } else {
                     AppUtils.showSnackar(textView1Save, "必填项不能为空！");
                 }
@@ -210,5 +218,25 @@ public class CardFirstItemActivity extends BaseCardActivity {
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void showUpdateStateView(final String string) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getApplicationContext(),string);
+            }
+        });
+    }
+
+    @Override
+    public void showUpdateFailMsg(final String string) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getApplicationContext(),string);
+            }
+        });
     }
 }
