@@ -62,7 +62,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     ConstraintLayout carfourthContent;
     @Bind(R.id.carfourth)
     CardView carfourth;
-    @Bind(R.id.carfifth_content)
+    /*@Bind(R.id.carfifth_content)
     ConstraintLayout carfifthContent;
     @Bind(R.id.carfifth)
     CardView carfifth;
@@ -73,7 +73,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.carseventh_content)
     ConstraintLayout carseventhContent;
     @Bind(R.id.carseventh)
-    CardView carseventh;
+    CardView carseventh;*/
     @Bind(R.id.careighth_content)
     ConstraintLayout careighthContent;
     @Bind(R.id.careighth)
@@ -98,7 +98,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         bean1 = new CardFirstItemBean();
         EventBus.getDefault().register(this);
-        Log.v("yyyyy","**onCreate*****bean.getItemImagePath().size()********");
         //initFirstItem();
     }
 
@@ -116,7 +115,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         slider = (Banner) item1.findViewById(R.id.slider_ad);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
-        Log.v("yyyyy","*******bean.getItemImagePath().size()********"+bean.getItemImagePath().size());
 
         if (bean.getItemImagePath().size() != 0) {
             slider.setVisibility(View.VISIBLE);
@@ -149,7 +147,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         return BitmapFactory.decodeFile(imagePath, opt);
     }
 
-    @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth, R.id.carninth, R.id.send})
+    @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh,*/ R.id.careighth, R.id.carninth, R.id.send})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -178,7 +176,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.carfifth:
+            /*case R.id.carfifth:
                 intent = new Intent(this, CardFifthItemActivity.class);
                 startActivity(intent);
                 finish();
@@ -192,7 +190,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 intent = new Intent(this, CardSeventhItemActivity.class);
                 startActivity(intent);
                 finish();
-                break;
+                break;*/
             case R.id.careighth:
                 intent = new Intent(this, CardEigththItemActivity.class);
                 startActivity(intent);

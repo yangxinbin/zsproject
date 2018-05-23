@@ -9,18 +9,26 @@ import java.util.List;
 public class AllProjectsBean {
 
     /**
-     * responseObject : [{"id":"5afe612abc2ab975d270096b","name":"ddd","description":"dfsdfs","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null},{"id":"5afe83d0bc2ab975d270096d","name":"换届大会尽快","description":"山东矿机安防科技","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null}]
+     * responseObject : {"content":[{"id":"5b04d38dbc2ab974e775309b","name":"和煤化工宣传部非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d425bc2ab974e775309c","name":"非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":1,"offset":20,"paged":true,"unpaged":false},"last":true,"totalElements":22,"totalPages":2,"first":false,"sort":{"unsorted":true,"sorted":false},"numberOfElements":2,"size":20,"number":1}
      * responseList : null
      * totalRecords : null
      * currentPage : null
      * totalPages : null
      */
 
+    private ResponseObjectBean responseObject;
     private Object responseList;
     private Object totalRecords;
     private Object currentPage;
     private Object totalPages;
-    private List<ResponseObjectBean> responseObject;
+
+    public ResponseObjectBean getResponseObject() {
+        return responseObject;
+    }
+
+    public void setResponseObject(ResponseObjectBean responseObject) {
+        this.responseObject = responseObject;
+    }
 
     public Object getResponseList() {
         return responseList;
@@ -54,197 +62,423 @@ public class AllProjectsBean {
         this.totalPages = totalPages;
     }
 
-    public List<ResponseObjectBean> getResponseObject() {
-        return responseObject;
-    }
-
-    public void setResponseObject(List<ResponseObjectBean> responseObject) {
-        this.responseObject = responseObject;
-    }
-
     public static class ResponseObjectBean {
         /**
-         * id : 5afe612abc2ab975d270096b
-         * name : ddd
-         * description : dfsdfs
-         * utilityFee : null
-         * photos : []
-         * location : null
-         * resourceFeeInfo : null
-         * industries : null
-         * contacts : null
-         * advantages : null
-         * relatedFiles : null
-         * joinAsAFirmCriteria : null
-         * investmentCriteria : null
-         * standard : null
-         * status : null
-         * stage : 0
-         * createdBy : 18318836309
-         * createdOn : null
+         * content : [{"id":"5b04d38dbc2ab974e775309b","name":"和煤化工宣传部非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d425bc2ab974e775309c","name":"非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null}]
+         * pageable : {"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":1,"offset":20,"paged":true,"unpaged":false}
+         * last : true
+         * totalElements : 22
+         * totalPages : 2
+         * first : false
+         * sort : {"unsorted":true,"sorted":false}
+         * numberOfElements : 2
+         * size : 20
+         * number : 1
          */
 
-        private String id;
-        private String name;
-        private String description;
-        private Object utilityFee;
-        private Object location;
-        private Object resourceFeeInfo;
-        private Object industries;
-        private Object contacts;
-        private Object advantages;
-        private Object relatedFiles;
-        private Object joinAsAFirmCriteria;
-        private Object investmentCriteria;
-        private Object standard;
-        private Object status;
-        private int stage;
-        private String createdBy;
-        private Object createdOn;
-        private List<?> photos;
+        private PageableBean pageable;
+        private boolean last;
+        private int totalElements;
+        private int totalPages;
+        private boolean first;
+        private SortBeanX sort;
+        private int numberOfElements;
+        private int size;
+        private int number;
+        private List<ContentBean> content;
 
-        public String getId() {
-            return id;
+        public PageableBean getPageable() {
+            return pageable;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setPageable(PageableBean pageable) {
+            this.pageable = pageable;
         }
 
-        public String getName() {
-            return name;
+        public boolean isLast() {
+            return last;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setLast(boolean last) {
+            this.last = last;
         }
 
-        public String getDescription() {
-            return description;
+        public int getTotalElements() {
+            return totalElements;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
+        public void setTotalElements(int totalElements) {
+            this.totalElements = totalElements;
         }
 
-        public Object getUtilityFee() {
-            return utilityFee;
+        public int getTotalPages() {
+            return totalPages;
         }
 
-        public void setUtilityFee(Object utilityFee) {
-            this.utilityFee = utilityFee;
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
         }
 
-        public Object getLocation() {
-            return location;
+        public boolean isFirst() {
+            return first;
         }
 
-        public void setLocation(Object location) {
-            this.location = location;
+        public void setFirst(boolean first) {
+            this.first = first;
         }
 
-        public Object getResourceFeeInfo() {
-            return resourceFeeInfo;
+        public SortBeanX getSort() {
+            return sort;
         }
 
-        public void setResourceFeeInfo(Object resourceFeeInfo) {
-            this.resourceFeeInfo = resourceFeeInfo;
+        public void setSort(SortBeanX sort) {
+            this.sort = sort;
         }
 
-        public Object getIndustries() {
-            return industries;
+        public int getNumberOfElements() {
+            return numberOfElements;
         }
 
-        public void setIndustries(Object industries) {
-            this.industries = industries;
+        public void setNumberOfElements(int numberOfElements) {
+            this.numberOfElements = numberOfElements;
         }
 
-        public Object getContacts() {
-            return contacts;
+        public int getSize() {
+            return size;
         }
 
-        public void setContacts(Object contacts) {
-            this.contacts = contacts;
+        public void setSize(int size) {
+            this.size = size;
         }
 
-        public Object getAdvantages() {
-            return advantages;
+        public int getNumber() {
+            return number;
         }
 
-        public void setAdvantages(Object advantages) {
-            this.advantages = advantages;
+        public void setNumber(int number) {
+            this.number = number;
         }
 
-        public Object getRelatedFiles() {
-            return relatedFiles;
+        public List<ContentBean> getContent() {
+            return content;
         }
 
-        public void setRelatedFiles(Object relatedFiles) {
-            this.relatedFiles = relatedFiles;
+        public void setContent(List<ContentBean> content) {
+            this.content = content;
         }
 
-        public Object getJoinAsAFirmCriteria() {
-            return joinAsAFirmCriteria;
+        public static class PageableBean {
+            /**
+             * sort : {"unsorted":true,"sorted":false}
+             * pageSize : 20
+             * pageNumber : 1
+             * offset : 20
+             * paged : true
+             * unpaged : false
+             */
+
+            private SortBean sort;
+            private int pageSize;
+            private int pageNumber;
+            private int offset;
+            private boolean paged;
+            private boolean unpaged;
+
+            public SortBean getSort() {
+                return sort;
+            }
+
+            public void setSort(SortBean sort) {
+                this.sort = sort;
+            }
+
+            public int getPageSize() {
+                return pageSize;
+            }
+
+            public void setPageSize(int pageSize) {
+                this.pageSize = pageSize;
+            }
+
+            public int getPageNumber() {
+                return pageNumber;
+            }
+
+            public void setPageNumber(int pageNumber) {
+                this.pageNumber = pageNumber;
+            }
+
+            public int getOffset() {
+                return offset;
+            }
+
+            public void setOffset(int offset) {
+                this.offset = offset;
+            }
+
+            public boolean isPaged() {
+                return paged;
+            }
+
+            public void setPaged(boolean paged) {
+                this.paged = paged;
+            }
+
+            public boolean isUnpaged() {
+                return unpaged;
+            }
+
+            public void setUnpaged(boolean unpaged) {
+                this.unpaged = unpaged;
+            }
+
+            public static class SortBean {
+                /**
+                 * unsorted : true
+                 * sorted : false
+                 */
+
+                private boolean unsorted;
+                private boolean sorted;
+
+                public boolean isUnsorted() {
+                    return unsorted;
+                }
+
+                public void setUnsorted(boolean unsorted) {
+                    this.unsorted = unsorted;
+                }
+
+                public boolean isSorted() {
+                    return sorted;
+                }
+
+                public void setSorted(boolean sorted) {
+                    this.sorted = sorted;
+                }
+            }
         }
 
-        public void setJoinAsAFirmCriteria(Object joinAsAFirmCriteria) {
-            this.joinAsAFirmCriteria = joinAsAFirmCriteria;
+        public static class SortBeanX {
+            /**
+             * unsorted : true
+             * sorted : false
+             */
+
+            private boolean unsorted;
+            private boolean sorted;
+
+            public boolean isUnsorted() {
+                return unsorted;
+            }
+
+            public void setUnsorted(boolean unsorted) {
+                this.unsorted = unsorted;
+            }
+
+            public boolean isSorted() {
+                return sorted;
+            }
+
+            public void setSorted(boolean sorted) {
+                this.sorted = sorted;
+            }
         }
 
-        public Object getInvestmentCriteria() {
-            return investmentCriteria;
-        }
+        public static class ContentBean {
+            /**
+             * id : 5b04d38dbc2ab974e775309b
+             * name : 和煤化工宣传部非常
+             * description : 还
+             * utilityFee : null
+             * photos : []
+             * location : null
+             * resourceFeeInfo : null
+             * industries : null
+             * contacts : null
+             * advantages : null
+             * relatedFiles : null
+             * joinAsAFirmCriteria : null
+             * investmentCriteria : null
+             * standard : null
+             * status : null
+             * stage : 0
+             * createdBy : 18318836309
+             * createdOn : null
+             * recommended : null
+             */
 
-        public void setInvestmentCriteria(Object investmentCriteria) {
-            this.investmentCriteria = investmentCriteria;
-        }
+            private String id;
+            private String name;
+            private String description;
+            private Object utilityFee;
+            private Object location;
+            private Object resourceFeeInfo;
+            private Object industries;
+            private Object contacts;
+            private Object advantages;
+            private Object relatedFiles;
+            private Object joinAsAFirmCriteria;
+            private Object investmentCriteria;
+            private Object standard;
+            private Object status;
+            private int stage;
+            private String createdBy;
+            private Object createdOn;
+            private Object recommended;
+            private List<?> photos;
 
-        public Object getStandard() {
-            return standard;
-        }
+            public String getId() {
+                return id;
+            }
 
-        public void setStandard(Object standard) {
-            this.standard = standard;
-        }
+            public void setId(String id) {
+                this.id = id;
+            }
 
-        public Object getStatus() {
-            return status;
-        }
+            public String getName() {
+                return name;
+            }
 
-        public void setStatus(Object status) {
-            this.status = status;
-        }
+            public void setName(String name) {
+                this.name = name;
+            }
 
-        public int getStage() {
-            return stage;
-        }
+            public String getDescription() {
+                return description;
+            }
 
-        public void setStage(int stage) {
-            this.stage = stage;
-        }
+            public void setDescription(String description) {
+                this.description = description;
+            }
 
-        public String getCreatedBy() {
-            return createdBy;
-        }
+            public Object getUtilityFee() {
+                return utilityFee;
+            }
 
-        public void setCreatedBy(String createdBy) {
-            this.createdBy = createdBy;
-        }
+            public void setUtilityFee(Object utilityFee) {
+                this.utilityFee = utilityFee;
+            }
 
-        public Object getCreatedOn() {
-            return createdOn;
-        }
+            public Object getLocation() {
+                return location;
+            }
 
-        public void setCreatedOn(Object createdOn) {
-            this.createdOn = createdOn;
-        }
+            public void setLocation(Object location) {
+                this.location = location;
+            }
 
-        public List<?> getPhotos() {
-            return photos;
-        }
+            public Object getResourceFeeInfo() {
+                return resourceFeeInfo;
+            }
 
-        public void setPhotos(List<?> photos) {
-            this.photos = photos;
+            public void setResourceFeeInfo(Object resourceFeeInfo) {
+                this.resourceFeeInfo = resourceFeeInfo;
+            }
+
+            public Object getIndustries() {
+                return industries;
+            }
+
+            public void setIndustries(Object industries) {
+                this.industries = industries;
+            }
+
+            public Object getContacts() {
+                return contacts;
+            }
+
+            public void setContacts(Object contacts) {
+                this.contacts = contacts;
+            }
+
+            public Object getAdvantages() {
+                return advantages;
+            }
+
+            public void setAdvantages(Object advantages) {
+                this.advantages = advantages;
+            }
+
+            public Object getRelatedFiles() {
+                return relatedFiles;
+            }
+
+            public void setRelatedFiles(Object relatedFiles) {
+                this.relatedFiles = relatedFiles;
+            }
+
+            public Object getJoinAsAFirmCriteria() {
+                return joinAsAFirmCriteria;
+            }
+
+            public void setJoinAsAFirmCriteria(Object joinAsAFirmCriteria) {
+                this.joinAsAFirmCriteria = joinAsAFirmCriteria;
+            }
+
+            public Object getInvestmentCriteria() {
+                return investmentCriteria;
+            }
+
+            public void setInvestmentCriteria(Object investmentCriteria) {
+                this.investmentCriteria = investmentCriteria;
+            }
+
+            public Object getStandard() {
+                return standard;
+            }
+
+            public void setStandard(Object standard) {
+                this.standard = standard;
+            }
+
+            public Object getStatus() {
+                return status;
+            }
+
+            public void setStatus(Object status) {
+                this.status = status;
+            }
+
+            public int getStage() {
+                return stage;
+            }
+
+            public void setStage(int stage) {
+                this.stage = stage;
+            }
+
+            public String getCreatedBy() {
+                return createdBy;
+            }
+
+            public void setCreatedBy(String createdBy) {
+                this.createdBy = createdBy;
+            }
+
+            public Object getCreatedOn() {
+                return createdOn;
+            }
+
+            public void setCreatedOn(Object createdOn) {
+                this.createdOn = createdOn;
+            }
+
+            public Object getRecommended() {
+                return recommended;
+            }
+
+            public void setRecommended(Object recommended) {
+                this.recommended = recommended;
+            }
+
+            public List<?> getPhotos() {
+                return photos;
+            }
+
+            public void setPhotos(List<?> photos) {
+                this.photos = photos;
+            }
         }
     }
 }

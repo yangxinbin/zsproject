@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface AllProjectsPresenter {
-    void visitProjects(Context context,int type);//刷新动作加载新闻数据
+    void visitProjects(Context context,int type,int page);//刷新动作加载新闻数据
 }

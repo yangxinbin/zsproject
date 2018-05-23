@@ -50,7 +50,9 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * 添加列表项     * @param item
      */
     public void addItem(AllProjectsBean bean) {
+        isShowFooter(false);
         mData.add(bean);
+        Log.v("yyyyy", "====addItem======"+mData.size());
         this.notifyDataSetChanged();
     }
 
@@ -94,6 +96,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
+        this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -112,9 +115,10 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            if (dm == null) {
  //               return;
  //           }
-            if (((ItemViewHolder) holder) != null) {
-                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().get(pos).getName());
-                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().get(pos).getDescription());
+            if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject()  != null) {
+                Log.v("yyyyy", "====pos======"+pos%20);
+                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
+                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getDescription());
             }
         }
     }

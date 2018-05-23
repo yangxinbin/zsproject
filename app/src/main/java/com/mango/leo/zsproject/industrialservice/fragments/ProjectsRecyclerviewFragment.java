@@ -59,6 +59,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private List<AllProjectsBean> mData;
     private List<AllProjectsBean> mDataAll;
     private int lastVisibleItem;
+    private int page = 0;
 
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
@@ -74,7 +75,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onCreate(savedInstanceState);
         mNewsPresenter = new AllProjectsPresenterImpl(this);
         mType = getArguments().getInt("type");
-        Log.v("yyyyy","====mType======"+mType);
+        Log.v("yyyyy", "====mType======" + mType);
     }
 
     @Nullable
@@ -93,7 +94,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         initHeader();
         recycleItems.setAdapter(adapter);
         recycleItems.addOnScrollListener(mOnScrollListener);
-        mNewsPresenter.visitProjects(getActivity(),mType);
+        mNewsPresenter.visitProjects(getActivity(), mType, page);
         return view;
     }
 
@@ -111,21 +112,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
-                //加载更多
-                int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
-                Log.v("yyyyy","====onScrollStateChanged======"+count);
-                int i;
-                for (i = count; i < count + 6; i++) {
-                    if (mDataAll != null && i >= mDataAll.size()) {//到最后
-                        adapter.isShowFooter(false);
-                        noMoreMsg();
-                        return;
-                    }
-                    if (mDataAll == null) {
-                        return;//一开始断网报空指针的情况
-                    }
-                    adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                }
+                page++;
+                mNewsPresenter.visitProjects(getActivity(), mType, page);
+                Log.v("yyyy","***onScrollStateChanged******");
             }
         }
     };
@@ -142,9 +131,11 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                             mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
                             mData.clear();
                         }
-                        if (NetUtil.isNetConnect(getActivity())){
-                            mNewsPresenter.visitProjects(getActivity(),mType);
-                        }else {
+                        if (NetUtil.isNetConnect(getActivity())) {
+                            adapter.isShowFooter(true);
+                            page = 0;
+                            mNewsPresenter.visitProjects(getActivity(), mType, page);
+                        } else {
                             // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
                     }
@@ -165,15 +156,16 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 return;
             }
             CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
-            cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().get(position).getName());
-            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().get(position).getDescription());
-            cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().get(position).getPhotos());
-            cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().get(position).getId());
+            cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
+            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
+            //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos().get(position));
+            cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
         }
     };
+
     private void initHeader() {
         //渲染header布局
         ConstraintLayout h = new ConstraintLayout(getActivity());
@@ -190,27 +182,51 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
-        adapter.isShowFooter(true);//不能屏蔽 滑动监听条件，加载使用
-        if (mData == null) {
+        if (mData == null && mDataAll == null) {
             mData = new ArrayList<AllProjectsBean>();
             mDataAll = new ArrayList<AllProjectsBean>();
         }
-        if (mData != null){
-            mData.clear();
+        if (mDataAll != null) {
             mDataAll.clear();
         }
         mDataAll.addAll(projectsList);
-        for (int i = 0; i < 6; i++) {
-            mData.add(mDataAll.get(i)); //一次显示6条数据
-        }
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mData != null){
-                    adapter.setmDate(mData);
-                }
+        if (page == 0) {
+            for (int i = 0; i < mDataAll.size(); i++) {
+                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-        });
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mData != null) {
+                        adapter.setmDate(mData);
+                    }
+                }
+            });
+        } else {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDataAll != null) {
+                        //加载更多
+                        int count = adapter.getItemCount()-2;//增加item数减去头部和尾部
+                        Log.v("yyyy",mDataAll.size()+"*******count*******"+count);
+                        int i;
+                        for (i = 0; i < mDataAll.size(); i++) {
+                            Log.v("yyyy","*******for*******"+mDataAll.get(i).getResponseObject().getContent().get(i).getName());
+                            if (mDataAll != null && i >= mDataAll.size()) {//到最后
+                                Log.v("yyyy","*******ttt*******");
+                                noMoreMsg();
+                                return;
+                            }
+                            if (mDataAll == null) {
+                                return;//一开始断网报空指针的情况
+                            }
+                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -223,7 +239,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
     public void noMoreMsg() {
-        AppUtils.showToast(getActivity(),getResources().getString(R.string.no_more));
+        adapter.isShowFooter(false);
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }

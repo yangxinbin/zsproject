@@ -28,8 +28,8 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
     }
 
     @Override
-    public void visitProjects(Context context, int type) {
-        String url = getUrl(type,context);
+    public void visitProjects(Context context, int type,int page) {
+        String url = getUrl(type,context)+"?page="+page;
         allProjectsModel.visitProjects(context, type, url, this);
     }
 

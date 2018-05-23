@@ -9,5 +9,5 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.listener.OnA
  */
 
 public interface AllProjectsModel {
-    void visitProjects(Context context, int type, String url, OnAllProjectsListener listener);//刷新动作加载新闻数据
+    void visitProjects(Context context, int type ,String url, OnAllProjectsListener listener);//刷新动作加载新闻数据
 }
