@@ -180,8 +180,8 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 break;
             case R.id.textView1_save:
                 initDate();
-                if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString())) {
-                    updateItemPresenter.visitUpdateItem(this,TYPE1,cardFirstItemBean);//更新后台数据
+                if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
+                    updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
                     //intent = new Intent(this, BusinessPlanActivity.class);
                     //startActivity(intent);
@@ -225,7 +225,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(),string);
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
@@ -235,7 +235,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(),string);
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
