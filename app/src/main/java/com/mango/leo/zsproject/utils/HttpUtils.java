@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -30,17 +36,36 @@ import okhttp3.Response;
 public class HttpUtils {
     private static OkHttpClient client = null;
 
-    private HttpUtils() {}
+    private HttpUtils() {
+    }
+
+    private static final int TIME_OUT = 30; //超时参数
 
     public static OkHttpClient getInstance() {
         if (client == null) {
             synchronized (HttpUtils.class) {
-                if (client == null)
-                    client = new OkHttpClient();
+                if (client == null) {
+                    //创建我们Client对象的构建者
+                    OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+                    okHttpBuilder.connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+                            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+                            //允许重定向
+                            .followRedirects(true)
+                            //添加https支持
+                            .hostnameVerifier(new HostnameVerifier() {
+                                @Override
+                                public boolean verify(String s, SSLSession sslSession) {
+                                    return true;
+                                }
+                            });
+                    client = okHttpBuilder.build();
+                }
             }
         }
         return client;
     }
+
     /**
      * Get请求
      *
@@ -54,6 +79,7 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+
     /**
      * Post请求发送键值对数据
      *
@@ -73,6 +99,45 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+
+    /**
+     * Post请求发送键值对数据可以带参数上传文件
+     *
+     * @param url
+     * @param paramsMap
+     * @param callback
+     */
+    public static void doPostAll(String url, HashMap<String, Object> paramsMap,File[] files,String[] fileKeys, Callback callback) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        //设置类型
+        builder.setType(MultipartBody.FORM);
+        for (String key : paramsMap.keySet()) {
+            Object object = paramsMap.get(key);
+            if (!(object instanceof File)) {
+                builder.addFormDataPart(key, object.toString());
+            }
+            if (files != null) {
+                RequestBody fileBody = null;
+                for (int i = 0; i < files.length; i++) {
+                    File file = files[i];
+                    String fileName = file.getName();
+                    fileBody = RequestBody.create(MediaType.parse("image/*"), file);
+                    builder.addPart(Headers.of("Content-Disposition",
+                            "form-data; name=\"" + fileKeys[i] + "\"; filename=\"" + fileName + "\""),
+                            fileBody);
+                }
+            }
+            //创建RequestBody
+            RequestBody body = builder.build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            Call call = getInstance().newCall(request);
+            call.enqueue(callback);
+        }
+    }
+
     /**
      * Put请求发送键值对数据
      *
@@ -80,7 +145,7 @@ public class HttpUtils {
      * @param mapParams
      * @param callback
      */
-    public static void doPut(String url,Map<String,String> mapParams,Callback callback){
+    public static void doPut(String url, Map<String, String> mapParams, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
@@ -92,6 +157,7 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+
     /**
      * Post请求发送JSON数据
      *
@@ -150,8 +216,10 @@ public class HttpUtils {
         }
         return contentTypeFor;
     }
+
     /**
      * 下载文件
+     *
      * @param url
      * @param fileDir
      * @param fileName
