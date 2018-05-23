@@ -99,7 +99,7 @@
     <Button
         android:id="@+id/button_login"
         android:layout_width="350dp"
-        android:background="@drawable/submission_background"
+        android:background="@drawable/rec_red_background"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ig"
         android:layout_centerHorizontal="true"

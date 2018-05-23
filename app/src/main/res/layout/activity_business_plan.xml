@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@drawable/submission_background"
+            android:background="@drawable/rec_red_background"
             android:text="提交审核"
             android:textSize="@dimen/title"
             android:textStyle="bold" />

@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +16,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
@@ -42,14 +42,14 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     @Bind(R.id.imageView1_back)
     ImageView imageView1Back;
-    @Bind(R.id.textView1_save)
-    TextView textView1Save;
     @Bind(R.id.item_title)
     EditText itemTitle;
     @Bind(R.id.item_content)
     LinedEditText itemContent;
     @Bind(R.id.recycler)
     RecyclerView recyclerView;
+    @Bind(R.id.button1_save)
+    Button button1Save;
     private int themeId;
     GridImageAdapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -170,7 +170,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     };
 
-    @OnClick({R.id.imageView1_back, R.id.textView1_save})
+    @OnClick({R.id.imageView1_back, R.id.button1_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView1_back:
@@ -178,7 +178,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.textView1_save:
+            case R.id.button1_save:
                 initDate();
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
@@ -187,7 +187,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                     //startActivity(intent);
                     //finish();
                 } else {
-                    AppUtils.showSnackar(textView1Save, "必填项不能为空！");
+                    AppUtils.showSnackar(button1Save, "必填项不能为空！");
                 }
                 break;
         }
@@ -238,5 +238,9 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 AppUtils.showToast(getApplicationContext(), string);
             }
         });
+    }
+
+    @OnClick(R.id.button1_save)
+    public void onViewClicked() {
     }
 }

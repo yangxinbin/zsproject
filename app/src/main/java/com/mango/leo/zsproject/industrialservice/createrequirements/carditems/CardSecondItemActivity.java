@@ -3,12 +3,12 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
@@ -19,14 +19,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView{
+public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView {
     public static final int TYPE2 = 2;
     @Bind(R.id.imageView2_back)
     ImageView imageView2Back;
-    @Bind(R.id.textView2_save)
-    TextView textView2Save;
     @Bind(R.id.constraintLayout)
     ConstraintLayout constraintLayout;
+    @Bind(R.id.button2_save)
+    Button buttonSave;
     private UpdateItemPresenter updateItemPresenter;
     private CardSecondItemBean cardSecondItemBean;
 
@@ -39,13 +39,13 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         cardSecondItemBean = new CardSecondItemBean();
     }
 
-    @OnClick({R.id.imageView2_back, R.id.textView2_save})
+    @OnClick({R.id.imageView2_back, R.id.button2_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView2_back:
                 break;
-            case R.id.textView2_save:
-                updateItemPresenter.visitUpdateItem(this,TYPE2,cardSecondItemBean);//更新后台数据
+            case R.id.button2_save:
+                updateItemPresenter.visitUpdateItem(this, TYPE2, cardSecondItemBean);//更新后台数据
                 break;
         }
     }
@@ -55,7 +55,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(),string);
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
@@ -65,8 +65,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(),string);
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
+
 }
