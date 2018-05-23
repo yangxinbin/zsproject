@@ -75,14 +75,18 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         itemTitle.setText(bean.getItemName());
         itemContent.setText(bean.getItemContent());
         adapter.setList(bean.getItemImagePath());
-        selectList = bean.getItemImagePath();
+        if (bean.getItemImagePath() != null) {
+            selectList = bean.getItemImagePath();
+        }
         cardFirstItemBean.setProjectId(bean.getProjectId());
     }
 
     private void initDate() {
         cardFirstItemBean.setItemName(itemTitle.getText().toString());
         cardFirstItemBean.setItemContent(itemContent.getText().toString());
-        cardFirstItemBean.setItemImagePath(selectList);
+        if (selectList != null) {
+            cardFirstItemBean.setItemImagePath(selectList);
+        }
     }
 
     private void initAddImage() {

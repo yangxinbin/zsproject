@@ -155,10 +155,11 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (mData.size() <= 0) {
                 return;
             }
+            Log.v("yyyyyy","****position*******"+position);
             CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
-            //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos().get(position));
+            cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
@@ -209,12 +210,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     if (mDataAll != null) {
                         //加载更多
                         int count = adapter.getItemCount()-2;//增加item数减去头部和尾部
-                        Log.v("yyyy",mDataAll.size()+"*******count*******"+count);
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
-                            Log.v("yyyy","*******for*******"+mDataAll.get(i).getResponseObject().getContent().get(i).getName());
                             if (mDataAll != null && i >= mDataAll.size()) {//到最后
-                                Log.v("yyyy","*******ttt*******");
                                 noMoreMsg();
                                 return;
                             }

@@ -115,8 +115,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         slider = (Banner) item1.findViewById(R.id.slider_ad);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
+        textView_edit.setOnClickListener(this);
 
         if (bean.getItemImagePath().size() != 0) {
+            Log.v("yyyyy","__________");
             slider.setVisibility(View.VISIBLE);
             List<String> pathsImage = new ArrayList<>();
             List<String> pathsTitle = new ArrayList<>();
@@ -135,7 +137,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         } else {
             slider.setVisibility(View.GONE);
         }
-        textView_edit.setOnClickListener(this);
     }
 
     public static Bitmap getSDCardImg(String imagePath) {
