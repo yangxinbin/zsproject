@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -184,6 +185,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 break;
             case R.id.button1_save:
                 initDate();
+                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);

@@ -20,7 +20,9 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -30,38 +32,41 @@ import okhttp3.Response;
 public class UpdateItemModelImpl implements UpdateItemModel {
 
     @Override
-    public void visitUpdateItem(Context context, int type, Object o, String url, final OnUpdateItemListener listener){
-         //Class<?> o = (Class<?>)Class.forName(String.valueOf(c.getClass())).newInstance();
-        Map<String, String> mapParams = new HashMap<String, String>();
-        if ( o instanceof  CardFirstItemBean) {
-            CardFirstItemBean cardFirstItemBean = (CardFirstItemBean)o;
-            Log.v("yyyyyyy",url+"********"+cardFirstItemBean.getProjectId()+"********"+cardFirstItemBean.getItemName()+"*********"+cardFirstItemBean.getItemContent());
-            mapParams.put("projectId",cardFirstItemBean.getProjectId());
-            mapParams.put("name",cardFirstItemBean.getItemName()+"");
-            mapParams.put("description",cardFirstItemBean.getItemContent()+"");
+    public void visitUpdateItem(Context context, int type, Object o, String url, final OnUpdateItemListener listener) {
+        //Class<?> o = (Class<?>)Class.forName(String.valueOf(c.getClass())).newInstance();
+        HashMap<String, Object> mapParams = new HashMap<String, Object>();
+        if (o instanceof CardFirstItemBean) {
+            CardFirstItemBean cardFirstItemBean = (CardFirstItemBean) o;
+            Log.v("yyyyyyy", url + "********" + cardFirstItemBean.getProjectId() + "********" + cardFirstItemBean.getItemName() + "*********" + cardFirstItemBean.getItemContent());
+            mapParams.put("projectId", cardFirstItemBean.getProjectId());
+            mapParams.put("name", cardFirstItemBean.getItemName());
+            mapParams.put("description", cardFirstItemBean.getItemContent());
+            for (int i = 0; i < cardFirstItemBean.getItemImagePath().size(); i++) {
+            }
             //mapParams.put("photos",cardFirstItemBean.getItemImagePath());
-            Log.v("yyyyy","^^^^^mapParams^^^^^"+mapParams.toString());
+            Log.v("yyyyy", "^^^^^mapParams^^^^^" + mapParams.toString());
+        }
+        if (o instanceof CardSecondItemBean) {
+            CardSecondItemBean cardFirstItemBean = (CardSecondItemBean) o;
+        }
 
-        }
-        if ( o instanceof  CardSecondItemBean) {
-            CardSecondItemBean cardFirstItemBean = (CardSecondItemBean)o;
-        }
 
         //String s  = "{\"projectId\":\"5afe612abc2ab975d270096b\",\"name\":\"ckjhvb\",\"description\":\"fjvh\"}";
 
 
-        HttpUtils.doPost(url, mapParams, new Callback() {
+        HttpUtils.doPostAll(url, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.v("yyyyy","^^^^^onFailure^^^^^");
-                listener.onFailure("FAILURE",e);
+                Log.v("yyyyy", "^^^^^onFailure^^^^^");
+                listener.onFailure("FAILURE", e);
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     listener.onSuccess("SUCCESS");//异步请求
-                }else {
-                    Log.v("yyyyy","^^else^^^onFailure^^^^^"+response.code());
+                } else {
+                    Log.v("yyyyy", "^^else^^^onFailure^^^^^" + response.code());
                     listener.onSuccess("FAILURE");
                 }
             }
