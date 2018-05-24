@@ -153,6 +153,7 @@ public class HttpUtils {
         FormBody.Builder builder = new FormBody.Builder();
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
+            Log.v("put",key+"******do*****"+mapParams.get(key));
         }
         Request request = new Request.Builder()
                 .url(url)

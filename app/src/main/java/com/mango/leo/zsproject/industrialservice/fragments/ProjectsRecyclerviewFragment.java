@@ -27,6 +27,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreate
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
@@ -114,7 +115,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
                 mNewsPresenter.visitProjects(getActivity(), mType, page);
-                Log.v("yyyy","***onScrollStateChanged******");
+                Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
     };
@@ -155,17 +156,32 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yyyyyy","****position*******"+position);
-            CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
+            Log.v("yyyyyy", "****position*******" + position);
+            postStickyAll(position);
+            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    public void postStickyAll(int position) {
+        CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
+        CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
+        if (cardFirstItemBean != null) {
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
             cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
-            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
-            startActivity(intent);
         }
-    };
+        if (cardFourthItemBean != null) {
+            cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getUsername());
+            cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getDepartment());
+            cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getPhone());
+            cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getPosition());
+            cardFourthItemBean.setEmail(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getEmail());
+            EventBus.getDefault().postSticky(cardFourthItemBean);
+        }
+    }
 
     private void initHeader() {
         //渲染header布局
@@ -209,7 +225,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 public void run() {
                     if (mDataAll != null) {
                         //加载更多
-                        int count = adapter.getItemCount()-2;//增加item数减去头部和尾部
+                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
                             if (mDataAll != null && i >= mDataAll.size()) {//到最后
