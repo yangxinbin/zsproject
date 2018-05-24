@@ -23,8 +23,8 @@ public class PhoneLoginActivity extends BaseActivity {
     EditText editTextPhone;
     @Bind(R.id.editText_verification_code)
     EditText editTextVerificationCode;
-    @Bind(R.id.button_verification_code)
-    Button buttonVerificationCode;
+    @Bind(R.id.verification_code)
+    TextView buttonVerificationCode;
     @Bind(R.id.button_login)
     Button buttonLogin;
     @Bind(R.id.textView_pwdlogin)
@@ -37,11 +37,11 @@ public class PhoneLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.button_verification_code, R.id.button_login, R.id.textView_pwdlogin})
+    @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.button_verification_code:
+            case R.id.verification_code:
                 break;
             case R.id.button_login:
                 intent = new Intent(this, PwdSettingActivity.class);

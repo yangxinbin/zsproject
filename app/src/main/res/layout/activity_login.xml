@@ -47,6 +47,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="47dp"
+        android:background="@null"
         android:ems="10"
         android:hint="请输入手机号吗"
         android:inputType="phone" />
@@ -55,6 +56,7 @@
         android:id="@+id/editText_verification_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:layout_alignLeft="@+id/editText_phone"
         android:layout_alignStart="@+id/editText_phone"
         android:layout_below="@+id/editText_phone"
@@ -63,16 +65,13 @@
         android:hint="请输入验证码"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/button_verification_code"
+    <TextView
+        android:id="@+id/verification_code"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button_login"
+        android:layout_alignRight="@+id/button_login"
         android:layout_alignTop="@+id/editText_verification_code"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_toEndOf="@+id/editText_verification_code"
-        android:layout_toRightOf="@+id/editText_verification_code"
-        android:background="@drawable/spinnerlayout_background"
         android:text="发送验证码"
         android:textColor="@color/blue" />
 
@@ -100,6 +99,23 @@
         android:text="密码登录"
         android:textColor="@color/secondblack"
         android:textSize="@dimen/sencond_textSize" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/black"
+        android:layout_below="@+id/editText_verification_code" />
+
+    <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignLeft="@+id/imageView27"
+        android:layout_alignStart="@+id/imageView27"
+        android:layout_below="@+id/editText_phone"
+        android:background="@color/black" />
 
 
 </RelativeLayout>

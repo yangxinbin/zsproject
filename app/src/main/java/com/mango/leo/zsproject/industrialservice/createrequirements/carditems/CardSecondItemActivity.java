@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -8,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.utils.AppUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +47,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView2_back:
+                Intent intent = new Intent(this, BusinessPlanActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.button2_save:
                 updateItemPresenter.visitUpdateItem(this, TYPE2, cardSecondItemBean);//更新后台数据
@@ -69,5 +76,10 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             }
         });
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
+    }
 }

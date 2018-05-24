@@ -45,9 +45,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/spinnerlayout_background"
+        android:background="@drawable/rec_red_background"
         android:text="添加项目"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/allAndCreated_viewPager"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

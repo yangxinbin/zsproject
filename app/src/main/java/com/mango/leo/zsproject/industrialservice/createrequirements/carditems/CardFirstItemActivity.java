@@ -185,13 +185,13 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 break;
             case R.id.button1_save:
                 initDate();
-                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
+//                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
-                    //intent = new Intent(this, BusinessPlanActivity.class);
-                    //startActivity(intent);
-                    //finish();
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     AppUtils.showSnackar(button1Save, "必填项不能为空！");
                 }
@@ -220,13 +220,6 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
     public void showUpdateStateView(final String string) {
         runOnUiThread(new Runnable() {
             @Override
@@ -245,8 +238,10 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
             }
         });
     }
-
-    @OnClick(R.id.button1_save)
-    public void onViewClicked() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 }

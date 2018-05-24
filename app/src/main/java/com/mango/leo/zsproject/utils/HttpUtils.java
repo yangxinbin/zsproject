@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.utils;
 
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -107,7 +109,7 @@ public class HttpUtils {
      * @param paramsMap
      * @param callback
      */
-    public static void doPostAll(String url, HashMap<String, Object> paramsMap,File[] files,String[] fileKeys, Callback callback) {
+    public static void doPostAll(String url, HashMap<String, String> paramsMap, File[] files,Callback callback) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
         //设置类型
         builder.setType(MultipartBody.FORM);
@@ -115,27 +117,29 @@ public class HttpUtils {
             Object object = paramsMap.get(key);
             if (!(object instanceof File)) {
                 builder.addFormDataPart(key, object.toString());
+                Log.v("yyyyy", key+"^^^^^doPostAll^^paramsMap^^^"+object.toString());
             }
-            if (files != null) {
-                RequestBody fileBody = null;
-                for (int i = 0; i < files.length; i++) {
-                    File file = files[i];
+        }
+        if (files != null) {
+            RequestBody fileBody = null;
+            for (int i = 0; i < files.length; i++) {
+                File file = files[i];
+                    Log.v("yyyyy", file.getName() + "^^^^^doPostAll^^files^^^");
                     String fileName = file.getName();
                     fileBody = RequestBody.create(MediaType.parse("image/*"), file);
                     builder.addPart(Headers.of("Content-Disposition",
-                            "form-data; name=\"" + fileKeys[i] + "\"; filename=\"" + fileName + "\""),
+                            "form-data; name=\"" + "mango" + "\"; filename=\"" + fileName + "\""),
                             fileBody);
-                }
             }
-            //创建RequestBody
-            RequestBody body = builder.build();
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-            Call call = getInstance().newCall(request);
-            call.enqueue(callback);
         }
+        //创建RequestBody
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
     }
 
     /**
