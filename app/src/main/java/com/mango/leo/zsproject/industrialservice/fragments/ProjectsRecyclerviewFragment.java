@@ -160,6 +160,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
+            getActivity().finish();
         }
     };
 

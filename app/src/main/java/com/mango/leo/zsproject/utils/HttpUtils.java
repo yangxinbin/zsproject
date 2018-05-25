@@ -3,13 +3,19 @@ package com.mango.leo.zsproject.utils;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -18,8 +24,11 @@ import javax.net.ssl.SSLSession;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.Headers;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -47,10 +56,24 @@ public class HttpUtils {
         if (client == null) {
             synchronized (HttpUtils.class) {
                 if (client == null) {
+                    final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
                     //创建我们Client对象的构建者
-                    OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-                    okHttpBuilder.connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                    OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
+                            .cookieJar(new CookieJar() {
+                                @Override
+                                public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
+                                    cookieStore.put(httpUrl.host(), list);
+                                }
+
+                                @Override
+                                public List<Cookie> loadForRequest(HttpUrl httpUrl) {
+                                    List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                                    return cookies != null ? cookies : new ArrayList<Cookie>();
+                                }
+                            })
+                            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+
                             .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                             //允许重定向
                             .followRedirects(true)
@@ -58,7 +81,7 @@ public class HttpUtils {
                             .hostnameVerifier(new HostnameVerifier() {
                                 @Override
                                 public boolean verify(String s, SSLSession sslSession) {
-                                    return true;
+                                    return false;
                                 }
                             });
                     client = okHttpBuilder.build();
@@ -109,27 +132,28 @@ public class HttpUtils {
      * @param paramsMap
      * @param callback
      */
-    public static void doPostAll(String url, HashMap<String, String> paramsMap, File[] files,Callback callback) {
+    public static void doPostAll(String url, HashMap<String, String> paramsMap, File[] files, Callback callback) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
         //设置类型
         builder.setType(MultipartBody.FORM);
         for (String key : paramsMap.keySet()) {
             Object object = paramsMap.get(key);
-            if (!(object instanceof File)) {
+            if (!(object instanceof File) && object != null) {
                 builder.addFormDataPart(key, object.toString());
-                Log.v("yyyyy", key+"^^^^^doPostAll^^paramsMap^^^"+object.toString());
+                Log.v("doPostAll", key + "^^^^^doPostAll^^paramsMap^^^" + object.toString());
             }
         }
         if (files != null) {
-            RequestBody fileBody = null;
+            //RequestBody fileBody = null;
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
-                    Log.v("yyyyy", file.getName() + "^^^^^doPostAll^^files^^^");
-                    String fileName = file.getName();
-                    fileBody = RequestBody.create(MediaType.parse("image/*"), file);
-                    builder.addPart(Headers.of("Content-Disposition",
-                            "form-data; name=\"" + "mango" + "\"; filename=\"" + fileName + "\""),
-                            fileBody);
+                Log.v("doPostAll", file.getName() + "^^^^^doPostAll^^files^^^");
+                String fileName = file.getName();
+                //fileBody = RequestBody.create(MediaType.parse("image/*"), file);
+                builder.addFormDataPart("photos", fileName, RequestBody.create(MediaType.parse("image/*"), file));
+               /* builder.addPart(Headers.of("Content-Disposition",
+                        "form-data; name=\"" + "mango" + "\"; filename=\"" + fileName + "\""),
+                        fileBody);*/
             }
         }
         //创建RequestBody
@@ -151,14 +175,56 @@ public class HttpUtils {
      */
     public static void doPut(String url, Map<String, String> mapParams, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
+
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
-            Log.v("put",key+"******do*****"+mapParams.get(key));
+            Log.v("doPutWithJson", key + "******do*****" + mapParams.get(key));
         }
+
         Request request = new Request.Builder()
                 .url(url)
+               // .put(builder.build())
+                .addHeader("Content-Type", "application/json; charset=utf-8")
+                .build();
+        Log.v("doPutWithJson",  "******request*****" + request);
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
+    }
+
+    /**
+     * Put请求发送键值对数据
+     *
+     * @param url
+     * @param mapParams
+     * @param callback
+     */
+    public static void doPutWithJson(String url, Map<String, String> mapParams, String[] jsons, Callback callback) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        //设置类型
+        for (String key : mapParams.keySet()) {
+            Object object = mapParams.get(key);
+            if ((object instanceof String) && object != null) {
+                builder.addFormDataPart(key, object.toString());
+                Log.v("doPutWithJson", key + "^^^^^doPostAll^^paramsMap^^^" + object.toString());
+            }
+        }
+        if (jsons != null) {
+            RequestBody jsonBody = null;
+            //MediaType  设置Content-Type 标头中包含的媒体类型值
+            for (int i = 0; i < jsons.length; i++) {
+                String json = jsons[i];
+                jsonBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+                Log.v("doPutWithJson",json+"***********"+jsonBody.contentType());
+                builder.addPart(jsonBody);
+            }
+        }
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Content-Type", "application/json; charset=utf-8")
                 .put(builder.build())
                 .build();
+        Log.v("doPutWithJson", builder + "******request*****" + request.headers());
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
@@ -180,6 +246,18 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+
+/*    public static void doPut1(String url, Map<String, String> mapParams , Callback callback) {
+        FormEncodingBuilder builder=addParamToBuilder(reqbody, mapParams);
+        RequestBody body = builder.build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .put(builder.build())
+                .build();
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
+    }*/
 
     /**
      * 上传文件

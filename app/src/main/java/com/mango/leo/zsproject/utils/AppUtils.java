@@ -2,8 +2,11 @@ package com.mango.leo.zsproject.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +16,9 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
@@ -158,5 +164,22 @@ public class AppUtils {
         long timeMillis = System.currentTimeMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         return dateFormat.format(timeMillis);
+    }
+    /**
+     * 图片转换成base64
+     * @param file
+     * @return
+     */
+    public static String GetImageStr(File file) {
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+        byte[] bytes = bos.toByteArray();
+        try {
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 }
