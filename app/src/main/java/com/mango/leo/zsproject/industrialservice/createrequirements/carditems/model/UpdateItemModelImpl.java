@@ -8,8 +8,6 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.listener.OnUpdateItemListener;
 import com.mango.leo.zsproject.utils.HttpUtils;
-import com.mango.leo.zsproject.utils.NetUtil;
-import com.mango.leo.zsproject.utils.netutil.Network;
 
 import org.json.JSONArray;
 import org.json.JSONException;
