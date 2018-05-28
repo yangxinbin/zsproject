@@ -3,9 +3,7 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.constraint.ConstraintLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +21,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListDownAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListAndGirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,7 +63,7 @@ public class CardEigththItemActivity extends BaseCardActivity implements Adapter
     TextView textView4;
     @Bind(R.id.down4)
     RelativeLayout down4;
-    private ListDownAdapter adapter;
+    private ListAndGirdDownAdapter adapter;
     private List<String> list1, list2, list3, list4;
     private PopupWindow popupWindow;
     private Dialog dialog;
@@ -145,7 +143,7 @@ public class CardEigththItemActivity extends BaseCardActivity implements Adapter
         View view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
         //此处可按需求为各控件设置属性
         ListView listView = view.findViewById(R.id.lv);
-        adapter = new ListDownAdapter(context, listDate);
+        adapter = new ListAndGirdDownAdapter(context, listDate);
         listView.setAdapter(adapter);
         listView.setId(i);
         listView.setOnItemClickListener(this);

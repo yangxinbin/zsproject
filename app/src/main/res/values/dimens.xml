@@ -9,5 +9,6 @@
     <dimen name="small_textSize">10dp</dimen>
     <dimen name="title">18dp</dimen>
     <dimen name="mine_setting">50dp</dimen>
+    <dimen name="img_size">20dp</dimen>
     <!---->
 </resources>

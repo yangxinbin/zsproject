@@ -39,7 +39,7 @@ public class CreatedStyleActivity extends BaseActivity {
             case R.id.carone:
                 intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
-                EventBus.getDefault().removeAllStickyEvents();
+                EventBus.getDefault().removeAllStickyEvents();//删除所有队列里面的事件
                 break;
             case R.id.cartwo:
                 intent = new Intent(this, CustomRequirementsActivity.class);

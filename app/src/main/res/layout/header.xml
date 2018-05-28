@@ -17,15 +17,14 @@
         app:srcCompat="@drawable/newrequirement_img"
         tools:layout_editor_absoluteX="12dp" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/allPlanLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/spinnerlayout_background"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,19 +55,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             tools:ignore="RtlCompat" />-->
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/addPlanLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_marginRight="4dp"
             android:text="@string/allplan"
             android:textColor="@color/red"
+            android:background="@drawable/spinnerlayout_background"
             android:textSize="@dimen/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,19 +73,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.529" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="21dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+        <Button
+            android:id="@+id/allPlanLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/red"
+            android:background="@drawable/spinnerlayout_background"
+            android:textSize="@dimen/title"
             android:layout_weight="1"
-            android:src="@drawable/addplan"
+            android:layout_marginLeft="4dp"
+            android:text="@string/mineplan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
     <!-- android:entries="@array/spState"-->
 
     <!--    <Button

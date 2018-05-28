@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListDownAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListAndGirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,7 +59,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     RelativeLayout down4;
     @Bind(R.id.all_1)
     ConstraintLayout all1;
-    private ListDownAdapter adapter;
+    private ListAndGirdDownAdapter adapter;
     private List<String> list1, list2, list3, list4;
     private PopupWindow popupWindow;
     private Dialog dialog;
@@ -98,7 +99,21 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 adapter.setCheckItem(currentPosition1);
                 break;
             case R.id.down_2:
-
+                list2 = new ArrayList<>();
+                list2.add("不限");
+                list2.add("种子轮");
+                list2.add("天使轮");
+                list2.add("pre-A轮");
+                list2.add("A轮");
+                list2.add("B轮");
+                list2.add("C轮");
+                list2.add("D轮");
+                list2.add("E轮");
+                list2.add("新四板");
+                list2.add("IPO上市");
+                list2.add("其它");
+                showPopupWindow(this, list2, 2);
+                adapter.setCheckItem(currentPosition2);
                 break;
             case R.id.down_3:
                 list3 = new ArrayList<>();
@@ -123,14 +138,25 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     }
 
     private void showPopupWindow(Context context, List<String> listDate, int i) {
-        //设置要显示的view
-        View view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
-        //此处可按需求为各控件设置属性
-        ListView listView = view.findViewById(R.id.lv);
-        adapter = new ListDownAdapter(context, listDate);
-        listView.setAdapter(adapter);
-        listView.setId(i);
-        listView.setOnItemClickListener(this);
+        View view = null;
+        if (i == 2){
+            //设置要显示的view
+            view = LayoutInflater.from(context).inflate(R.layout.girdview_default_down, null);
+            GridView gridView = view.findViewById(R.id.gv);
+            adapter = new ListAndGirdDownAdapter(context, listDate,i);
+            gridView.setAdapter(adapter);
+            gridView.setId(i);
+            gridView.setOnItemClickListener(this);
+        }else {
+            //设置要显示的view
+            view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
+            //此处可按需求为各控件设置属性
+            ListView listView = view.findViewById(R.id.lv);
+            adapter = new ListAndGirdDownAdapter(context, listDate);
+            listView.setAdapter(adapter);
+            listView.setId(i);
+            listView.setOnItemClickListener(this);
+        }
         /*popupWindow = new PopupWindow(view);
         //设置弹出窗口大小
         popupWindow.setWidth(WindowManager.LayoutParams.FILL_PARENT);
@@ -164,6 +190,8 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 dialog.dismiss();
                 break;
             case 2:
+                currentPosition2 = position;
+                text2.setText(list2.get(position));
                 dialog.dismiss();
                 break;
             case 3:

@@ -51,8 +51,9 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     public void addItem(AllProjectsBean bean) {
         isShowFooter(false);
-        mData.add(bean);
-        Log.v("yyyyy", "====addItem======"+mData.size());
+        if (mData != null){
+            mData.add(bean);
+        }
         this.notifyDataSetChanged();
     }
 

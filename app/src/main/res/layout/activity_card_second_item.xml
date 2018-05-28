@@ -106,7 +106,7 @@
             android:background="@color/divideregray" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textView_chanye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView17"
@@ -149,7 +149,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/textView_lingyu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView18"

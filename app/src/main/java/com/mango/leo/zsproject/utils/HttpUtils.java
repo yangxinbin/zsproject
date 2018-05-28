@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.utils;
 
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
@@ -11,8 +12,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,58 +182,42 @@ public class HttpUtils {
      */
     public static void doPut(String url, Map<String, String> mapParams, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
-
+        StringBuffer formatUrl = new StringBuffer();
+        formatUrl.append(url);
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
-            Log.v("doPutWithJson", key + "******do*****" + mapParams.get(key));
+            if (key.equals("projectId")) {
+                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位
+            } else {
+                try {
+                    formatUrl.append("&" + key + "=").append(URLEncoderURI.encode(mapParams.get(key),"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
         Request request = new Request.Builder()
-                .url(url)
-               // .put(builder.build())
+                .url(formatUrl.toString())
+                // .put(builder.build())
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .build();
-        Log.v("doPutWithJson",  "******request*****" + request);
+        Log.v("doPutWithJson", "******request*****" + formatUrl);
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
 
-    /**
-     * Put请求发送键值对数据
-     *
-     * @param url
-     * @param mapParams
-     * @param callback
-     */
-    public static void doPutWithJson(String url, Map<String, String> mapParams, String[] jsons, Callback callback) {
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        //设置类型
-        for (String key : mapParams.keySet()) {
-            Object object = mapParams.get(key);
-            if ((object instanceof String) && object != null) {
-                builder.addFormDataPart(key, object.toString());
-                Log.v("doPutWithJson", key + "^^^^^doPostAll^^paramsMap^^^" + object.toString());
-            }
+    public static String formatEncode(String originUrl) {
+        if (TextUtils.isEmpty(originUrl)) {
+            return "";
         }
-        if (jsons != null) {
-            RequestBody jsonBody = null;
-            //MediaType  设置Content-Type 标头中包含的媒体类型值
-            for (int i = 0; i < jsons.length; i++) {
-                String json = jsons[i];
-                jsonBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-                Log.v("doPutWithJson",json+"***********"+jsonBody.contentType());
-                builder.addPart(jsonBody);
-            }
+        try {
+            URL url = new URL(originUrl);
+            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+            return uri.toURL().toString();
+        } catch (MalformedURLException e) {
+        } catch (URISyntaxException e) {
         }
-
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Content-Type", "application/json; charset=utf-8")
-                .put(builder.build())
-                .build();
-        Log.v("doPutWithJson", builder + "******request*****" + request.headers());
-        Call call = getInstance().newCall(request);
-        call.enqueue(callback);
+        return originUrl;
     }
 
     /**
@@ -246,18 +237,6 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
-
-/*    public static void doPut1(String url, Map<String, String> mapParams , Callback callback) {
-        FormEncodingBuilder builder=addParamToBuilder(reqbody, mapParams);
-        RequestBody body = builder.build();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .put(builder.build())
-                .build();
-        Call call = getInstance().newCall(request);
-        call.enqueue(callback);
-    }*/
 
     /**
      * 上传文件

@@ -95,6 +95,12 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         initHeader();
         recycleItems.setAdapter(adapter);
         recycleItems.addOnScrollListener(mOnScrollListener);
+        Log.v("yyyyy", "====onCreateView======" + page);
+        if (mDataAll != null && mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
+        page = 0;
         mNewsPresenter.visitProjects(getActivity(), mType, page);
         return view;
     }
@@ -229,14 +235,14 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                         int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
-                            if (mDataAll != null && i >= mDataAll.size()) {//到最后
-                                noMoreMsg();
-                                return;
-                            }
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                            if (mDataAll != null && i >= mDataAll.size()-1) {//到最后
+                                noMoreMsg();
+                                return;
+                            }
                         }
                     }
                 }

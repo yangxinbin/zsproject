@@ -88,7 +88,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private TextView content;
     private Banner slider;
     CardFirstItemBean bean1;
-    private TextView textView_edit;
+    private ImageView im_1;
     // 声明存储首选项 对象
 
     @Override
@@ -111,11 +111,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         carfirst.addView(item1);
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
-        textView_edit = (TextView) item1.findViewById(R.id.textView_edit);
         slider = (Banner) item1.findViewById(R.id.slider_ad);
+        im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
-        textView_edit.setOnClickListener(this);
+        im_1.setOnClickListener(this);
 
         if (bean.getItemImagePath().size() != 0) {
             Log.v("yyyyy","__________");

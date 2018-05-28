@@ -28,8 +28,6 @@ public class AllAndCreatedPlanActivity extends BaseActivity{
     ImageView allAndCreatedImageBack;
     @Bind(R.id.allAndCreated_tabLayout)
     TabLayout allAndCreatedTabLayout;
-    @Bind(R.id.allAndCreated_image_add)
-    Button allAndCreatedImageAdd;
     @Bind(R.id.allAndCreated_viewPager)
     ViewPager allAndCreatedViewPager;
 
@@ -60,15 +58,10 @@ public class AllAndCreatedPlanActivity extends BaseActivity{
         adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_AUDITED), getString(R.string.audited));
         viewpager.setAdapter(adapter);
     }
-    @OnClick({R.id.allAndCreated_image_back, R.id.allAndCreated_image_add})
+    @OnClick({R.id.allAndCreated_image_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.allAndCreated_image_back:
-                finish();
-                break;
-            case R.id.allAndCreated_image_add:
-                Intent intent = new Intent(this, CreatedStyleActivity.class);
-                startActivity(intent);
                 finish();
                 break;
         }

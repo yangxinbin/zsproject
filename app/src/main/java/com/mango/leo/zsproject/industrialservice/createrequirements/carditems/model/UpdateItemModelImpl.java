@@ -68,54 +68,12 @@ public class UpdateItemModelImpl implements UpdateItemModel {
 
         if (o instanceof CardFourthItemBean) {
             final CardFourthItemBean cardFourthItemBean = (CardFourthItemBean) o;
-            /*OkHttpClient okHttpClient = new OkHttpClient();
-            Log.v("put",url+"**********"+buildJson(cardFourthItemBean));
-            FormBody build = new FormBody.Builder()
-                    .add("projectId", "5afe83d0bc2ab975d270096d")
-                    //.add("contactInfo","http://192.168.1.166:9999/project-service/project/govt/utilityFee?projectId=5afe83d0bc2ab975d270096d&contactInfo=[{\"username\":\"王小明\",\"department\":\"阿里巴巴\",\"position\":\"经理\",\"mobile\":\"18315536307\",\"phone\":\"18315536307\",\"email\":\"xxxx@hotmail.com\"}]")
-                    .add("waterFeeInfo","100")
-                    .add("electricityFeeInfo","100")
-                    .add("gasFeeInfo","100")
-                    .add("landFeeInfo","100")
-                    .build();
-            String format = String.format("http://192.168.1.147:9999/project-service/project/govt/contacts?projectId=%s&contactInfo=%s","5afe83d0bc2ab975d270096d",buildJson(cardFourthItemBean));
-            Request build1 = new Request.Builder()
-                    .url("http://192.168.1.166:9999/project-service/project/govt/utilityFee?projectId=5afe83d0bc2ab975d270096d&waterFeeInfo=100&electricityFeeInfo=101&gasFeeInfo=102.3&landFeeInfo=103.2")
-                    .put(build)
-                    .build();
-            okHttpClient.newCall(build1).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.v("put", "^^^^^onFailure^^^^^");
-                    listener.onFailure("SAVE FAILURE", e);
-                }
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (String.valueOf(response.code()).startsWith("2")) {
-                        listener.onSuccess("SAVE SUCCESS");//异步请求
-                    } else {
-                        Log.v("put", response.body().string()+"^^else^^^onFailure^^^^^" + response.code());
-                        listener.onSuccess("SAVE FAILURE");
-                    }
-                }
-            });*/
-//            mapParams.put("waterFeeInfo","100");
-//            mapParams.put("electricityFeeInfo","100");
-//            mapParams.put("gasFeeInfo","100");
-//            mapParams.put("landFeeInfo","100");
             final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
             mapParams.put("projectId", "5afe83d0bc2ab975d270096d");
             mapParams.put("contactInfo", buildJson(cardFourthItemBean).toString());
-            Log.v("network", "^^^^^params^^^^^"+buildJson(cardFourthItemBean));
-
-
-            // mapParams.put("contactInfo", "[{\"username\":\"王小明\",\"department\":\"阿里巴巴\",\"position\":\"经理\",\"mobile\":\"18315536307\",\"phone\":\"18315536307\",\"email\":\"xxxx@hotmail.com\"}]");
-            String[] jsons = new String[1];
-            jsons[0] = buildJson(cardFourthItemBean).toString();
-            Log.v("doPutWithJson", "^^^^^json^^^^^" + jsons[0]);
-            Map<String, String> map = new HashMap<>();
-            HttpUtils.doPut("http://192.168.1.166:9999/project-service/project/govt/contacts?projectId=5afe83d0bc2ab975d270096d&contactInfo=%5B%7B%22username%22:%22%E7%8E%8B%E5%B0%8F%E6%98%8E%22,%22department%22:%22%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%22,%22position%22:%22%E7%BB%8F%E7%90%86%22,%22mobile%22:%2218315536307%22,%22phone%22:%2218315536307%22,%22email%22:%22xxxx@hotmail.com%22%7D%5D", map, new Callback() {
+            Log.v("doPutWithJson", "^^^^^buildJson^^^^^"+buildJson(cardFourthItemBean).toString());
+            HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     Log.v("doPutWithJson", "^^^^^onFailure^^^^^");
@@ -133,23 +91,6 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                     }
                 }
             });
-            /*Network network = new Network(context,url);
-            network.performPost(mapParams, new Network.NetCallBack() {
-                @Override
-                public void onNetFailure() {
-
-                }
-
-                @Override
-                public void onSuccess(String result) {
-
-                }
-
-                @Override
-                public void onError(String result) {
-
-                }
-            });*/
         }
     }
 

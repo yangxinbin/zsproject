@@ -16,11 +16,14 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +42,7 @@ public class DemandManagementFragment extends Fragment {
     private Spinner mSpinner;
     //private Button createButton;
     private ConstraintLayout h;
-    private ConstraintLayout allPlanLayout;
+    private Button allPlanLayout,addPlanLayout;
 
 
     @Nullable
@@ -80,6 +83,16 @@ public class DemandManagementFragment extends Fragment {
                 ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
             }
         });
+        addPlanLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+                ActivityOptionsCompat options =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                allPlanLayout, getString(R.string.transition_news_img));
+                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+            }
+        });
     }
 
     public void initSwipeRefreshLayout() {
@@ -104,7 +117,8 @@ public class DemandManagementFragment extends Fragment {
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
         h = (ConstraintLayout) header.findViewById(R.id.header);
-        allPlanLayout =(ConstraintLayout) header.findViewById(R.id.allPlanLayout);
+        allPlanLayout =(Button) header.findViewById(R.id.allPlanLayout);
+        addPlanLayout =(Button) header.findViewById(R.id.addPlanLayout);
         //mSpinner = (Spinner) header.findViewById(R.id.spinnerState);
         //String[] arrays = new String[]{"全部招商计划", "项目"};
         //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
