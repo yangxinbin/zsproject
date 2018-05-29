@@ -44,8 +44,6 @@ public class PhoneLoginActivity extends BaseActivity {
             case R.id.verification_code:
                 break;
             case R.id.button_login:
-                intent = new Intent(this, PwdSettingActivity.class);
-                startActivity(intent);
                 finish();
                 break;
             case R.id.textView_pwdlogin:

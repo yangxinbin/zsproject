@@ -20,19 +20,19 @@ public class ZsActivity extends BaseActivity {
         bottomBar.setContainer(R.id.fl_container)
                 .setTitleBeforeAndAfterColor("#999999", "#ff5d5e")
                 .addItem(FragmentOfIndustrialService.class,
-                        "产业服务",
+                        "投恰服务",
                         R.drawable.tab_icon_first_normal,
                         R.drawable.tab_icon_first_highlight)
                 .addItem(FragmentOfIndustrialPanorama.class,
-                        "产业全景",
+                        "投恰全景",
                         R.drawable.tab_icon_second_normal,
                         R.drawable.tab_icon_second_highlight)
                 .addItem(FragmentOfDateCenter.class,
-                        "数据中心",
+                        "投恰数据库",
                         R.drawable.tab_icon_third_normal,
                         R.drawable.tab_icon_third_highlight)
                 .addItem(FragmentOfEventExhibition.class,
-                        "活动展会",
+                        "投恰展业",
                         R.drawable.tab_icon_fourth_normal,
                         R.drawable.tab_icon_fourth_highlight)
                 .addItem(FragmentOfPersonalCenter.class,

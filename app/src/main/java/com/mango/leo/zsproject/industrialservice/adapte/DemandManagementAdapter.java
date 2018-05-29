@@ -142,9 +142,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         return mData.size() + isFooter + isHeader;*/
         return 6;
     }
-    public void setOnItemnewsClickListener(OnItemnewsClickListener onItemnewsClickListener) {
-        this.mOnItemnewsClickListener = onItemnewsClickListener;
-    }
+
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public FooterViewHolder(View view) {
@@ -155,6 +153,11 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     public DemandManagementBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
+
+    public void setOnItemnewsClickListener(OnItemnewsClickListener onItemnewsClickListener) {
+        this.mOnItemnewsClickListener = onItemnewsClickListener;
+    }
+
     public interface OnItemnewsClickListener {
         public void onItemClick(View view, int position);
     }

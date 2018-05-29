@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
@@ -22,6 +24,9 @@ import com.mango.leo.zsproject.utils.AppUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,8 +50,14 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
     EditText editTextPosition;
     @Bind(R.id.editText_email)
     EditText editTextEmail;
+    @Bind(R.id.delete4)
+    TextView delete4;
+    @Bind(R.id.relativeLayout2)
+    RelativeLayout relativeLayout2;
     private UpdateItemPresenter updateItemPresenter;
     private CardFourthItemBean cardFourthItemBean;
+    private List<CardFourthItemBean> beans4;
+    private int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +66,31 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         ButterKnife.bind(this);
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardFourthItemBean = new CardFourthItemBean();
+        beans4 = new ArrayList<>();
+        if (beans4 != null) {
+            beans4.clear();
+        }
+        position = getIntent().getIntExtra("position", 0);
+        Log.v("44444444", position + "___onCreate____");
+
         EventBus.getDefault().register(this);
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void card1EventBus(CardFourthItemBean bean) {
-        editTextName.setText(bean.getName());
-        editTextCompany.setText(bean.getCompany());
-        editTextPhoneNumber.setText(bean.getPhoneNumber());
-        editTextPosition.setText(bean.getPosition());
-        editTextEmail.setText(bean.getEmail());
-        cardFourthItemBean.setProjectId(bean.getProjectId());
-
+    public void card4EventBus(List<CardFourthItemBean> bean) {
+        Log.v("44444444", position + "___card4EventBus___" + beans4.size());
+        beans4 = bean;
+        if (beans4.size() == position) {
+            Log.v("44444444", position + "___add___");
+            return;
+        }
+        editTextName.setText(bean.get(position).getName());
+        editTextCompany.setText(bean.get(position).getCompany());
+        editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
+        editTextPosition.setText(bean.get(position).getPosition());
+        editTextEmail.setText(bean.get(position).getEmail());
+        cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
     }
 
     private void initDate() {
@@ -76,9 +99,16 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         cardFourthItemBean.setPhoneNumber(editTextPhoneNumber.getText().toString());
         cardFourthItemBean.setPosition(editTextPosition.getText().toString());
         cardFourthItemBean.setEmail(editTextEmail.getText().toString());
+        Log.v("44444444", position + "____initDate____" + cardFourthItemBean.getName());
+        if (beans4.size() == position) {
+            beans4.add(position, cardFourthItemBean);//第几个修改第几个
+            Log.v("44444444", "____adddd____" + beans4.get(position).getName());
+        } else {
+            beans4.set(position, cardFourthItemBean);//第几个修改第几个
+        }
     }
 
-    @OnClick({R.id.imageView4_back, R.id.button4_save})
+    @OnClick({R.id.imageView4_back, R.id.button4_save,R.id.delete4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView4_back:
@@ -88,16 +118,23 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
                 break;
             case R.id.button4_save:
                 initDate();
-//                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
                 if (!TextUtils.isEmpty(editTextName.getText().toString()) && !TextUtils.isEmpty(editTextCompany.getText().toString()) && !TextUtils.isEmpty(editTextPhoneNumber.getText().toString()) && !TextUtils.isEmpty(editTextPosition.getText().toString()) && cardFourthItemBean != null) {
-                    updateItemPresenter.visitUpdateItem(this, TYPE4, cardFourthItemBean);//更新后台数据
-                    EventBus.getDefault().postSticky(cardFourthItemBean);
+                    updateItemPresenter.visitUpdateItem(this, TYPE4, beans4);//更新后台数据
+                    EventBus.getDefault().postSticky(beans4);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     AppUtils.showSnackar(buttonSave, "必填项不能为空！");
                 }
+                break;
+            case R.id.delete4:
+                beans4.remove(position);
+                Log.v("44444444", position+"____ddd____" + beans4.size());
+                EventBus.getDefault().postSticky(beans4);
+                intent = new Intent(this, BusinessPlanActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

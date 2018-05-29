@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mango.leo.zsproject">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -64,10 +65,10 @@
         <activity android:name=".industrialservice.createrequirements.carditems.CardNinthItemActivity" />
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
-        <activity android:name=".login.PwdLoginActivity"></activity>
-        <activity android:name=".login.StartActivity">
-
-        </activity>
+        <activity android:name=".login.PwdLoginActivity" />
+        <activity android:name=".login.StartActivity" />
+        <activity android:name=".login.ResActivity" />
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>

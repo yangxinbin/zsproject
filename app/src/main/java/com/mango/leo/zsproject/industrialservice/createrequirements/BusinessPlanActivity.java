@@ -5,7 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardEigththItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFifthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
@@ -25,6 +30,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSixthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -40,7 +46,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener,RecycleAdapter4.OnCard4ClickListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -73,11 +79,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.carseventh_content)
     ConstraintLayout carseventhContent;
     @Bind(R.id.carseventh)
-    CardView carseventh;*/
+    CardView carseventh;
     @Bind(R.id.careighth_content)
     ConstraintLayout careighthContent;
     @Bind(R.id.careighth)
-    CardView careighth;
+    CardView careighth;*/
     @Bind(R.id.carninth_content)
     ConstraintLayout carninthContent;
     @Bind(R.id.carninth)
@@ -90,6 +96,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardFirstItemBean bean1;
     private ImageView im_1;
     // 声明存储首选项 对象
+    private LinearLayoutManager mLayoutManager;
+    List<CardFourthItemBean> bean4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -116,9 +124,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
         im_1.setOnClickListener(this);
-
         if (bean.getItemImagePath().size() != 0) {
-            Log.v("yyyyy","__________");
+            Log.v("yyyyy", "__________");
             slider.setVisibility(View.VISIBLE);
             List<String> pathsImage = new ArrayList<>();
             List<String> pathsTitle = new ArrayList<>();
@@ -139,6 +146,28 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card4EventBus(List<CardFourthItemBean> bean) {
+        /*if (bean4 != null){
+            bean4.clear();
+        }*/
+        bean4 = bean;
+        Log.v("4444444", "___________" + bean4.size());
+        carfourthContent.setVisibility(View.GONE);
+        carfourth.setEnabled(false);
+        //渲染card4布局
+        View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
+        carfourth.addView(item4);
+        ImageView imageView = item4.findViewById(R.id.img_add);
+        RecyclerView recyclerView = item4.findViewById(R.id.recycle_4);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);//禁止滑动
+        RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean);
+        recyclerView.setAdapter(adapter4);
+        imageView.setOnClickListener(this);
+        adapter4.setOnItemnewsClickListener(this);
+    }
     public static Bitmap getSDCardImg(String imagePath) {
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -148,7 +177,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         return BitmapFactory.decodeFile(imagePath, opt);
     }
 
-    @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh,*/ R.id.careighth, R.id.carninth, R.id.send})
+    @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth,*/ R.id.carninth, R.id.send})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -191,12 +220,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 intent = new Intent(this, CardSeventhItemActivity.class);
                 startActivity(intent);
                 finish();
-                break;*/
+                break;
             case R.id.careighth:
                 intent = new Intent(this, CardEigththItemActivity.class);
                 startActivity(intent);
                 finish();
-                break;
+                break;*/
             case R.id.carninth:
                 intent = new Intent(this, CardNinthItemActivity.class);
                 startActivity(intent);
@@ -222,10 +251,31 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        EventBus.getDefault().postSticky(bean1);
-        Intent intent = new Intent(this, CardFirstItemActivity.class);
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.imageView_1:
+                EventBus.getDefault().postSticky(bean1);
+                intent = new Intent(this, CardFirstItemActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.img_add:
+                EventBus.getDefault().postSticky(bean4);
+                intent = new Intent(this, CardFourthItemActivity.class);
+                intent.putExtra("position",bean4.size());
+                startActivity(intent);
+                finish();
+                break;
+        }
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        EventBus.getDefault().postSticky(bean4);
+        Intent intent = new Intent(this, CardFourthItemActivity.class);
+        intent.putExtra("position",position);
         startActivity(intent);
         finish();
     }
-
 }

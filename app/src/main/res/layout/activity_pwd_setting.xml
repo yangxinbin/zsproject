@@ -73,6 +73,6 @@
         android:textStyle="bold"
         android:textSize="@dimen/textSize"
         android:textColor="@color/black"
-        android:text="@string/login" />
+        android:text="@string/go" />
 
 </RelativeLayout>

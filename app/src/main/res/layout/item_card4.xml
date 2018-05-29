@@ -2,120 +2,102 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item4"
+    android:background="@drawable/select_gray_background"
+    android:layout_marginTop="8dp"
+    android:padding="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView_num"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="11dp"
-        android:text="联系方式X" />
-
-    <ImageView
-        android:id="@+id/imageView_remove"
-        android:layout_width="@dimen/img_size"
-        android:layout_height="@dimen/img_size"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView_num"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        app:srcCompat="@drawable/common_remove" />
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView_edit"
         android:layout_width="@dimen/img_size"
         android:layout_height="@dimen/img_size"
-        android:layout_alignTop="@+id/imageView_remove"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_toLeftOf="@+id/imageView_remove"
-        android:layout_toStartOf="@+id/imageView_remove"
-        app:srcCompat="@drawable/common_icon_edit_red" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/common_jump_arrow" />
 <!---->
     <TextView
         android:id="@+id/textView43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView_num"
-        android:layout_alignStart="@+id/textView_num"
-        android:layout_below="@+id/textView_num"
-        android:layout_marginTop="8dp"
-        android:text="联系人姓名：" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:text="姓名：" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageView_remove"
-        android:layout_alignRight="@+id/imageView_remove"
-        android:layout_alignTop="@+id/textView43"
-        android:text="TextView" />
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_toEndOf="@+id/textView43"
+        android:layout_toRightOf="@+id/textView43"
+        android:text="TextView" />-->
 
     <TextView
         android:id="@+id/textView48"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView43"
-        android:layout_alignStart="@+id/textView43"
-        android:layout_below="@+id/textView43"
-        android:layout_marginTop="12dp"
-        android:text="联系人所在单位：" />
+        android:layout_alignLeft="@+id/textView50"
+        android:layout_alignStart="@+id/textView50"
+        android:layout_below="@+id/textView50"
+        android:layout_marginTop="19dp"
+        android:text="单位：" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView_company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView_name"
         android:layout_alignRight="@+id/textView_name"
         android:layout_alignTop="@+id/textView48"
-        android:text="TextView" />
+        android:text="TextView" />-->
 
     <TextView
         android:id="@+id/textView50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView48"
-        android:layout_alignStart="@+id/textView48"
-        android:layout_below="@+id/textView48"
-        android:layout_marginTop="13dp"
-        android:text="联系人联系方式：" />
+        android:layout_alignLeft="@+id/textView43"
+        android:layout_alignStart="@+id/textView43"
+        android:layout_below="@+id/textView43"
+        android:layout_marginTop="19dp"
+        android:text="电话：" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView_phonenum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView50"
-        android:layout_alignEnd="@+id/textView_company"
-        android:layout_alignRight="@+id/textView_company"
-        android:text="TextView" />
+        android:layout_above="@+id/textView48"
+        android:layout_alignLeft="@+id/textView_name"
+        android:layout_alignStart="@+id/textView_name"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:text="TextView" />-->
 
     <TextView
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView50"
-        android:layout_alignStart="@+id/textView50"
-        android:layout_below="@+id/textView50"
-        android:layout_marginTop="12dp"
-        android:text="联系人职位：" />
+        android:layout_alignLeft="@+id/textView48"
+        android:layout_alignStart="@+id/textView48"
+        android:layout_below="@+id/textView48"
+        android:layout_marginTop="19dp"
+        android:text="职位：" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView_phonenum"
         android:layout_alignRight="@+id/textView_phonenum"
         android:layout_alignTop="@+id/textView38"
-        android:text="TextView" />
+        android:text="TextView" />-->
 
     <TextView
         android:id="@+id/textView47"
@@ -124,8 +106,48 @@
         android:layout_alignLeft="@+id/textView38"
         android:layout_alignStart="@+id/textView38"
         android:layout_below="@+id/textView38"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="19dp"
         android:text="Email：" />
+
+    <TextView
+        android:id="@+id/textView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:layout_toEndOf="@+id/textView47"
+        android:layout_toRightOf="@+id/textView47"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView_phonenum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_name"
+        android:layout_alignStart="@+id/textView_name"
+        android:layout_alignTop="@+id/textView50"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView48"
+        android:layout_alignBottom="@+id/textView48"
+        android:layout_alignLeft="@+id/textView_phonenum"
+        android:layout_alignStart="@+id/textView_phonenum"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView38"
+        android:layout_alignBottom="@+id/textView38"
+        android:layout_alignLeft="@+id/textView_company"
+        android:layout_alignStart="@+id/textView_company"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/textView_email"
@@ -136,4 +158,14 @@
         android:layout_alignLeft="@+id/textView_position"
         android:layout_alignStart="@+id/textView_position"
         android:text="TextView" />
+
+    <!-- <TextView
+         android:id="@+id/textView_email"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/textView47"
+         android:layout_alignBottom="@+id/textView47"
+         android:layout_alignLeft="@+id/textView_position"
+         android:layout_alignStart="@+id/textView_position"
+         android:text="TextView" />-->
 </RelativeLayout>

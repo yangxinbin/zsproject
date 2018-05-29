@@ -2,14 +2,11 @@ package com.mango.leo.zsproject.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +16,10 @@ public class StartActivity extends BaseActivity {
 
     @Bind(R.id.start)
     Button start;
+    @Bind(R.id.res)
+    Button res;
     private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +27,17 @@ public class StartActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.start)
-    public void onViewClicked() {
-        intent = new Intent(this, PhoneLoginActivity.class);
-        startActivity(intent);
-        finish();
+    @OnClick({R.id.start, R.id.res})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.start:
+                intent = new Intent(this, PhoneLoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.res:
+
+                break;
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.UserActivity;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 
@@ -49,7 +50,7 @@ public class PwdSettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.button2_login:
-                intent = new Intent(this, ZsActivity.class);
+                intent = new Intent(this, UserActivity.class);
                 startActivity(intent);
                 finish();
                 break;

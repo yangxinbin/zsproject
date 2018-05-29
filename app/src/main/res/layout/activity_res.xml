@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mango.leo.zsproject.login.PhoneLoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/common_gray"
+        android:gravity="center_vertical"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imageView_phoneres_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_phone_res"
+        android:layout_alignStart="@+id/editText_phone_res"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_marginTop="31dp"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_phone_res"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView14"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="47dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="请输入手机号吗"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editText_verification_code_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_alignLeft="@+id/editText_phone_res"
+        android:layout_alignStart="@+id/editText_phone_res"
+        android:layout_below="@+id/editText_phone_res"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="请输入验证码"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/verification_code_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button_res"
+        android:layout_alignRight="@+id/button_res"
+        android:layout_alignTop="@+id/editText_verification_code_res"
+        android:text="发送验证码"
+        android:textColor="@color/blue" />
+
+    <Button
+        android:id="@+id/button_res"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_verification_code_res"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/rec_red_background"
+        android:text="@string/go"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/black"
+        android:layout_below="@+id/editText_verification_code_res" />
+
+    <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignLeft="@+id/imageView27"
+        android:layout_alignStart="@+id/imageView27"
+        android:layout_below="@+id/editText_phone_res"
+        android:background="@color/black" />
+
+
+</RelativeLayout>

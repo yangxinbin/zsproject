@@ -50,7 +50,7 @@ dependencies {
     //json语言解析框架
     compile 'com.google.code.gson:gson:2.8.4'
 
-   // compile 'com.squareup.okhttp:okhttp:2.7.5'//网络请求框架
+    // compile 'com.squareup.okhttp:okhttp:2.7.5'//网络请求框架
 
     compile 'id.zelory:compressor:2.0.0'  //图片压缩，压缩效率和速度都不错
 

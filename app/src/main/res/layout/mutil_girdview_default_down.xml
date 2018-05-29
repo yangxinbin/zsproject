@@ -18,7 +18,7 @@
             android:layout_marginTop="13dp"
             android:textColor="@color/black"
             android:textSize="@dimen/title"
-            android:text="请选择产业" />
+            android:text="@string/lingyu" />
 
         <ImageView
             android:id="@+id/imageView_delete2"

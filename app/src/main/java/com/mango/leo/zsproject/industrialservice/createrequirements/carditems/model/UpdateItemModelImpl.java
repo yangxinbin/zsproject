@@ -16,7 +16,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,13 +68,13 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             CardSecondItemBean cardFirstItemBean = (CardSecondItemBean) o;
         }
 
-        if (o instanceof CardFourthItemBean) {
-            final CardFourthItemBean cardFourthItemBean = (CardFourthItemBean) o;
+        if (o instanceof List) {
+            final List<CardFourthItemBean> cardFourthItemBean = (List<CardFourthItemBean>) o;
             final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
             mapParams.put("projectId", "5afe83d0bc2ab975d270096d");
-            mapParams.put("contactInfo", buildJson(cardFourthItemBean).toString());
-            Log.v("doPutWithJson", "^^^^^buildJson^^^^^"+buildJson(cardFourthItemBean).toString());
+            mapParams.put("contactInfo", buildJson(cardFourthItemBean));
+            //Log.v("doPutWithJson", "^^^^^buildJson^^^^^" + buildJson(cardFourthItemBean).toString());
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -83,7 +85,6 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
-                        Log.v("doPutWithJson", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
                         listener.onSuccess("SAVE SUCCESS");//异步请求
                     } else {
                         Log.v("doPutWithJson", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
@@ -94,21 +95,26 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         }
     }
 
-    public JSONArray buildJson(CardFourthItemBean cardFourthItemBean) {
+    public String buildJson(List<CardFourthItemBean> cardFourthItemBean) {
         JSONArray json = new JSONArray();
-        JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("username", cardFourthItemBean.getName().toString());
-            jsonObj.put("department", cardFourthItemBean.getCompany().toString());
-            jsonObj.put("position", cardFourthItemBean.getPosition().toString());
-            jsonObj.put("mobile", cardFourthItemBean.getPhoneNumber().toString());
-            jsonObj.put("phone", cardFourthItemBean.getPhoneNumber().toString());
-            jsonObj.put("email", cardFourthItemBean.getEmail().toString());
+            for (int i = 0; i < cardFourthItemBean.size(); i++) {
+                JSONObject jsonObj = new JSONObject();//一定要new对象
+                jsonObj.put("username", cardFourthItemBean.get(i).getName().toString());
+                jsonObj.put("department", cardFourthItemBean.get(i).getCompany().toString());
+                jsonObj.put("position", cardFourthItemBean.get(i).getPosition().toString());
+                jsonObj.put("mobile", cardFourthItemBean.get(i).getPhoneNumber().toString());
+                jsonObj.put("phone", cardFourthItemBean.get(i).getPhoneNumber().toString());
+                jsonObj.put("email", cardFourthItemBean.get(i).getEmail().toString());
+                Log.v("doPutWithJson", cardFourthItemBean.get(i).getName() + "^^cardFourthItemBean.get(i).getName()^^^^" );
+                json.put(i,jsonObj);
+                continue;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         //把每个数据当作一对象添加到数组里
-        json.put(jsonObj);
-        return json;
+        Log.v("doPutWithJson", cardFourthItemBean.size() + "^^cardFourthItemBean.size()^^^^"+json.toString());
+        return json.toString();
     }//
 }

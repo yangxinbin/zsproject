@@ -78,12 +78,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"></include>-->
 
-        <include
+<!--        <include
             layout="@layout/describeitems3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="5dp"></include>
+            android:layout_marginTop="5dp"></include>-->
 
         <TextView
             android:layout_width="match_parent"
