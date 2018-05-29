@@ -117,7 +117,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
  //               return;
  //           }
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject()  != null) {
-                Log.v("yyyyy", "====pos======"+pos%20);
+                Log.v("yyyyy", "====pos======"+pos%20);//
                 ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
                 ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getDescription());
             }
