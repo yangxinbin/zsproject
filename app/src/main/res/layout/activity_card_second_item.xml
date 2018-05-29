@@ -79,7 +79,7 @@
     <RelativeLayout
         android:id="@+id/chanye"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/textView16">
@@ -116,7 +116,7 @@
             android:layout_toLeftOf="@+id/imageView17"
             android:layout_toStartOf="@+id/imageView17"
             android:text="请选择产业"
-            android:textSize="@dimen/small_textSize" />
+            android:textSize="@dimen/commom_tv_size_12" />
 
         <ImageView
             android:id="@+id/imageView17"
@@ -132,7 +132,7 @@
     <RelativeLayout
         android:id="@+id/lingyu"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/chanye">
 
@@ -154,12 +154,11 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView18"
             android:layout_marginEnd="12dp"
-
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/imageView18"
             android:layout_toStartOf="@+id/imageView18"
             android:text="请选择对应的领域，可多选"
-            android:textSize="@dimen/small_textSize" />
+            android:textSize="@dimen/commom_tv_size_12" />
 
         <ImageView
             android:id="@+id/imageView18"

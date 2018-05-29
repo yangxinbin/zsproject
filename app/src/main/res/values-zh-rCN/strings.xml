@@ -61,7 +61,7 @@
         <item>定制</item>
         <item>草稿</item>
     </string-array>
-    <string name="allplan">全部招商计划</string>
+    <string name="allplan">一键招商+</string>
     <string name="created">创建需求</string>
     <string name="how_to_created">请选择您需创建的需求</string>
     <string name="investmentplan">招商计划</string>

@@ -64,7 +64,7 @@
     <RelativeLayout
         android:id="@+id/down_1"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
     <RelativeLayout
         android:id="@+id/down_2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
     <RelativeLayout
         android:id="@+id/down_3"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +203,7 @@
     <RelativeLayout
         android:id="@+id/down_4"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/item_height"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
