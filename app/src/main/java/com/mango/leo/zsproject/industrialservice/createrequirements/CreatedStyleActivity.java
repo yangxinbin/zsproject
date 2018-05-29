@@ -26,7 +26,7 @@ public class CreatedStyleActivity extends BaseActivity {
     CardView cartwo;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_created_style);
         ButterKnife.bind(this);

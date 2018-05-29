@@ -114,7 +114,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 list2.add("其它");
                 showPopupWindow(this, list2, 2);
                 adapter.setCheckItem(currentPosition2);
-                break;
+                break;//
             case R.id.down_3:
                 list3 = new ArrayList<>();
                 list3.add("合资");

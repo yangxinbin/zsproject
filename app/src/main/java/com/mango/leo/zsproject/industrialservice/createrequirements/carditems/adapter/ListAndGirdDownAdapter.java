@@ -16,7 +16,7 @@ import java.util.List;
  * Created by admin on 2018/5/24.
  */
 
-public class ListAndGirdDownAdapter extends BaseAdapter {
+public class ListAndGirdDownAdapter extends BaseAdapter {//
     private Context context;
     private List<String> stringList;
     private int checkItemPosition = -1;

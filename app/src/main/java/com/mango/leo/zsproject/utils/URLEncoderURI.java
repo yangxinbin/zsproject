@@ -62,7 +62,7 @@ public class URLEncoderURI {
         for (i = '0'; i <= '9'; i++) {
             dontNeedEncoding.set(i);
         }
-        dontNeedEncoding.set(' ');
+        dontNeedEncoding.set(' ');//
         dontNeedEncoding.set(',');
         dontNeedEncoding.set('@');
         dontNeedEncoding.set('-');

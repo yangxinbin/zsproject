@@ -215,7 +215,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }
         mDataAll.addAll(projectsList);
         if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {
+            for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
             getActivity().runOnUiThread(new Runnable() {

@@ -127,7 +127,7 @@ public class CardEigththItemActivity extends BaseCardActivity implements Adapter
                 adapter.setCheckItem(currentPosition3);
                 break;
             case R.id.down4:
-                list4 = new ArrayList<>();
+                list4 = new ArrayList<>();//
                 list4.add("合资");
                 list4.add("独资");
                 list4.add("PPP");

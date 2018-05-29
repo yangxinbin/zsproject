@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by qzs on 2017/9/04.
  */
-class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyViewHolder> {
+class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyViewHolder> {//
     private Context context;
     private List<String> list;
     public RecycleAdapter4(Context context, List<String> list) {

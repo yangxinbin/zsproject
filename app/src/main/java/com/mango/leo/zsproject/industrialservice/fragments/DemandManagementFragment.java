@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/5/10 0010.
  */
 
-public class DemandManagementFragment extends Fragment {
+public class DemandManagementFragment extends Fragment {//
     @Bind(R.id.recycle_view11)
     RecyclerView recycleView11;
     @Bind(R.id.refresh11)

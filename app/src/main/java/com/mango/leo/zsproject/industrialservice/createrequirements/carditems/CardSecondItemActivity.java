@@ -124,7 +124,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("IPO上市");
                 list2.add("其它");
                 showPopupWindow(this, list2, 2);
-                adapter.setCheckItem(currentPosition2);
+                adapter.setCheckItem(currentPosition2);//
                 break;
         }
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSecondItemActivity">
-
+<!---->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"

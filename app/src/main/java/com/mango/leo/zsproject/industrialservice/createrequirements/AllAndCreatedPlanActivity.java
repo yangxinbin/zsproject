@@ -22,7 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllAndCreatedPlanActivity extends BaseActivity{
+public class AllAndCreatedPlanActivity extends BaseActivity{//
 
     @Bind(R.id.allAndCreated_image_back)
     ImageView allAndCreatedImageBack;

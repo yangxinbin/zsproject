@@ -65,7 +65,7 @@ public class GirdDownAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View containView, ViewGroup viewGroup) {
+    public View getView(int position, View containView, ViewGroup viewGroup) {//
         ViewHolder viewHolder;
         if (containView != null) {
             viewHolder = (ViewHolder) containView.getTag();

@@ -110,5 +110,5 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         //把每个数据当作一对象添加到数组里
         json.put(jsonObj);
         return json;
-    }
+    }//
 }

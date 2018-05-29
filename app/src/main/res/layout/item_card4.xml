@@ -39,8 +39,8 @@
         android:layout_marginRight="36dp"
         android:layout_toLeftOf="@+id/imageView_remove"
         android:layout_toStartOf="@+id/imageView_remove"
-        app:srcCompat="@drawable/common_icon_edit_red" />
-
+        app:srcCompat="@drawable/common_icon_edit_red1" />
+<!---->
     <TextView
         android:id="@+id/textView43"
         android:layout_width="wrap_content"

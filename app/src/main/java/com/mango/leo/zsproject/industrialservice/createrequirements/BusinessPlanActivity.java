@@ -92,7 +92,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     // 声明存储首选项 对象
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
