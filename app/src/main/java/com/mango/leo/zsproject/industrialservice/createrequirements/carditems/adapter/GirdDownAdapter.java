@@ -89,7 +89,7 @@ public class GirdDownAdapter extends BaseAdapter {
             if (checkItemPosition == position) {
                 if (flag == 1) {
                     viewHolder.tv.setTextSize(12);
-                    viewHolder.co.setBackgroundResource(R.drawable.rec_red_background);
+                    viewHolder.co.setBackgroundResource(R.drawable.selete_red_background);
                 }
                 viewHolder.tv.setTextColor(context.getResources().getColor(R.color.white));
             } else {

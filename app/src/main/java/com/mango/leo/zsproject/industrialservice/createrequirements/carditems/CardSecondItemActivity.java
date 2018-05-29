@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.DuoXuanAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
@@ -45,7 +46,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView, AdapterView.OnItemClickListener, View.OnClickListener, AbsListView.MultiChoiceModeListener {
+public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView, AdapterView.OnItemClickListener, View.OnClickListener {
     public static final int TYPE2 = 2;
     @Bind(R.id.imageView2_back)
     ImageView imageView2Back;
@@ -64,12 +65,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private UpdateItemPresenter updateItemPresenter;
     private CardSecondItemBean cardSecondItemBean;
     private GirdDownAdapter adapter;
+    private DuoXuanAdapter adapter2;
     private Dialog dialog;
     private List<String> list1, list2, date2;
     private String date1;
-    private Map map2 ;
-
-    private int currentPosition1 = -1, currentPosition2 = -1;
+    private Map map2;
+    private Map<Integer, Boolean> gvChooseMap = new HashMap<Integer, Boolean>();
+    private int currentPosition1 = -1;
+    //private List<Integer> currentPosition2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +127,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("IPO上市");
                 list2.add("其它");
                 showPopupWindow(this, list2, 2);
-                adapter.setCheckItem(currentPosition2);//
+                adapter2.setCheckItem(gvChooseMap);
                 break;
         }
     }
@@ -175,12 +178,15 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             //设置要显示的view
             view = LayoutInflater.from(context).inflate(R.layout.mutil_girdview_default_down, null);
             GridView gridView = view.findViewById(R.id.gv);
+            ImageView imageViewDelete2 = view.findViewById(R.id.imageView_delete2);
+            Button buttonGo2 = view.findViewById(R.id.button_go2);
+            imageViewDelete2.setOnClickListener(this);
+            buttonGo2.setOnClickListener(this);
             //此处可按需求为各控件设置属性
-            gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
-            adapter = new GirdDownAdapter(context, listDate,i);
-            gridView.setAdapter(adapter);
+            adapter2 = new DuoXuanAdapter(context, listDate);
+            gridView.setAdapter(adapter2);
             gridView.setId(i);
-            gridView.setMultiChoiceModeListener(this);
+            gridView.setOnItemClickListener(this);
         }
         dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(view);
@@ -204,9 +210,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 adapter.setCheckItem(position);
                 break;
             case 2:
-                //date2 = list2.get(position);
-                //currentPosition2 = position;
-                //adapter.chiceState(position);
+                if (view.isActivated()) {
+                    view.setActivated(false);
+                    gvChooseMap.put(position, false);
+                } else {
+                    view.setActivated(true);
+                    gvChooseMap.put(position, true);
+                }
+                adapter2.setCheckItem(gvChooseMap);
                 break;
         }
     }
@@ -222,31 +233,36 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 textViewChanye.setText(date1);
                 dialog.dismiss();
                 break;
+            case R.id.imageView_delete2:
+                dialog.dismiss();
+                break;
+            case R.id.button_go2:
+                Log.v("yyyyyy", "****date1****" + date1);
+
+                if (gvChooseMap.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
+                {
+                    AppUtils.showToast(this, "请选择领域");
+                    return;
+                }
+                StringBuffer sb = new StringBuffer();
+                //遍历map
+                for (Map.Entry<Integer, Boolean> entry : gvChooseMap.entrySet()) {
+                    int strkey = entry.getKey();
+                    boolean flag = entry.getValue();
+                    if (flag == true) {
+                        sb.append(list2.get(strkey) + "  ");
+                        Log.v("yyyyyy", strkey + "**********" + sb);
+                    }
+                }
+                if (sb.length() > 0) {
+                    //说明有爱好的内容。否则就提示选择爱好
+                } else {
+                    AppUtils.showToast(this, "请选择领域");
+                    return;
+                }
+                textViewLingyu.setText(sb);
+                dialog.dismiss();
+                break;
         }
-    }
-
-    @Override
-    public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
-
-    }
-
-    @Override
-    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-        return false;
-    }
-
-    @Override
-    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-        return false;
-    }
-
-    @Override
-    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-        return false;
-    }
-
-    @Override
-    public void onDestroyActionMode(ActionMode actionMode) {
-
     }
 }

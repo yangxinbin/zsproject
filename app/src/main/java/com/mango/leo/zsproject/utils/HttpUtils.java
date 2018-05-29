@@ -198,7 +198,7 @@ public class HttpUtils {
         }
         Request request = new Request.Builder()
                 .url(formatUrl.toString())
-                // .put(builder.build())
+                .put(builder.build())
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .build();
         Log.v("doPutWithJson", "******request*****" + formatUrl);
