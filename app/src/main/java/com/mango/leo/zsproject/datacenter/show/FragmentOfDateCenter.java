@@ -26,8 +26,8 @@ import butterknife.ButterKnife;
 public class FragmentOfDateCenter extends Fragment {
     @Bind(R.id.tabLayout3)
     TabLayout tabLayout3;
-    @Bind(R.id.image_msg3)
-    ImageView imageMsg3;
+    @Bind(R.id.image_search)
+    ImageView imageSearch;
     @Bind(R.id.viewPager3)
     ViewPager viewPager3;
     List<Fragment> mfragments = new ArrayList<Fragment>();
