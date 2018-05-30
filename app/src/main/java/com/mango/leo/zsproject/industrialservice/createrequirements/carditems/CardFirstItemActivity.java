@@ -79,7 +79,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         if (bean.getItemImagePath() != null) {
             selectList = bean.getItemImagePath();
         }
-        cardFirstItemBean.setProjectId(bean.getProjectId());
+        //cardFirstItemBean.setProjectId(bean.getProjectId());
     }
 
     private void initDate() {
@@ -187,7 +187,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 initDate();
 //                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
-                    updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
+                    updateItemPresenter.visitUpdateItem(this, TYPE1,cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);

@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +45,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by admin on 2018/5/21.
  */
@@ -61,7 +64,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private List<AllProjectsBean> mDataAll;
     private int lastVisibleItem;
     private int page = 0;
-
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
         Bundle bundle = new Bundle();
@@ -76,6 +80,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onCreate(savedInstanceState);
         mNewsPresenter = new AllProjectsPresenterImpl(this);
         mType = getArguments().getInt("type");
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         Log.v("yyyyy", "====mType======" + mType);
     }
 
@@ -162,7 +168,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yyyyyy", "****position*******" + position);
+            editor.putString("projectId",adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
+            Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId()+"****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
@@ -172,21 +179,35 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     public void postStickyAll(int position) {
         CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
-        CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
         if (cardFirstItemBean != null) {
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
             cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
-            cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            EventBus.getDefault().postSticky(cardFirstItemBean);
+        }else {
             EventBus.getDefault().postSticky(cardFirstItemBean);
         }
-        if (cardFourthItemBean != null) {
-            cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getUsername());
-            cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getDepartment());
-            cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getPhone());
-            cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getPosition());
-            cardFourthItemBean.setEmail(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(position).getEmail());
-            EventBus.getDefault().postSticky(cardFourthItemBean);
+        List<CardFourthItemBean> beans4 = new ArrayList<>();
+        if (beans4 != null){
+            beans4.clear();//清空刷新
+        }
+        if (adapter.getItem(position).getResponseObject().getContent().get(position).getContacts() != null) {
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size()+"****position*******");
+            for (int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size();i++){
+                CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
+                cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getUsername());
+                cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getDepartment());
+                cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPhone());
+                cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPosition());
+                cardFourthItemBean.setEmail(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getEmail());
+                beans4.add(cardFourthItemBean);
+            }
+            EventBus.getDefault().postSticky(beans4);
+        }else {
+            Log.v("xxxxx", "****position*****xxxx**");
+            EventBus.getDefault().postSticky(beans4);//替换残留事件
+           // EventBus.getDefault().removeStickyEvent(new ArrayList<CardFourthItemBean>()) ;//移除事件传递
         }
     }
 

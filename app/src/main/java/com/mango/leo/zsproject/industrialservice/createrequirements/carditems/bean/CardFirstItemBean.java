@@ -9,13 +9,13 @@ import java.util.List;
  */
 
 public class CardFirstItemBean {
-    private String projectId;
+    //private String projectId;
     private String itemName;
     private String itemContent;
     private List<LocalMedia> itemImagePath;
 
-    public CardFirstItemBean(String projectId, String itemName, String itemContent, List<LocalMedia> itemImagePath) {
-        this.projectId = projectId;
+    public CardFirstItemBean(/*String projectId,*/ String itemName, String itemContent, List<LocalMedia> itemImagePath) {
+        //this.projectId = projectId;
         this.itemName = itemName;
         this.itemContent = itemContent;
         this.itemImagePath = itemImagePath;
@@ -24,13 +24,13 @@ public class CardFirstItemBean {
     public CardFirstItemBean() {
     }
 
-    public String getProjectId() {
+    /*public String getProjectId() {
         return projectId;
     }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
-    }
+    }*/
 
     public String getItemContent() {
 

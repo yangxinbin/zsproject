@@ -46,7 +46,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener,RecycleAdapter4.OnCard4ClickListener {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -97,7 +97,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private ImageView im_1;
     // 声明存储首选项 对象
     private LinearLayoutManager mLayoutManager;
-    List<CardFourthItemBean> bean4;
+    private List<CardFourthItemBean> bean4;
+    private String projectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -144,6 +145,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         } else {
             slider.setVisibility(View.GONE);
         }
+        //EventBus.getDefault().removeStickyEvent(bean);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -155,11 +157,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         Log.v("4444444", "___________" + bean4.size());
         //渲染card4布局
         View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
-        if (bean.size() == 0){
+        if (bean.size() == 0) {
             carfourthContent.setVisibility(View.VISIBLE);
             item4.setVisibility(View.GONE);
             carfourth.setEnabled(true);
-        }else {
+        } else {
             carfourthContent.setVisibility(View.GONE);
             item4.setVisibility(View.VISIBLE);
             carfourth.setEnabled(false);
@@ -174,7 +176,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         recyclerView.setAdapter(adapter4);
         imageView.setOnClickListener(this);
         adapter4.setOnItemnewsClickListener(this);
+        //EventBus.getDefault().removeStickyEvent(bean);
     }
+
     public static Bitmap getSDCardImg(String imagePath) {
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -189,6 +193,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         Intent intent;
         switch (view.getId()) {
             case R.id.imageViewback:
+                intent = new Intent(this, AllAndCreatedPlanActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.save:
@@ -200,7 +206,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.carsecond:
                 intent = new Intent(this, CardSecondItemActivity.class);
-                startActivity(intent);
                 finish();
                 break;
             case R.id.carthird:
@@ -253,6 +258,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        //EventBus.getDefault().removeAllStickyEvents();
         ButterKnife.unbind(this);
     }
 
@@ -269,7 +275,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.img_add:
                 EventBus.getDefault().postSticky(bean4);
                 intent = new Intent(this, CardFourthItemActivity.class);
-                intent.putExtra("position",bean4.size());
+                intent.putExtra("position", bean4.size());
                 startActivity(intent);
                 finish();
                 break;
@@ -281,7 +287,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     public void onItemClick(View view, int position) {
         EventBus.getDefault().postSticky(bean4);
         Intent intent = new Intent(this, CardFourthItemActivity.class);
-        intent.putExtra("position",position);
+        intent.putExtra("position", position);
         startActivity(intent);
         finish();
     }

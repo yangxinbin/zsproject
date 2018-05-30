@@ -72,6 +72,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private Map map2;
     private Map<Integer, Boolean> gvChooseMap = new HashMap<Integer, Boolean>();
     private int currentPosition1 = -1;
+    private String projectId;
     //private List<Integer> currentPosition2 = new ArrayList<>();
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class CardFourthItemBean {
-    private String projectId;
+    //private String projectId;
     private String name;
     private String company;
     private String phoneNumber;
@@ -19,8 +19,8 @@ public class CardFourthItemBean {
     public CardFourthItemBean() {
     }
 
-    public CardFourthItemBean(String name, String company, String phoneNumber, String position, String email,String projectId) {
-        this.projectId = projectId;
+    public CardFourthItemBean(String name, String company, String phoneNumber, String position, String email/*,String projectId*/) {
+        //this.projectId = projectId;
         this.name = name;
         this.company = company;
         this.phoneNumber = phoneNumber;
@@ -28,13 +28,13 @@ public class CardFourthItemBean {
         this.email = email;
     }
 
-    public String getProjectId() {
+   /* public String getProjectId() {
         return projectId;
     }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
-    }
+    }*/
 
     public String getName() {
         return name;

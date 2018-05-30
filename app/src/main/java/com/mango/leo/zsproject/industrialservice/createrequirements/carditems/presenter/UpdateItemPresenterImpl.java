@@ -32,7 +32,7 @@ public class UpdateItemPresenterImpl implements UpdateItemPresenter, OnUpdateIte
     }
 
     @Override
-    public void visitUpdateItem(Context context, int type, Object o) {
+    public void visitUpdateItem(Context context, int type , Object o) {
         String url = getUrl(type);
         updateItemModel.visitUpdateItem(context,type,o,url,this);
     }

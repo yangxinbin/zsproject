@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface UpdateItemPresenter {
-    void visitUpdateItem(Context context ,int type,Object o);
+    void visitUpdateItem(Context context ,int type ,Object o);
 }

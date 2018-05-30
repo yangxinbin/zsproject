@@ -52,7 +52,6 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     private User user;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +61,11 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         userStatePresenter = new UserStatePresenterImpl(this);
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        if (sharedPreferences.getString("isOk","no").equals("yes")){
+            Intent intent = new Intent(this, ZsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initEdit() {
@@ -113,6 +117,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         //里面不能更新UI
         Intent intent;
         if (s.equals("SUCCESS")) {
+            sharedPreferences = getSharedPreferences("isOk", MODE_PRIVATE);
+            editor.putString("isOk", "yes")
+                    .commit();
             mHandler.sendEmptyMessage(0);
             // Toast.makeText(this, s, Toast.LENGTH_LONG);
             intent = new Intent(this, ZsActivity.class);

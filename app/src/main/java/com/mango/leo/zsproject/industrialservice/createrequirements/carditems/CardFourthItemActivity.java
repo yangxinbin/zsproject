@@ -58,6 +58,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
     private CardFourthItemBean cardFourthItemBean;
     private List<CardFourthItemBean> beans4;
     private int position = 0;
+    private String projectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
         editTextPosition.setText(bean.get(position).getPosition());
         editTextEmail.setText(bean.get(position).getEmail());
-        cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
+       // cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
     }
 
     private void initDate() {

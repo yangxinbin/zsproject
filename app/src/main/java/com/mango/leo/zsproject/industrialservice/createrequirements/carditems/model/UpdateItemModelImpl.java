@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
@@ -8,6 +10,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.listener.OnUpdateItemListener;
 import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PipedReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,28 +28,38 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by admin on 2018/5/22.
  */
 
 public class UpdateItemModelImpl implements UpdateItemModel {
-
+    private SharedPreferences sharedPreferences;
     @Override
     public void visitUpdateItem(Context context, int type, Object o, String url, final OnUpdateItemListener listener) {
         //Class<?> o = (Class<?>)Class.forName(String.valueOf(c.getClass())).newInstance();
+        sharedPreferences = context.getSharedPreferences("CIFIT",MODE_PRIVATE);
+        Log.v("xxxxxxxx", "^^^^^vvvvvvv^^^^^"+sharedPreferences.getString("projectId",""));
         if (o instanceof CardFirstItemBean) {
             final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
             CardFirstItemBean cardFirstItemBean = (CardFirstItemBean) o;
             File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
-            Log.v("yyyyyyy", url + "********" + cardFirstItemBean.getProjectId() + "********" + cardFirstItemBean.getItemName() + "*********" + cardFirstItemBean.getItemContent());
-            mapParams.put("projectId", "123");
-            mapParams.put("name", cardFirstItemBean.getItemName());
-            mapParams.put("description", cardFirstItemBean.getItemContent());
-            for (int i = 0; i < cardFirstItemBean.getItemImagePath().size(); i++) {
+            if (TextUtils.isEmpty(sharedPreferences.getString("projectId",""))){
+                url = Urls.HOST_PROJECT;
+                mapParams.put("createdBy", sharedPreferences.getString("authPhone",""));
+                mapParams.put("name", cardFirstItemBean.getItemName());
+                mapParams.put("description", cardFirstItemBean.getItemContent());
+            }else {
+                mapParams.put("projectId", sharedPreferences.getString("projectId",""));
+                mapParams.put("name", cardFirstItemBean.getItemName());
+                mapParams.put("description", cardFirstItemBean.getItemContent());
+            }
+            /*for (int i = 0; i < cardFirstItemBean.getItemImagePath().size(); i++) {
                 files[i] = new File(cardFirstItemBean.getItemImagePath().get(i).getPath());
                 Log.v("yyyyy", files[i].getName() + "^^^^^getItemImagePath^^^^^" + cardFirstItemBean.getItemImagePath().get(i).getPath());
-            }
+            }*/
             HttpUtils.doPostAll(url, mapParams, files, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -68,13 +82,14 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             CardSecondItemBean cardFirstItemBean = (CardSecondItemBean) o;
         }
 
-        if (o instanceof List) {
+        if (type == 4) {
             final List<CardFourthItemBean> cardFourthItemBean = (List<CardFourthItemBean>) o;
             final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
-            mapParams.put("projectId", "5afe83d0bc2ab975d270096d");
-            mapParams.put("contactInfo", buildJson(cardFourthItemBean));
-            //Log.v("doPutWithJson", "^^^^^buildJson^^^^^" + buildJson(cardFourthItemBean).toString());
+            if (!TextUtils.isEmpty(sharedPreferences.getString("projectId",""))){
+                mapParams.put("projectId", sharedPreferences.getString("projectId",""));
+                mapParams.put("contactInfo", buildJson(cardFourthItemBean));
+            }
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

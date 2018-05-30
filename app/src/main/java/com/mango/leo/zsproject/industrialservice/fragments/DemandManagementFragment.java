@@ -24,6 +24,9 @@ import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,7 +89,8 @@ public class DemandManagementFragment extends Fragment {//
         addPlanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+                Intent intent = new Intent(getActivity(), CardFirstItemActivity.class);
+                EventBus.getDefault().removeAllStickyEvents();
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                                 allPlanLayout, getString(R.string.transition_news_img));

@@ -9,5 +9,5 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.li
  */
 
 public interface UpdateItemModel {
-    void visitUpdateItem(Context context , int type, Object o, String url, OnUpdateItemListener listener);
+    void visitUpdateItem(Context context , int type ,Object o, String url, OnUpdateItemListener listener);
 }
