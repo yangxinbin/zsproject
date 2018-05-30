@@ -108,7 +108,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         }
     }
 
-    @OnClick({R.id.imageView4_back, R.id.button4_save,R.id.delete4})
+    @OnClick({R.id.imageView4_back, R.id.button4_save, R.id.delete4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView4_back:
@@ -118,7 +118,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
                 break;
             case R.id.button4_save:
                 initDate();
-                if (!TextUtils.isEmpty(editTextName.getText().toString()) && !TextUtils.isEmpty(editTextCompany.getText().toString()) && !TextUtils.isEmpty(editTextPhoneNumber.getText().toString()) && !TextUtils.isEmpty(editTextPosition.getText().toString()) && cardFourthItemBean != null) {
+                if (!TextUtils.isEmpty(editTextName.getText().toString()) && !TextUtils.isEmpty(editTextCompany.getText().toString()) && !TextUtils.isEmpty(editTextPhoneNumber.getText().toString()) && !TextUtils.isEmpty(editTextPosition.getText().toString()) && !TextUtils.isEmpty(editTextEmail.getText().toString()) && cardFourthItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE4, beans4);//更新后台数据
                     EventBus.getDefault().postSticky(beans4);
                     intent = new Intent(this, BusinessPlanActivity.class);
@@ -130,8 +130,9 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
                 break;
             case R.id.delete4:
                 beans4.remove(position);
-                Log.v("44444444", position+"____ddd____" + beans4.size());
+                Log.v("44444444", position + "____ddd____" + beans4.size());
                 EventBus.getDefault().postSticky(beans4);
+                updateItemPresenter.visitUpdateItem(this, TYPE4, beans4);//更新后台数据
                 intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();

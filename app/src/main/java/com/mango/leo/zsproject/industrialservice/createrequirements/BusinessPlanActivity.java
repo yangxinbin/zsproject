@@ -153,10 +153,17 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         }*/
         bean4 = bean;
         Log.v("4444444", "___________" + bean4.size());
-        carfourthContent.setVisibility(View.GONE);
-        carfourth.setEnabled(false);
         //渲染card4布局
         View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
+        if (bean.size() == 0){
+            carfourthContent.setVisibility(View.VISIBLE);
+            item4.setVisibility(View.GONE);
+            carfourth.setEnabled(true);
+        }else {
+            carfourthContent.setVisibility(View.GONE);
+            item4.setVisibility(View.VISIBLE);
+            carfourth.setEnabled(false);
+        }
         carfourth.addView(item4);
         ImageView imageView = item4.findViewById(R.id.img_add);
         RecyclerView recyclerView = item4.findViewById(R.id.recycle_4);
