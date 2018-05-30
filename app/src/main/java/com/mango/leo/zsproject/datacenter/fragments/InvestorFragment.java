@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.eventexhibition.fragments;
+package com.mango.leo.zsproject.datacenter.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,42 +26,48 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class CampaignFragment extends Fragment implements DemandManagementAdapter.OnItemnewsClickListener{
+public class InvestorFragment extends Fragment implements DemandManagementAdapter.OnItemnewsClickListener{
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
-    private String headers[] = {"时间", "地区", "类型"};
+    private String headers[] = {"行业", "资金类型", "投资金额", "投资方式"};
     private List<View> popViews = new ArrayList<View>();
-    private String times[] = {"行业sdf1", "行dsf业2", "行asdf业3", "行df业2"};
-    private String wheres[] = {"行gg业1", "行gg业2", "行业s3", "行g业2"};
-    private String whats[] = {"行cc业1", "行cc业2", "行cc业3", "行cc业2"};
+    private String hangye[] = {"行业1", "行业2", "行业3", "行业2"};
+    private String ways[] = {"行业sdf1", "行dsf业2", "行asdf业3", "行df业2"};
+    private String where[] = {"行gg业1", "行gg业2", "行业s3", "行g业2"};
+    private String how[] = {"行cc业1", "行cc业2", "行cc业3", "行cc业2"};
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.campaign, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.investor, container, false);
         ButterKnife.bind(this, view);
         initViews();
         return view;
     }
     private void initViews() {
-        ListView lvTime = new ListView(getActivity());
-        lvTime.setDividerHeight(0);
-        lvTime.setAdapter(new DropDownAdapter(getActivity(), times));
+        ListView lvHangye = new ListView(getActivity());
+        lvHangye.setDividerHeight(0);
+        lvHangye.setAdapter(new DropDownAdapter(getActivity(), hangye));
+
+        ListView lvWays = new ListView(getActivity());
+        lvWays.setDividerHeight(0);
+        lvWays.setAdapter(new DropDownAdapter(getActivity(), ways));
 
         ListView lvWhere = new ListView(getActivity());
         lvWhere.setDividerHeight(0);
-        lvWhere.setAdapter(new DropDownAdapter(getActivity(), wheres));
+        lvWhere.setAdapter(new DropDownAdapter(getActivity(), where));
 
-        ListView lvWhat = new ListView(getActivity());
-        lvWhat.setDividerHeight(0);
-        lvWhat.setAdapter(new DropDownAdapter(getActivity(), whats));
+        ListView lvHow = new ListView(getActivity());
+        lvHow.setDividerHeight(0);
+        lvHow.setAdapter(new DropDownAdapter(getActivity(), how));
 /*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
         lvWays.setOnClickListener((View.OnClickListener) getActivity());
         lvWhere.setOnClickListener((View.OnClickListener) getActivity());
         lvHow.setOnClickListener((View.OnClickListener) getActivity());*/
-        popViews.add(lvTime);
+        popViews.add(lvHangye);
+        popViews.add(lvWays);
         popViews.add(lvWhere);
-        popViews.add(lvWhat);
+        popViews.add(lvHow);
 
         ImageView iv = new ImageView(getActivity());
         iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));

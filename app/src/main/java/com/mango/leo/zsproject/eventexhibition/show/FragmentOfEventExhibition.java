@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 public class FragmentOfEventExhibition extends Fragment {
     @Bind(R.id.tabLayout4)
     TabLayout tabLayout4;
-    @Bind(R.id.image_msg4)
-    ImageView imageMsg4;
+/*    @Bind(R.id.image_msg4)
+    ImageView imageMsg4;*/
     @Bind(R.id.viewPager4)
     ViewPager viewPager4;
     List<Fragment> mfragments = new ArrayList<Fragment>();

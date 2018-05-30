@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.datacenter.fragments.IndustrialDataFragment;
-import com.mango.leo.zsproject.datacenter.fragments.PlatformDataFragment;
+import com.mango.leo.zsproject.datacenter.fragments.ProjectFragment;
+import com.mango.leo.zsproject.datacenter.fragments.InvestorFragment;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
@@ -43,15 +43,15 @@ public class FragmentOfDateCenter extends Fragment {
         return view;
     }
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("平台数据", "产业数据"));
+        mDatas = new ArrayList<String>(Arrays.asList("投资方", "项目"));
     }
 
     private void init() {
         tabLayout3.setTabMode(TabLayout.MODE_FIXED);
         ViewPageAdapter vp = new ViewPageAdapter(getFragmentManager(), mfragments, mDatas);
         tabLayout3.setupWithViewPager(viewPager3);
-        mfragments.add(new PlatformDataFragment());
-        mfragments.add(new IndustrialDataFragment());
+        mfragments.add(new InvestorFragment());
+        mfragments.add(new ProjectFragment());
         viewPager3.setAdapter(vp);
         viewPager3.setCurrentItem(0);
     }

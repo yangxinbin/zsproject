@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialpanorama.fragments.CityIntroductionFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CustomRequirementsFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentPlanFragment;
@@ -48,16 +49,17 @@ public class FragmentOfIndustrialPanorama extends Fragment {
     }
 
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("招商信息", "招商计划", "定制需求"));
+        mDatas = new ArrayList<String>(Arrays.asList("城市介绍","招商信息"/*, "招商计划", "定制需求"*/));
     }
 
     private void init() {
         tabLayout2.setTabMode(TabLayout.MODE_FIXED);
         ViewPageAdapter vp = new ViewPageAdapter(getFragmentManager(), mfragments, mDatas);
         tabLayout2.setupWithViewPager(viewPager2);
+        mfragments.add(new CityIntroductionFragment());
         mfragments.add(new InvestmentInformationFragment());
-        mfragments.add(new InvestmentPlanFragment());
-        mfragments.add(new CustomRequirementsFragment());
+       // mfragments.add(new InvestmentPlanFragment());
+       // mfragments.add(new CustomRequirementsFragment());
         viewPager2.setAdapter(vp);
         viewPager2.setCurrentItem(0);
     }
