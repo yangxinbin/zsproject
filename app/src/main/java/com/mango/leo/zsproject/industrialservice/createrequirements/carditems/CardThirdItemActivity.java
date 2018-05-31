@@ -35,6 +35,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
@@ -42,6 +43,8 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.vi
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -97,6 +100,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_third_item);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         //mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         // 地图初始化
         textViewPlace.setText("广东省深圳市南山区");
@@ -107,8 +111,19 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         if (Build.VERSION.SDK_INT >= 23) {
             needPermission();
         } else {
+            initLocationMode();
         }
         initListener();
+    }
+    private void initDate() {
+        cardThirdItemBean.setAddress(editTextWhere.getText().toString());//确保数据完整性
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card3EventBus(CardThirdItemBean bean) {
+        Log.v("33333", "_____card3EventBus______" + bean.getAddress());
+        textViewPlace.setText(bean.getCity());
+        editTextWhere.setText(bean.getAddress());
+        needPermission();
     }
 
     /**
@@ -187,7 +202,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
         // Geo搜索
-        mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString()));
+        mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString()+editTextWhere.getText().toString()));
         /*mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
@@ -299,6 +314,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 finish();
                 break;
             case R.id.button3_save:
+                initDate();
                 if (!TextUtils.isEmpty(editTextWhere.getText().toString()) && cardThirdItemBean != null) {
                     Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^"+cardThirdItemBean.toString());
                     updateItemPresenter.visitUpdateItem(this, TYPE3,cardThirdItemBean);//更新后台数据
@@ -387,8 +403,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
 
     @Override
     public void afterTextChanged(Editable editable) {
-        cardThirdItemBean.setAddress(editTextWhere.getText().toString());
-    }
+}
 
     /**
      * 更新地图状态显示面板

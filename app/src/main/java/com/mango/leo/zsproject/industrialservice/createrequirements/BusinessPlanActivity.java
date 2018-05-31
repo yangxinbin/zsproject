@@ -1,8 +1,11 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -16,7 +19,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
@@ -31,6 +46,8 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -46,7 +63,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -90,15 +107,20 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardView carninth;
     @Bind(R.id.send)
     Button send;
-    private TextView title;
+    private TextView title, p1, p2;
     private TextView content;
     private Banner slider;
     CardFirstItemBean bean1;
-    private ImageView im_1;
+    CardThirdItemBean bean3;
+    private ImageView im_1, im_3;
     // 声明存储首选项 对象
     private LinearLayoutManager mLayoutManager;
     private List<CardFourthItemBean> bean4;
     private String projectId;
+    private MapView mMapView;
+    GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
+    BaiduMap mBaiduMap = null;
+    private static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -110,6 +132,38 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //initFirstItem();
     }
 
+    private void initLocation() {
+        mBaiduMap = mMapView.getMap();
+        if (Build.VERSION.SDK_INT >= 23) {
+            needPermission();
+        } else {
+            initLocationMode();
+        }
+    }
+    public void needPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            AppUtils.showToast(this, "没有权限,请手动开启定位权限");
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+            ActivityCompat.requestPermissions(BusinessPlanActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+        } else {
+            initLocationMode();
+        }
+    }
+
+    private void initLocationMode() {
+        // 初始化搜索模块，注册事件监听
+        mSearch = GeoCoder.newInstance();
+        //mSearch.setOnGetGeoCodeResultListener(this);
+        // Geo搜索
+        mSearch.setOnGetGeoCodeResultListener(this);
+        mSearch.geocode(new GeoCodeOption().city("").address("广东省深圳市南山区"+bean3.getAddress()));
+
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
@@ -146,6 +200,25 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             slider.setVisibility(View.GONE);
         }
         //EventBus.getDefault().removeStickyEvent(bean);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card3EventBus(CardThirdItemBean bean) {
+        this.bean3 = bean;
+        Log.v("33333", "___________" + bean3.getAddress());
+        carthirdContent.setVisibility(View.GONE);
+        carthird.setEnabled(false);
+        //渲染card1布局
+        View item1 = LayoutInflater.from(this).inflate(R.layout.carditem3, null);
+        carthird.addView(item1);
+        mMapView = item1.findViewById(R.id.bmapView3);
+        p1 = (TextView) item1.findViewById(R.id.textView_p1);
+        p2 = (TextView) item1.findViewById(R.id.textView_p2);
+        im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
+        p1.setText("广东省深圳市南山区");
+        p2.setText(bean.getAddress());
+        im_3.setOnClickListener(this);
+        initLocation();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -272,6 +345,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.imageView_3:
+                EventBus.getDefault().postSticky(bean3);
+                intent = new Intent(this, CardThirdItemActivity.class);
+                startActivity(intent);
+                finish();
+                break;
             case R.id.img_add:
                 EventBus.getDefault().postSticky(bean4);
                 intent = new Intent(this, CardFourthItemActivity.class);
@@ -290,5 +369,28 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         intent.putExtra("position", position);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+        if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+        double latitude = geoCodeResult.getLocation().latitude;
+        double longitude = geoCodeResult.getLocation().longitude;
+        Log.v("uuuuuuu", "onGetGeoCodeResult");
+        mBaiduMap.clear();
+        mBaiduMap.addOverlay(new MarkerOptions().position(geoCodeResult.getLocation())
+                .icon(BitmapDescriptorFactory
+                        .fromResource(R.drawable.icon_gcoding)));
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(geoCodeResult
+                .getLocation()));
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+
     }
 }

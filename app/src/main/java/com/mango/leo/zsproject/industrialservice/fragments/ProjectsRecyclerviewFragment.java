@@ -29,6 +29,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlan
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
@@ -179,7 +180,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     public void postStickyAll(int position) {
         CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
-        if (cardFirstItemBean != null) {
+        if (adapter.getItem(position).getResponseObject().getContent().get(position).getName() != null) {
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
             cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
@@ -188,6 +189,19 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }else {
             EventBus.getDefault().postSticky(cardFirstItemBean);
         }
+        CardThirdItemBean cardThirdItemBean = new CardThirdItemBean();
+        if (adapter.getItem(position).getResponseObject().getContent().get(position).getLocation() != null) {
+            cardThirdItemBean.setProvince("广东省");
+            cardThirdItemBean.setCity("深圳市");
+            cardThirdItemBean.setAddress(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getAddress());
+            cardThirdItemBean.setLon(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLon()));
+            cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLat()));
+            Log.v("33333", "______!= null_____");
+            EventBus.getDefault().postSticky(cardThirdItemBean);
+        }else {
+            EventBus.getDefault().postSticky(cardThirdItemBean);
+        }
+
         List<CardFourthItemBean> beans4 = new ArrayList<>();
         if (beans4 != null){
             beans4.clear();//清空刷新
