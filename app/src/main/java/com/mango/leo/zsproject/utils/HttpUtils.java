@@ -186,15 +186,21 @@ public class HttpUtils {
         formatUrl.append(url);
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
-            if (key.equals("projectId")) {
+            if (key.equals("projectId")) {//保证第一个
                 formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位
-            } else {
+                break;
+            }
+        }
+        for (String key : mapParams.keySet()) {
+            builder.add(key, mapParams.get(key));
+            if (!key.equals("projectId")) {
                 try {
-                    formatUrl.append("&" + key + "=").append(URLEncoderURI.encode(mapParams.get(key),"UTF-8"));
+                    formatUrl.append("&" + key + "=").append(URLEncoderURI.encode(mapParams.get(key), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
+
         }
         Request request = new Request.Builder()
                 .url(formatUrl.toString())
