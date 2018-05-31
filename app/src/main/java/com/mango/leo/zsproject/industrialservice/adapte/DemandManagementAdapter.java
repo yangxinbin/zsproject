@@ -1,11 +1,13 @@
 package com.mango.leo.zsproject.industrialservice.adapte;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,7 +37,8 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.mData = data;
         this.notifyDataSetChanged();
     }
-    public void reMove(){
+
+    public void reMove() {
         List<DemandManagementBean> m = new ArrayList<DemandManagementBean>();
         this.mData = m;
         this.notifyDataSetChanged();
@@ -56,6 +59,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     public DemandManagementAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
@@ -74,6 +78,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             return new FooterViewHolder(view);
         }
     }
+
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
@@ -89,6 +94,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             return TYPE_ITEM;
         }
     }
+
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
     }
@@ -100,6 +106,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void isShowHeader(boolean showHeader) {
         this.mShowHeader = showHeader;
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
@@ -107,8 +114,8 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof ItemViewHolder) {
 //            DemandManagementBean dm = mData.get(pos);//add header
 //            if (dm == null) {
- //               return;
- //           }
+            //               return;
+            //           }
             if (((ItemViewHolder) holder) != null) {
                 ((ItemViewHolder) holder).itemName.setText("sdfsd");
                 ((ItemViewHolder) holder).state.setText("来自");
@@ -127,10 +134,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         }
     }
+
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
     }
+
     @Override
     public int getItemCount() {
 /*        int isFooter = mShowFooter ? 1 : 0;
@@ -159,31 +168,55 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public interface OnItemnewsClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
+
+        void onCancelingMatchClick(View view,int position);
+
+        void onDeleteClick(View view,int position);
     }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView itemName,state,itemTime,numCompany,numInvestmentInstitution,numInvestmentActivities;
+        public TextView itemName, state, itemTime, numCompany, numInvestmentInstitution, numInvestmentActivities;
         public ImageView itemType;
+        public CardView main;
+        public Button canceling_match, delete;
 
         public ItemViewHolder(View v) {
             super(v);
-            if(v == mHeaderView)
+            if (v == mHeaderView)
                 return;
             itemName = (TextView) v.findViewById(R.id.item_name);
             state = (TextView) v.findViewById(R.id.item_state);
             itemTime = (TextView) v.findViewById(R.id.item_time);
             numCompany = (TextView) v.findViewById(R.id.num_Company);
+            main = v.findViewById(R.id.main);
+            canceling_match = v.findViewById(R.id.canceling_match);
+            delete = v.findViewById(R.id.delete);
             numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
             numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
             itemType = (ImageView) v.findViewById(R.id.item_state_img);
+            main.setOnClickListener(this);
+            delete.setOnClickListener(this);
+            canceling_match.setOnClickListener(this);
             v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if (mOnItemnewsClickListener != null) {
-                mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                switch (view.getId()) {
+                    case R.id.main:
+                        mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                        break;
+                    case R.id.canceling_match:
+                        mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());
+                        break;
+                    case R.id.delete:
+                        mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                        break;
+
+                }
             }
         }
     }

@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InvestorFragment extends Fragment implements DemandManagementAdapter.OnItemnewsClickListener{
+public class InvestorFragment extends Fragment{
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"行业", "资金类型", "投资金额", "投资方式"};
@@ -76,10 +76,6 @@ public class InvestorFragment extends Fragment implements DemandManagementAdapte
 
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

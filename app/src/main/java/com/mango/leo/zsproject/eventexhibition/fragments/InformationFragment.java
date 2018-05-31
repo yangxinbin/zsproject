@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InformationFragment extends Fragment implements DemandManagementAdapter.OnItemnewsClickListener{
+public class InformationFragment extends Fragment {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"时间", "地区", "类型"};
@@ -67,11 +67,6 @@ public class InformationFragment extends Fragment implements DemandManagementAda
         iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         dropdownmenu.setDropDownMemu(Arrays.asList(headers), popViews, iv);
-
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
 
     }
     @Override

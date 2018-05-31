@@ -1,73 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<com.mango.leo.zsproject.utils.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="3dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="1dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="8dp">
-
-    <LinearLayout
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/stateButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="39dp"
-                android:gravity="center_vertical"
-                android:padding="3dp"
-                android:text="招商计划1"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize" />
-
-            <ImageView
-                android:id="@+id/item_state_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/newrequirement_icon_zhaoshang" />
-
-            <TextView
-                android:id="@+id/item_state"
-                android:layout_width="wrap_content"
-                android:layout_height="39dp"
-                android:gravity="right"
-                android:padding="3dp"
-                android:text="审核中"
-                android:layout_weight="2"
-                android:textColor="@color/grayBlack"
-                android:textSize="@dimen/textSize" />
-
-            <ImageView
-                android:id="@+id/item_news_img"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/common_jump_arrow" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/item_news_img11"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:src="@color/gray" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="3dp"
+        card_view:contentPadding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,116 +21,205 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/stateButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/new_from"
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="39dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:padding="3dp"
-                    android:text="@string/give"
-                    android:textColor="@color/grayBlack"
-                    android:textSize="@dimen/min_textSize" />
+                    android:text="招商计划1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize" />
+
+                <ImageView
+                    android:id="@+id/item_state_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/newrequirement_icon_zhaoshang" />
 
                 <TextView
-                    android:id="@+id/item_time"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/item_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="39dp"
                     android:layout_weight="2"
-                    android:gravity="center_vertical"
+                    android:gravity="right"
                     android:padding="3dp"
-                    android:text="刚刚"
+                    android:text="审核中"
                     android:textColor="@color/grayBlack"
-                    android:textSize="@dimen/min_textSize" />
+                    android:textSize="@dimen/textSize" />
+
+                <ImageView
+                    android:id="@+id/item_news_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/common_jump_arrow" />
+
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/item_news_img11"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:src="@color/gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:id="@+id/num_Company"
+                        android:id="@+id/new_from"
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="@string/give"
+                        android:textColor="@color/grayBlack"
+                        android:textSize="@dimen/min_textSize" />
+
+                    <TextView
+                        android:id="@+id/item_time"
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
                         android:padding="3dp"
-                        android:text="50"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="企业"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
+                        android:text="刚刚"
+                        android:textColor="@color/grayBlack"
+                        android:textSize="@dimen/min_textSize" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/num_Investment_Institution"
-                        android:layout_width="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:padding="3dp"
-                        android:text="150"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/num_Company"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="50"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="企业"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:padding="3dp"
-                        android:text="投资机构"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/num_Investment_Activities"
-                        android:layout_width="50dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/num_Investment_Institution"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="150"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="投资机构"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:padding="3dp"
-                        android:text="550"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="招商活动"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sencond_textSize" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/num_Investment_Activities"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="550"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="招商活动"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sencond_textSize" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/canceling_match"
+            android:text="取消匹配"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@color/red"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/delete"
+            android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@color/blue"
+            android:layout_width="120dp"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</com.mango.leo.zsproject.utils.SwipeItemLayout>

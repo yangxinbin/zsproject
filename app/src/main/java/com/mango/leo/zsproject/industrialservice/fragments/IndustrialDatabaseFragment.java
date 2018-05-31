@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/5/10 0010.
  */
 
-public class IndustrialDatabaseFragment extends Fragment implements DemandManagementAdapter.OnItemnewsClickListener {
+public class IndustrialDatabaseFragment extends Fragment {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownMenuLayout;
     private String headers[] = {"行业", "融资方式", "地区", "阶段"};
@@ -75,11 +75,6 @@ public class IndustrialDatabaseFragment extends Fragment implements DemandManage
         iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         dropdownMenuLayout.setDropDownMemu(Arrays.asList(headers), popViews, iv);
-
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
 
     }
 

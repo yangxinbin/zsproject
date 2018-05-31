@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreate
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+import com.mango.leo.zsproject.utils.SwipeItemLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,6 +59,7 @@ public class DemandManagementFragment extends Fragment {//
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleView11.setLayoutManager(mLayoutManager);
         recycleView11.setItemAnimator(new DefaultItemAnimator());//设置默认动画
+        recycleView11.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         adapter = new DemandManagementAdapter(getActivity().getApplicationContext());
         adapter.setOnItemnewsClickListener(mOnItemClickListener);
         recycleView11.removeAllViews();
@@ -144,6 +147,8 @@ public class DemandManagementFragment extends Fragment {//
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
+            Log.v("oooooooooo","****onItemClick***点击第"+position);
+
 /*
             String newsurl = adapter.getItem(opsition).getResult().getData().get(position).getUrl();
             Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -153,6 +158,16 @@ public class DemandManagementFragment extends Fragment {//
                     ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             transitionView, getString(R.string.transition_news_img));
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+        }
+
+        @Override
+        public void onCancelingMatchClick(View view, int position) {
+            Log.v("oooooooooo","****onCancelingMatchClick***点击第"+position);
+        }
+
+        @Override
+        public void onDeleteClick(View view, int position) {
+            Log.v("oooooooooo","****onDeleteClick***点击第"+position);
         }
     };
 
