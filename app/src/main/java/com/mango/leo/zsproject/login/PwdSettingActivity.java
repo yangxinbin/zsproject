@@ -10,8 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.UserActivity;
-import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
