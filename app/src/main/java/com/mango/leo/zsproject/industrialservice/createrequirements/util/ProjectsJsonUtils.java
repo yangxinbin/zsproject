@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
 import org.json.JSONArray;
@@ -29,17 +30,18 @@ public class ProjectsJsonUtils {
 
     /**
      * 将获取到的json转换为列表对象
+     *
      * @param res
      * @param
      * @return
      */
-    public static List<AllProjectsBean> readJsonNewsBeans(String res,String va) {
+    public static List<AllProjectsBean> readJsonNewsBeans(String res, String va) {
         List<AllProjectsBean> beans = new ArrayList<AllProjectsBean>();
         try {
             JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
             JsonObject ob = jsonObject.getAsJsonObject("responseObject");
             JsonArray jsonArray = ob.getAsJsonArray(va);
-            for (int i = 0; i < jsonArray.size(); i++){
+            for (int i = 0; i < jsonArray.size(); i++) {
                 AllProjectsBean news = JsonUtils.deserialize(jsonObject, AllProjectsBean.class);
                 beans.add(news);//这里会将所有的json对象转换为bean对象
             }
@@ -48,13 +50,20 @@ public class ProjectsJsonUtils {
         return beans;
     }
 
+    public static TokenFromLonginBean readJsonTokenBeans(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+        TokenFromLonginBean bean = JsonUtils.deserialize(jsonObject, TokenFromLonginBean.class);
+        return bean;
+    }
+
     public static List<EventBean> readJsonEventBeans(String res, String va) {
         List<EventBean> beans = new ArrayList<EventBean>();
         try {
             JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
             JsonObject ob = jsonObject.getAsJsonObject("responseObject");
             JsonArray jsonArray = ob.getAsJsonArray(va);
-            for (int i = 0; i < jsonArray.size(); i++){
+            for (int i = 0; i < jsonArray.size(); i++) {
                 EventBean event = JsonUtils.deserialize(jsonObject, EventBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象
             }

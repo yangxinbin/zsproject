@@ -79,12 +79,12 @@
         android:id="@+id/button_res"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_verification_code_res"
+        android:layout_below="@+id/editText_pwdok"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="22dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/go"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/textSize"
         android:textStyle="bold" />
 
@@ -105,5 +105,28 @@
         android:layout_below="@+id/editText_phone_res"
         android:background="@color/black" />
 
+    <EditText
+        android:id="@+id/editText_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_verification_code_res"
+        android:layout_alignStart="@+id/editText_verification_code_res"
+        android:layout_below="@+id/imageView27"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="输入密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editText_pwdok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_pwd"
+        android:layout_alignStart="@+id/editText_pwd"
+        android:layout_below="@+id/editText_pwd"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="确认密码"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

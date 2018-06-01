@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mango.leo.zsproject.utils.NetUtil;
+import com.mango.leo.zsproject.utils.PublicWay;
 
 /**
  * Created by Administrator on 2018/5/15 0015.
@@ -17,6 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActivityState(this);
+        PublicWay.activityList.add(this); // 把这个界面添加到activityList集合里面
     }
 
     /**

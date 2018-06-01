@@ -7,6 +7,18 @@ package com.mango.leo.zsproject.login.bean;
 public class UserPhone {
     private String phoneN;
     private String phoneC;
+    private String phonePwd;
+
+    public UserPhone(String phoneN, String phoneC, String phonePwd) {
+        this.phoneN = phoneN;
+        this.phoneC = phoneC;
+        this.phonePwd = phonePwd;
+    }
+
+    public UserPhone(String string, String string1) {
+        this.phoneN = string;
+        this.phoneC = string1;
+    }
 
     public String getPhoneN() {
         return phoneN;
@@ -24,8 +36,11 @@ public class UserPhone {
         this.phoneC = phoneC;
     }
 
-    public UserPhone(String phoneN, String phoneC) {
-        this.phoneN = phoneN;
-        this.phoneC = phoneC;
+    public String getPhonePwd() {
+        return phonePwd;
+    }
+
+    public void setPhonePwd(String phonePwd) {
+        this.phonePwd = phonePwd;
     }
 }

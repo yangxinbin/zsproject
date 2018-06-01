@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
@@ -52,32 +53,36 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         userStatePresenter = new UserStatePresenterImpl(this);
-        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         ButterKnife.bind(this);
     }
+
     private void initEdit() {
         userPhone = new UserPhone(editTextPhone.getText().toString(), editTextVerificationCode.getText().toString());
         //通过editor对象写入数据
-        editor.putString("authPhone",editTextPhone.getText().toString());
+        editor.putString("authPhone", editTextPhone.getText().toString());
     }
-    @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin})
+
+    @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin,R.id.imageView_phonelogin_back})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.verification_code:
                 initEdit();
-                userStatePresenter.visitPwdUserState(this,2, userPhone);
+                userStatePresenter.visitPwdUserState(this, 2, userPhone);
                 break;
             case R.id.button_login:
                 initEdit();
-                userStatePresenter.visitPwdUserState(this,3, userPhone);
-                intent = new Intent(this, ZsActivity.class);
+                userStatePresenter.visitPwdUserState(this, 3, userPhone);
+                break;
+            case R.id.textView_pwdlogin:
+                intent = new Intent(this, PwdLoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.textView_pwdlogin:
-                intent = new Intent(this, PhoneLoginActivity.class);
+            case R.id.imageView_phonelogin_back:
+                intent = new Intent(this, StartActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -88,13 +93,13 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
     public void showStateView(String string) {
         //里面不能更新UI
         Intent intent;
-        if(string.equals("CODE_SUCCESS")){
+        if (string.equals("CODE_SUCCESS")) {
             mHandler.sendEmptyMessage(2);
-        }else {
+        }
+        if (string.equals("CODE_FAILURE")) {
             mHandler.sendEmptyMessage(3);
         }
         if (string.equals("SUCCESS")) {
-            sharedPreferences = getSharedPreferences("isOk", MODE_PRIVATE);
             editor.putString("isOk", "yes")
                     .commit();
             mHandler.sendEmptyMessage(0);
@@ -102,7 +107,8 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
             intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();
-        }else {
+        }
+        if (string.equals("FAILURE")) {
             mHandler.sendEmptyMessage(1);
         }
     }
@@ -112,6 +118,12 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         mHandler.sendEmptyMessage(0);
 
     }
+
+    @Override
+    public void responeToken(TokenFromLonginBean bean) {
+
+    }
+
     private final PhoneLoginActivity.MyHandler mHandler = new PhoneLoginActivity.MyHandler(this);
 
     private static class MyHandler extends Handler {

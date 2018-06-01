@@ -10,6 +10,7 @@ import com.mango.leo.zsproject.industrialpanorama.show.FragmentOfIndustrialPanor
 import com.mango.leo.zsproject.industrialservice.fragments.DemandManagementFragment;
 import com.mango.leo.zsproject.industrialservice.show.FragmentOfIndustrialService;
 import com.mango.leo.zsproject.personalcenter.show.FragmentOfPersonalCenter;
+import com.mango.leo.zsproject.utils.PublicWay;
 import com.mango.leo.zsproject.viewutil.BottomBar;
 
 public class ZsActivity extends BaseActivity {
@@ -43,6 +44,7 @@ public class ZsActivity extends BaseActivity {
                         R.drawable.tab_icon_fifth_normal,
                         R.drawable.tab_icon_fifth_highlight)
                 .build();
+
     }
     public interface FragmentBackListener {
         void  onbackForward();

@@ -20,6 +20,7 @@ import android.widget.ToggleButton;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
@@ -52,6 +53,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     private User user;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
+    private static String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +98,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         Intent intent;
         switch (view.getId()) {
             case R.id.imageView_pwd_back:
+                intent = new Intent(this, StartActivity.class);
+                startActivity(intent);
+                finish();
                 finish();
                 break;
             case R.id.button_login:
@@ -117,7 +123,6 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         //里面不能更新UI
         Intent intent;
         if (s.equals("SUCCESS")) {
-            sharedPreferences = getSharedPreferences("isOk", MODE_PRIVATE);
             editor.putString("isOk", "yes")
                     .commit();
             mHandler.sendEmptyMessage(0);
@@ -133,6 +138,14 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     @Override
     public void showVisitFailMsg(String string) {
         mHandler.sendEmptyMessage(0);
+    }
+
+    @Override
+    public void responeToken(TokenFromLonginBean bean) {
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+            token = bean.getResponseObject().getToken();
+            mHandler.sendEmptyMessage(2);
+        }
     }
 
     private final MyHandler mHandler = new MyHandler(this);
@@ -156,6 +169,12 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 1:
                         AppUtils.showToast(activity, "ERROR");
+                        break;
+                    case 2:
+                        AppUtils.showToast(activity, "令牌保存成功");
+                        editor.putString("token",token)
+                                .commit();
+                        Log.v("zzzzzz","--------------"+token);
                         break;
                     default:
                         break;

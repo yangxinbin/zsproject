@@ -3,8 +3,12 @@ package com.mango.leo.zsproject.login.model;
 import android.content.Context;
 import android.util.Log;
 
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 import com.mango.leo.zsproject.login.bean.User;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -12,6 +16,7 @@ import com.mango.leo.zsproject.utils.OkHttpUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -35,6 +40,8 @@ public class UserStateModelImpl implements UserStateModel {
             User user = (User) o;
             mapParams.put("username",user.getUserName());
             mapParams.put("password",user.getUserPwd());
+            Log.v("uuuuuuu",user.getUserName()+"___________"+user.getUserPwd());
+
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -44,8 +51,11 @@ public class UserStateModelImpl implements UserStateModel {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("SUCCESS");//异步请求
+                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);
                     }else {
-                        listener.onSuccess("NOSUCCESS");
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code());
+                        listener.onSuccess("FAILURE");
                     }
                 }
             });
@@ -84,7 +94,78 @@ public class UserStateModelImpl implements UserStateModel {
                     if (response.code() == 200){
                         listener.onSuccess("SUCCESS");//异步请求
                     }else {
-                        listener.onSuccess("NOSUCCESS");
+                        listener.onSuccess("FAILURE");
+                    }
+                }
+            });
+        }
+        if (type == 4){
+            UserPhone userPhone = (UserPhone) o;
+            mapParams.put("username",userPhone.getPhoneN());
+            mapParams.put("code",userPhone.getPhoneC());
+            mapParams.put("password",userPhone.getPhonePwd());
+            mapParams.put("step","1");
+Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url);
+            HttpUtils.doPost(url, mapParams, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    listener.onFailure("RES_FAILURE",e);
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.code() == 200){
+                        listener.onSuccess("RES_SUCCESS");//异步请求
+                    }else {
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code());
+                        listener.onSuccess("RES_FAILURE");
+                    }
+                }
+            });
+        }
+        if (type == 5){//设置密码合并到上面 作废
+            User user = (User) o;
+            mapParams.put("username",user.getUserName());
+            mapParams.put("password",user.getUserPwd());
+            mapParams.put("step","2");
+            HttpUtils.doPost(url, mapParams, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    listener.onFailure("SET_FAILURE",e);
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.code() == 200){
+                        listener.onSuccess("SET_SUCCESS");//异步请求
+                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);
+                    }else {
+                        listener.onSuccess("SET_FAILURE");
+                    }
+                }
+            });
+        }
+        if (type == 6){
+            UserMessageBean userMessageBean = (UserMessageBean) o;
+            mapParams.put("token",userMessageBean.getResponseObject().getToken());
+            mapParams.put("username",userMessageBean.getResponseObject().getUsername());
+            mapParams.put("company",userMessageBean.getResponseObject().getUsername());
+            mapParams.put("name",userMessageBean.getResponseObject().getUsername());
+            mapParams.put("department",userMessageBean.getResponseObject().getUsername());
+            mapParams.put("email",userMessageBean.getResponseObject().getUsername());
+
+            HttpUtils.doPost(url, mapParams, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    listener.onFailure("MES_FAILURE",e);
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.code() == 200){
+                        listener.onSuccess("MES_SUCCESS");//异步请求
+                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);
+                    }else {
+                        listener.onSuccess("MES_FAILURE");
                     }
                 }
             });

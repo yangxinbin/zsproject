@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,7 +60,6 @@ public class FragmentOfPersonalCenter extends Fragment {
             case R.id.settings:
                 intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
-                getActivity().finish();
                 break;
         }
     }

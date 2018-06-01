@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.login.presenter;
 
 import android.content.Context;
 
+import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
 import com.mango.leo.zsproject.login.model.UserStateModel;
@@ -38,6 +39,11 @@ public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateLi
         userStateView.showVisitFailMsg(msg);
     }
 
+    @Override
+    public void getSuccessToken(TokenFromLonginBean bean) {
+        userStateView.responeToken(bean);
+    }
+
     private String getUrl(int type) {
         String url = null;
         switch (type) {
@@ -49,6 +55,15 @@ public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateLi
                 break;
             case 3:
                 url = Urls.HOST_CODELOGIN;
+                break;
+            case 4:
+                url = Urls.HOST_REGIST;
+                break;
+            case 5:
+                url = Urls.HOST_REGIST;
+                break;
+            case 6:
+                url = Urls.HOST_MES;
                 break;
         }
         return url;

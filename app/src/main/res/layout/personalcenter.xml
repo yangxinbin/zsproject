@@ -73,7 +73,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayouthead1"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="130dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -82,13 +82,13 @@
                     android:id="@+id/textView_userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="JACK"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize"
                     android:textStyle="bold"
-                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/newrequirement_icon_zhaoshang"
                     card_view:layout_constraintStart_toEndOf="@+id/textView_userName"
                     card_view:layout_constraintTop_toTopOf="parent" />
@@ -105,12 +105,12 @@
                     android:id="@+id/textView_gov"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="云南省商务厅"
                     android:textColor="@color/secondblack"
                     android:textSize="@dimen/sencond_textSize"
-                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic"
                     card_view:layout_constraintTop_toBottomOf="@+id/textView_userName" />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:text="主任"
                     android:textColor="@color/secondblack"
                     android:textSize="@dimen/sencond_textSize"
@@ -127,12 +127,12 @@
 
                 <ImageView
                     android:id="@+id/imageVie_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:src="@drawable/tab_icon_fifth_highlight"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -175,15 +175,6 @@
                     card_view:layout_constraintStart_toEndOf="@+id/imageView20"
                     card_view:layout_constraintTop_toBottomOf="@+id/imageView19" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/divideregray"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintHorizontal_bias="0.0"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@+id/textView_emile" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
