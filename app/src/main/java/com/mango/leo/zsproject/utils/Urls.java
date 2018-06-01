@@ -8,8 +8,10 @@ public class Urls {
     public static final String HOST = "http://192.168.1.166:9999";
     public static final String AUTH = "/user-service/user/auth";
     public static final String PROJECT = "/project-service/project/govt";
+    public static final String EVENT = "/event-service/event/activity/find";
     public static final String HOST_AUTH =HOST+AUTH;
     public static final String HOST_PROJECT =HOST+PROJECT;
+    public static final String HOST_EVENT =HOST+PROJECT;
     public static final String UPDATE1 = "/update";
     public static final String UPDATE2 = "/industries";
     public static final String UPDATE3 = "/location";

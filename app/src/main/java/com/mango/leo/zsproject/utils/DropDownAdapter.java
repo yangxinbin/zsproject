@@ -22,21 +22,27 @@ import java.util.List;
  */
 public class DropDownAdapter extends BaseAdapter {
     private Context context;
-    private String[] list;
+    private List<String> list;
+    private int checkItemPosition = -1;
 
-    public DropDownAdapter(Context context, String[] list) {
+    public DropDownAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
     }
 
+    public void setCheckItem(int position) {
+        checkItemPosition = position;
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
-        return list == null ? 0 : list.length;
+        return list == null ? 0 : list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list[position];
+        return list.get(position);
     }
 
     @Override
@@ -55,8 +61,24 @@ public class DropDownAdapter extends BaseAdapter {
         } else {
             holder = (MyViewHolder) convertView.getTag();
         }
-        holder.tv.setText(list[position]);
+        holder.tv.setText(list.get(position));
+        fillValue(position, holder);
         return convertView;
+    }
+
+    private void fillValue(int position, MyViewHolder viewHolder) {
+        viewHolder.tv.setText(list.get(position));
+        if (checkItemPosition != -1) {
+            if (checkItemPosition == position) {
+                viewHolder.tv.setTextSize(12);
+                //viewHolder.co.setBackgroundResource(R.drawable.button_red);
+                viewHolder.tv.setTextColor(context.getResources().getColor(R.color.red));
+            } else {
+                viewHolder.tv.setTextSize(12);
+               // viewHolder.co.setBackgroundResource(R.drawable.button_gray);
+                viewHolder.tv.setTextColor(context.getResources().getColor(R.color.black));
+            }
+        }
     }
 
     public static class MyViewHolder {

@@ -49,19 +49,19 @@ public class IndustrialDatabaseFragment extends Fragment {
     private void initViews() {
         ListView lvHangye = new ListView(getActivity());
         lvHangye.setDividerHeight(0);
-        lvHangye.setAdapter(new DropDownAdapter(getActivity(), hangye));
+        lvHangye.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(hangye)));
 
         ListView lvWays = new ListView(getActivity());
         lvWays.setDividerHeight(0);
-        lvWays.setAdapter(new DropDownAdapter(getActivity(), ways));
+        lvWays.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(ways)));
 
         ListView lvWhere = new ListView(getActivity());
         lvWhere.setDividerHeight(0);
-        lvWhere.setAdapter(new DropDownAdapter(getActivity(), where));
+        lvWhere.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(where)));
 
         ListView lvHow = new ListView(getActivity());
         lvHow.setDividerHeight(0);
-        lvHow.setAdapter(new DropDownAdapter(getActivity(), how));
+        lvHow.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(how)));
 /*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
         lvWays.setOnClickListener((View.OnClickListener) getActivity());
         lvWhere.setOnClickListener((View.OnClickListener) getActivity());

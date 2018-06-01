@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.datacenter.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InvestorFragment extends Fragment{
+public class InvestorFragment extends Fragment implements ZsActivity.FragmentBackListener {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"行业", "资金类型", "投资金额", "投资方式"};
@@ -47,19 +49,19 @@ public class InvestorFragment extends Fragment{
     private void initViews() {
         ListView lvHangye = new ListView(getActivity());
         lvHangye.setDividerHeight(0);
-        lvHangye.setAdapter(new DropDownAdapter(getActivity(), hangye));
+        lvHangye.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(hangye)));
 
         ListView lvWays = new ListView(getActivity());
         lvWays.setDividerHeight(0);
-        lvWays.setAdapter(new DropDownAdapter(getActivity(), ways));
+        lvWays.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(ways)));
 
         ListView lvWhere = new ListView(getActivity());
         lvWhere.setDividerHeight(0);
-        lvWhere.setAdapter(new DropDownAdapter(getActivity(), where));
+        lvWhere.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(where)));
 
         ListView lvHow = new ListView(getActivity());
         lvHow.setDividerHeight(0);
-        lvHow.setAdapter(new DropDownAdapter(getActivity(), how));
+        lvHow.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(how)));
 /*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
         lvWays.setOnClickListener((View.OnClickListener) getActivity());
         lvWhere.setOnClickListener((View.OnClickListener) getActivity());
@@ -80,5 +82,28 @@ public class InvestorFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ZsActivity) {
+            ((ZsActivity) context).setBackListener(this);
+            ((ZsActivity) context).setInterception(true);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (getActivity() instanceof ZsActivity) {
+            ((ZsActivity) getActivity()).setBackListener(null);
+            ((ZsActivity) getActivity()).setInterception(false);
+        }
+    }
+
+    @Override
+    public void onbackForward() {
+        // 处理fragment的返回事件
+        dropdownmenu.closeMenu();
     }
 }

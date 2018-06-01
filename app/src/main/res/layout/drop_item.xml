@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
-    android:background="@color/common_gray"
-    android:orientation="horizontal" >
+    android:background="@color/white"
+    android:orientation="vertical" >
     <TextView
-        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:gravity="center"
         android:id="@+id/drop_id"
         android:layout_width="match_parent"
         android:textSize="@dimen/textSize"
@@ -14,5 +15,5 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/common_white"/>
+        android:background="@color/common_gray"/>
 </LinearLayout>

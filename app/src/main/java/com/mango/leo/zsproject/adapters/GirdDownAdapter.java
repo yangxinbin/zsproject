@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter;
+package com.mango.leo.zsproject.adapters;
 
 import android.content.Context;
 import android.util.Log;

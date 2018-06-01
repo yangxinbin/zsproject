@@ -1,18 +1,39 @@
 package com.mango.leo.zsproject.eventexhibition.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
+import com.mango.leo.zsproject.ZsActivity;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
+import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenter;
+import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenterImpl;
+import com.mango.leo.zsproject.eventexhibition.view.EventView;
+import com.mango.leo.zsproject.industrialservice.adapte.AllProjectsAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
+import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
 
 import java.util.ArrayList;
@@ -22,18 +43,34 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity.TYPE1;
+
 /**
  * Created by admin on 2018/5/11.
  */
 
-public class CampaignFragment extends Fragment{
+public class CampaignFragment extends Fragment implements AdapterView.OnItemClickListener, ZsActivity.FragmentBackListener,EventView{
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
+    @Bind(R.id.id)
+    LinearLayout id;
     private String headers[] = {"时间", "地区", "类型"};
     private List<View> popViews = new ArrayList<View>();
-    private String times[] = {"行业sdf1", "行dsf业2", "行asdf业3", "行df业2"};
-    private String wheres[] = {"行gg业1", "行gg业2", "行业s3", "行g业2"};
-    private String whats[] = {"行cc业1", "行cc业2", "行cc业3", "行cc业2"};
+    private String times[] = {"2017", "2018", "2019", "2020"};
+    private String wheres[] = {"北京", "深圳", "广州", "上海"};
+    private String whats[] = {"行业1", "行业2", "行业3", "行业4"};
+    private SwipeRefreshLayout refresh_cam;
+    private RecyclerView recycle_cam;
+    private DropDownAdapter timeAdapter;
+    private DropDownAdapter whereAdapter;
+    private DropDownAdapter whatAdapter;
+    private EventPresenter eventPresenter;
+    private final int EVENT1 = 1;
+    private int page = 0;
+    private LinearLayoutManager mLayoutManager;
+    private EventAdapter adapter;
+    private List<EventBean> mData,mDataAll;
+
 
     @Nullable
     @Override
@@ -41,38 +78,216 @@ public class CampaignFragment extends Fragment{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.campaign, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        eventPresenter = new EventPresenterImpl(this);
+        eventPresenter.visitEvent(getActivity(),EVENT1,page);
         return view;
     }
+
+    @SuppressLint("ResourceType")
     private void initViews() {
         ListView lvTime = new ListView(getActivity());
+        lvTime.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        lvTime.setId(0);
         lvTime.setDividerHeight(0);
-        lvTime.setAdapter(new DropDownAdapter(getActivity(), times));
+        timeAdapter = new DropDownAdapter(getActivity(), Arrays.asList(times));
+        lvTime.setAdapter(timeAdapter);
 
         ListView lvWhere = new ListView(getActivity());
+        lvWhere.setId(1);
         lvWhere.setDividerHeight(0);
-        lvWhere.setAdapter(new DropDownAdapter(getActivity(), wheres));
+        whereAdapter = new DropDownAdapter(getActivity(), Arrays.asList(wheres));
+        lvWhere.setAdapter(whereAdapter);
 
         ListView lvWhat = new ListView(getActivity());
+        lvWhat.setId(2);
         lvWhat.setDividerHeight(0);
-        lvWhat.setAdapter(new DropDownAdapter(getActivity(), whats));
-/*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
-        lvWays.setOnClickListener((View.OnClickListener) getActivity());
-        lvWhere.setOnClickListener((View.OnClickListener) getActivity());
-        lvHow.setOnClickListener((View.OnClickListener) getActivity());*/
+        whatAdapter = new DropDownAdapter(getActivity(), Arrays.asList(whats));
+        lvWhat.setAdapter(whatAdapter);
+
         popViews.add(lvTime);
         popViews.add(lvWhere);
         popViews.add(lvWhat);
 
-        ImageView iv = new ImageView(getActivity());
-        iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        dropdownmenu.setDropDownMemu(Arrays.asList(headers), popViews, iv);
+        lvTime.setOnItemClickListener(this);
+        lvWhere.setOnItemClickListener(this);
+        lvWhat.setOnItemClickListener(this);
 
+        View content = LayoutInflater.from(getActivity()).inflate(R.layout.cam__items, null);
+        refresh_cam = content.findViewById(R.id.refresh_cams);
+        recycle_cam = content.findViewById(R.id.recycle_cams);
+        content.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        dropdownmenu.setDropDownMemu(Arrays.asList(headers), popViews, content);
+        initSwipeRefreshLayout();
+        recycle_cam.setHasFixedSize(true);//固定宽高
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recycle_cam.setLayoutManager(mLayoutManager);
+        recycle_cam.setItemAnimator(new DefaultItemAnimator());//设置默认动画
+        adapter = new EventAdapter(getActivity().getApplicationContext());
+        adapter.setOnEventnewsClickListener(mOnItemClickListener);
+        recycle_cam.removeAllViews();
+        recycle_cam.setAdapter(adapter);
+        recycle_cam.addOnScrollListener(mOnScrollListener);
+        Log.v("yyyyy", "====onCreateView======" + page);
+        if (mDataAll != null && mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
     }
 
+    private int lastVisibleItem;
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItem + 1 == adapter.getItemCount()
+                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                page++;
+                eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                Log.v("yyyy", "***onScrollStateChanged******");
+            }
+        }
+    };
+
+    private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
+    };
+    public void initSwipeRefreshLayout() {
+        refresh_cam.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh_cam.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh_cam.setRefreshing(false);
+
+                    }
+                }, 2000);
+            }
+        });
+        refresh_cam.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        switch (adapterView.getId()) {
+            case 0://时间
+                timeAdapter.setCheckItem(position);
+                dropdownmenu.setTableTitle(times[position]);
+                dropdownmenu.closeMenu();
+                break;
+            case 1://地区
+                whereAdapter.setCheckItem(position);
+                dropdownmenu.setTableTitle(wheres[position]);
+                dropdownmenu.closeMenu();
+                break;
+            case 2://类型
+                whatAdapter.setCheckItem(position);
+                dropdownmenu.setTableTitle(whats[position]);
+                dropdownmenu.closeMenu();
+                break;
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ZsActivity) {
+            ((ZsActivity) context).setBackListener(this);
+            ((ZsActivity) context).setInterception(true);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (getActivity() instanceof ZsActivity) {
+            ((ZsActivity) getActivity()).setBackListener(null);
+            ((ZsActivity) getActivity()).setInterception(false);
+        }
+    }
+
+    @Override
+    public void onbackForward() {
+        // 处理fragment的返回事件
+        dropdownmenu.closeMenu();
+    }
+
+    @Override
+    public void addEventsView(List<EventBean> eventBeans) {
+        if (mData == null && mDataAll == null) {
+            mData = new ArrayList<EventBean>();
+            mDataAll = new ArrayList<EventBean>();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        mDataAll.addAll(eventBeans);
+        if (page == 0) {
+            for (int i = 0; i < mDataAll.size(); i++) {//
+                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mData != null) {
+                        adapter.setmDate(mData);
+                    }
+                }
+            });
+        } else {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDataAll != null) {
+                        //加载更多
+                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                        int i;
+                        for (i = 0; i < mDataAll.size(); i++) {
+                            if (mDataAll == null) {
+                                return;//一开始断网报空指针的情况
+                            }
+                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                noMoreMsg();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+    public void noMoreMsg() {
+        adapter.isShowFooter(false);
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+    }
+    @Override
+    public void showEventFailMsg(String string) {
+        AppUtils.showToast(getActivity(), "加载失败");
     }
 }

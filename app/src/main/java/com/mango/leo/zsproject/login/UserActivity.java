@@ -12,17 +12,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListAndGirdDownAdapter;
 import com.ywp.addresspickerlib.AddressPickerView;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

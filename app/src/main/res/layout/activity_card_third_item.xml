@@ -57,6 +57,7 @@
             android:layout_marginEnd="28dp"
             android:layout_marginRight="28dp"
             android:text="@string/delete"
+            android:textSize="@dimen/textSize"
             android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

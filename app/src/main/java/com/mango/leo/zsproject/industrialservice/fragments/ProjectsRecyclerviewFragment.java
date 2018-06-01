@@ -81,7 +81,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         super.onCreate(savedInstanceState);
         mNewsPresenter = new AllProjectsPresenterImpl(this);
         mType = getArguments().getInt("type");
-        sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         Log.v("yyyyy", "====mType======" + mType);
     }
@@ -169,8 +169,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (mData.size() <= 0) {
                 return;
             }
-            editor.putString("projectId",adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
-            Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId()+"****position*******" + position);
+            editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
+            Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
@@ -186,7 +186,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
-        }else {
+        } else {
             EventBus.getDefault().postSticky(cardFirstItemBean);
         }
         CardThirdItemBean cardThirdItemBean = new CardThirdItemBean();
@@ -198,17 +198,17 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLat()));
             Log.v("33333", "______!= null_____");
             EventBus.getDefault().postSticky(cardThirdItemBean);
-        }else {
+        } else {
             EventBus.getDefault().postSticky(cardThirdItemBean);
         }
 
         List<CardFourthItemBean> beans4 = new ArrayList<>();
-        if (beans4 != null){
+        if (beans4 != null) {
             beans4.clear();//清空刷新
         }
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getContacts() != null) {
-            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size()+"****position*******");
-            for (int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size();i++){
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size() + "****position*******");
+            for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size(); i++) {
                 CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
                 cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getUsername());
                 cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getDepartment());
@@ -218,10 +218,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 beans4.add(cardFourthItemBean);
             }
             EventBus.getDefault().postSticky(beans4);
-        }else {
+        } else {
             Log.v("xxxxx", "****position*****xxxx**");
             EventBus.getDefault().postSticky(beans4);//替换残留事件
-           // EventBus.getDefault().removeStickyEvent(new ArrayList<CardFourthItemBean>()) ;//移除事件传递
+            // EventBus.getDefault().removeStickyEvent(new ArrayList<CardFourthItemBean>()) ;//移除事件传递
         }
     }
 
@@ -274,7 +274,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size()-1) {//到最后
+                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                 noMoreMsg();
                                 return;
                             }
@@ -287,7 +287,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsFail(String e) {
-
+        AppUtils.showToast(getActivity(), "加载失败");
     }
 
     @Override

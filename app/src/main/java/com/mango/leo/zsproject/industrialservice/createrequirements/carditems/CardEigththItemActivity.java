@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.ListAndGirdDownAdapter;
+import com.mango.leo.zsproject.adapters.ListAndGirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 
 import org.greenrobot.eventbus.EventBus;

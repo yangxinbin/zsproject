@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.eventexhibition.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InformationFragment extends Fragment {
+public class InformationFragment extends Fragment implements ZsActivity.FragmentBackListener {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"时间", "地区", "类型"};
@@ -46,15 +48,15 @@ public class InformationFragment extends Fragment {
     private void initViews() {
         ListView lvTime = new ListView(getActivity());
         lvTime.setDividerHeight(0);
-        lvTime.setAdapter(new DropDownAdapter(getActivity(), times));
+        lvTime.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(times)));
 
         ListView lvWhere = new ListView(getActivity());
         lvWhere.setDividerHeight(0);
-        lvWhere.setAdapter(new DropDownAdapter(getActivity(), wheres));
+        lvWhere.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(wheres)));
 
         ListView lvWhat = new ListView(getActivity());
         lvWhat.setDividerHeight(0);
-        lvWhat.setAdapter(new DropDownAdapter(getActivity(), whats));
+        lvWhat.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(whats)));
 /*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
         lvWays.setOnClickListener((View.OnClickListener) getActivity());
         lvWhere.setOnClickListener((View.OnClickListener) getActivity());
@@ -73,5 +75,28 @@ public class InformationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ZsActivity) {
+            ((ZsActivity) context).setBackListener(this);
+            ((ZsActivity) context).setInterception(true);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (getActivity() instanceof ZsActivity) {
+            ((ZsActivity) getActivity()).setBackListener(null);
+            ((ZsActivity) getActivity()).setInterception(false);
+        }
+    }
+
+    @Override
+    public void onbackForward() {
+        // 处理fragment的返回事件
+        dropdownmenu.closeMenu();
     }
 }

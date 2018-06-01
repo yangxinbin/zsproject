@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter;
+package com.mango.leo.zsproject.adapters;
 
 /**
  * Created by admin on 2018/5/29.

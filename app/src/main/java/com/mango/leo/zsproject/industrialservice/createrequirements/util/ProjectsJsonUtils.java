@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.utils.JsonUtils;
@@ -41,6 +42,21 @@ public class ProjectsJsonUtils {
             for (int i = 0; i < jsonArray.size(); i++){
                 AllProjectsBean news = JsonUtils.deserialize(jsonObject, AllProjectsBean.class);
                 beans.add(news);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+
+    public static List<EventBean> readJsonEventBeans(String res, String va) {
+        List<EventBean> beans = new ArrayList<EventBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++){
+                EventBean event = JsonUtils.deserialize(jsonObject, EventBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
             }
         } catch (Exception e) {
         }

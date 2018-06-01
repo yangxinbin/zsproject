@@ -205,7 +205,7 @@ public class DropdownMenuLayout extends LinearLayout {
     /*
     * 关闭菜单
     * */
-    private void closeMenu() {
+    public void closeMenu() {
         if (currentTabPosition != 1) {
             ((TextView) tabMenuView.getChildAt(currentTabPosition)).setTextColor(textsUnSelectedColor);
             ((TextView) tabMenuView.getChildAt(currentTabPosition)).setCompoundDrawablesWithIntrinsicBounds(null, null, menuUnSelectedIcon, null);
@@ -214,6 +214,21 @@ public class DropdownMenuLayout extends LinearLayout {
             maskView.setVisibility(View.GONE);
             maskView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.dd_mask_out));
             currentTabPosition = -1;
+        }
+    }
+    //弹窗是否可见
+    public boolean isShowing() {
+        return currentTabPosition != -1;
+    }
+
+    /**
+     * 改变tab文字
+     *
+     * @param text
+     */
+    public void setTableTitle(String text) {
+        if (currentTabPosition != -1) {
+            ((TextView) tabMenuView.getChildAt(currentTabPosition)).setText(text);
         }
     }
 }
