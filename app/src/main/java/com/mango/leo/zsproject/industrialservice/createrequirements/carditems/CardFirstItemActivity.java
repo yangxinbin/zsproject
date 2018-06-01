@@ -2,38 +2,25 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.adapter.GridImageAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.viewutil.FullyGridLayoutManager;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.viewutil.LinedEditText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,15 +34,19 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     EditText itemTitle;
     @Bind(R.id.item_content)
     LinedEditText itemContent;
-    @Bind(R.id.recycler)
-    RecyclerView recyclerView;
+    /*    @Bind(R.id.recycler)
+        RecyclerView recyclerView;*/
     @Bind(R.id.button1_save)
     Button button1Save;
-    private int themeId;
-    GridImageAdapter adapter;
-    private List<LocalMedia> selectList = new ArrayList<>();
+    @Bind(R.id.item_danweiName)
+    EditText itemDanweiName;
+    @Bind(R.id.item_money)
+    EditText itemMoney;
+    /*    private int themeId;
+        GridImageAdapter adapter;
+        private List<LocalMedia> selectList = new ArrayList<>();*/
     private CardFirstItemBean cardFirstItemBean;
-    private List<LocalMedia> itemImagesPath = new ArrayList<>();
+    // private List<LocalMedia> itemImagesPath = new ArrayList<>();
     private UpdateItemPresenter updateItemPresenter;
     public static final int TYPE1 = 1;
 
@@ -64,8 +55,8 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_first_item);
         ButterKnife.bind(this);
-        themeId = R.style.picture_default_style;
-        initAddImage();
+        //themeId = R.style.picture_default_style;
+        //initAddImage();
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardFirstItemBean = new CardFirstItemBean();
         EventBus.getDefault().register(this);
@@ -75,22 +66,22 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     public void card1EventBus(CardFirstItemBean bean) {
         itemTitle.setText(bean.getItemName());
         itemContent.setText(bean.getItemContent());
-        adapter.setList(bean.getItemImagePath());
+/*        adapter.setList(bean.getItemImagePath());
         if (bean.getItemImagePath() != null) {
             selectList = bean.getItemImagePath();
-        }
+        }*/
         //cardFirstItemBean.setProjectId(bean.getProjectId());
     }
 
     private void initDate() {
         cardFirstItemBean.setItemName(itemTitle.getText().toString());
         cardFirstItemBean.setItemContent(itemContent.getText().toString());
-        if (selectList != null) {
+/*        if (selectList != null) {
             cardFirstItemBean.setItemImagePath(selectList);
-        }
+        }*/
     }
 
-    private void initAddImage() {
+/*    private void initAddImage() {
         FullyGridLayoutManager manager = new FullyGridLayoutManager(CardFirstItemActivity.this, 4, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(CardFirstItemActivity.this, onAddPicClickListener);
@@ -173,7 +164,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
         }
 
-    };
+    };*/
 
     @OnClick({R.id.imageView1_back, R.id.button1_save})
     public void onViewClicked(View view) {
@@ -187,7 +178,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 initDate();
 //                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
                 if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
-                    updateItemPresenter.visitUpdateItem(this, TYPE1,cardFirstItemBean);//更新后台数据
+                    updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
@@ -199,7 +190,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         }
     }
 
-    @Override
+/*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -217,7 +208,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                     break;
             }
         }
-    }
+    }*/
 
     @Override
     public void showUpdateStateView(final String string) {
@@ -238,6 +229,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
             }
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
