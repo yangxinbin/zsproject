@@ -75,13 +75,13 @@
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:text="投资方式：" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/imageView56"
+            android:layout_toRightOf="@+id/imageView56"
+            android:text="合作模式："
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/text_1"
@@ -105,6 +105,16 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/common_jump_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/xingxing" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -121,13 +131,13 @@
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:text="投资阶段：" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/imageView57"
+            android:layout_toRightOf="@+id/imageView57"
+            android:text="投资金额："
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/text_2"
@@ -152,6 +162,16 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/common_jump_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView57"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            app:srcCompat="@drawable/xingxing" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -168,13 +188,13 @@
             android:id="@+id/textView44"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:text="合作方式：" />
+            android:layout_alignTop="@+id/imageView40"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/imageView58"
+            android:layout_toRightOf="@+id/imageView58"
+            android:text="投资方式："
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/text_3"
@@ -198,6 +218,16 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/common_jump_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            app:srcCompat="@drawable/xingxing" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -214,13 +244,13 @@
             android:id="@+id/textView46"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black"
-            android:text="投资规模：" />
+            android:layout_alignTop="@+id/text_4"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/imageView59"
+            android:layout_toRightOf="@+id/imageView59"
+            android:text="资金类型："
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/text_4"
@@ -244,5 +274,15 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/common_jump_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView59"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            app:srcCompat="@drawable/xingxing" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

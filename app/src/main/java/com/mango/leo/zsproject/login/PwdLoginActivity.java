@@ -99,7 +99,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                 break;
             case R.id.button_login:
                 initEdit();
-                userStatePresenter.visitPwdUserState(this, user);
+                userStatePresenter.visitPwdUserState(this,1, user);
                 Log.v("yyyy", user.getUserPwd() + "====initEdit=====" + user.getUserName());
                 break;
             case R.id.textView_phnoelogin:

@@ -14,16 +14,18 @@ import com.mango.leo.zsproject.utils.Urls;
  * Created by admin on 2018/5/18.
  */
 
-public class UserStatePresenterImpl implements UserStatePresenter,OnUserStateListener {
+public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateListener {
     UserStateView userStateView;
     UserStateModel userStateModel;
+
     public UserStatePresenterImpl(UserStateView u) {
         this.userStateView = u;
         this.userStateModel = new UserStateModelImpl();
     }
+
     @Override
-    public void visitPwdUserState(Context context, User user) {
-        userStateModel.visitPwdUserState(context,getUrl(),user,this);
+    public void visitPwdUserState(Context context, int type, Object user) {
+        userStateModel.visitPwdUserState(context, getUrl(type),type, user, this);
     }
 
     @Override
@@ -35,7 +37,20 @@ public class UserStatePresenterImpl implements UserStatePresenter,OnUserStateLis
     public void onFailure(String msg, Exception e) {
         userStateView.showVisitFailMsg(msg);
     }
-    private String getUrl() {
-        return Urls.HOST_AUTH;
+
+    private String getUrl(int type) {
+        String url = null;
+        switch (type) {
+            case 1:
+                url = Urls.HOST_AUTH;
+                break;
+            case 2:
+                url = Urls.HOST_CODE;
+                break;
+            case 3:
+                url = Urls.HOST_CODELOGIN;
+                break;
+        }
+        return url;
     }
 }

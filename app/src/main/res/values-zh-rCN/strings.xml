@@ -75,4 +75,6 @@
     <string name="chanye">请选择产业</string>
     <string name="lingyu">请选择领域（多选）</string>
     <string name="delete">删除</string>
+    <string name="down3">请选择投资方式（多选）</string>
+    <string name="down4">请选择资金类型（多选）</string>
 </resources>

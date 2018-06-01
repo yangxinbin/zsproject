@@ -287,7 +287,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsFail(String e) {
-        AppUtils.showToast(getActivity(), "加载失败");
+       // AppUtils.showToast(getActivity(), "加载失败");
     }
 
     @Override

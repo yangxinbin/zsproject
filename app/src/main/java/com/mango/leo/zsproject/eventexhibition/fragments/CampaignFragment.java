@@ -288,6 +288,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     }
     @Override
     public void showEventFailMsg(String string) {
-        AppUtils.showToast(getActivity(), "加载失败");
+       // AppUtils.showToast(getActivity(), "加载失败");
     }
 }

@@ -9,5 +9,5 @@ import com.mango.leo.zsproject.login.bean.User;
  */
 
 public interface UserStatePresenter {
-    void visitPwdUserState(Context context, User user);
+    void visitPwdUserState(Context context, int type ,Object user);
 }

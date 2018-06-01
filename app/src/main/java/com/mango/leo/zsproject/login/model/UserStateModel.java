@@ -10,5 +10,5 @@ import com.mango.leo.zsproject.login.listener.OnUserStateListener;
  */
 
 public interface UserStateModel {
-    void visitPwdUserState(Context context, String url, User user,OnUserStateListener listener);//isRefresh 刷新重新写入缓存
+    void visitPwdUserState(Context context, String url, int type, Object user,OnUserStateListener listener);//isRefresh 刷新重新写入缓存
 }

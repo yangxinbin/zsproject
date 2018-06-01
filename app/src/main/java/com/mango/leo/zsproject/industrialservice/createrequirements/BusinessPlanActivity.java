@@ -279,6 +279,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.carsecond:
                 intent = new Intent(this, CardSecondItemActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.carthird:

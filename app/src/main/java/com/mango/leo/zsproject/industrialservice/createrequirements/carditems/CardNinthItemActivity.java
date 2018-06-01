@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,20 +21,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
+import com.mango.leo.zsproject.adapters.GirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.adapters.ListAndGirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
+import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener {
+public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     public static final int TYPE9 = 9;
     @Bind(R.id.imageView9_back)
     ImageView imageView9Back;
@@ -64,6 +70,10 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     private PopupWindow popupWindow;
     private Dialog dialog;
     private int currentPosition1 = -1, currentPosition2 = -1, currentPosition3 = -1, currentPosition4 = -1;
+    private Map<Integer, Boolean> gvChooseMap3 = new HashMap<Integer, Boolean>();
+    private Map<Integer, Boolean> gvChooseMap4 = new HashMap<Integer, Boolean>();
+    private DuoXuanAdapter adapter3, adapter4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,27 +101,24 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 break;
             case R.id.down_1:
                 list1 = new ArrayList<>();
-                list1.add("不限");
-                list1.add("股权投资");
-                list1.add("债券投资");
-                list1.add("其它");
+                list1.add("招商");
+                list1.add("引资");
+                list1.add("招商引资");
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);
                 break;
             case R.id.down_2:
                 list2 = new ArrayList<>();
-                list2.add("不限");
-                list2.add("种子轮");
-                list2.add("天使轮");
-                list2.add("pre-A轮");
-                list2.add("A轮");
-                list2.add("B轮");
-                list2.add("C轮");
-                list2.add("D轮");
-                list2.add("E轮");
-                list2.add("新四板");
-                list2.add("IPO上市");
-                list2.add("其它");
+                list2.add("1000万以下");
+                list2.add("1000万—5000万");
+                list2.add("（含）5000万—1亿");
+                list2.add("（含）1亿—10亿");
+                list2.add("（含）10亿—50亿");
+                list2.add("（含）50亿—100亿");
+                list2.add("（含）1000亿—500亿");
+                list2.add("（含）500亿—1000亿");
+                list2.add("（含）1000亿以上");
+
                 showPopupWindow(this, list2, 2);
                 adapter.setCheckItem(currentPosition2);
                 break;//
@@ -119,35 +126,62 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 list3 = new ArrayList<>();
                 list3.add("合资");
                 list3.add("独资");
-                list3.add("PPP");
+                list3.add("合作");
+                list3.add("租赁");
+                list3.add("股权转让");
                 list3.add("其它");
                 showPopupWindow(this, list3, 3);
-                adapter.setCheckItem(currentPosition3);
+                adapter3.setCheckItem(gvChooseMap3);
                 break;
             case R.id.down_4:
                 list4 = new ArrayList<>();
-                list4.add("5000万以下");
-                list4.add("（含）5000万—1亿");
-                list4.add("（含）1亿—10亿");
-                list4.add("（含）10亿—100亿");
-                list4.add("（含）100亿以上");
+                list4.add("11");
+                list4.add("22");
+                list4.add("33");
+                list4.add("44");
+                list4.add("55");
+                list4.add("66");
+                list4.add("77");
+                list4.add("88");
+                list4.add("99");
+                list4.add("00");
                 showPopupWindow(this, list4, 4);
-                adapter.setCheckItem(currentPosition4);
+                adapter4.setCheckItem(gvChooseMap4);
                 break;
         }
     }
 
     private void showPopupWindow(Context context, List<String> listDate, int i) {
         View view = null;
-        if (i == 2){
+        if (i == 3) {//多选
             //设置要显示的view
-            view = LayoutInflater.from(context).inflate(R.layout.girdview_default_down, null);
-            GridView gridView = view.findViewById(R.id.gv);
-            adapter = new ListAndGirdDownAdapter(context, listDate,i);
-            gridView.setAdapter(adapter);
-            gridView.setId(i);
-            gridView.setOnItemClickListener(this);
-        }else {
+            view = LayoutInflater.from(context).inflate(R.layout.mutil_girdview_default_down3, null);
+            GridView gridView3 = view.findViewById(R.id.gv3);
+            ImageView imageViewDelete3 = view.findViewById(R.id.imageView_delete3);
+            Button buttonGo3 = view.findViewById(R.id.button_go3);
+            imageViewDelete3.setOnClickListener(this);
+            buttonGo3.setOnClickListener(this);
+            //此处可按需求为各控件设置属性
+            adapter3 = new DuoXuanAdapter(context, listDate);
+            gridView3.setAdapter(adapter3);
+            gridView3.setId(i);
+            gridView3.setOnItemClickListener(this);
+        }
+        if (i == 4) {//多选
+            //设置要显示的view
+            view = LayoutInflater.from(context).inflate(R.layout.mutil_girdview_default_down4, null);
+            GridView gridView4 = view.findViewById(R.id.gv4);
+            ImageView imageViewDelete4 = view.findViewById(R.id.imageView_delete4);
+            Button buttonGo4 = view.findViewById(R.id.button_go4);
+            imageViewDelete4.setOnClickListener(this);
+            buttonGo4.setOnClickListener(this);
+            //此处可按需求为各控件设置属性
+            adapter4 = new DuoXuanAdapter(context, listDate);
+            gridView4.setAdapter(adapter4);
+            gridView4.setId(i);
+            gridView4.setOnItemClickListener(this);
+        }
+        if (i == 1 || i == 2) {
             //设置要显示的view
             view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
             //此处可按需求为各控件设置属性
@@ -195,15 +229,88 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 dialog.dismiss();
                 break;
             case 3:
-                currentPosition3 = position;
-                text3.setText(list3.get(position));
-                dialog.dismiss();
+                if (view.isActivated()) {
+                    view.setActivated(false);
+                    gvChooseMap3.put(position, false);
+                } else {
+                    view.setActivated(true);
+                    gvChooseMap3.put(position, true);
+                }
+                adapter3.setCheckItem(gvChooseMap3);
                 break;
             case 4:
-                currentPosition4 = position;
-                text4.setText(list4.get(position));
+                if (view.isActivated()) {
+                    view.setActivated(false);
+                    gvChooseMap4.put(position, false);
+                } else {
+                    view.setActivated(true);
+                    gvChooseMap4.put(position, true);
+                }
+                adapter4.setCheckItem(gvChooseMap4);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imageView_delete3:
+                dialog.dismiss();
+                break;
+            case R.id.button_go3:
+                if (gvChooseMap3.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
+                {
+                    AppUtils.showToast(this, "请选择领域");
+                    return;
+                }
+                StringBuffer sb3 = new StringBuffer();
+                //遍历map
+                for (Map.Entry<Integer, Boolean> entry : gvChooseMap3.entrySet()) {
+                    int strkey = entry.getKey();
+                    boolean flag = entry.getValue();
+                    if (flag == true) {
+                        sb3.append(list3.get(strkey) + "  ");
+                        Log.v("yyyyyy", strkey + "**********" + sb3);
+                    }
+                }
+                if (sb3.length() > 0) {
+                    //说明有爱好的内容。否则就提示选择爱好
+                } else {
+                    AppUtils.showToast(this, "请选择领域");
+                    return;
+                }
+                text3.setText(sb3);
+                dialog.dismiss();
+                break;
+            case R.id.imageView_delete4:
+                dialog.dismiss();
+                break;
+            case R.id.button_go4:
+                if (gvChooseMap4.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
+                {
+                    AppUtils.showToast(this, "请选择投资方式");
+                    return;
+                }
+                StringBuffer sb4 = new StringBuffer();
+                //遍历map
+                for (Map.Entry<Integer, Boolean> entry : gvChooseMap4.entrySet()) {
+                    int strkey = entry.getKey();
+                    boolean flag = entry.getValue();
+                    if (flag == true) {
+                        sb4.append(list4.get(strkey) + "  ");
+                        Log.v("yyyyyy", strkey + "**********" + sb4);
+                    }
+                }
+                if (sb4.length() > 0) {
+                    //说明有爱好的内容。否则就提示选择爱好
+                } else {
+                    AppUtils.showToast(this, "请选择资金类型");
+                    return;
+                }
+                text4.setText(sb4);
                 dialog.dismiss();
                 break;
         }
+
     }
 }
