@@ -71,5 +71,5 @@ dependencies {
     // compile 'com.squareup.okhttp:okhttp:2.7.5'//网络请求框架
 
     compile 'id.zelory:compressor:2.0.0'  //图片压缩，压缩效率和速度都不错
-    compile 'com.github.ywp0919:AddressPickerLib:1.0.1'
+    //compile 'com.github.ywp0919:AddressPickerLib:1.0.1'
 }

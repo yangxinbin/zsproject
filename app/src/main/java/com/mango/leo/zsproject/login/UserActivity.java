@@ -28,7 +28,7 @@ import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.AppUtils;
-import com.ywp.addresspickerlib.AddressPickerView;
+//import com.ywp.addresspickerlib.AddressPickerView;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +36,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserActivity extends BaseActivity implements AddressPickerView.OnAddressPickerSureListener,UserStateView {
+public class UserActivity extends BaseActivity implements /*AddressPickerView.OnAddressPickerSureListener,*/UserStateView {
 
     @Bind(R.id.button)
     Button button;
@@ -57,7 +57,7 @@ public class UserActivity extends BaseActivity implements AddressPickerView.OnAd
     @Bind(R.id.tv_location)
     TextView tvLocation;
     Dialog dialog;
-    private AddressPickerView addressView;
+    //private AddressPickerView addressView;
     UserStatePresenter userStatePresenter;
     private UserMessageBean userMessageBean;
     private SharedPreferences sharedPreferences;
@@ -104,8 +104,8 @@ public class UserActivity extends BaseActivity implements AddressPickerView.OnAd
     private void showPopupWindow(Context context) {
         //设置要显示的view
         View view = LayoutInflater.from(context).inflate(R.layout.city_select_default_down, null);
-        addressView = view.findViewById(R.id.apvAddress);
-        addressView.setOnAddressPickerSure(this);
+        /*addressView = view.findViewById(R.id.apvAddress);
+        addressView.setOnAddressPickerSure(this);*/
         dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(view);
         Window window = dialog.getWindow();
@@ -119,12 +119,12 @@ public class UserActivity extends BaseActivity implements AddressPickerView.OnAd
         dialog.show();
     }
 
-    @Override
+    /*@Override
     public void onSureClick(String address, String provinceCode, String cityCode, String districtCode) {
         dialog.dismiss();
         Log.v("zzzzzzzz","******"+provinceCode+"***"+cityCode+"!!!"+districtCode);
         tvLocation.setText(address);
-    }
+    }*/
 
     @Override
     public void showStateView(String string) {
