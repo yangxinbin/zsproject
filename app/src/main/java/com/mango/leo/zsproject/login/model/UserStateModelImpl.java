@@ -36,7 +36,7 @@ public class UserStateModelImpl implements UserStateModel {
         mapParams.add(new OkHttpUtils.Param("password", user.getUserPwd()));*/
         Log.v("uuuuuuu","___________"+url);
         Map<String, String> mapParams = new HashMap<String, String>();
-        if (type == 1){
+        if (type == 1){//密码登录
             User user = (User) o;
             mapParams.put("username",user.getUserName());
             mapParams.put("password",user.getUserPwd());
@@ -61,7 +61,7 @@ public class UserStateModelImpl implements UserStateModel {
             });
         }
 
-        if (type == 2){
+        if (type == 2){//获取验证码
             UserPhone userPhone = (UserPhone) o;
             //mapParams.put("username",userPhone.getPhoneN());
             HttpUtils.doGet(url+"?username="+userPhone.getPhoneN(), new Callback() {
@@ -80,7 +80,7 @@ public class UserStateModelImpl implements UserStateModel {
             });
         }
 
-        if (type == 3){
+        if (type == 3){//验证码登录
             UserPhone userPhone = (UserPhone) o;
             mapParams.put("username",userPhone.getPhoneN());
             mapParams.put("code",userPhone.getPhoneC());
@@ -92,6 +92,8 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
+                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);
                         listener.onSuccess("SUCCESS");//异步请求
                     }else {
                         listener.onSuccess("FAILURE");
@@ -99,7 +101,7 @@ public class UserStateModelImpl implements UserStateModel {
                 }
             });
         }
-        if (type == 4){
+        if (type == 4){ //注册
             UserPhone userPhone = (UserPhone) o;
             mapParams.put("username",userPhone.getPhoneN());
             mapParams.put("code",userPhone.getPhoneC());
@@ -115,6 +117,8 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("RES_SUCCESS");//异步请求
+                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);
                     }else {
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code());
                         listener.onSuccess("RES_FAILURE");
@@ -136,23 +140,23 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("SET_SUCCESS");//异步请求
-                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
-                        listener.getSuccessToken(bean);
+
                     }else {
                         listener.onSuccess("SET_FAILURE");
                     }
                 }
             });
         }
-        if (type == 6){
+        if (type == 6){ //上传个人信息
             UserMessageBean userMessageBean = (UserMessageBean) o;
-            mapParams.put("token",userMessageBean.getResponseObject().getToken());
-            mapParams.put("username",userMessageBean.getResponseObject().getUsername());
-            mapParams.put("company",userMessageBean.getResponseObject().getUsername());
-            mapParams.put("name",userMessageBean.getResponseObject().getUsername());
-            mapParams.put("department",userMessageBean.getResponseObject().getUsername());
-            mapParams.put("email",userMessageBean.getResponseObject().getUsername());
-
+            if (userMessageBean != null && userMessageBean.getResponseObject()!=null) {
+                mapParams.put("token", userMessageBean.getResponseObject().getToken());
+                mapParams.put("username", userMessageBean.getResponseObject().getUsername());
+                mapParams.put("company", userMessageBean.getResponseObject().getUsername());
+                mapParams.put("name", userMessageBean.getResponseObject().getUsername());
+                mapParams.put("department", userMessageBean.getResponseObject().getUsername());
+                mapParams.put("email", userMessageBean.getResponseObject().getUsername());
+            }
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -162,8 +166,9 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("MES_SUCCESS");//异步请求
-                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
-                        listener.getSuccessToken(bean);
+                        //注册时以及获取Token这里不用重复获取了
+                        /*TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessToken(bean);*/
                     }else {
                         listener.onSuccess("MES_FAILURE");
                     }

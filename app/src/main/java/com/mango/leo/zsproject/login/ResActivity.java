@@ -1,10 +1,12 @@
 package com.mango.leo.zsproject.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,13 +45,17 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
     @Bind(R.id.editText_pwdok)
     EditText editTextPwdok;
     private UserPhone userPhone;
+    private static String token;
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res);
         userStatePresenter = new UserStatePresenterImpl(this);
-
+        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         ButterKnife.bind(this);
     }
 
@@ -110,7 +116,10 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
 
     @Override
     public void responeToken(TokenFromLonginBean bean) {
-
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+            token = bean.getResponseObject().getToken();
+            mHandler.sendEmptyMessage(4);
+        }
     }
 
     private final MyHandler mHandler = new MyHandler(this);
@@ -139,6 +148,12 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                         break;
                     case 3:
                         AppUtils.showToast(activity, "验证码获取失败");
+                        break;
+                    case 4:
+                        AppUtils.showToast(activity, "令牌保存成功");
+                        editor.putString("token",token)
+                                .commit();
+                        Log.v("zzzzzz","--------------"+token);
                         break;
                 }
             }

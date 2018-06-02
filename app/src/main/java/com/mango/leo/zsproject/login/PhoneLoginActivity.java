@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private UserPhone userPhone;
+    private static String token;
 
 
     @Override
@@ -121,7 +123,10 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
 
     @Override
     public void responeToken(TokenFromLonginBean bean) {
-
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+            token = bean.getResponseObject().getToken();
+            mHandler.sendEmptyMessage(4);
+        }
     }
 
     private final PhoneLoginActivity.MyHandler mHandler = new PhoneLoginActivity.MyHandler(this);
@@ -151,6 +156,12 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 3:
                         AppUtils.showToast(activity, "验证码获取失败");
+                        break;
+                    case 4:
+                        AppUtils.showToast(activity, "令牌保存成功");
+                        editor.putString("token",token)
+                                .commit();
+                        Log.v("zzzzzz","--------------"+token);
                         break;
                     default:
                         break;
