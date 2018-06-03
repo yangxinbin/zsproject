@@ -179,7 +179,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         title.setText(bean.getItemName());
         content.setText(bean.getItemContent());
         im_1.setOnClickListener(this);
-        if (bean.getItemImagePath().size() != 0) {
+/*        if (bean.getItemImagePath().size() != 0) {
             Log.v("yyyyy", "__________");
             slider.setVisibility(View.VISIBLE);
             List<String> pathsImage = new ArrayList<>();
@@ -198,7 +198,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     .start();
         } else {
             slider.setVisibility(View.GONE);
-        }
+        }*/
         //EventBus.getDefault().removeStickyEvent(bean);
     }
 

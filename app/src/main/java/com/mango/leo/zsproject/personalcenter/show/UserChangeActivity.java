@@ -167,7 +167,7 @@ public class UserChangeActivity extends BaseActivity {
                         imageUri = Uri.fromFile(fileUri);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             //通过FileProvider创建一个content类型的Uri
-                            imageUri = FileProvider.getUriForFile(this, "com.zz.fileprovider", fileUri);
+                            imageUri = FileProvider.getUriForFile(this, "com.mango.leo.zsproject", fileUri);
                         }
                         PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
                     } else {
@@ -201,7 +201,6 @@ public class UserChangeActivity extends BaseActivity {
             bitmap.compress(Bitmap.CompressFormat.PNG, 85, fos);  //参:压缩的格式，图片质量85，输出流
             fos.flush();
             fos.close();
-            Log.v("yxb", "-----fromFile-----" + Uri.fromFile(img));
             return Uri.fromFile(img);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -265,6 +264,9 @@ public class UserChangeActivity extends BaseActivity {
             //裁剪返回
             case CODE_RESULT_REQUEST:
                 Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
+                Log.v("yxb", "-----fromFile-----"+cropImageUri);
+
+                //这里上传文件
                 if (bitmap != null) {
                     showImages(bitmap);
                 }

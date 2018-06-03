@@ -11,44 +11,20 @@ import java.util.List;
 public class CardFirstItemBean {
     //private String projectId;
     private String itemName;
+    private String departmentName;
+    private String money;
     private String itemContent;
-    private List<LocalMedia> itemImagePath;
 
-    public CardFirstItemBean(/*String projectId,*/ String itemName, String itemContent, List<LocalMedia> itemImagePath) {
-        //this.projectId = projectId;
+    public CardFirstItemBean(String itemName, String departmentName, String money, String itemContent) {
         this.itemName = itemName;
+        this.departmentName = departmentName;
+        this.money = money;
         this.itemContent = itemContent;
-        this.itemImagePath = itemImagePath;
     }
 
     public CardFirstItemBean() {
+
     }
-
-    /*public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }*/
-
-    public String getItemContent() {
-
-        return itemContent;
-    }
-
-    public void setItemContent(String itemContent) {
-        this.itemContent = itemContent;
-    }
-
-    public List<LocalMedia> getItemImagePath() {
-        return itemImagePath;
-    }
-
-    public void setItemImagePath(List<LocalMedia> itemImagePath) {
-        this.itemImagePath = itemImagePath;
-    }
-
 
     public String getItemName() {
         return itemName;
@@ -56,5 +32,29 @@ public class CardFirstItemBean {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
+    public String getItemContent() {
+        return itemContent;
+    }
+
+    public void setItemContent(String itemContent) {
+        this.itemContent = itemContent;
     }
 }

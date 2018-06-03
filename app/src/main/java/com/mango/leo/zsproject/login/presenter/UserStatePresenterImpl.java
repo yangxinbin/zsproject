@@ -2,7 +2,7 @@ package com.mango.leo.zsproject.login.presenter;
 
 import android.content.Context;
 
-import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
 import com.mango.leo.zsproject.login.model.UserStateModel;
@@ -40,7 +40,7 @@ public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateLi
     }
 
     @Override
-    public void getSuccessToken(TokenFromLonginBean bean) {
+    public void getSuccessToken(UserMessageBean bean) {
         userStateView.responeToken(bean);
     }
 

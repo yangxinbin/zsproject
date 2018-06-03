@@ -47,7 +47,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         if (o instanceof CardFirstItemBean) {
             mapParams.clear();
             CardFirstItemBean cardFirstItemBean = (CardFirstItemBean) o;
-            File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
+            //File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
             if (TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 url = Urls.HOST_PROJECT;
                 mapParams.put("createdBy", sharedPreferences.getString("authPhone", ""));
@@ -58,7 +58,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("name", cardFirstItemBean.getItemName());
                 mapParams.put("description", cardFirstItemBean.getItemContent());
             }
-            HttpUtils.doPostAll(url, mapParams, files, new Callback() {
+            HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     Log.v("doPostAll", "^^^^^onFailure^^^^^");

@@ -1,6 +1,6 @@
 package com.mango.leo.zsproject.login.view;
 
-import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 
 /**
  * Created by admin on 2018/5/18.
@@ -9,5 +9,5 @@ import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
 public interface UserStateView {
     void showStateView(String string);
     void showVisitFailMsg(String string);
-    void responeToken(TokenFromLonginBean bean);
+    void responeToken(UserMessageBean bean);
 }

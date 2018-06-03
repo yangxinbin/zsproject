@@ -183,7 +183,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getName() != null) {
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
-            cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
+            //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
         } else {
@@ -287,7 +287,12 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsFail(String e) {
-       // AppUtils.showToast(getActivity(), "加载失败");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getActivity(), "加载失败");
+            }
+        });
     }
 
     @Override

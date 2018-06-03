@@ -22,7 +22,7 @@ import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
@@ -237,7 +237,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     }
 
     @Override
-    public void responeToken(TokenFromLonginBean bean) {
+    public void responeToken(UserMessageBean bean) {
 
     }
 

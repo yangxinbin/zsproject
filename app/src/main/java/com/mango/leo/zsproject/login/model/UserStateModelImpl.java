@@ -6,7 +6,7 @@ import android.util.Log;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserPhone;
@@ -51,7 +51,7 @@ public class UserStateModelImpl implements UserStateModel {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("SUCCESS");//异步请求
-                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessToken(bean);
                     }else {
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code());
@@ -92,7 +92,7 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
-                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessToken(bean);
                         listener.onSuccess("SUCCESS");//异步请求
                     }else {
@@ -117,7 +117,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.code() == 200){
                         listener.onSuccess("RES_SUCCESS");//异步请求
-                        TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessToken(bean);
                     }else {
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code());
@@ -167,7 +167,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                     if (response.code() == 200){
                         listener.onSuccess("MES_SUCCESS");//异步请求
                         //注册时以及获取Token这里不用重复获取了
-                        /*TokenFromLonginBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
+                        /*UserMessageBean bean = ProjectsJsonUtils.readJsonTokenBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessToken(bean);*/
                     }else {
                         listener.onSuccess("MES_FAILURE");

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.login.bean.TokenFromLonginBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
@@ -143,7 +143,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
     }
 
     @Override
-    public void responeToken(TokenFromLonginBean bean) {
+    public void responeToken(UserMessageBean bean) {
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(2);

@@ -201,6 +201,8 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         // 初始化MKSearch
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
+        // 删除百度地图LoGo
+        mMapView.removeViewAt(1);
         // Geo搜索
         mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString()+editTextWhere.getText().toString()));
         /*mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
