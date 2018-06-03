@@ -25,6 +25,7 @@ import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
+import com.mango.leo.zsproject.personalcenter.show.ForgetActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import java.lang.ref.WeakReference;
@@ -114,6 +115,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                 finish();
                 break;
             case R.id.textView_for:
+                intent = new Intent(this, ForgetActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

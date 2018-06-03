@@ -214,6 +214,7 @@ public class UserChangeActivity extends BaseActivity {
 
     @OnClick({R.id.imageView_user_back, R.id.picture, R.id.r1, R.id.r2, R.id.r3, R.id.r4, R.id.r5})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageView_user_back:
                 finish();
@@ -222,6 +223,7 @@ public class UserChangeActivity extends BaseActivity {
                 showTypeDialog();
                 break;
             case R.id.r1:
+
                 break;
             case R.id.r2:
                 break;
@@ -249,7 +251,6 @@ public class UserChangeActivity extends BaseActivity {
                 break;
             //相册返回
             case CODE_GALLERY_REQUEST:
-
                 if (hasSdcard()) {
                     cropImageUri = Uri.fromFile(fileCropUri);
                     Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));

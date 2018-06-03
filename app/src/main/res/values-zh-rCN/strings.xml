@@ -79,4 +79,6 @@
     <string name="down4">请选择资金类型（多选）</string>
     <string name="my_phone">18318836309</string>
     <string name="exit">退出登录</string>
+    <string name="next">下一步</string>
+    <string name="phone_ok">确认绑定</string>
 </resources>

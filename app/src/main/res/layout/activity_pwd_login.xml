@@ -105,8 +105,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:textStyle="bold"
-        android:textSize="@dimen/textSize"
-        android:textColor="@color/black"
+        android:textSize="@dimen/title"
+        android:textColor="@color/white"
         android:text="@string/login" />
 
     <TextView

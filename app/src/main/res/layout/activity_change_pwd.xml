@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mango.leo.zsproject.login.PwdSettingActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/common_gray"
+        android:gravity="center_vertical"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imageView_change_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:text="修改密码"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_beforpwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="原密码"
+        android:inputType="textPassword"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText_newpwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="新密码"
+        android:inputType="textPassword"
+        android:layout_below="@+id/editText_beforpwd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:id="@+id/editText_newpwdok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="确认密码"
+        android:inputType="textPassword"
+        android:layout_below="@+id/editText_newpwd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/button2_finish"
+        android:layout_width="350dp"
+        android:background="@drawable/rec_red_background"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/title"
+        android:text="@string/finish"
+        android:layout_below="@+id/editText_newpwdok"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp" />
+
+</RelativeLayout>

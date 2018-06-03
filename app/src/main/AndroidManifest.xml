@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mango.leo.zsproject"><!---->
+    package="com.mango.leo.zsproject"> <!--  -->
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -54,9 +56,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ZsActivity">
-
-        </activity>
+        <activity android:name=".ZsActivity" />
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
@@ -73,18 +73,23 @@
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
-        <activity android:name=".login.StartActivity"></activity>
+        <activity android:name=".login.StartActivity" />
         <activity android:name=".login.ResActivity" />
         <activity android:name=".login.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".personalcenter.show.UserChangeActivity" />
         <activity android:name=".personalcenter.show.AccountSecurityActivity" />
         <activity android:name=".personalcenter.show.SettingActivity" />
-        <activity android:name=".personalcenter.show.GovActivity"></activity>
+        <activity android:name=".personalcenter.show.GovActivity" />
+        <activity android:name=".personalcenter.show.ChangePwdActivity" />
+        <activity android:name=".personalcenter.show.ForgetActivity" />
+        <activity android:name=".personalcenter.show.ChangePhoneActivity" />
+        <activity android:name=".personalcenter.show.ChangeEmailActivity"></activity>
     </application>
 
 </manifest>
