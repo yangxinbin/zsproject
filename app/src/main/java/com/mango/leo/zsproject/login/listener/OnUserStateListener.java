@@ -9,6 +9,6 @@ import com.mango.leo.zsproject.login.bean.UserMessageBean;
 public interface OnUserStateListener {
     void onSuccess(String string);
     void onFailure(String msg, Exception e);
-    void getSuccessToken(UserMessageBean bean);
+    void getSuccessUserMessage(UserMessageBean bean);
 
 }

@@ -50,7 +50,7 @@ public class ProjectsJsonUtils {
         return beans;
     }
 
-    public static UserMessageBean readJsonTokenBeans(String res) {
+    public static UserMessageBean readJsonUserMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);

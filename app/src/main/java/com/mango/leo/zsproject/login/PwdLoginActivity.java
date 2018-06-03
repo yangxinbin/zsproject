@@ -28,6 +28,8 @@ import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.personalcenter.show.ForgetActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
@@ -145,7 +147,10 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     }
 
     @Override
-    public void responeToken(UserMessageBean bean) {
+    public void responeUserMessage(UserMessageBean bean) {
+        if (bean != null){
+            EventBus.getDefault().postSticky(bean);
+        }
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(2);

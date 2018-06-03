@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,12 +23,15 @@ import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.AppUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 
@@ -65,6 +69,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     private static SharedPreferences.Editor editor;
     private CityPickerView mPicker;
     private String cityString;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,8 +242,10 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     }
 
     @Override
-    public void responeToken(UserMessageBean bean) {
-
+    public void responeUserMessage(UserMessageBean bean) {
+        if (bean != null){
+            EventBus.getDefault().postSticky(bean);
+        }//Token在前一步注册时保存了
     }
 
     private final UserActivity.MyHandler mHandler = new UserActivity.MyHandler(this);

@@ -49,7 +49,7 @@ import static com.mango.leo.zsproject.industrialservice.createrequirements.cardi
  * Created by admin on 2018/5/11.
  */
 
-public class CampaignFragment extends Fragment implements AdapterView.OnItemClickListener, ZsActivity.FragmentBackListener,EventView{
+public class CampaignFragment extends Fragment implements AdapterView.OnItemClickListener, ZsActivity.FragmentBackListener, EventView {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     @Bind(R.id.id)
@@ -69,7 +69,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     private int page = 0;
     private LinearLayoutManager mLayoutManager;
     private EventAdapter adapter;
-    private List<EventBean> mData,mDataAll;
+    private List<EventBean> mData, mDataAll;
 
 
     @Nullable
@@ -79,7 +79,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         ButterKnife.bind(this, view);
         initViews();
         eventPresenter = new EventPresenterImpl(this);
-        eventPresenter.visitEvent(getActivity(),EVENT1,page);
+        eventPresenter.visitEvent(getActivity(), EVENT1, page);
         return view;
     }
 
@@ -168,6 +168,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             getActivity().finish();
         }
     };
+
     public void initSwipeRefreshLayout() {
         refresh_cam.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -186,6 +187,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -282,10 +284,12 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             });
         }
     }
+
     public void noMoreMsg() {
         adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
+
     @Override
     public void showEventFailMsg(String string) {
         getActivity().runOnUiThread(new Runnable() {
@@ -293,5 +297,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             public void run() {
                 AppUtils.showToast(getActivity(), "加载失败");
             }
-        });    }
+        });
+    }
 }

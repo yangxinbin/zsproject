@@ -40,8 +40,8 @@ public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateLi
     }
 
     @Override
-    public void getSuccessToken(UserMessageBean bean) {
-        userStateView.responeToken(bean);
+    public void getSuccessUserMessage(UserMessageBean bean) {
+        userStateView.responeUserMessage(bean);
     }
 
     private String getUrl(int type) {

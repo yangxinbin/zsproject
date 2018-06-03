@@ -9,5 +9,5 @@ import com.mango.leo.zsproject.login.bean.UserMessageBean;
 public interface UserStateView {
     void showStateView(String string);
     void showVisitFailMsg(String string);
-    void responeToken(UserMessageBean bean);
+    void responeUserMessage(UserMessageBean bean);
 }
