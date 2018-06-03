@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 
@@ -119,6 +120,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
                 ((ItemViewHolder) holder).e_place.setText((CharSequence) mData.get(pos).getResponseObject().getContent().get(pos%20).getCity());
                 ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getTime());
+                //Glide.with(context).load().into(((ItemViewHolder) holder).im);
+
             }
         }
     }
@@ -163,7 +166,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             e_title = (TextView) v.findViewById(R.id.tv_event);
             e_place = (TextView) v.findViewById(R.id.textView_p);
             e_time = (TextView) v.findViewById(R.id.textView_time);
-            im = (ImageView)v.findViewById(R.id.textView_p);
+            im = (ImageView)v.findViewById(R.id.im_pic);
             v.setOnClickListener(this);
         }
 

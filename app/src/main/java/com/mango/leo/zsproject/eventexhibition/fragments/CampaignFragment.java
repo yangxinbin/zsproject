@@ -26,6 +26,7 @@ import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenter;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenterImpl;
+import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.eventexhibition.view.EventView;
 import com.mango.leo.zsproject.industrialservice.adapte.AllProjectsAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
@@ -163,7 +164,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
-            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             startActivity(intent);
             getActivity().finish();
         }

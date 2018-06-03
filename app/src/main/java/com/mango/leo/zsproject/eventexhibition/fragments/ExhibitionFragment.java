@@ -43,6 +43,7 @@ public class ExhibitionFragment extends Fragment implements ZsActivity.FragmentB
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.exhibition, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        dropdownmenu.setVisibility(View.GONE);
         return view;
     }
     private void initViews() {

@@ -43,6 +43,7 @@ public class InformationFragment extends Fragment implements ZsActivity.Fragment
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.information, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        dropdownmenu.setVisibility(View.GONE);
         return view;
     }
     private void initViews() {
