@@ -13,6 +13,9 @@ public class Urls {
     public static final String PROJECT = "/project-service/project/govt";
     public static final String MES = "/user-service/user/registerMoreInfo";//注册时填写用户信息
     public static final String EVENT = "/event-service/event/activity/find";
+    public static final String PHONE ="/user-service/user/phone";
+    public static final String CODEEMAIL ="/user-service/user/send/email/code";
+    public static final String EMAIL ="/user-service/user/email";
     public static final String HOST_AUTH =HOST+AUTH;
     public static final String HOST_REGIST =HOST+REGIST;// 1.拿到手机号 2.设置密码
     public static final String HOST_PROJECT =HOST+PROJECT;
@@ -20,6 +23,9 @@ public class Urls {
     public static final String HOST_CODELOGIN =HOST+CODELOGIN;
     public static final String HOST_EVENT =HOST+EVENT;
     public static final String HOST_MES =HOST+MES;
+    public static final String HOST_PHONE =HOST+PHONE;
+    public static final String HOST_CODEEMAIL =HOST+CODEEMAIL;
+    public static final String HOST_EMAIL =HOST+EMAIL;
     public static final String UPDATE1 = "/update";
     public static final String UPDATE2 = "/industries";
     public static final String UPDATE3 = "/location";

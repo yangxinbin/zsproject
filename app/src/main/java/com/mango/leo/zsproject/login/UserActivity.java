@@ -115,6 +115,34 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
             case R.id.ski:
                 editor.putString("skip","yes")
                         .commit();
+                EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans("{\n" +
+                        "    \"responseObject\": {\n" +
+                        "        \"id\": \"5b10f1b2bc2ab90f3c3cff15\",\n" +
+                        "        \"username\": \"13417304551\",\n" +
+                        "        \"name\": \"tom\",\n" +
+                        "        \"company\": \"芒果\",\n" +
+                        "        \"position\": \"深圳\",\n" +
+                        "        \"department\": \"市场\",\n" +
+                        "        \"email\": \"295249259@qq.com\",\n" +
+                        "        \"type\": \"0\",\n" +
+                        "        \"avator\": null,\n" +
+                        "        \"location\": {\n" +
+                        "            \"country\": \"中国\",\n" +
+                        "            \"province\": \"广东\",\n" +
+                        "            \"city\": \"深圳\",\n" +
+                        "            \"district\": \"南山\",\n" +
+                        "            \"address\": \"东方科技大厦\",\n" +
+                        "            \"lon\": 34.1,\n" +
+                        "            \"lat\": 45.2\n" +
+                        "        },\n" +
+                        "        \"govtTenant\": null,\n" +
+                        "        \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJnb3Z0VGVuYW50IjpudWxsLCJhdWRpZW5jZSI6Im1vYmlsZSIsImNyZWF0ZWQiOjE1Mjc4MzgzMTE1OTksImlkIjoiNWIxMGYxYjJiYzJhYjkwZjNjM2NmZjE1IiwiZXhwIjo0MTE5ODM4MzExLCJ1c2VybmFtZSI6IjEzNDE3MzA0NTUwIn0.xKfy-0sxpSgyNOmPcrP0JFet1KlZokOBDKRMXBCnx1jkTTb5_vJBZCghimy6plEqnWMgLLb9GDUHVQ1v9CzNkA\"\n" +
+                        "    },\n" +
+                        "    \"responseList\": null,\n" +
+                        "    \"totalRecords\": null,\n" +
+                        "    \"currentPage\": null,\n" +
+                        "    \"totalPages\": null\n" +
+                        "}"));
                 intent = new Intent(this, ZsActivity.class);
                 startActivity(intent);
                 finish();

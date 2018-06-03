@@ -131,6 +131,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:layout_marginLeft="8dp"
                             android:text="主任"
                             android:textColor="@color/secondblack"
                             android:textSize="@dimen/sencond_textSize"
@@ -138,11 +139,11 @@
                             card_view:layout_constraintTop_toBottomOf="@+id/textView_userName"
                             tools:layout_editor_absoluteX="147dp" />
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imageVie_pic"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/tab_icon_fifth_highlight"
+                            android:src="@drawable/aboutauthor"
                             card_view:layout_constraintStart_toStartOf="parent"
                             card_view:layout_constraintTop_toTopOf="parent"
                             tools:layout_editor_absoluteX="8dp" />

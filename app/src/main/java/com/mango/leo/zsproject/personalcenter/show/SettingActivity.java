@@ -10,13 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.utils.PublicWay;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
 
     @Bind(R.id.imageView_setting_back)
     ImageView imageViewSettingBack;

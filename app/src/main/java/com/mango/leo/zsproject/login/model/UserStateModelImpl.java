@@ -49,7 +49,7 @@ public class UserStateModelImpl implements UserStateModel {
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("SUCCESS");//异步请求
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
@@ -71,7 +71,7 @@ public class UserStateModelImpl implements UserStateModel {
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("CODE_SUCCESS");//异步请求
                     }else {
                         listener.onSuccess("CODE_FAILURE");
@@ -91,7 +91,7 @@ public class UserStateModelImpl implements UserStateModel {
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                         listener.onSuccess("SUCCESS");//异步请求
@@ -115,7 +115,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("RES_SUCCESS");//异步请求
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
@@ -138,7 +138,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("SET_SUCCESS");//异步请求
 
                     }else {
@@ -164,7 +164,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200){
+                    if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("MES_SUCCESS");//异步请求
                         //注册时以及获取Token这里不用重复获取了
                         /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
@@ -179,7 +179,7 @@ Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url)
 /*        final OkHttpUtils.ResultCallback<String> loadNewsCallback = new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                // if (response.code() == 200){
+                // if (String.valueOf(response.code()).startsWith("2")){
                 listener.onSuccess("SUCCESS");//异步请求
                 // }else {
                 //listener.onSuccess("NOSUCCESS");

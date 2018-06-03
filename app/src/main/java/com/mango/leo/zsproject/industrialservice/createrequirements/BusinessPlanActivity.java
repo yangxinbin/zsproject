@@ -252,15 +252,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //EventBus.getDefault().removeStickyEvent(bean);
     }
 
-    public static Bitmap getSDCardImg(String imagePath) {
-        BitmapFactory.Options opt = new BitmapFactory.Options();
-        opt.inPreferredConfig = Bitmap.Config.RGB_565;
-        opt.inPurgeable = true;
-        opt.inInputShareable = true;
-        //获取资源图片
-        return BitmapFactory.decodeFile(imagePath, opt);
-    }
-
     @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth,*/ R.id.carninth, R.id.send})
     public void onViewClicked(View view) {
         Intent intent;

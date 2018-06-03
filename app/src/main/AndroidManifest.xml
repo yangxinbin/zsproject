@@ -89,7 +89,10 @@
         <activity android:name=".personalcenter.show.ChangePwdActivity" />
         <activity android:name=".personalcenter.show.ForgetActivity" />
         <activity android:name=".personalcenter.show.ChangePhoneActivity" />
-        <activity android:name=".personalcenter.show.ChangeEmailActivity"></activity>
+        <activity android:name=".personalcenter.show.ChangeEmailActivity" />
+        <activity android:name=".personalcenter.show.userchange.NameActivity" />
+        <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
+        <activity android:name=".personalcenter.show.userchange.DepartmentActivity"></activity>
     </application>
 
 </manifest>

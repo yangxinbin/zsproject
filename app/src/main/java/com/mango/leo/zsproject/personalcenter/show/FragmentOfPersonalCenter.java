@@ -11,13 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.login.UserActivity;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -41,6 +49,22 @@ public class FragmentOfPersonalCenter extends Fragment {
     CardView cardView3;
     @Bind(R.id.bu_mes)
     Button buMes;
+    @Bind(R.id.textView_userName)
+    TextView textViewUserName;
+    @Bind(R.id.imageView_state)
+    ImageView imageViewState;
+    @Bind(R.id.textView_gov)
+    TextView textViewGov;
+    @Bind(R.id.textView_job)
+    TextView textViewJob;
+    @Bind(R.id.imageVie_pic)
+    CircleImageView imageViePic;
+    @Bind(R.id.textView_phone)
+    TextView textViewPhone;
+    @Bind(R.id.textView_emile)
+    TextView textViewEmile;
+    @Bind(R.id.textView20)
+    TextView textView20;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
@@ -49,6 +73,7 @@ public class FragmentOfPersonalCenter extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.personalcenter, container, false);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         if (false/*sharedPreferences.getString("skip", "no").equals("yes")*/) {
             cardView3.setVisibility(View.VISIBLE);
@@ -60,13 +85,26 @@ public class FragmentOfPersonalCenter extends Fragment {
         return view;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        //头像
+        textViewUserName.setText(bean.getResponseObject().getName());
+        //身份
+        textViewGov.setText(bean.getResponseObject().getCompany());
+        textViewJob.setText(bean.getResponseObject().getDepartment());
+        textViewPhone.setText(bean.getResponseObject().getUsername());
+        textViewEmile.setText(bean.getResponseObject().getEmail());
+        textView20.setText(bean.getResponseObject().getCompany());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.bu_mes,R.id.constraintLayouthead1, R.id.constraintLayouthead2, R.id.shengbao, R.id.shouc, R.id.baoming, R.id.settings})
+    @OnClick({R.id.bu_mes, R.id.constraintLayouthead1, R.id.constraintLayouthead2, R.id.shengbao, R.id.shouc, R.id.baoming, R.id.settings})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {

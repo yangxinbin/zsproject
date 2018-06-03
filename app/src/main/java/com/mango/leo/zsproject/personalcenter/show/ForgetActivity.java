@@ -9,12 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ForgetActivity extends AppCompatActivity {
+public class ForgetActivity extends BaseActivity {
 
     @Bind(R.id.imageView_forget_back)
     ImageView imageViewForgetBack;

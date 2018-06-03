@@ -22,8 +22,16 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.photoutils.PhotoUtils;
+import com.mango.leo.zsproject.personalcenter.show.userchange.CompanyActivity;
+import com.mango.leo.zsproject.personalcenter.show.userchange.DepartmentActivity;
+import com.mango.leo.zsproject.personalcenter.show.userchange.NameActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,6 +68,16 @@ public class UserChangeActivity extends BaseActivity {
     ImageView r3E;
     @Bind(R.id.circleImageView)
     CircleImageView circleImageView;
+    @Bind(R.id.textView_1)
+    TextView textView1;
+    @Bind(R.id.textView_2)
+    TextView textView2;
+    @Bind(R.id.textView_3)
+    TextView textView3;
+    @Bind(R.id.textView_4)
+    TextView textView4;
+    @Bind(R.id.textView_5)
+    TextView textView5;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private static final int CODE_GALLERY_REQUEST = 0xa0;
@@ -80,8 +98,18 @@ public class UserChangeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_change);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         getImageAndMes();//后台请求数据
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        //头像
+        textView1.setText(bean.getResponseObject().getName());
+        textView2.setText(bean.getResponseObject().getCompany());
+        textView3.setText(bean.getResponseObject().getDepartment());
+        textView4.setText(bean.getResponseObject().getUsername());
+        textView5.setText(bean.getResponseObject().getEmail());
     }
 
     private void getImageAndMes() {
@@ -115,6 +143,7 @@ public class UserChangeActivity extends BaseActivity {
         dialog.setView(view);
         dialog.show();
     }
+
     /**
      * 动态申请sdcard读写权限
      */
@@ -156,6 +185,7 @@ public class UserChangeActivity extends BaseActivity {
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -189,6 +219,7 @@ public class UserChangeActivity extends BaseActivity {
             default:
         }
     }
+
     //存放图片的地址，可以改动
     private Uri BitMap(Bitmap bitmap) {
         File tmpDir = new File(Environment.getExternalStorageDirectory() + "/Bmob");    //保存地址及命名
@@ -222,18 +253,30 @@ public class UserChangeActivity extends BaseActivity {
                 showTypeDialog();
                 break;
             case R.id.r1:
-
+                intent = new Intent(this, NameActivity.class);
+                intent.putExtra("name",textView1.getText());
+                startActivity(intent);
+                finish();
                 break;
             case R.id.r2:
+                intent = new Intent(this, CompanyActivity.class);
+                intent.putExtra("company",textView2.getText());
+                startActivity(intent);
+                finish();
                 break;
             case R.id.r3:
+                intent = new Intent(this, DepartmentActivity.class);
+                intent.putExtra("department",textView3.getText());
+                startActivity(intent);
+                finish();
                 break;
-            case R.id.r4:
+            /*case R.id.r4:
                 break;
             case R.id.r5:
-                break;
+                break;*/
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: requestCode: " + requestCode + "  resultCode:" + resultCode);
@@ -264,7 +307,7 @@ public class UserChangeActivity extends BaseActivity {
             //裁剪返回
             case CODE_RESULT_REQUEST:
                 Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
-                Log.v("yxb", "-----fromFile-----"+cropImageUri);
+                Log.v("yxb", "-----fromFile-----" + cropImageUri);
 
                 //这里上传文件
                 if (bitmap != null) {
@@ -278,11 +321,18 @@ public class UserChangeActivity extends BaseActivity {
     private void showImages(Bitmap bitmap) {
         circleImageView.setImageBitmap(bitmap);
     }
+
     /**
      * 检查设备是否存在SDCard的工具方法
      */
     public static boolean hasSdcard() {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
     }
 }

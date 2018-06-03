@@ -4,8 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
-public class GovActivity extends AppCompatActivity {
+public class GovActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
