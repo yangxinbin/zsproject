@@ -1,5 +1,7 @@
 package com.mango.leo.zsproject.personalcenter.show;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,12 +33,16 @@ public class AccountSecurityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_security);
         ButterKnife.bind(this);
+
     }
 
     @OnClick({R.id.imageView_security_back, R.id.s1, R.id.s2, R.id.s3, R.id.s4})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageView_security_back:
+                intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.s1:

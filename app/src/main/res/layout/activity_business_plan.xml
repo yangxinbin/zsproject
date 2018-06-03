@@ -100,6 +100,7 @@
             android:layout_margin="8dp"
             android:background="@drawable/rec_red_background"
             android:text="提交审核"
+            android:textColor="@color/white"
             android:textSize="@dimen/title"
             android:textStyle="bold" />
     </LinearLayout>

@@ -206,7 +206,7 @@ public class DropdownMenuLayout extends LinearLayout {
     * 关闭菜单
     * */
     public void closeMenu() {
-        if (currentTabPosition != 1) {
+        if (currentTabPosition != 1 && ((TextView) tabMenuView.getChildAt(currentTabPosition))!= null) {
             ((TextView) tabMenuView.getChildAt(currentTabPosition)).setTextColor(textsUnSelectedColor);
             ((TextView) tabMenuView.getChildAt(currentTabPosition)).setCompoundDrawablesWithIntrinsicBounds(null, null, menuUnSelectedIcon, null);
             popupMenuViews.setVisibility(View.GONE);

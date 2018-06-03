@@ -62,6 +62,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     UserStatePresenter userStatePresenter;
     private UserMessageBean userMessageBean;
     private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
     private CityPickerView mPicker;
     private String cityString;
 
@@ -74,6 +75,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         mPicker = new CityPickerView();
         mPicker.init(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         userStatePresenter = new UserStatePresenterImpl(this);
         userMessageBean = new UserMessageBean();
     }
@@ -101,9 +103,13 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         switch (view.getId()) {
             case R.id.button:
                 initDate();
+                editor.putString("skip","no")
+                        .commit();
                 userStatePresenter.visitPwdUserState(this, 6, userMessageBean);
                 break;
             case R.id.ski:
+                editor.putString("skip","yes")
+                        .commit();
                 intent = new Intent(this, ZsActivity.class);
                 startActivity(intent);
                 finish();

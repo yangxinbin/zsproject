@@ -25,7 +25,7 @@
             android:text="个人信息" />
 
         <ImageView
-            android:id="@+id/imageView_usermes"
+            android:id="@+id/imageView_user_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -36,7 +36,9 @@
             app:srcCompat="@drawable/common_nav_icon_back" />
 
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/white">
@@ -54,8 +56,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title" />
 
-        <ImageView
-            android:id="@+id/imageView62"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignParentEnd="true"
@@ -96,7 +98,7 @@
             android:text="TextView" />
 
         <ImageView
-            android:id="@+id/imageView632"
+            android:id="@+id/r1_e"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -107,6 +109,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="1dp"
@@ -135,7 +138,7 @@
             android:text="TextView" />
 
         <ImageView
-            android:id="@+id/imageView633"
+            android:id="@+id/r2_e"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -146,6 +149,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r3"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="1dp"
@@ -174,7 +178,7 @@
             android:text="TextView" />
 
         <ImageView
-            android:id="@+id/imageView63"
+            android:id="@+id/r3_e"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -185,6 +189,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r4"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="1dp"
@@ -215,6 +220,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r5"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="1dp"

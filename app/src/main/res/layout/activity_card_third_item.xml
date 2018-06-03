@@ -83,6 +83,9 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/save"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/title"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="515dp" />
 

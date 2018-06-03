@@ -53,6 +53,9 @@
         android:layout_alignEnd="@+id/textView45"
         android:layout_alignRight="@+id/textView45"
         android:layout_below="@+id/gv"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/title"
         android:text="@string/go" />
 
 </LinearLayout>

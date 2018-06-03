@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.personalcenter.show;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -43,11 +44,15 @@ public class SettingActivity extends AppCompatActivity {
 
     @OnClick({R.id.imageView_setting_back, R.id.s1, R.id.s2, R.id.s3, R.id.s4, R.id.button_exit})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageView_setting_back:
                 finish();
                 break;
             case R.id.s1:
+                intent = new Intent(this, AccountSecurityActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.s2:
                 break;

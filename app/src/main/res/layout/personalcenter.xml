@@ -7,9 +7,11 @@
     tools:context="com.mango.leo.zsproject.industrialservice.show.FragmentOfIndustrialService">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,15 +39,14 @@
                     android:src="@drawable/common_nav_icon_msg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="18dp" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/mine"
                     android:textColor="@color/black"
@@ -54,12 +55,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="173dp" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardView2"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -97,7 +100,9 @@
                             android:textStyle="bold"
                             card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic"
                             card_view:layout_constraintTop_toTopOf="parent"
-                            tools:layout_editor_absoluteX="48dp" />
+                            card_view:layout_constraintLeft_toRightOf="@+id/imageVie_pic"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginLeft="8dp" />
 
                         <ImageView
                             android:id="@+id/imageView_state"
@@ -106,7 +111,7 @@
                             android:src="@drawable/newrequirement_icon_zhaoshang"
                             card_view:layout_constraintStart_toEndOf="@+id/textView_userName"
                             card_view:layout_constraintTop_toTopOf="parent"
-                            tools:layout_editor_absoluteX="89dp" />
+                            tools:layout_editor_absoluteX="99dp" />
 
                         <TextView
                             android:id="@+id/textView_gov"
@@ -118,26 +123,25 @@
                             android:textSize="@dimen/sencond_textSize"
                             card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic"
                             card_view:layout_constraintTop_toBottomOf="@+id/textView_userName"
-                            tools:layout_editor_absoluteX="48dp" />
+                            card_view:layout_constraintLeft_toRightOf="@+id/imageVie_pic"
+                            android:layout_marginLeft="8dp" />
 
                         <TextView
                             android:id="@+id/textView_job"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:text="主任"
                             android:textColor="@color/secondblack"
                             android:textSize="@dimen/sencond_textSize"
                             card_view:layout_constraintStart_toEndOf="@+id/textView_gov"
                             card_view:layout_constraintTop_toBottomOf="@+id/textView_userName"
-                            tools:layout_editor_absoluteX="206dp" />
+                            tools:layout_editor_absoluteX="147dp" />
 
                         <ImageView
                             android:id="@+id/imageVie_pic"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:layout_marginRight="5dp"
                             android:src="@drawable/tab_icon_fifth_highlight"
                             card_view:layout_constraintStart_toStartOf="parent"
                             card_view:layout_constraintTop_toTopOf="parent"
@@ -217,7 +221,8 @@
                             card_view:layout_constraintBottom_toBottomOf="parent"
                             card_view:layout_constraintLeft_toLeftOf="parent"
                             card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent" />
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginStart="5dp" />
 
                         <ImageView
                             android:id="@+id/imageView21"
@@ -231,6 +236,79 @@
                             card_view:layout_constraintTop_toTopOf="parent"
                             tools:layout_editor_absoluteX="361dp" />
                     </android.support.constraint.ConstraintLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardView3"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="3dp"
+                card_view:contentPadding="8dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                tools:layout_editor_absoluteX="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayouthead11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textView_userName_nomes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="userphone"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize"
+                            android:textStyle="bold"
+                            card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic_nomes"
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            card_view:layout_constraintLeft_toRightOf="@+id/imageVie_pic_nomes"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginLeft="8dp" />
+
+                        <Button
+                            android:id="@+id/bu_mes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:text="完善资料"
+                            android:background="@drawable/rec_red_background"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sencond_textSize"
+                            card_view:layout_constraintStart_toEndOf="@+id/imageVie_pic_nomes"
+                            card_view:layout_constraintTop_toBottomOf="@+id/textView_userName_nomes"
+                            card_view:layout_constraintLeft_toRightOf="@+id/imageVie_pic_nomes"
+                            android:layout_marginLeft="8dp" />
+
+                        <ImageView
+                            android:id="@+id/imageVie_pic_nomes"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/tab_icon_fifth_highlight"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toTopOf="parent"
+                            tools:layout_editor_absoluteX="8dp" />
+
+                    </android.support.constraint.ConstraintLayout>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

@@ -61,6 +61,9 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/save"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

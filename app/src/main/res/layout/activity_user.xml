@@ -14,9 +14,9 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/go"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
-        android:textStyle="bold" />
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/title" />
 
     <TextView
         android:id="@+id/textView51"
