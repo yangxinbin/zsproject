@@ -173,6 +173,30 @@ public class HttpUtils {
         call.enqueue(callback);
     }
 
+    //上传文件以及上传参数
+    public static void doPostWithAll(String url, File file, Map<String, String> mapParams, Callback callback) {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if (mapParams == null) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.jpg\""), RequestBody.create(MediaType.parse("image/png"), file)
+            ).build();
+        } else {
+            for (String key : mapParams.keySet()) {
+                builder.addFormDataPart(key, mapParams.get(key));
+            }
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.jpg\""), RequestBody.create(MediaType.parse("image/png"), file)
+            );
+        }
+        //创建RequestBody
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
+    }
+
+
     /**
      * Put请求发送键值对数据
      *
