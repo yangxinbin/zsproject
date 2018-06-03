@@ -18,13 +18,10 @@ import com.lljjcoder.bean.CityBean;
 import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
 import com.lljjcoder.citywheel.CityConfig;
-import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
@@ -70,6 +67,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     private CityPickerView mPicker;
     private String cityString;
     private String token;
+    private UserMessageBean.ResponseObjectBean.LocationBean locationBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,20 +84,25 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     }
 
     private void initDate() {
-        if (userMessageBean.getResponseObject() != null) {
-            userMessageBean.getResponseObject().setToken(sharedPreferences.getString("token", ""));
-            userMessageBean.getResponseObject().setName(editTextName.getText().toString());
-            userMessageBean.getResponseObject().setCompany(editTextCom.getText().toString());
-            userMessageBean.getResponseObject().setUsername(editTextPho.getText().toString());
-            userMessageBean.getResponseObject().setEmail(editTextEm.getText().toString());
-            userMessageBean.getResponseObject().setDepartment(editTextPos.getText().toString());
-            userMessageBean.getResponseObject().setPosition(cityString);//选择的
+        UserMessageBean.ResponseObjectBean responseObjectBean = new UserMessageBean.ResponseObjectBean();
+        locationBean = new UserMessageBean.ResponseObjectBean.LocationBean();
+        if (responseObjectBean != null) {
+            responseObjectBean.setToken(sharedPreferences.getString("token", ""));
+            responseObjectBean.setName(editTextName.getText().toString());
+            responseObjectBean.setCompany(editTextCom.getText().toString());
+            responseObjectBean.setUsername(editTextPho.getText().toString());
+            responseObjectBean.setEmail(editTextEm.getText().toString());
+            responseObjectBean.setDepartment(editTextPos.getText().toString());
+            responseObjectBean.setPosition(cityString);//选择的
             //以下是定位获取的
-            userMessageBean.getResponseObject().getLocation().setCountry("中国");
-            userMessageBean.getResponseObject().getLocation().setCity("深圳");
-            userMessageBean.getResponseObject().getLocation().setDistrict("南山");
+            if (locationBean != null){
+                //定位获取
+                /*locationBean.setCountry("中国");
+                locationBean.setCity("深圳");
+                locationBean.setDistrict("南山");*/
+            }
         }
-
+        Log.v("ooooooooo","****"+ locationBean.getDistrict());
     }
 
     @OnClick({R.id.button, R.id.ski, R.id.city})
@@ -115,7 +118,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
             case R.id.ski:
                 editor.putString("skip","yes")
                         .commit();
-                EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans("{\n" +
+/*                EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans("{\n" +
                         "    \"responseObject\": {\n" +
                         "        \"id\": \"5b10f1b2bc2ab90f3c3cff15\",\n" +
                         "        \"username\": \"13417304551\",\n" +
@@ -142,7 +145,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
                         "    \"totalRecords\": null,\n" +
                         "    \"currentPage\": null,\n" +
                         "    \"totalPages\": null\n" +
-                        "}"));
+                        "}"));*/
                 intent = new Intent(this, ZsActivity.class);
                 startActivity(intent);
                 finish();
