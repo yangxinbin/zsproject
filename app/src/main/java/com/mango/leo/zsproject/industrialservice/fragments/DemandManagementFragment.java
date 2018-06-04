@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.mango.leo.zsproject.R;
@@ -47,7 +49,7 @@ public class DemandManagementFragment extends Fragment {//
     private Spinner mSpinner;
     //private Button createButton;
     private ConstraintLayout h;
-    private Button allPlanLayout,addPlanLayout;
+    private RelativeLayout allPlanLayout,addPlanLayout;
 
 
     @Nullable
@@ -124,8 +126,8 @@ public class DemandManagementFragment extends Fragment {//
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
         h = (ConstraintLayout) header.findViewById(R.id.header);
-        allPlanLayout =(Button) header.findViewById(R.id.allPlanLayout);
-        addPlanLayout =(Button) header.findViewById(R.id.addPlanLayout);
+        allPlanLayout =(RelativeLayout) header.findViewById(R.id.r1);
+        addPlanLayout =(RelativeLayout) header.findViewById(R.id.r2);
         //mSpinner = (Spinner) header.findViewById(R.id.spinnerState);
         //String[] arrays = new String[]{"全部招商计划", "项目"};
         //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
@@ -145,10 +147,10 @@ public class DemandManagementFragment extends Fragment {//
         adapter.setHeaderView(h);
     }
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            Log.v("oooooooooo","****onItemClick***点击第"+position);
 
+        @Override
+        public void onItemClick1(View view, int position) {
+            Log.v("oooooooooo","****onItemClick1***点击第"+position);
 /*
             String newsurl = adapter.getItem(opsition).getResult().getData().get(position).getUrl();
             Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -158,6 +160,12 @@ public class DemandManagementFragment extends Fragment {//
                     ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                             transitionView, getString(R.string.transition_news_img));
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+        }
+
+        @Override
+        public void onItemClick2(View view, int position) {
+            Log.v("oooooooooo","****onItemClick2***点击第"+position);
+
         }
 
         @Override

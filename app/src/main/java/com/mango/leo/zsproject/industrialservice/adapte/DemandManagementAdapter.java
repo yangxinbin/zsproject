@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -118,19 +119,9 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             //           }
             if (((ItemViewHolder) holder) != null) {
                 ((ItemViewHolder) holder).itemName.setText("sdfsd");
-                ((ItemViewHolder) holder).state.setText("来自");
-                ((ItemViewHolder) holder).itemTime.setText("时间");
                 ((ItemViewHolder) holder).numCompany.setText("50");
                 ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
                 ((ItemViewHolder) holder).numInvestmentActivities.setText("200");
-
-                if (true) {
-                    ((ItemViewHolder) holder).itemType.setImageResource(R.drawable.newrequirement_icon_zhaoshang);
-                } else {
-                    Glide.with(context)
-                            .load(R.drawable.newrequirement_icon_zhaoshang)
-                            .into(((ItemViewHolder) holder).itemType);
-                }
             }
         }
     }
@@ -168,18 +159,19 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public interface OnItemnewsClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick1(View view, int position);
 
-        void onCancelingMatchClick(View view,int position);
+        void onItemClick2(View view, int position);
 
-        void onDeleteClick(View view,int position);
+        void onCancelingMatchClick(View view, int position);
+
+        void onDeleteClick(View view, int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView itemName, state, itemTime, numCompany, numInvestmentInstitution, numInvestmentActivities;
-        public ImageView itemType;
-        public CardView main;
+        public TextView itemName, numCompany, numInvestmentInstitution, numInvestmentActivities;
+        public LinearLayout stateButton, stateButton2;
         public Button canceling_match, delete;
 
         public ItemViewHolder(View v) {
@@ -187,16 +179,15 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             if (v == mHeaderView)
                 return;
             itemName = (TextView) v.findViewById(R.id.item_name);
-            state = (TextView) v.findViewById(R.id.item_state);
-            itemTime = (TextView) v.findViewById(R.id.item_time);
             numCompany = (TextView) v.findViewById(R.id.num_Company);
-            main = v.findViewById(R.id.main);
+            stateButton = v.findViewById(R.id.stateButton);
+            stateButton2 = v.findViewById(R.id.stateButton2);
             canceling_match = v.findViewById(R.id.canceling_match);
             delete = v.findViewById(R.id.delete);
             numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
             numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
-            itemType = (ImageView) v.findViewById(R.id.item_state_img);
-            main.setOnClickListener(this);
+            stateButton.setOnClickListener(this);
+            stateButton2.setOnClickListener(this);
             delete.setOnClickListener(this);
             canceling_match.setOnClickListener(this);
             v.setOnClickListener(this);
@@ -206,8 +197,11 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         public void onClick(View view) {
             if (mOnItemnewsClickListener != null) {
                 switch (view.getId()) {
-                    case R.id.main:
-                        mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                    case R.id.stateButton:
+                        mOnItemnewsClickListener.onItemClick1(view, this.getLayoutPosition());
+                        break;
+                    case R.id.stateButton2:
+                        mOnItemnewsClickListener.onItemClick2(view, this.getLayoutPosition());
                         break;
                     case R.id.canceling_match:
                         mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());

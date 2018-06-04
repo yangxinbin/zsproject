@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/refresh11"
     android:layout_height="match_parent"
+    android:background="@color/common_gray"
     >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view11"
