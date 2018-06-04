@@ -1,7 +1,10 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -28,9 +31,15 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreate
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+import com.mango.leo.zsproject.utils.GlideImageLoader;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,7 +58,8 @@ public class DemandManagementFragment extends Fragment {//
     private Spinner mSpinner;
     //private Button createButton;
     private ConstraintLayout h;
-    private RelativeLayout allPlanLayout,addPlanLayout;
+    private RelativeLayout allPlanLayout, addPlanLayout;
+    private Banner banner;
 
 
     @Nullable
@@ -126,8 +136,22 @@ public class DemandManagementFragment extends Fragment {//
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
         h = (ConstraintLayout) header.findViewById(R.id.header);
-        allPlanLayout =(RelativeLayout) header.findViewById(R.id.r1);
-        addPlanLayout =(RelativeLayout) header.findViewById(R.id.r2);
+        allPlanLayout = (RelativeLayout) header.findViewById(R.id.r1);
+        addPlanLayout = (RelativeLayout) header.findViewById(R.id.r2);
+        banner = (Banner) header.findViewById(R.id.imageView);
+        List<String> pathsImage = new ArrayList<>();
+        List<String> pathsTitle = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            pathsImage.add(getResourcesUri(R.drawable.wechat));
+            pathsTitle.add("");
+        }
+        banner.setImages(pathsImage)
+                .setBannerTitles(pathsTitle)
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .setImageLoader(new GlideImageLoader())
+               // .setOnBannerClickListener(this)
+                .start();
+
         //mSpinner = (Spinner) header.findViewById(R.id.spinnerState);
         //String[] arrays = new String[]{"全部招商计划", "项目"};
         //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
@@ -139,6 +163,7 @@ public class DemandManagementFragment extends Fragment {//
         ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParam.setMargins(0, 0, 0, 20);
         h.setLayoutParams(layoutParam);
+
         //设置headerview
         //h.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));//除top隐藏headerview
         //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, Arrays.asList(arrays));
@@ -146,11 +171,19 @@ public class DemandManagementFragment extends Fragment {//
         //mSpinner.setAdapter(arrayAdapter1);
         adapter.setHeaderView(h);
     }
+    private String getResourcesUri(@DrawableRes int id) {
+        Resources resources = getResources();
+        String uriPath = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                resources.getResourcePackageName(id) + "/" +
+                resources.getResourceTypeName(id) + "/" +
+                resources.getResourceEntryName(id);
+        return uriPath;
+    }
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
 
         @Override
         public void onItemClick1(View view, int position) {
-            Log.v("oooooooooo","****onItemClick1***点击第"+position);
+            Log.v("oooooooooo", "****onItemClick1***点击第" + position);
 /*
             String newsurl = adapter.getItem(opsition).getResult().getData().get(position).getUrl();
             Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -164,18 +197,18 @@ public class DemandManagementFragment extends Fragment {//
 
         @Override
         public void onItemClick2(View view, int position) {
-            Log.v("oooooooooo","****onItemClick2***点击第"+position);
+            Log.v("oooooooooo", "****onItemClick2***点击第" + position);
 
         }
 
         @Override
         public void onCancelingMatchClick(View view, int position) {
-            Log.v("oooooooooo","****onCancelingMatchClick***点击第"+position);
+            Log.v("oooooooooo", "****onCancelingMatchClick***点击第" + position);
         }
 
         @Override
         public void onDeleteClick(View view, int position) {
-            Log.v("oooooooooo","****onDeleteClick***点击第"+position);
+            Log.v("oooooooooo", "****onDeleteClick***点击第" + position);
         }
     };
 
