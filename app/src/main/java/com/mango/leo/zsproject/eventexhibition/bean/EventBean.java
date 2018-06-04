@@ -9,7 +9,7 @@ import java.util.List;
 public class EventBean {
 
     /**
-     * responseObject : {"content":[{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":null,"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":null,"photos":[{"id":"5b0511acbc2ab928b4a7ab9a","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":null,"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":null,"photos":[{"id":"5b0511cebc2ab928b4a7ab9d","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"id":null,"province":"广东","city":"深圳","address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":"深圳","photos":[{"id":"5b051fbebc2ab92d729348a8","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalPages":1,"totalElements":3,"first":true,"sort":{"unsorted":true,"sorted":false},"numberOfElements":3,"size":20,"number":0}
+     * responseObject : {"content":[{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b053d80bc2ab931f07f864c","name":"免费活动","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"dfsd1","price":0,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalPages":1,"totalElements":4,"first":true,"sort":{"unsorted":true,"sorted":false},"numberOfElements":4,"size":20,"number":0}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,14 +64,14 @@ public class EventBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":null,"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":null,"photos":[{"id":"5b0511acbc2ab928b4a7ab9a","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":null,"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":null,"photos":[{"id":"5b0511cebc2ab928b4a7ab9d","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"id":null,"province":"广东","city":"深圳","address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"time":20180908,"popularity":"10002","organizer":"Aio","city":"深圳","photos":[{"id":"5b051fbebc2ab92d729348a8","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}],"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"createdBy":"tom8","createdOn":null,"published":null}]
+         * content : [{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b053d80bc2ab931f07f864c","name":"免费活动","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"dfsd1","price":0,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null}]
          * pageable : {"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false}
          * last : true
          * totalPages : 1
-         * totalElements : 3
+         * totalElements : 4
          * first : true
          * sort : {"unsorted":true,"sorted":false}
-         * numberOfElements : 3
+         * numberOfElements : 4
          * size : 20
          * number : 0
          */
@@ -289,34 +289,38 @@ public class EventBean {
             /**
              * id : 5b0511acbc2ab928b4a7ab9c
              * name : 光展6.30
-             * location : null
+             * location : {"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null}
              * description : hndiugh21432
              * price : 112.94
-             * time : 20180908
-             * popularity : 10002
+             * startTime : null
+             * endTime : null
+             * popular : null
              * organizer : Aio
-             * city : null
-             * photos : [{"id":"5b0511acbc2ab928b4a7ab9a","alias":null,"fileName":"test.jpg","contentType":null,"size":0,"createdOn":0}]
+             * banner : null
              * coorganizers : []
              * relatedIndustries : ["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"]
+             * introductions : null
              * createdBy : tom8
              * createdOn : null
              * published : null
+             * tenant : null
              */
 
             private String id;
             private String name;
-            private Object location;
+            private LocationBean location;
             private String description;
             private double price;
-            private int time;
-            private String popularity;
+            private Object startTime;
+            private Object endTime;
+            private Object popular;
             private String organizer;
-            private Object city;
+            private Object banner;
+            private Object introductions;
             private String createdBy;
             private Object createdOn;
             private Object published;
-            private List<PhotosBean> photos;
+            private Object tenant;
             private List<?> coorganizers;
             private List<String> relatedIndustries;
 
@@ -336,11 +340,11 @@ public class EventBean {
                 this.name = name;
             }
 
-            public Object getLocation() {
+            public LocationBean getLocation() {
                 return location;
             }
 
-            public void setLocation(Object location) {
+            public void setLocation(LocationBean location) {
                 this.location = location;
             }
 
@@ -360,20 +364,28 @@ public class EventBean {
                 this.price = price;
             }
 
-            public int getTime() {
-                return time;
+            public Object getStartTime() {
+                return startTime;
             }
 
-            public void setTime(int time) {
-                this.time = time;
+            public void setStartTime(Object startTime) {
+                this.startTime = startTime;
             }
 
-            public String getPopularity() {
-                return popularity;
+            public Object getEndTime() {
+                return endTime;
             }
 
-            public void setPopularity(String popularity) {
-                this.popularity = popularity;
+            public void setEndTime(Object endTime) {
+                this.endTime = endTime;
+            }
+
+            public Object getPopular() {
+                return popular;
+            }
+
+            public void setPopular(Object popular) {
+                this.popular = popular;
             }
 
             public String getOrganizer() {
@@ -384,12 +396,20 @@ public class EventBean {
                 this.organizer = organizer;
             }
 
-            public Object getCity() {
-                return city;
+            public Object getBanner() {
+                return banner;
             }
 
-            public void setCity(Object city) {
-                this.city = city;
+            public void setBanner(Object banner) {
+                this.banner = banner;
+            }
+
+            public Object getIntroductions() {
+                return introductions;
+            }
+
+            public void setIntroductions(Object introductions) {
+                this.introductions = introductions;
             }
 
             public String getCreatedBy() {
@@ -416,12 +436,12 @@ public class EventBean {
                 this.published = published;
             }
 
-            public List<PhotosBean> getPhotos() {
-                return photos;
+            public Object getTenant() {
+                return tenant;
             }
 
-            public void setPhotos(List<PhotosBean> photos) {
-                this.photos = photos;
+            public void setTenant(Object tenant) {
+                this.tenant = tenant;
             }
 
             public List<?> getCoorganizers() {
@@ -440,69 +460,79 @@ public class EventBean {
                 this.relatedIndustries = relatedIndustries;
             }
 
-            public static class PhotosBean {
+            public static class LocationBean {
                 /**
-                 * id : 5b0511acbc2ab928b4a7ab9a
-                 * alias : null
-                 * fileName : test.jpg
-                 * contentType : null
-                 * size : 0
-                 * createdOn : 0
+                 * country : null
+                 * province : null
+                 * city : null
+                 * district : null
+                 * address : null
+                 * lon : null
+                 * lat : null
                  */
 
-                private String id;
-                private Object alias;
-                private String fileName;
-                private Object contentType;
-                private int size;
-                private int createdOn;
+                private Object country;
+                private Object province;
+                private Object city;
+                private Object district;
+                private Object address;
+                private Object lon;
+                private Object lat;
 
-                public String getId() {
-                    return id;
+                public Object getCountry() {
+                    return country;
                 }
 
-                public void setId(String id) {
-                    this.id = id;
+                public void setCountry(Object country) {
+                    this.country = country;
                 }
 
-                public Object getAlias() {
-                    return alias;
+                public Object getProvince() {
+                    return province;
                 }
 
-                public void setAlias(Object alias) {
-                    this.alias = alias;
+                public void setProvince(Object province) {
+                    this.province = province;
                 }
 
-                public String getFileName() {
-                    return fileName;
+                public Object getCity() {
+                    return city;
                 }
 
-                public void setFileName(String fileName) {
-                    this.fileName = fileName;
+                public void setCity(Object city) {
+                    this.city = city;
                 }
 
-                public Object getContentType() {
-                    return contentType;
+                public Object getDistrict() {
+                    return district;
                 }
 
-                public void setContentType(Object contentType) {
-                    this.contentType = contentType;
+                public void setDistrict(Object district) {
+                    this.district = district;
                 }
 
-                public int getSize() {
-                    return size;
+                public Object getAddress() {
+                    return address;
                 }
 
-                public void setSize(int size) {
-                    this.size = size;
+                public void setAddress(Object address) {
+                    this.address = address;
                 }
 
-                public int getCreatedOn() {
-                    return createdOn;
+                public Object getLon() {
+                    return lon;
                 }
 
-                public void setCreatedOn(int createdOn) {
-                    this.createdOn = createdOn;
+                public void setLon(Object lon) {
+                    this.lon = lon;
+                }
+
+                public Object getLat() {
+                    return lat;
+                }
+
+                public void setLat(Object lat) {
+                    this.lat = lat;
                 }
             }
         }

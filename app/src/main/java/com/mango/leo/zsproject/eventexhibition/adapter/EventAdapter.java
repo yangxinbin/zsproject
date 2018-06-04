@@ -118,8 +118,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject()  != null) {
                 Log.v("yyyyy", "====pos======"+pos%20);//
                 ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
-                ((ItemViewHolder) holder).e_place.setText((CharSequence) mData.get(pos).getResponseObject().getContent().get(pos%20).getCity());
-                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getTime());
+                ((ItemViewHolder) holder).e_place.setText((CharSequence) mData.get(pos).getResponseObject().getContent().get(pos%20).getLocation().getCity());
+                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getStartTime()+"至"+mData.get(pos).getResponseObject().getContent().get(pos%20).getEndTime());
                 //Glide.with(context).load().into(((ItemViewHolder) holder).im);
 
             }

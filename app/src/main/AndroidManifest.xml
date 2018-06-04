@@ -76,16 +76,16 @@
 
         </activity>
         <activity android:name=".login.StartActivity" >
+
+        </activity>
+
+        <activity android:name=".login.ResActivity" />
+        <activity android:name=".login.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".login.ResActivity" />
-        <activity android:name=".login.UserActivity">
-
         </activity>
         <activity android:name=".personalcenter.show.UserChangeActivity" />
         <activity android:name=".personalcenter.show.AccountSecurityActivity" />

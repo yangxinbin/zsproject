@@ -12,7 +12,7 @@ public class Urls {
     public static final String CODELOGIN = "/user-service/user/auth/code";
     public static final String PROJECT = "/project-service/project/govt";
     public static final String MES = "/user-service/user/registerMoreInfo";//注册时填写用户信息
-    public static final String EVENT = "/event-service/event/activity/find";
+    public static final String EVENT = "/event-service/event/list";
     public static final String PHONE ="/user-service/user/phone";
     public static final String CODEEMAIL ="/user-service/user/send/email/code";
     public static final String EMAIL ="/user-service/user/email";

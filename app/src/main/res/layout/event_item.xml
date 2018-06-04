@@ -33,8 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="12dp"
             android:layout_toEndOf="@+id/im_pic"
             android:layout_toRightOf="@+id/im_pic"
             android:text="TextView"
@@ -46,8 +47,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_event"
-            android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/tv_event"
+            android:layout_below="@+id/tv_event"
+            android:layout_marginTop="14dp"
             card_view:srcCompat="@drawable/activity_detail_icon_address" />
 
         <TextView

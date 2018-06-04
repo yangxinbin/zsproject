@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +84,22 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         initViews();
         eventPresenter = new EventPresenterImpl(this);
         eventPresenter.visitEvent(getActivity(), EVENT1, page);
+        initHeader();
         return view;
+    }
+
+    private void initHeader() {
+        //渲染header布局
+        ConstraintLayout h = new ConstraintLayout(getActivity());
+        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
+        layoutParam.setMargins(0, 0, 0, 20);
+        h.setLayoutParams(layoutParam);
+        adapter.setHeaderView(h);
+    }
+
+    private int dp2px(float v) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
 
     @SuppressLint("ResourceType")
@@ -178,7 +196,17 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                     @Override
                     public void run() {
                         refresh_cam.setRefreshing(false);
-
+                        if (mData != null && mDataAll != null) {
+                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                            mData.clear();
+                        }
+                        if (NetUtil.isNetConnect(getActivity())) {
+                            adapter.isShowFooter(true);
+                            page = 0;
+                            eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                        } else {
+                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
+                        }
                     }
                 }, 2000);
             }
@@ -242,6 +270,15 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
+        Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
+        if (eventBeans == null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
+                }
+            });
+        }
         if (mData == null && mDataAll == null) {
             mData = new ArrayList<EventBean>();
             mDataAll = new ArrayList<EventBean>();

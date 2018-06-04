@@ -53,7 +53,8 @@ public class EventModelImpl implements EventModel {
                     List<EventBean> beanList = ProjectsJsonUtils.readJsonEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
                     listener.onSuccess(beanList);
                 } catch (Exception e) {
-                    Log.e("yyyyy", "Exception = " + e);
+                    listener.onFailure("FAILURE", e);
+//                    Log.e("eeeee", response.body().string()+"Exception = " + e);
                 }
             }
         });
