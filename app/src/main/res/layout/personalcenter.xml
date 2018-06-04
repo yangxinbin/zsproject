@@ -109,10 +109,11 @@
                             android:id="@+id/imageView_state"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="11dp"
+                            android:layout_marginTop="5dp"
                             android:src="@drawable/newrequirement_icon_zhaoshang"
                             card_view:layout_constraintStart_toEndOf="@+id/textView_userName"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            tools:layout_editor_absoluteX="99dp" />
+                            card_view:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/textView_gov"
@@ -341,7 +342,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/mine_icon_declare"
+                        android:src="@drawable/img_shengbao"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -400,11 +401,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/mine_icon_collct"
+                        android:src="@drawable/img_shoucang"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="10dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView28"
@@ -469,11 +469,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/mine_icon_declare"
+                        android:src="@drawable/img_event"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="10dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -539,11 +538,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/mine_icon_kf"
+                        android:src="@drawable/img_kufu"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="10dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView42"
@@ -599,12 +597,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/mine_icon_set"
+                        android:src="@drawable/img_setting"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.6"
-                        tools:layout_editor_absoluteX="10dp" />
+                        app:layout_constraintVertical_bias="0.6" />
 
                     <TextView
                         android:id="@+id/textView62"
