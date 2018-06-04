@@ -141,11 +141,12 @@ public class FragmentOfPersonalCenter extends Fragment {
             case R.id.constraintLayouthead2:
                 intent = new Intent(getActivity(), GovActivity.class);//商务厅介绍
                 startActivity(intent);
-                getActivity().finish();
                 break;
             case R.id.shengbao:
                 break;
             case R.id.shouc:
+                intent = new Intent(getActivity(), ShouCangActivity.class);//商务厅介绍
+                startActivity(intent);
                 break;
             case R.id.baoming:
                 break;

@@ -44,6 +44,7 @@ dependencies {
     })
     //noinspection GradleCompatible
     //图片压缩，压缩效率和速度都不错
+    compile 'com.youth.banner:banner:1.4.8'//轮播框架
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:24.0.0'
@@ -60,5 +61,4 @@ dependencies {
     compile 'liji.library.dev:citypickerview:3.1.7'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.youth.banner:banner:1.4.8'//轮播框架
 }

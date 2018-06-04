@@ -56,13 +56,12 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ZsActivity" >
+        <activity android:name=".ZsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
@@ -79,17 +78,10 @@
         <activity android:name=".industrialservice.createrequirements.carditems.CardNinthItemActivity" />
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
-        <activity android:name=".login.PwdLoginActivity" >
-
-        </activity>
-        <activity android:name=".login.StartActivity" >
-
-        </activity>
-
+        <activity android:name=".login.PwdLoginActivity"></activity>
+        <activity android:name=".login.StartActivity"></activity>
         <activity android:name=".login.ResActivity" />
-        <activity android:name=".login.UserActivity">
-
-        </activity>
+        <activity android:name=".login.UserActivity"></activity>
         <activity android:name=".personalcenter.show.UserChangeActivity" />
         <activity android:name=".personalcenter.show.AccountSecurityActivity" />
         <activity android:name=".personalcenter.show.SettingActivity" />
@@ -102,9 +94,8 @@
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
         <activity android:name=".eventexhibition.show.EventDetailActivity" />
-        <activity android:name=".eventexhibition.show.EventRegistrationActivity">
-
-        </activity>
+        <activity android:name=".eventexhibition.show.EventRegistrationActivity"></activity>
+        <activity android:name=".personalcenter.show.ShouCangActivity"></activity>
     </application>
 
 </manifest>
