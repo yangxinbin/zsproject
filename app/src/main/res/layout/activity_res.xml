@@ -79,9 +79,10 @@
         android:id="@+id/button_res"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_pwdok"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_alignLeft="@+id/imageView27"
+        android:layout_alignStart="@+id/imageView27"
+        android:layout_below="@+id/imageView27"
+        android:layout_marginTop="51dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/go"
         android:textColor="@color/white"
@@ -105,7 +106,7 @@
         android:layout_below="@+id/editText_phone_res"
         android:background="@color/black" />
 
-    <EditText
+    <!--<EditText
         android:id="@+id/editText_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,6 +128,6 @@
         android:layout_marginTop="13dp"
         android:ems="10"
         android:hint="确认密码"
-        android:inputType="textPassword" />
+        android:inputType="textPassword" />-->
 
 </RelativeLayout>

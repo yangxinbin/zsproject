@@ -105,9 +105,9 @@ public class UserStateModelImpl implements UserStateModel {
             UserPhone userPhone = (UserPhone) o;
             mapParams.put("username",userPhone.getPhoneN());
             mapParams.put("code",userPhone.getPhoneC());
-            mapParams.put("password",userPhone.getPhonePwd());
+            mapParams.put("password","");
             mapParams.put("step","1");
-Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url);
+            Log.v("zzzzzzz",userPhone.getPhoneN()+"******"+userPhone.getPhoneC() +"!!!"+url);
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

@@ -40,10 +40,10 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
     @Bind(R.id.button_res)
     Button buttonRes;
     UserStatePresenter userStatePresenter;
-    @Bind(R.id.editText_pwd)
+    /*@Bind(R.id.editText_pwd)
     EditText editTextPwd;
     @Bind(R.id.editText_pwdok)
-    EditText editTextPwdok;
+    EditText editTextPwdok;*/
     private UserPhone userPhone;
     private static String token;
     private SharedPreferences sharedPreferences;
@@ -54,13 +54,13 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res);
         userStatePresenter = new UserStatePresenterImpl(this);
-        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         ButterKnife.bind(this);
     }
 
     private void initEdit() {
-        userPhone = new UserPhone(editTextPhoneRes.getText().toString(), editTextVerificationCodeRes.getText().toString(), editTextPwdok.getText().toString());
+        userPhone = new UserPhone(editTextPhoneRes.getText().toString(), editTextVerificationCodeRes.getText().toString());
         //通过editor对象写入数据
     }
 
@@ -79,11 +79,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                 break;
             case R.id.button_res:
                 initEdit();
-                if (editTextPwd.getText().toString().equals(editTextPwdok.getText().toString())) {
-                    userStatePresenter.visitPwdUserState(this, 4, userPhone);
-                }else {
-                    AppUtils.showToast(this,"两次密码输入不相同,请重新输入！");
-                }
+                userStatePresenter.visitPwdUserState(this, 4, userPhone);
                 break;
         }
     }
@@ -93,7 +89,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         Intent intent;
         if (string.equals("RES_SUCCESS")) {
             mHandler.sendEmptyMessage(0);
-            intent = new Intent(this, UserActivity.class);
+            intent = new Intent(this, PwdSettingActivity.class);
             intent.putExtra("username", editTextPhoneRes.getText().toString());
             startActivity(intent);
             finish();
@@ -117,7 +113,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
     @Override
     public void responeUserMessage(UserMessageBean bean) {
 
-        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
         }
@@ -152,9 +148,9 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                         break;
                     case 4:
                         AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token",token)
+                        editor.putString("token", token)
                                 .commit();
-                        Log.v("zzzzzz","--------------"+token);
+                        Log.v("zzzzzz", "--------------" + token);
                         break;
                 }
             }

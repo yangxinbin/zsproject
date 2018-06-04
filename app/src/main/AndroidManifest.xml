@@ -73,7 +73,14 @@
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
-        <activity android:name=".login.StartActivity" />
+        <activity android:name=".login.StartActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".login.ResActivity" />
         <activity android:name=".login.UserActivity">
         </activity>

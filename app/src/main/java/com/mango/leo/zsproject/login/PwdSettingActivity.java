@@ -77,7 +77,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
                 break;
             case R.id.button2_login:
                 initEdit();
-                if (user != null && editTextPwd.getText().equals(editTextPwdok.getText())){
+                if (editTextPwd.getText().toString().equals(editTextPwdok.getText().toString())){
                     userStatePresenter.visitPwdUserState(this, 5, user);
                 }else {
                     AppUtils.showToast(this,"两次密码输入不相同");
