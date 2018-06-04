@@ -206,10 +206,10 @@ public class DemandManagementFragment extends Fragment {//
             Log.v("oooooooooo", "****onCancelingMatchClick***点击第" + position);
         }
 
-        @Override
+       /* @Override
         public void onDeleteClick(View view, int position) {
             Log.v("oooooooooo", "****onDeleteClick***点击第" + position);
-        }
+        }*/
     };
 
     @Override

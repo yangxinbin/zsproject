@@ -165,14 +165,14 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         void onCancelingMatchClick(View view, int position);
 
-        void onDeleteClick(View view, int position);
+       // void onDeleteClick(View view, int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView itemName, numCompany, numInvestmentInstitution, numInvestmentActivities;
         public LinearLayout stateButton, stateButton2;
-        public Button canceling_match, delete;
+        public Button canceling_match/*, delete*/;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -183,12 +183,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             stateButton = v.findViewById(R.id.stateButton);
             stateButton2 = v.findViewById(R.id.stateButton2);
             canceling_match = v.findViewById(R.id.canceling_match);
-            delete = v.findViewById(R.id.delete);
+           // delete = v.findViewById(R.id.delete);
             numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
             numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
             stateButton.setOnClickListener(this);
             stateButton2.setOnClickListener(this);
-            delete.setOnClickListener(this);
+           // delete.setOnClickListener(this);
             canceling_match.setOnClickListener(this);
             v.setOnClickListener(this);
         }
@@ -206,9 +206,9 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                     case R.id.canceling_match:
                         mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());
                         break;
-                    case R.id.delete:
+                    /*case R.id.delete:
                         mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
-                        break;
+                        break;*/
 
                 }
             }
