@@ -18,6 +18,7 @@ import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
+import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
@@ -44,7 +45,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
     @Bind(R.id.textView15)
     TextView textView15;
     UserStatePresenter userStatePresenter;
-    private User user;
+    private UserPhone userPhone;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private String username;
@@ -62,7 +63,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
 
     }
     private void initEdit() {
-        user = new User(editTextPwdok.getText().toString(), username);
+        userPhone = new UserPhone(getIntent().getStringExtra("username"),getIntent().getStringExtra("code"),editTextPwdok.getText().toString());
         //通过editor对象写入数据
         editor.putString("authPhone",username);//都是电话号码
     }
@@ -78,7 +79,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
             case R.id.button2_login:
                 initEdit();
                 if (editTextPwd.getText().toString().equals(editTextPwdok.getText().toString())){
-                    userStatePresenter.visitPwdUserState(this, 5, user);
+                    userStatePresenter.visitPwdUserState(this, 5, userPhone);
                 }else {
                     AppUtils.showToast(this,"两次密码输入不相同");
                 }

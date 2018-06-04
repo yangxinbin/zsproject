@@ -30,7 +30,7 @@ import okhttp3.Response;
 
 public class UserStateModelImpl implements UserStateModel {
     @Override
-    public void visitPwdUserState(Context context, String url, int type,Object o, final OnUserStateListener listener) {
+    public void visitPwdUserState(Context context, final String url, int type, Object o, final OnUserStateListener listener) {
 /*        List<OkHttpUtils.Param> mapParams = new ArrayList<>();
         mapParams.add(new OkHttpUtils.Param("username", user.getUserName()));
         mapParams.add(new OkHttpUtils.Param("password", user.getUserPwd()));*/
@@ -127,9 +127,10 @@ public class UserStateModelImpl implements UserStateModel {
             });
         }
         if (type == 5){//设置密码合并到上面 作废
-            User user = (User) o;
-            mapParams.put("username",user.getUserName());
-            mapParams.put("password",user.getUserPwd());
+            UserPhone user = (UserPhone) o;
+            mapParams.put("username",user.getPhoneN());
+            mapParams.put("password",user.getPhonePwd());
+            mapParams.put("code",user.getPhoneC());
             mapParams.put("step","2");
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
@@ -139,10 +140,12 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")){
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);
                         listener.onSuccess("SET_SUCCESS");//异步请求
 
                     }else {
                         listener.onSuccess("SET_FAILURE");
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);
                     }
                 }
             });

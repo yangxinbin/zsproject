@@ -90,6 +90,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         if (string.equals("RES_SUCCESS")) {
             mHandler.sendEmptyMessage(0);
             intent = new Intent(this, PwdSettingActivity.class);
+            intent.putExtra("code",editTextVerificationCodeRes.getText().toString());
             intent.putExtra("username", editTextPhoneRes.getText().toString());
             startActivity(intent);
             finish();
