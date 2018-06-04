@@ -65,7 +65,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
     private void initEdit() {
         userPhone = new UserPhone(getIntent().getStringExtra("username"),getIntent().getStringExtra("code"),editTextPwdok.getText().toString());
         //通过editor对象写入数据
-        editor.putString("authPhone",username);//都是电话号码
+        editor.putString("userName",username);//都是电话号码
     }
     @OnClick({R.id.imageView16_back, R.id.button2_login})
     public void onViewClicked(View view) {

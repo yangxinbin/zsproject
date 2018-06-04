@@ -59,7 +59,7 @@
             android:layout_alignTop="@+id/imageView_share"
             android:layout_marginEnd="18dp"
             android:layout_marginRight="18dp"
-            app:srcCompat="@drawable/common_nav_icon_collect" />
+            app:srcCompat="@drawable/shoucang" />
     </RelativeLayout>
 
     <WebView

@@ -130,10 +130,10 @@ public class ChangeEmailActivity extends BaseActivity {
                         AppUtils.showToast(activity, "验证码发送成功");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "成功绑定新邮箱");
+                        AppUtils.showToast(activity, "绑定新邮箱失败");
                         break;
                     case 3:
-                        AppUtils.showToast(activity, "绑定新邮箱失败");
+                        AppUtils.showToast(activity, "成功绑定新邮箱");
                         break;
                     default:
                         break;

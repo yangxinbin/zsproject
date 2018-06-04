@@ -9,6 +9,10 @@ import android.widget.Button;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.utils.ACache;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +36,8 @@ public class StartActivity extends BaseActivity {
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         if (sharedPreferences.getString("isOk","no").equals("yes")){
+            ACache mCache = ACache.get(this);
+            EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
             Intent intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();

@@ -2,14 +2,18 @@ package com.mango.leo.zsproject.personalcenter.show;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -317,7 +321,6 @@ public class UserChangeActivity extends BaseActivity {
             //裁剪返回
             case CODE_RESULT_REQUEST:
                 Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
-                Log.v("yxb", "-----fromFile-----" + cropImageUri);
                 upLoadMap(cropImageUri);
                 //这里上传文件
                 if (bitmap != null) {
@@ -329,11 +332,18 @@ public class UserChangeActivity extends BaseActivity {
     }
 
     private void upLoadMap(Uri uri) {
-        Map<String, String> mapParams = new HashMap<String, String>();
-        HttpUtils.doPostWithAll(Urls.HOST_AVATAR, new File(String.valueOf(uri)),mapParams, new Callback() {
+        Log.v("upLoadMap", uri.toString()+"-----upLoadMap-----" + sharedPreferences.getString("token", ""));
+        HttpUtils.doPostWithAll(Urls.HOST_AVATAR, getRealFilePath(this,uri),sharedPreferences.getString("token", ""), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //listener.onFailure("MES_FAILURE",e);
+                Log.v("upLoadMap", e.toString()+"-----MES_FAILURE-----"+e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppUtils.showToast(getBaseContext(),"头像上传失败");
+                    }
+                });
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -343,16 +353,56 @@ public class UserChangeActivity extends BaseActivity {
                         /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);*/
                     UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
-                    Log.v("yxb", "-----bean-----" + bean.getResponseObject().getAvator().toString());
+                    Log.v("upLoadMap", "-----bean-----" + bean.getResponseObject().getAvator().toString());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AppUtils.showToast(getBaseContext(),"头像上传成功");
+                        }
+                    });
                 }else {
-                    Log.v("pppp",response.body().string()+"******"+response.code()+Urls.HOST_AVATAR);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AppUtils.showToast(getBaseContext(),"头像上传失败");
+                        }
+                    });
+                    Log.v("upLoadMap",response.body().string()+"******"+response.code()+Urls.HOST_AVATAR);
                     //listener.onSuccess("MES_FAILURE");
                 }
             }
         });
 
     }
-
+    /**
+     * Try to return the absolute file path from the given Uri
+     *
+     * @param context
+     * @param uri
+     * @return the file path or null
+     */
+    public static String getRealFilePath(final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
     private void showImages(Bitmap bitmap) {
         circleImageView.setImageBitmap(bitmap);
     }

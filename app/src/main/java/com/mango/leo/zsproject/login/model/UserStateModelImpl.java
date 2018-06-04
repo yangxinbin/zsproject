@@ -12,6 +12,7 @@ import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.OkHttpUtils;
 
@@ -31,7 +32,7 @@ import okhttp3.Response;
 
 public class UserStateModelImpl implements UserStateModel {
     @Override
-    public void visitPwdUserState(Context context, final String url, int type, Object o, final OnUserStateListener listener) {
+    public void visitPwdUserState(final Context context, final String url, int type, Object o, final OnUserStateListener listener) {
 /*        List<OkHttpUtils.Param> mapParams = new ArrayList<>();
         mapParams.add(new OkHttpUtils.Param("username", user.getUserName()));
         mapParams.add(new OkHttpUtils.Param("password", user.getUserPwd()));*/
@@ -52,7 +53,7 @@ public class UserStateModelImpl implements UserStateModel {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("SUCCESS");//异步请求
-                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string(),context);//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     }else {
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code());
@@ -93,7 +94,7 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")){
-                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string(),context);//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                         listener.onSuccess("SUCCESS");//异步请求
                     }else {
@@ -159,20 +160,20 @@ public class UserStateModelImpl implements UserStateModel {
                 Log.v("zzzzzzz","**userMessageBean.getToken()****"+userMessageBean.getToken());
                 mapParams.put("token", userMessageBean.getToken());
                 mapParams.put("username", userMessageBean.getUsername());
-                mapParams.put("company", userMessageBean.getUsername());
-                mapParams.put("name", userMessageBean.getUsername());
-                mapParams.put("department", userMessageBean.getUsername());
-                mapParams.put("email", userMessageBean.getUsername());
+                mapParams.put("company", userMessageBean.getCompany());
+                mapParams.put("name", userMessageBean.getName());
+                mapParams.put("department", userMessageBean.getDepartment());
+                mapParams.put("email", userMessageBean.getEmail());
                 mapParams.put("position", userMessageBean.getPosition());
 
                 mapParams.put("type", "0");
-                mapParams.put("country", userMessageBean.getCountry());
+                /*mapParams.put("country", userMessageBean.getCountry());
                 mapParams.put("province", userMessageBean.getProvince());
                 mapParams.put("city", userMessageBean.getCity());
                 mapParams.put("district", userMessageBean.getDistrict());
                 mapParams.put("address", userMessageBean.getAddress());
                 mapParams.put("lon", String.valueOf(userMessageBean.getLon()));
-                mapParams.put("lat", String.valueOf(userMessageBean.getLat()));
+                mapParams.put("lat", String.valueOf(userMessageBean.getLat()));*/
 
             }
             HttpUtils.doPost(url, mapParams, new Callback() {

@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.util;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
 import org.json.JSONArray;
@@ -50,13 +52,19 @@ public class ProjectsJsonUtils {
         return beans;
     }
 
+    public static UserMessageBean readJsonUserMessageBeans(String res, Context context) {
+        ACache.get(context).put("message",res);
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+        UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
+        return bean;
+    }
     public static UserMessageBean readJsonUserMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
-
     public static List<EventBean> readJsonEventBeans(String res, String va) {
         List<EventBean> beans = new ArrayList<EventBean>();
         try {

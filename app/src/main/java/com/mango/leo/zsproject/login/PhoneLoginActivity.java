@@ -15,12 +15,14 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,13 +61,20 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         userStatePresenter = new UserStatePresenterImpl(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        if (sharedPreferences.getString("isOk","no").equals("yes")){
+            ACache mCache = ACache.get(this);
+            EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
+            Intent intent = new Intent(this, ZsActivity.class);
+            startActivity(intent);
+            finish();
+        }
         ButterKnife.bind(this);
     }
 
     private void initEdit() {
         userPhone = new UserPhone(editTextPhone.getText().toString(), editTextVerificationCode.getText().toString());
         //通过editor对象写入数据
-        editor.putString("authPhone", editTextPhone.getText().toString());
+        editor.putString("userName", editTextPhone.getText().toString());
     }
 
     @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin,R.id.imageView_phonelogin_back})

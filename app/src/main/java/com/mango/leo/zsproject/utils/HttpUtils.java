@@ -174,23 +174,21 @@ public class HttpUtils {
     }
 
     //上传文件以及上传参数
-    public static void doPostWithAll(String url, File file, Map<String, String> mapParams, Callback callback) {
+    public static void doPostWithAll(String url, String imgpath, String token, Callback callback) {
+        MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        if (mapParams == null) {
-            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.jpg\""), RequestBody.create(MediaType.parse("image/png"), file)
-            ).build();
-        } else {
-            for (String key : mapParams.keySet()) {
-                builder.addFormDataPart(key, mapParams.get(key));
-            }
-            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.jpg\""), RequestBody.create(MediaType.parse("image/png"), file)
-            );
+        File f = new File(imgpath);
+        if (f != null) {
+            builder.addFormDataPart("img",f.getName(),RequestBody.create(MEDIA_TYPE_PNG, f))
+                    .addFormDataPart("token", token);
         }
-        //创建RequestBody
-        RequestBody body = builder.build();
+        MultipartBody requestBody = builder.build();
+        //构建请求
         Request request = new Request.Builder()
+                .addHeader("X-UA", "android")
+                .header("Authorization", "Client-ID " + "9199fdef135c122")
                 .url(url)
-                .post(body)
+                .post(requestBody)
                 .build();
         Call call = getInstance().newCall(request);
         call.enqueue(callback);

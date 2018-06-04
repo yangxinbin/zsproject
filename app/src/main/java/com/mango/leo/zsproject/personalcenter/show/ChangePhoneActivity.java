@@ -17,6 +17,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.personalcenter.show.userchange.CompanyActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
@@ -93,19 +94,23 @@ public class ChangePhoneActivity extends BaseActivity {
 
     private void changePhone() {
         Map<String, String> mapParams = new HashMap<String, String>();
+        Log.v("changePhone",sharedPreferences.getString("token","")+"****"+editTextPhone.getText().toString()+"  "+editTextVerificationCode.getText().toString());
         mapParams.put("newPhone",editTextPhone.getText().toString());
         mapParams.put("code",editTextVerificationCode.getText().toString());
         mapParams.put("token",sharedPreferences.getString("token",""));
         HttpUtils.doPut(Urls.HOST_PHONE, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.v("changePhone",e.getMessage()+"_e__");
                 mHandler.sendEmptyMessage(2);
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (String.valueOf(response.code()).startsWith("2")){
                     mHandler.sendEmptyMessage(3);
+                    Log.v("changePhone","___");
                 }else {
+                    Log.v("changePhone",response.body().string()+"___");
                     mHandler.sendEmptyMessage(2);
                 }
             }
@@ -134,10 +139,12 @@ public class ChangePhoneActivity extends BaseActivity {
                         AppUtils.showToast(activity, "验证码发送成功");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "成功绑定新号码");
+                        AppUtils.showToast(activity, "绑定新号码失败");
                         break;
                     case 3:
-                        AppUtils.showToast(activity, "绑定新号码失败");
+                        AppUtils.showToast(activity, "成功绑定新号码");
+/*                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
+                        startActivity(intent);*/
                         break;
                     default:
                         break;

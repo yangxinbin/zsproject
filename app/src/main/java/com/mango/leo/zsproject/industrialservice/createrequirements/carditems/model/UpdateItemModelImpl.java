@@ -50,7 +50,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             //File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
             if (TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 url = Urls.HOST_PROJECT;
-                mapParams.put("createdBy", sharedPreferences.getString("authPhone", ""));
+                mapParams.put("createdBy", sharedPreferences.getString("userName", ""));
                 mapParams.put("name", cardFirstItemBean.getItemName());
                 mapParams.put("description", cardFirstItemBean.getItemContent());
             } else {

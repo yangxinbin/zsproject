@@ -83,7 +83,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/imageView56"
             android:layout_toRightOf="@+id/imageView56"
-            android:text="合作模式："
+            android:text="招商模式："
             android:textColor="@color/black" />
 
         <TextView
@@ -196,7 +196,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/imageView58"
             android:layout_toRightOf="@+id/imageView58"
-            android:text="投资方式："
+            android:text="合作方式："
             android:textColor="@color/black" />
 
         <TextView

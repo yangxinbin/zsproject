@@ -51,14 +51,14 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
         StringBuffer sburl = new StringBuffer();
         switch (type) {
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_DRAFTBOX:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("authPhone","")/*AppUtils.getSharePreferences(context,"CIFIT","authPhone","")*/);
+                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
                 break;
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_SUBMISSION:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("authPhone","")/*AppUtils.getSharePreferences(context,"CIFIT","authPhone","")*/);
+                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
 
                 break;
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_AUDITED:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("authPhone","")/*AppUtils.getSharePreferences(context,"CIFIT","authPhone","")*/);
+                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
 
                 break;
         }

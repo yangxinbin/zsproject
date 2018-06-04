@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.eventexhibition.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -47,6 +48,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity.TYPE1;
 
 /**
@@ -182,9 +184,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
+            Log.v("yxbb","_____"+adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             startActivity(intent);
-            getActivity().finish();
         }
     };
 

@@ -20,12 +20,14 @@ import android.widget.ToggleButton;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.personalcenter.show.ForgetActivity;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,6 +70,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         if (sharedPreferences.getString("isOk","no").equals("yes")){
+            ACache mCache = ACache.get(this);
+            EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
             Intent intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();
@@ -77,7 +81,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     private void initEdit() {
         user = new User(editTextPhoneNum.getText().toString(), editTextPwd.getText().toString());
         //通过editor对象写入数据
-        editor.putString("authPhone",editTextPhoneNum.getText().toString());
+        editor.putString("userName",editTextPhoneNum.getText().toString());
     }
 
     private void ifShowPwd() {

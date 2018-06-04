@@ -17,6 +17,7 @@ public class Urls {
     public static final String CODEEMAIL ="/user-service/user/send/email/code";
     public static final String EMAIL ="/user-service/user/email";
     public static final String AVATAR ="/user-service/user/avatar";
+    public static final String FAVOURITE ="/event-service/event/favourite";
     public static final String HOST_AUTH =HOST+AUTH;
     public static final String HOST_REGIST =HOST+REGIST;// 1.拿到手机号 2.设置密码
     public static final String HOST_PROJECT =HOST+PROJECT;
@@ -28,6 +29,7 @@ public class Urls {
     public static final String HOST_CODEEMAIL =HOST+CODEEMAIL;
     public static final String HOST_EMAIL =HOST+EMAIL;
     public static final String HOST_AVATAR =HOST+AVATAR;
+    public static final String HOST_FAVOURITE =HOST+FAVOURITE;
     public static final String UPDATE1 = "/update";
     public static final String UPDATE2 = "/industries";
     public static final String UPDATE3 = "/location";
