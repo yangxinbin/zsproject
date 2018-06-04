@@ -113,11 +113,13 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
 
     @Override
     public void responeUserMessage(UserMessageBean bean) {
-
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
+            Log.v("tttttr1","--------------"+token);
+
         }
+        Log.v("tttttr2","--------------"+token);
     }
 
     private final MyHandler mHandler = new MyHandler(this);

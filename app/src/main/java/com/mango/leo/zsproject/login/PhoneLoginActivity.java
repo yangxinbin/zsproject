@@ -106,6 +106,8 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         if (string.equals("SUCCESS")) {
             editor.putString("isOk", "yes")
                     .commit();
+            editor.putString("skip", "no")
+                    .commit();
             mHandler.sendEmptyMessage(0);
             // Toast.makeText(this, s, Toast.LENGTH_LONG);
             intent = new Intent(this, ZsActivity.class);

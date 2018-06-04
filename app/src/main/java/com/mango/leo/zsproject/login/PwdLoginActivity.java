@@ -82,6 +82,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     private void ifShowPwd() {
         togglePwd.setChecked(false);
+        editTextPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
         togglePwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -130,6 +131,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         Intent intent;
         if (s.equals("SUCCESS")) {
             editor.putString("isOk", "yes")
+                    .commit();
+            editor.putString("skip", "no")
                     .commit();
             mHandler.sendEmptyMessage(0);
             // Toast.makeText(this, s, Toast.LENGTH_LONG);

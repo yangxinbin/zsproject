@@ -6,6 +6,7 @@ import android.util.Log;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.login.bean.BeForeUserMesBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
@@ -140,9 +141,9 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")){
-                        Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);
                         listener.onSuccess("SET_SUCCESS");//异步请求
-
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessUserMessage(bean);
                     }else {
                         listener.onSuccess("SET_FAILURE");
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);
@@ -151,14 +152,28 @@ public class UserStateModelImpl implements UserStateModel {
             });
         }
         if (type == 6){ //上传个人信息
-            UserMessageBean userMessageBean = (UserMessageBean) o;
-            if (userMessageBean != null && userMessageBean.getResponseObject()!=null) {
-                mapParams.put("token", userMessageBean.getResponseObject().getToken());
-                mapParams.put("username", userMessageBean.getResponseObject().getUsername());
-                mapParams.put("company", userMessageBean.getResponseObject().getUsername());
-                mapParams.put("name", userMessageBean.getResponseObject().getUsername());
-                mapParams.put("department", userMessageBean.getResponseObject().getUsername());
-                mapParams.put("email", userMessageBean.getResponseObject().getUsername());
+            mapParams.clear();
+            BeForeUserMesBean userMessageBean = (BeForeUserMesBean) o;
+            Log.v("zzzzzzz1",userMessageBean.getDistrict()+"**userMessageBean.getResponseObject().getToken()****"+userMessageBean.getToken());
+            if (userMessageBean!=null) {
+                Log.v("zzzzzzz","**userMessageBean.getToken()****"+userMessageBean.getToken());
+                mapParams.put("token", userMessageBean.getToken());
+                mapParams.put("username", userMessageBean.getUsername());
+                mapParams.put("company", userMessageBean.getUsername());
+                mapParams.put("name", userMessageBean.getUsername());
+                mapParams.put("department", userMessageBean.getUsername());
+                mapParams.put("email", userMessageBean.getUsername());
+                mapParams.put("position", userMessageBean.getPosition());
+
+                mapParams.put("type", "0");
+                mapParams.put("country", userMessageBean.getCountry());
+                mapParams.put("province", userMessageBean.getProvince());
+                mapParams.put("city", userMessageBean.getCity());
+                mapParams.put("district", userMessageBean.getDistrict());
+                mapParams.put("address", userMessageBean.getAddress());
+                mapParams.put("lon", String.valueOf(userMessageBean.getLon()));
+                mapParams.put("lat", String.valueOf(userMessageBean.getLat()));
+
             }
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
@@ -170,9 +185,10 @@ public class UserStateModelImpl implements UserStateModel {
                     if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("MES_SUCCESS");//异步请求
                         //注册时以及获取Token这里不用重复获取了
-                        /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
-                        listener.getSuccessUserMessage(bean);*/
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessUserMessage(bean);
                     }else {
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);
                         listener.onSuccess("MES_FAILURE");
                     }
                 }

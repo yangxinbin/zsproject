@@ -22,12 +22,15 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.photoutils.PhotoUtils;
 import com.mango.leo.zsproject.personalcenter.show.userchange.CompanyActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.DepartmentActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.NameActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,11 +40,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class UserChangeActivity extends BaseActivity {
@@ -102,6 +111,7 @@ public class UserChangeActivity extends BaseActivity {
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         getImageAndMes();//后台请求数据
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
         //头像
@@ -254,19 +264,19 @@ public class UserChangeActivity extends BaseActivity {
                 break;
             case R.id.r1:
                 intent = new Intent(this, NameActivity.class);
-                intent.putExtra("name",textView1.getText());
+                intent.putExtra("name", textView1.getText());
                 startActivity(intent);
                 finish();
                 break;
             case R.id.r2:
                 intent = new Intent(this, CompanyActivity.class);
-                intent.putExtra("company",textView2.getText());
+                intent.putExtra("company", textView2.getText());
                 startActivity(intent);
                 finish();
                 break;
             case R.id.r3:
                 intent = new Intent(this, DepartmentActivity.class);
-                intent.putExtra("department",textView3.getText());
+                intent.putExtra("department", textView3.getText());
                 startActivity(intent);
                 finish();
                 break;
@@ -308,7 +318,7 @@ public class UserChangeActivity extends BaseActivity {
             case CODE_RESULT_REQUEST:
                 Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
                 Log.v("yxb", "-----fromFile-----" + cropImageUri);
-
+                upLoadMap(cropImageUri);
                 //这里上传文件
                 if (bitmap != null) {
                     showImages(bitmap);
@@ -316,6 +326,31 @@ public class UserChangeActivity extends BaseActivity {
                 break;
             default:
         }
+    }
+
+    private void upLoadMap(Uri uri) {
+        Map<String, String> mapParams = new HashMap<String, String>();
+        HttpUtils.doPostWithAll(Urls.HOST_AVATAR, new File(String.valueOf(uri)),mapParams, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //listener.onFailure("MES_FAILURE",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")){
+                    //listener.onSuccess("MES_SUCCESS");//异步请求
+                    //注册时以及获取Token这里不用重复获取了
+                        /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        listener.getSuccessUserMessage(bean);*/
+                    UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
+                    Log.v("yxb", "-----bean-----" + bean.getResponseObject().getAvator().toString());
+                }else {
+                    Log.v("pppp",response.body().string()+"******"+response.code()+Urls.HOST_AVATAR);
+                    //listener.onSuccess("MES_FAILURE");
+                }
+            }
+        });
+
     }
 
     private void showImages(Bitmap bitmap) {
@@ -329,6 +364,7 @@ public class UserChangeActivity extends BaseActivity {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

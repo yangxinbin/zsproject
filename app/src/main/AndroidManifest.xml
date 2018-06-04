@@ -72,7 +72,9 @@
         <activity android:name=".industrialservice.createrequirements.carditems.CardNinthItemActivity" />
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
-        <activity android:name=".login.PwdLoginActivity" />
+        <activity android:name=".login.PwdLoginActivity" >
+
+        </activity>
         <activity android:name=".login.StartActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

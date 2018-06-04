@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,8 @@ public class FragmentOfPersonalCenter extends Fragment {
     TextView textViewUserName;
     @Bind(R.id.imageView_state)
     ImageView imageViewState;
+    @Bind(R.id.imageView20)
+    ImageView imageView20;
     @Bind(R.id.textView_gov)
     TextView textViewGov;
     @Bind(R.id.textView_job)
@@ -65,8 +68,11 @@ public class FragmentOfPersonalCenter extends Fragment {
     TextView textViewEmile;
     @Bind(R.id.textView20)
     TextView textView20;
+    @Bind(R.id.textView_userName_nomes)
+    TextView textViewUserNameNomes;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
+    private UserMessageBean bean1;
 
     @Nullable
     @Override
@@ -75,25 +81,45 @@ public class FragmentOfPersonalCenter extends Fragment {
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
-        if (false/*sharedPreferences.getString("skip", "no").equals("yes")*/) {
+        if (sharedPreferences.getString("skip", "no").equals("yes")) {
             cardView3.setVisibility(View.VISIBLE);
             cardView2.setVisibility(View.GONE);
-        } else {
-            cardView2.setVisibility(View.VISIBLE);
-            cardView3.setVisibility(View.GONE);
         }
         return view;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
+        bean1 = bean;
+        if (bean.getResponseObject().getGovtTenant() != null) {//认证
+            imageViewState.setVisibility(View.VISIBLE);
+        } else {//非认证
+            imageViewState.setVisibility(View.GONE);
+        }
+        if (bean.getResponseObject().getName() == null || bean.getResponseObject().getEmail() == null || bean.getResponseObject().getUsername() == null) {
+            Log.v("yxbbb","****");
+            cardView3.setVisibility(View.VISIBLE);
+            cardView2.setVisibility(View.GONE);
+        }
         //头像
-        textViewUserName.setText(bean.getResponseObject().getName());
+        if (bean.getResponseObject().getName() == null) {
+            textViewUserName.setText(bean.getResponseObject().getUsername());
+            textViewUserNameNomes.setText(bean.getResponseObject().getUsername());
+        } else {
+            textViewUserName.setText(bean.getResponseObject().getName());
+        }
+        if (bean.getResponseObject().getEmail() == null) {
+            imageView20.setVisibility(View.GONE);
+            textViewEmile.setVisibility(View.GONE);
+        } else {
+            imageView20.setVisibility(View.VISIBLE);
+            textViewEmile.setVisibility(View.VISIBLE);
+            textViewEmile.setText(bean.getResponseObject().getEmail());
+        }
         //身份
         textViewGov.setText(bean.getResponseObject().getCompany());
         textViewJob.setText(bean.getResponseObject().getDepartment());
         textViewPhone.setText(bean.getResponseObject().getUsername());
-        textViewEmile.setText(bean.getResponseObject().getEmail());
         textView20.setText(bean.getResponseObject().getCompany());
     }
 
@@ -128,6 +154,7 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.bu_mes:
+                EventBus.getDefault().postSticky(bean1);
                 intent = new Intent(getActivity(), UserActivity.class);
                 startActivity(intent);
                 break;

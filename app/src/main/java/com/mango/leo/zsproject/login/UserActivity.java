@@ -22,6 +22,7 @@ import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.bean.BeForeUserMesBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
@@ -29,6 +30,8 @@ import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
@@ -61,13 +64,13 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     Dialog dialog;
     //private AddressPickerView addressView;
     UserStatePresenter userStatePresenter;
-    private UserMessageBean userMessageBean;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private CityPickerView mPicker;
     private String cityString;
     private String token;
     private UserMessageBean.ResponseObjectBean.LocationBean locationBean;
+    private BeForeUserMesBean beForeUserMesBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,29 +83,26 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         userStatePresenter = new UserStatePresenterImpl(this);
-        userMessageBean = new UserMessageBean();
+        beForeUserMesBean = new BeForeUserMesBean();
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        editTextName.setText(bean.getResponseObject().getUsername());
+    }
     private void initDate() {
-        UserMessageBean.ResponseObjectBean responseObjectBean = new UserMessageBean.ResponseObjectBean();
-        locationBean = new UserMessageBean.ResponseObjectBean.LocationBean();
-        if (responseObjectBean != null) {
-            responseObjectBean.setToken(sharedPreferences.getString("token", ""));
-            responseObjectBean.setName(editTextName.getText().toString());
-            responseObjectBean.setCompany(editTextCom.getText().toString());
-            responseObjectBean.setUsername(editTextPho.getText().toString());
-            responseObjectBean.setEmail(editTextEm.getText().toString());
-            responseObjectBean.setDepartment(editTextPos.getText().toString());
-            responseObjectBean.setPosition(cityString);//选择的
-            //以下是定位获取的
-            if (locationBean != null){
-                //定位获取
-                /*locationBean.setCountry("中国");
-                locationBean.setCity("深圳");
-                locationBean.setDistrict("南山");*/
-            }
-        }
-        Log.v("ooooooooo","****"+ locationBean.getDistrict());
+        beForeUserMesBean.setToken(sharedPreferences.getString("token", ""));
+        beForeUserMesBean.setName(editTextName.getText().toString());
+        beForeUserMesBean.setCompany(editTextCom.getText().toString());
+        beForeUserMesBean.setUsername(editTextPho.getText().toString());
+        beForeUserMesBean.setEmail(editTextEm.getText().toString());
+        beForeUserMesBean.setDepartment(editTextPos.getText().toString());
+        beForeUserMesBean.setPosition(cityString);//选择的
+        //以下是定位获取的
+            //定位获取
+        beForeUserMesBean.setCountry("中国");
+        beForeUserMesBean.setCity("深圳");
+        beForeUserMesBean.setDistrict("南山");
+
     }
 
     @OnClick({R.id.button, R.id.ski, R.id.city})
@@ -111,12 +111,12 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         switch (view.getId()) {
             case R.id.button:
                 initDate();
-                editor.putString("skip","no")
+                editor.putString("skip", "no")
                         .commit();
-                userStatePresenter.visitPwdUserState(this, 6, userMessageBean);
+                userStatePresenter.visitPwdUserState(this, 6, beForeUserMesBean);
                 break;
             case R.id.ski:
-                editor.putString("skip","yes")
+                editor.putString("skip", "yes")
                         .commit();
 /*                EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans("{\n" +
                         "    \"responseObject\": {\n" +
@@ -274,7 +274,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
 
     @Override
     public void responeUserMessage(UserMessageBean bean) {
-        if (bean != null){
+        if (bean != null) {
             EventBus.getDefault().postSticky(bean);
         }//Token在前一步注册时保存了
     }
