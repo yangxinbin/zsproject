@@ -58,7 +58,7 @@ public class DemandManagementFragment extends Fragment {//
     private Spinner mSpinner;
     //private Button createButton;
     private ConstraintLayout h;
-    private RelativeLayout allPlanLayout, addPlanLayout;
+    private LinearLayout allPlanLayout, addPlanLayout;
     private Banner banner;
 
 
@@ -136,8 +136,8 @@ public class DemandManagementFragment extends Fragment {//
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
         h = (ConstraintLayout) header.findViewById(R.id.header);
-        allPlanLayout = (RelativeLayout) header.findViewById(R.id.r1);
-        addPlanLayout = (RelativeLayout) header.findViewById(R.id.r2);
+        addPlanLayout = (LinearLayout) header.findViewById(R.id.r1);
+        allPlanLayout= (LinearLayout) header.findViewById(R.id.r2);
         banner = (Banner) header.findViewById(R.id.imageView);
         List<String> pathsImage = new ArrayList<>();
         List<String> pathsTitle = new ArrayList<>();

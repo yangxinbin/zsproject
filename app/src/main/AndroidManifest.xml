@@ -57,7 +57,11 @@
         </provider>
 
         <activity android:name=".ZsActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
@@ -79,11 +83,7 @@
 
         </activity>
         <activity android:name=".login.StartActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".login.ResActivity" />
