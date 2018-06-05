@@ -209,7 +209,7 @@ public class HttpUtils {
         for (String key : mapParams.keySet()) {
             builder.add(key, mapParams.get(key));
             if (key.equals("projectId")) {//保证第一个
-                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位
+                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位//
                 break;
             }
             if (key.equals("token")) {//保证第一个
