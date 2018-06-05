@@ -57,11 +57,7 @@
         </provider>
 
         <activity android:name=".ZsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
@@ -79,7 +75,13 @@
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity"></activity>
-        <activity android:name=".login.StartActivity"></activity>
+        <activity android:name=".login.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".login.ResActivity" />
         <activity android:name=".login.UserActivity"></activity>
         <activity android:name=".personalcenter.show.UserChangeActivity" />
@@ -87,6 +89,7 @@
         <activity android:name=".personalcenter.show.SettingActivity" />
         <activity android:name=".personalcenter.show.GovActivity" />
         <activity android:name=".personalcenter.show.ChangePwdActivity" />
+        <activity android:name=".personalcenter.show.ChangePwdForActivity" />
         <activity android:name=".personalcenter.show.ForgetActivity" />
         <activity android:name=".personalcenter.show.ChangePhoneActivity" />
         <activity android:name=".personalcenter.show.ChangeEmailActivity" />

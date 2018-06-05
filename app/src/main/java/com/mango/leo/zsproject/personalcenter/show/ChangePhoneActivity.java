@@ -75,7 +75,7 @@ public class ChangePhoneActivity extends BaseActivity {
     }
 
     private void getPhoneCode() {
-        HttpUtils.doGet(Urls.HOST_CODE + "?username=" + editTextPhone.getText().toString(), new Callback() {
+        HttpUtils.doGet(Urls.HOST_CODE + "?phoneOrEmail=" + editTextPhone.getText().toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(0);
@@ -109,6 +109,7 @@ public class ChangePhoneActivity extends BaseActivity {
                 if (String.valueOf(response.code()).startsWith("2")){
                     mHandler.sendEmptyMessage(3);
                     Log.v("changePhone","___");
+
                 }else {
                     Log.v("changePhone",response.body().string()+"___");
                     mHandler.sendEmptyMessage(2);
@@ -119,7 +120,7 @@ public class ChangePhoneActivity extends BaseActivity {
 
     private final ChangePhoneActivity.MyHandler mHandler = new ChangePhoneActivity.MyHandler(this);
 
-    private static class MyHandler extends Handler {
+    private class MyHandler extends Handler {
         private final WeakReference<ChangePhoneActivity> mActivity;
 
         public MyHandler(ChangePhoneActivity activity) {
@@ -142,9 +143,9 @@ public class ChangePhoneActivity extends BaseActivity {
                         AppUtils.showToast(activity, "绑定新号码失败");
                         break;
                     case 3:
+                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
+                        startActivity(intent);
                         AppUtils.showToast(activity, "成功绑定新号码");
-/*                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
-                        startActivity(intent);*/
                         break;
                     default:
                         break;

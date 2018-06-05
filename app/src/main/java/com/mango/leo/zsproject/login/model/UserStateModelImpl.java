@@ -66,7 +66,7 @@ public class UserStateModelImpl implements UserStateModel {
         if (type == 2){//获取验证码
             UserPhone userPhone = (UserPhone) o;
             //mapParams.put("username",userPhone.getPhoneN());
-            HttpUtils.doGet(url+"?username="+userPhone.getPhoneN(), new Callback() {
+            HttpUtils.doGet(url+"?phoneOrEmail="+userPhone.getPhoneN(), new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     listener.onFailure("FAILURE",e);
@@ -86,9 +86,11 @@ public class UserStateModelImpl implements UserStateModel {
             UserPhone userPhone = (UserPhone) o;
             mapParams.put("username",userPhone.getPhoneN());
             mapParams.put("code",userPhone.getPhoneC());
+            mapParams.put("stage","0");
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    Log.v("zzzzzzz","***e***"+e.getMessage());
                     listener.onFailure("FAILURE",e);
                 }
                 @Override
@@ -98,6 +100,7 @@ public class UserStateModelImpl implements UserStateModel {
                         listener.getSuccessUserMessage(bean);
                         listener.onSuccess("SUCCESS");//异步请求
                     }else {
+                        Log.v("zzzzzzz",response.body().string()+"******"+response.code());
                         listener.onSuccess("FAILURE");
                     }
                 }
@@ -166,8 +169,8 @@ public class UserStateModelImpl implements UserStateModel {
                 mapParams.put("email", userMessageBean.getEmail());
                 mapParams.put("position", userMessageBean.getPosition());
 
-                mapParams.put("type", "0");
-                /*mapParams.put("country", userMessageBean.getCountry());
+                /*mapParams.put("type", "0");
+                mapParams.put("country", userMessageBean.getCountry());
                 mapParams.put("province", userMessageBean.getProvince());
                 mapParams.put("city", userMessageBean.getCity());
                 mapParams.put("district", userMessageBean.getDistrict());
@@ -186,7 +189,7 @@ public class UserStateModelImpl implements UserStateModel {
                     if (String.valueOf(response.code()).startsWith("2")){
                         listener.onSuccess("MES_SUCCESS");//异步请求
                         //注册时以及获取Token这里不用重复获取了
-                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
+                        UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string(),context);//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     }else {
                         Log.v("zzzzzzz",response.body().string()+"******"+response.code()+url);

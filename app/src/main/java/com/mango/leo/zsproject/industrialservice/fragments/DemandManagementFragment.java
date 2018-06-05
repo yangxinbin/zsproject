@@ -137,19 +137,19 @@ public class DemandManagementFragment extends Fragment {//
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
         h = (ConstraintLayout) header.findViewById(R.id.header);
         addPlanLayout = (LinearLayout) header.findViewById(R.id.r1);
-        allPlanLayout= (LinearLayout) header.findViewById(R.id.r2);
+        allPlanLayout = (LinearLayout) header.findViewById(R.id.r2);
         banner = (Banner) header.findViewById(R.id.imageView);
         List<String> pathsImage = new ArrayList<>();
         List<String> pathsTitle = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            pathsImage.add(getResourcesUri(R.drawable.wechat));
-            pathsTitle.add("");
-        }
+        pathsImage.add(getResourcesUri(R.drawable.wechat));
+        pathsImage.add(getResourcesUri(R.drawable.wechat2));
+        pathsTitle.add("");
+        pathsTitle.add("");
         banner.setImages(pathsImage)
                 .setBannerTitles(pathsTitle)
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new GlideImageLoader())
-               // .setOnBannerClickListener(this)
+                // .setOnBannerClickListener(this)
                 .start();
 
         //mSpinner = (Spinner) header.findViewById(R.id.spinnerState);
@@ -171,6 +171,7 @@ public class DemandManagementFragment extends Fragment {//
         //mSpinner.setAdapter(arrayAdapter1);
         adapter.setHeaderView(h);
     }
+
     private String getResourcesUri(@DrawableRes int id) {
         Resources resources = getResources();
         String uriPath = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
@@ -179,6 +180,7 @@ public class DemandManagementFragment extends Fragment {//
                 resources.getResourceEntryName(id);
         return uriPath;
     }
+
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
 
         @Override

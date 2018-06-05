@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,6 +39,7 @@ public class StartActivity extends BaseActivity {
         if (sharedPreferences.getString("isOk","no").equals("yes")){
             ACache mCache = ACache.get(this);
             EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
+            Log.v("yxb",""+mCache.getAsString("message"));
             Intent intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();

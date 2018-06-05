@@ -96,7 +96,9 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         beForeUserMesBean.setUsername(editTextPho.getText().toString());
         beForeUserMesBean.setEmail(editTextEm.getText().toString());
         beForeUserMesBean.setDepartment(editTextPos.getText().toString());
-        beForeUserMesBean.setPosition(cityString);//选择的
+        if(cityString != null){
+            beForeUserMesBean.setPosition(cityString);//选择的
+        }
         //以下是定位获取的
             //定位获取
         beForeUserMesBean.setCountry("中国");

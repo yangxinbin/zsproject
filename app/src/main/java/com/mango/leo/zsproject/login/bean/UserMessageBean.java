@@ -7,7 +7,7 @@ package com.mango.leo.zsproject.login.bean;
 public class UserMessageBean {
 
     /**
-     * responseObject : {"id":"5b10f1b2bc2ab90f3c3cff15","username":"13417304551","name":"tom","company":"芒果","position":"深圳","department":"市场","email":"295249259@qq.com","type":"0","avator":null,"location":{"country":"中国","province":"广东","city":"深圳","district":"南山","address":"东方科技大厦","lon":34.1,"lat":45.2},"govtTenant":null,"token":"eyJhbGciOiJIUzUxMiJ9.eyJnb3Z0VGVuYW50IjpudWxsLCJhdWRpZW5jZSI6Im1vYmlsZSIsImNyZWF0ZWQiOjE1Mjc4MzgzMTE1OTksImlkIjoiNWIxMGYxYjJiYzJhYjkwZjNjM2NmZjE1IiwiZXhwIjo0MTE5ODM4MzExLCJ1c2VybmFtZSI6IjEzNDE3MzA0NTUwIn0.xKfy-0sxpSgyNOmPcrP0JFet1KlZokOBDKRMXBCnx1jkTTb5_vJBZCghimy6plEqnWMgLLb9GDUHVQ1v9CzNkA"}
+     * responseObject : {"id":"5b165741bc2ab91bdf66afa2","username":"18318836309","name":"tt","company":"tt","position":"杭州市","department":"tt","email":"tt","type":null,"avator":{"id":"5b165bd6bc2ab941d047a170","alias":null,"fileName":"crop_photo.jpg","contentType":null,"size":0,"createdOn":0},"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"tenant":null,"token":"eyJhbGciOiJIUzUxMiJ9.eyJhdWRpZW5jZSI6Im1vYmlsZSIsImNyZWF0ZWQiOjE1MjgxOTE5OTMwMzAsImlkIjoiNWIxNjU3NDFiYzJhYjkxYmRmNjZhZmEyIiwiZXhwIjo0MTIwMTkxOTkzLCJ0ZW5hbnQiOm51bGwsInVzZXJuYW1lIjoiMTgzMTg4MzYzMDkifQ.S0wv6sSS4F_EPYlVz7uv6kILNHuxJuHkP7cZbTrYYIa9RGnrEvK7ySpfTSlioiO8y_RS_ADNhqROcjn15UbQzA"}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -62,18 +62,18 @@ public class UserMessageBean {
 
     public static class ResponseObjectBean {
         /**
-         * id : 5b10f1b2bc2ab90f3c3cff15
-         * username : 13417304551
-         * name : tom
-         * company : 芒果
-         * position : 深圳
-         * department : 市场
-         * email : 295249259@qq.com
-         * type : 0
-         * avator : null
-         * location : {"country":"中国","province":"广东","city":"深圳","district":"南山","address":"东方科技大厦","lon":34.1,"lat":45.2}
-         * govtTenant : null
-         * token : eyJhbGciOiJIUzUxMiJ9.eyJnb3Z0VGVuYW50IjpudWxsLCJhdWRpZW5jZSI6Im1vYmlsZSIsImNyZWF0ZWQiOjE1Mjc4MzgzMTE1OTksImlkIjoiNWIxMGYxYjJiYzJhYjkwZjNjM2NmZjE1IiwiZXhwIjo0MTE5ODM4MzExLCJ1c2VybmFtZSI6IjEzNDE3MzA0NTUwIn0.xKfy-0sxpSgyNOmPcrP0JFet1KlZokOBDKRMXBCnx1jkTTb5_vJBZCghimy6plEqnWMgLLb9GDUHVQ1v9CzNkA
+         * id : 5b165741bc2ab91bdf66afa2
+         * username : 18318836309
+         * name : tt
+         * company : tt
+         * position : 杭州市
+         * department : tt
+         * email : tt
+         * type : null
+         * avator : {"id":"5b165bd6bc2ab941d047a170","alias":null,"fileName":"crop_photo.jpg","contentType":null,"size":0,"createdOn":0}
+         * location : {"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null}
+         * tenant : null
+         * token : eyJhbGciOiJIUzUxMiJ9.eyJhdWRpZW5jZSI6Im1vYmlsZSIsImNyZWF0ZWQiOjE1MjgxOTE5OTMwMzAsImlkIjoiNWIxNjU3NDFiYzJhYjkxYmRmNjZhZmEyIiwiZXhwIjo0MTIwMTkxOTkzLCJ0ZW5hbnQiOm51bGwsInVzZXJuYW1lIjoiMTgzMTg4MzYzMDkifQ.S0wv6sSS4F_EPYlVz7uv6kILNHuxJuHkP7cZbTrYYIa9RGnrEvK7ySpfTSlioiO8y_RS_ADNhqROcjn15UbQzA
          */
 
         private String id;
@@ -83,10 +83,10 @@ public class UserMessageBean {
         private String position;
         private String department;
         private String email;
-        private String type;
-        private Object avator;
+        private Object type;
+        private AvatorBean avator;
         private LocationBean location;
-        private Object govtTenant;
+        private Object tenant;
         private String token;
 
         public String getId() {
@@ -145,19 +145,19 @@ public class UserMessageBean {
             this.email = email;
         }
 
-        public String getType() {
+        public Object getType() {
             return type;
         }
 
-        public void setType(String type) {
+        public void setType(Object type) {
             this.type = type;
         }
 
-        public Object getAvator() {
+        public AvatorBean getAvator() {
             return avator;
         }
 
-        public void setAvator(Object avator) {
+        public void setAvator(AvatorBean avator) {
             this.avator = avator;
         }
 
@@ -169,12 +169,12 @@ public class UserMessageBean {
             this.location = location;
         }
 
-        public Object getGovtTenant() {
-            return govtTenant;
+        public Object getTenant() {
+            return tenant;
         }
 
-        public void setGovtTenant(Object govtTenant) {
-            this.govtTenant = govtTenant;
+        public void setTenant(Object tenant) {
+            this.tenant = tenant;
         }
 
         public String getToken() {
@@ -185,78 +185,144 @@ public class UserMessageBean {
             this.token = token;
         }
 
-        public static class LocationBean {
+        public static class AvatorBean {
             /**
-             * country : 中国
-             * province : 广东
-             * city : 深圳
-             * district : 南山
-             * address : 东方科技大厦
-             * lon : 34.1
-             * lat : 45.2
+             * id : 5b165bd6bc2ab941d047a170
+             * alias : null
+             * fileName : crop_photo.jpg
+             * contentType : null
+             * size : 0
+             * createdOn : 0
              */
 
-            private String country;
-            private String province;
-            private String city;
-            private String district;
-            private String address;
-            private double lon;
-            private double lat;
+            private String id;
+            private Object alias;
+            private String fileName;
+            private Object contentType;
+            private int size;
+            private int createdOn;
 
-            public String getCountry() {
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public Object getAlias() {
+                return alias;
+            }
+
+            public void setAlias(Object alias) {
+                this.alias = alias;
+            }
+
+            public String getFileName() {
+                return fileName;
+            }
+
+            public void setFileName(String fileName) {
+                this.fileName = fileName;
+            }
+
+            public Object getContentType() {
+                return contentType;
+            }
+
+            public void setContentType(Object contentType) {
+                this.contentType = contentType;
+            }
+
+            public int getSize() {
+                return size;
+            }
+
+            public void setSize(int size) {
+                this.size = size;
+            }
+
+            public int getCreatedOn() {
+                return createdOn;
+            }
+
+            public void setCreatedOn(int createdOn) {
+                this.createdOn = createdOn;
+            }
+        }
+
+        public static class LocationBean {
+            /**
+             * country : null
+             * province : null
+             * city : null
+             * district : null
+             * address : null
+             * lon : null
+             * lat : null
+             */
+
+            private Object country;
+            private Object province;
+            private Object city;
+            private Object district;
+            private Object address;
+            private Object lon;
+            private Object lat;
+
+            public Object getCountry() {
                 return country;
             }
 
-            public void setCountry(String country) {
+            public void setCountry(Object country) {
                 this.country = country;
             }
 
-            public String getProvince() {
+            public Object getProvince() {
                 return province;
             }
 
-            public void setProvince(String province) {
+            public void setProvince(Object province) {
                 this.province = province;
             }
 
-            public String getCity() {
+            public Object getCity() {
                 return city;
             }
 
-            public void setCity(String city) {
+            public void setCity(Object city) {
                 this.city = city;
             }
 
-            public String getDistrict() {
+            public Object getDistrict() {
                 return district;
             }
 
-            public void setDistrict(String district) {
+            public void setDistrict(Object district) {
                 this.district = district;
             }
 
-            public String getAddress() {
+            public Object getAddress() {
                 return address;
             }
 
-            public void setAddress(String address) {
+            public void setAddress(Object address) {
                 this.address = address;
             }
 
-            public double getLon() {
+            public Object getLon() {
                 return lon;
             }
 
-            public void setLon(double lon) {
+            public void setLon(Object lon) {
                 this.lon = lon;
             }
 
-            public double getLat() {
+            public Object getLat() {
                 return lat;
             }
 
-            public void setLat(double lat) {
+            public void setLat(Object lat) {
                 this.lat = lat;
             }
         }

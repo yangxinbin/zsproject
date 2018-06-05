@@ -61,5 +61,6 @@ public class ShouCangActivity extends AppCompatActivity {
 
     @OnClick(R.id.imageView_b)
     public void onViewClicked() {
+        finish();
     }
 }

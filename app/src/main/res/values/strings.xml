@@ -63,8 +63,9 @@
     <string name="submission">已提交</string>
     <string name="audited">已审核</string>
     <string name="no_more">No more projects,Please refresh!</string>
+    <string name="no_more_s">没有更多的收藏活动!</string>
     <string name="mineplan">我的招商信息</string>
-    <string name="saveinbox">存入草稿箱</string>
+    <string name="saveinbox">存草稿</string>
     <string name="contacts">联系方式</string>
     <string name="chanye">请选择产业</string>
     <string name="lingyu">请选择领域（多选）</string>

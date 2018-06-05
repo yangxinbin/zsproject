@@ -1,4 +1,4 @@
-package com.mango.leo.zsproject.eventexhibition.adapter;
+package com.mango.leo.zsproject.personalcenter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by admin on 2018/5/11.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private OnEventnewsClickListener mOnEventnewsClickListener;//自注册的接口给调用者用于点击逻辑
     private List<EventBean> mData;
@@ -56,7 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.notifyDataSetChanged();
     }
 
-    public EventAdapter(Context context) {
+    public ShouCangEventAdapter(Context context) {
         this.context = context;
     }
     @Override
@@ -66,7 +68,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.event_item, parent, false);
+                    .inflate(R.layout.eventshoucang_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         }
@@ -88,7 +90,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (position == 0) {
             return TYPE_HEADER;//add header
         }
-        if ((position + 1 == getItemCount() || mHeaderView == null) && isShowFooter()) { //加载到最后不显示footter
+        if ((position + 1 == getItemCount() || mHeaderView == null)/* && isShowFooter()*/) { //加载到最后不显示footter
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
@@ -121,7 +123,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getLocation().getCity().toString());
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
                 if (mData.get(pos).getResponseObject().getContent().get(pos%20).getBanner().getId() != null) {
-                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
+                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
                 }
             }
         }
@@ -154,12 +156,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mData == null ? null : mData.get(position);
     }
     public interface OnEventnewsClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
+        void onCancelingShouCangClick(View view, int position);
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView e_title,e_place,e_time;
         public ImageView im;
+        private Button del;
         public ItemViewHolder(View v) {
             super(v);
             if(v == mHeaderView)
@@ -168,13 +172,26 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             e_place = (TextView) v.findViewById(R.id.textView_p);
             e_time = (TextView) v.findViewById(R.id.textView_time);
             im = (ImageView)v.findViewById(R.id.im_pic);
+            del = (Button) v.findViewById(R.id.canceling_shoucang);
             v.setOnClickListener(this);
+            del.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if (mOnEventnewsClickListener != null) {
-                mOnEventnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                switch (view.getId()) {
+                    case R.id.stateButton:
+                        mOnEventnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                        break;
+                    case R.id.canceling_shoucang:
+                        mOnEventnewsClickListener.onCancelingShouCangClick(view, this.getLayoutPosition());
+                        break;
+                    /*case R.id.delete:
+                        mOnEventnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                        break;*/
+
+                }
             }
         }
     }

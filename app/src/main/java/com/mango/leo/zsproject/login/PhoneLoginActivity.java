@@ -162,10 +162,10 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                 switch (msg.what) {
                     case 0:
                         editor.commit();
-                        AppUtils.showToast(activity, "SUCCESS");
+                        AppUtils.showToast(activity, "登录成功");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "ERROR");
+                        AppUtils.showToast(activity, "登录失败");
                         break;
                     case 2:
                         AppUtils.showToast(activity, "验证码获取成功");

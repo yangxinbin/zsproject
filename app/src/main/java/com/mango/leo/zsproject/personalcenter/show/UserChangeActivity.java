@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
@@ -119,6 +120,10 @@ public class UserChangeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
         //头像
+        if (bean.getResponseObject().getAvator().getId() != null) {//认证
+            Log.v("yxbb","dddd");
+            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(circleImageView);
+        }
         textView1.setText(bean.getResponseObject().getName());
         textView2.setText(bean.getResponseObject().getCompany());
         textView3.setText(bean.getResponseObject().getDepartment());
@@ -304,10 +309,12 @@ public class UserChangeActivity extends BaseActivity {
             case CODE_CAMERA_REQUEST:
                 cropImageUri = Uri.fromFile(fileCropUri);
                 PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, OUTPUT_X, OUTPUT_Y, CODE_RESULT_REQUEST);
+                //upLoadMap(cropImageUri);
                 break;
             //相册返回
             case CODE_GALLERY_REQUEST:
                 if (hasSdcard()) {
+                    //upLoadMap(cropImageUri);
                     cropImageUri = Uri.fromFile(fileCropUri);
                     Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -353,7 +360,8 @@ public class UserChangeActivity extends BaseActivity {
                         /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);*/
                     UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
-                    Log.v("upLoadMap", "-----bean-----" + bean.getResponseObject().getAvator().toString());
+                    EventBus.getDefault().postSticky(bean);
+//                    Log.v("upLoadMap", "-----bean-----" + bean.getResponseObject().getAvator().toString());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

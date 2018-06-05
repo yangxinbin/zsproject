@@ -19,8 +19,8 @@
         android:layout_marginRight="26dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/login"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title"
         android:textStyle="bold" />
 
     <Button
@@ -35,8 +35,8 @@
         android:layout_marginStart="29dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/register"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title"
         android:textStyle="bold" />
 
     <ImageView
