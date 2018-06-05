@@ -1,42 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/bg"
     tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity">
-
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    <RelativeLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:background="@color/common_gray"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView4_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/common_nav_icon_back" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="联系方式"
             android:textColor="@color/black"
             android:textSize="@dimen/title"
@@ -45,50 +34,47 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView66" />
 
         <TextView
             android:id="@+id/delete4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="21dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/delete"
+            android:layout_alignBottom="@+id/textView66"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
             android:textSize="@dimen/textSize"
             android:textColor="@color/red"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/delete" />
 
-    </android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView4_back"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
 
-    <Button
-        android:id="@+id/button4_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/rec_red_background"
-        android:text="@string/save"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="请编辑联系方式"
         android:textSize="@dimen/small_textSize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:layout_editor_absoluteX="0dp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -99,7 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView24"
@@ -144,12 +131,13 @@
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView25"
@@ -193,12 +181,13 @@
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView26"
@@ -243,12 +232,13 @@
     <RelativeLayout
         android:id="@+id/relativeLayout5"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView27"
@@ -292,12 +282,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView29"
@@ -339,4 +330,20 @@
             android:layout_marginLeft="8dp"
             app:srcCompat="@drawable/xingxing" />
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/button4_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rec_red_background"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+</LinearLayout>

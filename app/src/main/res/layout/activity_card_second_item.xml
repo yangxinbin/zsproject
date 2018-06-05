@@ -10,14 +10,15 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/common_gray"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <ImageView
             android:id="@+id/imageView2_back"
@@ -30,14 +31,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/common_nav_icon_back" />
+            app:srcCompat="@drawable/common_nav_icon_back"
+            android:layout_marginStart="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="产业领域"
             android:textColor="@color/black"
@@ -47,7 +48,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -56,9 +58,7 @@
         android:id="@+id/button2_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/save"
         android:textColor="@color/white"
@@ -66,26 +66,31 @@
         android:textSize="@dimen/title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="24dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textSize="@dimen/small_textSize"
         android:text="可添加多个产业及领域"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:layout_editor_absoluteX="16dp" />
 
     <RelativeLayout
         android:id="@+id/chanye"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/textView16">
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView17"
@@ -135,9 +140,10 @@
     <RelativeLayout
         android:id="@+id/lingyu"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="60dp"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/chanye">
+        app:layout_constraintTop_toBottomOf="@+id/chanye"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView19"

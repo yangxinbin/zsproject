@@ -36,8 +36,6 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
     public static final int TYPE4 = 4;
     @Bind(R.id.imageView4_back)
     ImageView imageView4Back;
-    @Bind(R.id.constraintLayout)
-    ConstraintLayout constraintLayout;
     @Bind(R.id.button4_save)
     Button buttonSave;
     @Bind(R.id.editText_name)

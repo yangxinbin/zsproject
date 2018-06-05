@@ -235,7 +235,7 @@ public class ShouCang3Fragment extends Fragment {
         public void onCancelingShouCangClick(View view, final int position) {
             final int finalPosition = position;
             AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                    .setIcon(R.drawable.icon)//设置标题的图片
+                    .setIcon(R.drawable.ic_check)//设置标题的图片
                     .setTitle("活动收藏")//设置对话框的标题
                     .setMessage("确定删除此活动收藏吗？")//设置对话框的内容
                     //设置对话框的按钮
