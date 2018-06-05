@@ -121,6 +121,7 @@ public class UserChangeActivity extends BaseActivity {
     public void userMessageEventBus(UserMessageBean bean) {
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//认证
+            Log.v("yxbb","dddd");
             Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(circleImageView);
         }
         textView1.setText(bean.getResponseObject().getName());

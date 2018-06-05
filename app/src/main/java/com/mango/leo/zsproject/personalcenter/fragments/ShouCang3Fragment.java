@@ -93,10 +93,12 @@ public class ShouCang3Fragment extends Fragment {
                     msg.what = 2;
                     msg.sendToTarget();
                 } catch (Exception e) {
-                    mHandler.sendEmptyMessage(0);
+                        mHandler.sendEmptyMessage(0);
 //                    Log.e("eeeee", response.body().string()+"Exception = " + e);
                 }
+
             }
+
         });
     }
 
@@ -134,6 +136,9 @@ public class ShouCang3Fragment extends Fragment {
                     break;
                 case 4:
                     AppUtils.showToast(getActivity(), "取消收藏失败");
+                    break;
+                case 5:
+                    AppUtils.showToast(getActivity(), "已收藏");
                     break;
                 default:
                     break;
