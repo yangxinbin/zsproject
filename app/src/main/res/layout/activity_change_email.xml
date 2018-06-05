@@ -49,7 +49,7 @@
         android:background="@null"
         android:ems="10"
         android:hint="新邮箱"
-        android:inputType="phone" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editText_verification_code"

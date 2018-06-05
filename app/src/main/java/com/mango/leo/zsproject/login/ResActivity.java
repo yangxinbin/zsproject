@@ -138,7 +138,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "注册成功");
+                        AppUtils.showToast(activity, "请设置密码");
                         break;
                     case 1:
                         AppUtils.showToast(activity, "注册失败");

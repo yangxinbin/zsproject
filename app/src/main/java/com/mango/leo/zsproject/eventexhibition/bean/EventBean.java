@@ -9,7 +9,7 @@ import java.util.List;
 public class EventBean {
 
     /**
-     * responseObject : {"content":[{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b053d80bc2ab931f07f864c","name":"免费活动","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"dfsd1","price":0,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalPages":1,"totalElements":4,"first":true,"sort":{"unsorted":true,"sorted":false},"numberOfElements":4,"size":20,"number":0}
+     * responseObject : {"content":[{"id":"5b15237c81c6d5411c9e73b8","name":"test from kk","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"Guangdong","lon":null,"lat":null},"description":null,"price":0,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"kk","banner":{"id":"5b15240481c6d5411c9e73bc","alias":"1527564707525.png","fileName":"15281121321544994.png","contentType":"image/png","size":12947,"createdOn":1528112132154},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b15239381c6d5411c9e73b9","name":"test from nasion","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":0,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"kk","banner":{"id":"5b15241181c6d5411c9e73be","alias":"1527152444364.png","fileName":"15281121450981192.png","contentType":"image/png","size":626574,"createdOn":1528112145098},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b1523a481c6d5411c9e73ba","name":"test from ali","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":99,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"ali","banner":{"id":"5b15241981c6d5411c9e73c2","alias":"1527563930588.png","fileName":"15281121539442973.png","contentType":"image/png","size":12947,"createdOn":1528112153944},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b1523de81c6d5411c9e73bb","name":"test from ali","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":151,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"ali","banner":{"id":"5b15242481c6d5411c9e73c4","alias":"1527154434151.png","fileName":"15281121643067175.png","contentType":"image/png","size":1154559,"createdOn":1528112164306},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b15ff2081c6d50d3465fac8","name":"test from josn","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"Guangdong","lon":null,"lat":null},"description":null,"price":0,"startTime":1528128000000,"endTime":1529424000000,"popular":true,"organizer":"kk","banner":{"id":"5b15fefc81c6d50d3465fac6","alias":"1527563930588.png","fileName":"15281681883213574.png","contentType":"image/png","size":12947,"createdOn":1528168188321},"coorganizers":["mangosis"],"relatedIndustries":["it"],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalElements":5,"totalPages":1,"first":true,"sort":{"unsorted":true,"sorted":false},"numberOfElements":5,"size":20,"number":0}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,22 +64,22 @@ public class EventBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5b0511acbc2ab928b4a7ab9c","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":[],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b0511cebc2ab928b4a7ab9f","name":"光展6.30","location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b051fbebc2ab92d729348aa","name":"光展6.30","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"hndiugh21432","price":112.94,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null},{"id":"5b053d80bc2ab931f07f864c","name":"免费活动","location":{"country":null,"province":"广东","city":"深圳","district":null,"address":"park1,futian","lon":60.3,"lat":45.2},"description":"dfsd1","price":0,"startTime":null,"endTime":null,"popular":null,"organizer":"Aio","banner":null,"coorganizers":["[{\"name\":\"y12\"","\"description\":\"yhfth213\"}]"],"relatedIndustries":["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"],"introductions":null,"createdBy":"tom8","createdOn":null,"published":null,"tenant":null}]
+         * content : [{"id":"5b15237c81c6d5411c9e73b8","name":"test from kk","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"Guangdong","lon":null,"lat":null},"description":null,"price":0,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"kk","banner":{"id":"5b15240481c6d5411c9e73bc","alias":"1527564707525.png","fileName":"15281121321544994.png","contentType":"image/png","size":12947,"createdOn":1528112132154},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b15239381c6d5411c9e73b9","name":"test from nasion","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":0,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"kk","banner":{"id":"5b15241181c6d5411c9e73be","alias":"1527152444364.png","fileName":"15281121450981192.png","contentType":"image/png","size":626574,"createdOn":1528112145098},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b1523a481c6d5411c9e73ba","name":"test from ali","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":99,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"ali","banner":{"id":"5b15241981c6d5411c9e73c2","alias":"1527563930588.png","fileName":"15281121539442973.png","contentType":"image/png","size":12947,"createdOn":1528112153944},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b1523de81c6d5411c9e73bb","name":"test from ali","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"深圳","lon":null,"lat":null},"description":null,"price":151,"startTime":1528041600000,"endTime":1530115200000,"popular":false,"organizer":"ali","banner":{"id":"5b15242481c6d5411c9e73c4","alias":"1527154434151.png","fileName":"15281121643067175.png","contentType":"image/png","size":1154559,"createdOn":1528112164306},"coorganizers":[],"relatedIndustries":[],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"},{"id":"5b15ff2081c6d50d3465fac8","name":"test from josn","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"Guangdong","lon":null,"lat":null},"description":null,"price":0,"startTime":1528128000000,"endTime":1529424000000,"popular":true,"organizer":"kk","banner":{"id":"5b15fefc81c6d50d3465fac6","alias":"1527563930588.png","fileName":"15281681883213574.png","contentType":"image/png","size":12947,"createdOn":1528168188321},"coorganizers":["mangosis"],"relatedIndustries":["it"],"introductions":[{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}],"createdBy":null,"createdOn":null,"published":null,"tenant":"@super"}]
          * pageable : {"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false}
          * last : true
+         * totalElements : 5
          * totalPages : 1
-         * totalElements : 4
          * first : true
          * sort : {"unsorted":true,"sorted":false}
-         * numberOfElements : 4
+         * numberOfElements : 5
          * size : 20
          * number : 0
          */
 
         private PageableBean pageable;
         private boolean last;
-        private int totalPages;
         private int totalElements;
+        private int totalPages;
         private boolean first;
         private SortBeanX sort;
         private int numberOfElements;
@@ -103,20 +103,20 @@ public class EventBean {
             this.last = last;
         }
 
-        public int getTotalPages() {
-            return totalPages;
-        }
-
-        public void setTotalPages(int totalPages) {
-            this.totalPages = totalPages;
-        }
-
         public int getTotalElements() {
             return totalElements;
         }
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
+        }
+
+        public int getTotalPages() {
+            return totalPages;
+        }
+
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
         }
 
         public boolean isFirst() {
@@ -287,42 +287,42 @@ public class EventBean {
 
         public static class ContentBean {
             /**
-             * id : 5b0511acbc2ab928b4a7ab9c
-             * name : 光展6.30
-             * location : {"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null}
-             * description : hndiugh21432
-             * price : 112.94
-             * startTime : null
-             * endTime : null
-             * popular : null
-             * organizer : Aio
-             * banner : null
+             * id : 5b15237c81c6d5411c9e73b8
+             * name : test from kk
+             * location : {"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"Guangdong","lon":null,"lat":null}
+             * description : null
+             * price : 0
+             * startTime : 1528041600000
+             * endTime : 1530115200000
+             * popular : false
+             * organizer : kk
+             * banner : {"id":"5b15240481c6d5411c9e73bc","alias":"1527564707525.png","fileName":"15281121321544994.png","contentType":"image/png","size":12947,"createdOn":1528112132154}
              * coorganizers : []
-             * relatedIndustries : ["[{\n\"name\":\"12y\"","\"parent\":\"5ter\"","\"tag\":\"y678\"\n}]"]
-             * introductions : null
-             * createdBy : tom8
+             * relatedIndustries : []
+             * introductions : [{"title":"Introduction","detail":"Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.\r\n\r\nEi interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.\r\n\r\nEi est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.","deletable":false,"photo":null}]
+             * createdBy : null
              * createdOn : null
              * published : null
-             * tenant : null
+             * tenant : @super
              */
 
             private String id;
             private String name;
             private LocationBean location;
-            private String description;
-            private double price;
-            private Object startTime;
-            private Object endTime;
-            private Object popular;
+            private Object description;
+            private int price;
+            private long startTime;
+            private long endTime;
+            private boolean popular;
             private String organizer;
-            private Object banner;
-            private Object introductions;
-            private String createdBy;
+            private BannerBean banner;
+            private Object createdBy;
             private Object createdOn;
             private Object published;
-            private Object tenant;
+            private String tenant;
             private List<?> coorganizers;
-            private List<String> relatedIndustries;
+            private List<?> relatedIndustries;
+            private List<IntroductionsBean> introductions;
 
             public String getId() {
                 return id;
@@ -348,43 +348,43 @@ public class EventBean {
                 this.location = location;
             }
 
-            public String getDescription() {
+            public Object getDescription() {
                 return description;
             }
 
-            public void setDescription(String description) {
+            public void setDescription(Object description) {
                 this.description = description;
             }
 
-            public double getPrice() {
+            public int getPrice() {
                 return price;
             }
 
-            public void setPrice(double price) {
+            public void setPrice(int price) {
                 this.price = price;
             }
 
-            public Object getStartTime() {
+            public long getStartTime() {
                 return startTime;
             }
 
-            public void setStartTime(Object startTime) {
+            public void setStartTime(long startTime) {
                 this.startTime = startTime;
             }
 
-            public Object getEndTime() {
+            public long getEndTime() {
                 return endTime;
             }
 
-            public void setEndTime(Object endTime) {
+            public void setEndTime(long endTime) {
                 this.endTime = endTime;
             }
 
-            public Object getPopular() {
+            public boolean isPopular() {
                 return popular;
             }
 
-            public void setPopular(Object popular) {
+            public void setPopular(boolean popular) {
                 this.popular = popular;
             }
 
@@ -396,27 +396,19 @@ public class EventBean {
                 this.organizer = organizer;
             }
 
-            public Object getBanner() {
+            public BannerBean getBanner() {
                 return banner;
             }
 
-            public void setBanner(Object banner) {
+            public void setBanner(BannerBean banner) {
                 this.banner = banner;
             }
 
-            public Object getIntroductions() {
-                return introductions;
-            }
-
-            public void setIntroductions(Object introductions) {
-                this.introductions = introductions;
-            }
-
-            public String getCreatedBy() {
+            public Object getCreatedBy() {
                 return createdBy;
             }
 
-            public void setCreatedBy(String createdBy) {
+            public void setCreatedBy(Object createdBy) {
                 this.createdBy = createdBy;
             }
 
@@ -436,11 +428,11 @@ public class EventBean {
                 this.published = published;
             }
 
-            public Object getTenant() {
+            public String getTenant() {
                 return tenant;
             }
 
-            public void setTenant(Object tenant) {
+            public void setTenant(String tenant) {
                 this.tenant = tenant;
             }
 
@@ -452,70 +444,78 @@ public class EventBean {
                 this.coorganizers = coorganizers;
             }
 
-            public List<String> getRelatedIndustries() {
+            public List<?> getRelatedIndustries() {
                 return relatedIndustries;
             }
 
-            public void setRelatedIndustries(List<String> relatedIndustries) {
+            public void setRelatedIndustries(List<?> relatedIndustries) {
                 this.relatedIndustries = relatedIndustries;
+            }
+
+            public List<IntroductionsBean> getIntroductions() {
+                return introductions;
+            }
+
+            public void setIntroductions(List<IntroductionsBean> introductions) {
+                this.introductions = introductions;
             }
 
             public static class LocationBean {
                 /**
-                 * country : null
-                 * province : null
-                 * city : null
-                 * district : null
-                 * address : null
+                 * country : 中国
+                 * province : 广东省
+                 * city : 深圳
+                 * district : 深圳
+                 * address : Guangdong
                  * lon : null
                  * lat : null
                  */
 
-                private Object country;
-                private Object province;
-                private Object city;
-                private Object district;
-                private Object address;
+                private String country;
+                private String province;
+                private String city;
+                private String district;
+                private String address;
                 private Object lon;
                 private Object lat;
 
-                public Object getCountry() {
+                public String getCountry() {
                     return country;
                 }
 
-                public void setCountry(Object country) {
+                public void setCountry(String country) {
                     this.country = country;
                 }
 
-                public Object getProvince() {
+                public String getProvince() {
                     return province;
                 }
 
-                public void setProvince(Object province) {
+                public void setProvince(String province) {
                     this.province = province;
                 }
 
-                public Object getCity() {
+                public String getCity() {
                     return city;
                 }
 
-                public void setCity(Object city) {
+                public void setCity(String city) {
                     this.city = city;
                 }
 
-                public Object getDistrict() {
+                public String getDistrict() {
                     return district;
                 }
 
-                public void setDistrict(Object district) {
+                public void setDistrict(String district) {
                     this.district = district;
                 }
 
-                public Object getAddress() {
+                public String getAddress() {
                     return address;
                 }
 
-                public void setAddress(Object address) {
+                public void setAddress(String address) {
                     this.address = address;
                 }
 
@@ -533,6 +533,122 @@ public class EventBean {
 
                 public void setLat(Object lat) {
                     this.lat = lat;
+                }
+            }
+
+            public static class BannerBean {
+                /**
+                 * id : 5b15240481c6d5411c9e73bc
+                 * alias : 1527564707525.png
+                 * fileName : 15281121321544994.png
+                 * contentType : image/png
+                 * size : 12947
+                 * createdOn : 1528112132154
+                 */
+
+                private String id;
+                private String alias;
+                private String fileName;
+                private String contentType;
+                private int size;
+                private long createdOn;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getAlias() {
+                    return alias;
+                }
+
+                public void setAlias(String alias) {
+                    this.alias = alias;
+                }
+
+                public String getFileName() {
+                    return fileName;
+                }
+
+                public void setFileName(String fileName) {
+                    this.fileName = fileName;
+                }
+
+                public String getContentType() {
+                    return contentType;
+                }
+
+                public void setContentType(String contentType) {
+                    this.contentType = contentType;
+                }
+
+                public int getSize() {
+                    return size;
+                }
+
+                public void setSize(int size) {
+                    this.size = size;
+                }
+
+                public long getCreatedOn() {
+                    return createdOn;
+                }
+
+                public void setCreatedOn(long createdOn) {
+                    this.createdOn = createdOn;
+                }
+            }
+
+            public static class IntroductionsBean {
+                /**
+                 * title : Introduction
+                 * detail : Lorem ipsum dolor sit amet, vix corpora suscipiantur in, vix causae scripserit ut. Ei duis admodum gloriatur eam, cum doctus timeam laboramus id. Vis ex mundi tantas semper, consul nemore sed an, quis percipit id pri. Movet homero cu sit.
+
+                 Ei interesset theophrastus sed. Vis ubique consulatu an. Cum ei persius scaevola necessitatibus. Facete theophrastus et vis, at nam modus option blandit, at nusquam mentitum duo. Cu sea alia viderer moderatius, bonorum apeirian te mea.
+
+                 Ei est erroribus hendrerit, ius an quod regione alienum. Cu dolore definiebas qui. Ad qui aliquam tractatos. Et usu audiam laboramus, eius noster tamquam pri ea, ne suas accusata nam. Ex duo eleifend quaerendum persequeris.
+                 * deletable : false
+                 * photo : null
+                 */
+
+                private String title;
+                private String detail;
+                private boolean deletable;
+                private Object photo;
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getDetail() {
+                    return detail;
+                }
+
+                public void setDetail(String detail) {
+                    this.detail = detail;
+                }
+
+                public boolean isDeletable() {
+                    return deletable;
+                }
+
+                public void setDeletable(boolean deletable) {
+                    this.deletable = deletable;
+                }
+
+                public Object getPhoto() {
+                    return photo;
+                }
+
+                public void setPhoto(Object photo) {
+                    this.photo = photo;
                 }
             }
         }

@@ -353,7 +353,7 @@ public class UserChangeActivity extends BaseActivity {
                         /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);*/
                     UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
-                    Log.v("upLoadMap", "-----bean-----" + bean.getResponseObject().getAvator().toString());
+//                    Log.v("upLoadMap", "-----bean-----" + bean.getResponseObject().getAvator().toString());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

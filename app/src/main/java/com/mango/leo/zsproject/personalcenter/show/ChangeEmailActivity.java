@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.personalcenter.show;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,7 +72,7 @@ public class ChangeEmailActivity extends BaseActivity {
     }
 
     private void getEmailCode() {
-        HttpUtils.doGet(Urls.HOST_CODEEMAIL + "?email=" + editTextEmail.getText().toString(), new Callback() {
+        HttpUtils.doGet(Urls.HOST_CODE + "?phoneOrEmail=" + editTextEmail.getText().toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(0);
@@ -110,7 +111,7 @@ public class ChangeEmailActivity extends BaseActivity {
     }
     private final ChangeEmailActivity.MyHandler mHandler = new ChangeEmailActivity.MyHandler(this);
 
-    private static class MyHandler extends Handler {
+    private class MyHandler extends Handler {
         private final WeakReference<ChangeEmailActivity> mActivity;
 
         public MyHandler(ChangeEmailActivity activity) {
@@ -134,6 +135,8 @@ public class ChangeEmailActivity extends BaseActivity {
                         break;
                     case 3:
                         AppUtils.showToast(activity, "成功绑定新邮箱");
+                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         break;
