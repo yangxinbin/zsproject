@@ -1,5 +1,7 @@
 package com.mango.leo.zsproject.personalcenter.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,21 +20,25 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.personalcenter.adapter.ShouCangEventAdapter;
 import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
+import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,7 +58,7 @@ public class ShouCang3Fragment extends Fragment {
     @Bind(R.id.refresh_cams)
     SwipeRefreshLayout refresh_cam;
     private LinearLayoutManager mLayoutManager;
-    private EventAdapter adapter;
+    private ShouCangEventAdapter adapter;
     private int page = 0;
     private List<EventBean> mData, mDataAll;
     private SharedPreferences sharedPreferences;
@@ -62,7 +68,8 @@ public class ShouCang3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.shou_cang3, container, false);
         ButterKnife.bind(this, view);
-        sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
+        initSwipeRefreshLayout();
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         initView();
         initHeader();
         vivistEvent(page);
@@ -70,8 +77,8 @@ public class ShouCang3Fragment extends Fragment {
     }
 
     private void vivistEvent(int page) {
-        Log.v("vvvvvv","__"+Urls.HOST_FAVOURITE_LIST+"?page="+page+"&token="+sharedPreferences.getString("token","")+"&type=EVENT");
-        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST+"?page="+page+"&token="+sharedPreferences.getString("token","")+"&type=EVENT", new Callback() {
+        Log.v("vvvvvv", "__" + Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", "") + "&type=EVENT");
+        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", "") + "&type=EVENT", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(0);
@@ -110,7 +117,23 @@ public class ShouCang3Fragment extends Fragment {
                     break;
                 case 2:
                     List<EventBean> beanList = (List<EventBean>) msg.obj;
+                    /*if (beanList.size() == 0){
+                        noMoreMsg();
+                    }else {
+                        adapter.isShowFooter(true);
+                    }*/
                     addEventsView(beanList);
+                    break;
+                case 3:
+                    //AppUtils.showToast(getActivity(), "取消收藏成功");
+                    if (mDataAll != null && mData != null) {
+                        mDataAll.clear();
+                        mData.clear();
+                    }
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 4:
+                    AppUtils.showToast(getActivity(), "取消收藏失败");
                     break;
                 default:
                     break;
@@ -177,7 +200,8 @@ public class ShouCang3Fragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycle_cam.setLayoutManager(mLayoutManager);
         recycle_cam.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        adapter = new EventAdapter(getActivity().getApplicationContext());
+        adapter = new ShouCangEventAdapter(getActivity().getApplicationContext());
+        recycle_cam.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycle_cam.removeAllViews();
         recycle_cam.setAdapter(adapter);
@@ -189,7 +213,7 @@ public class ShouCang3Fragment extends Fragment {
         }
     }
 
-    private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
+    private ShouCangEventAdapter.OnEventnewsClickListener mOnItemClickListener = new ShouCangEventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
@@ -201,7 +225,58 @@ public class ShouCang3Fragment extends Fragment {
             intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             startActivity(intent);
         }
+
+        @Override
+        public void onCancelingShouCangClick(View view, final int position) {
+            final int finalPosition = position;
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setIcon(R.drawable.icon)//设置标题的图片
+                    .setTitle("活动收藏")//设置对话框的标题
+                    .setMessage("确定删除此活动收藏吗？")//设置对话框的内容
+                    //设置对话框的按钮
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            canCelShpuCang(position-1);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     };
+
+    private void canCelShpuCang(int position) {
+        Map<String, String> mapParams = new HashMap<String, String>();
+        mapParams.clear();
+//        Log.e("eeeee", adapter.getItem(position).getResponseObject().getContent().get(position).getId()+"eeeee = "+sharedPreferences.getString("token", ""));
+        mapParams.put("favouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+        mapParams.put("token", sharedPreferences.getString("token", ""));
+        HttpUtils.doDelete(Urls.HOST_FAVOURITE, mapParams, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("eeeee", "eeeee = "+e.getMessage());
+                mHandler.sendEmptyMessage(4);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")) {
+                    mHandler.sendEmptyMessage(3);
+                    vivistEvent(0);
+                } else {
+                    Log.e("eeeee", response.body().string() + "Exception = ");
+                    mHandler.sendEmptyMessage(4);
+                }
+            }
+        });
+    }
+
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -275,6 +350,6 @@ public class ShouCang3Fragment extends Fragment {
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more_s));
     }
 }

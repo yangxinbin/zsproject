@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 
@@ -91,7 +93,11 @@ public class FragmentOfPersonalCenter extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
         bean1 = bean;
-        if (bean.getResponseObject().getGovtTenant() != null) {//认证
+        //头像
+        if (bean.getResponseObject().getAvator().getId() != null) {//认证
+            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(imageViePic);
+        }
+        if (bean.getResponseObject().getTenant() != null) {//认证
             imageViewState.setVisibility(View.VISIBLE);
         } else {//非认证
             imageViewState.setVisibility(View.GONE);

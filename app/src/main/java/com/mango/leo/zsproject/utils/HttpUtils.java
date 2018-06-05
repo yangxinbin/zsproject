@@ -111,7 +111,50 @@ public class HttpUtils {
         Call call = getInstance().newCall(request);
         call.enqueue(callback);
     }
+    /**
+     * Get请求
+     *
+     * @param url
+     * @param callback
+     */
+    public static void doDelete(String url,Map<String, String> mapParams, Callback callback) {
+        FormBody.Builder builder = new FormBody.Builder();
+        StringBuffer formatUrl = new StringBuffer();
+        formatUrl.append(url);
+        for (String key : mapParams.keySet()) {
+            builder.add(key, mapParams.get(key));
+            if (key.equals("projectId")) {//保证第一个
+                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位//
+                break;
+            }
+            if (key.equals("username")) {//保证第一个
+                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位//
+                break;
+            }
+            if (key.equals("token")) {//保证第一个
+                formatUrl.append("?" + key + "=").append(mapParams.get(key));//id 必须为第一位
+                break;
+            }
+        }
+        for (String key : mapParams.keySet()) {
+            builder.add(key, mapParams.get(key));
+            if (!key.equals("projectId") && !key.equals("token") && !key.equals("username")) {
+                try {
+                    formatUrl.append("&" + key + "=").append(URLEncoderURI.encode(mapParams.get(key), "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
 
+        }
+        Log.e("eeeee", " = " + formatUrl);
+        Request request = new Request.Builder()
+                .url(formatUrl.toString())
+                .delete(builder.build())
+                .build();
+        Call call = getInstance().newCall(request);
+        call.enqueue(callback);
+    }
     /**
      * Post请求发送键值对数据
      *
@@ -157,7 +200,7 @@ public class HttpUtils {
                 Log.v("doPostAll", file.getName() + "^^^^^doPostAll^^files^^^");
                 String fileName = file.getName();
                 //fileBody = RequestBody.create(MediaType.parse("image/*"), file);
-                builder.addFormDataPart("photos", fileName, RequestBody.create(MediaType.parse("image/*"), file));
+                builder.addFormDataPart("file", fileName, RequestBody.create(MediaType.parse("application/octet-stream"), file));
                /* builder.addPart(Headers.of("Content-Disposition",
                         "form-data; name=\"" + "mango" + "\"; filename=\"" + fileName + "\""),
                         fileBody);*/
