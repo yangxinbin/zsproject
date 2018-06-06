@@ -57,11 +57,7 @@
         </provider>
 
         <activity android:name=".ZsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
@@ -83,7 +79,12 @@
 
         </activity>
         <activity android:name=".login.ResActivity" />
-        <activity android:name=".login.UserActivity"></activity>
+        <activity android:name=".login.UserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".personalcenter.show.UserChangeActivity" />
         <activity android:name=".personalcenter.show.AccountSecurityActivity" />
         <activity android:name=".personalcenter.show.SettingActivity" />

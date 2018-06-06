@@ -21,6 +21,7 @@ public class BeForeUserMesBean {
     private String lon;
     private String lat;
 
+
     public BeForeUserMesBean(String token, String username, String company, String name, String department, String email, String position, String type, String country, String province, String city, String district, String address, String lon, String lat) {
         this.token = token;
         this.username = username;
@@ -161,5 +162,26 @@ public class BeForeUserMesBean {
 
     public void setLat(String lat) {
         this.lat = lat;
+    }
+
+    @Override
+    public String toString() {
+        return "BeForeUserMesBean{" +
+                "token='" + token + '\'' +
+                ", username='" + username + '\'' +
+                ", company='" + company + '\'' +
+                ", name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", email='" + email + '\'' +
+                ", position='" + position + '\'' +
+                ", type='" + type + '\'' +
+                ", country='" + country + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", address='" + address + '\'' +
+                ", lon='" + lon + '\'' +
+                ", lat='" + lat + '\'' +
+                '}';
     }
 }
