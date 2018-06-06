@@ -16,6 +16,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.pr
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.viewutil.LinedEditText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +50,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     // private List<LocalMedia> itemImagesPath = new ArrayList<>();
     private UpdateItemPresenter updateItemPresenter;
     public static final int TYPE1 = 1;
+    private CardFirstItemBean bean1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +66,12 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
+        bean1 = bean;
         itemTitle.setText(bean.getItemName());
+        itemDanweiName.setText(bean.getDepartmentName());
+        itemMoney.setText(bean.getMoney());
         itemContent.setText(bean.getItemContent());
+
 /*        adapter.setList(bean.getItemImagePath());
         if (bean.getItemImagePath() != null) {
             selectList = bean.getItemImagePath();
@@ -75,7 +81,11 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     private void initDate() {
         cardFirstItemBean.setItemName(itemTitle.getText().toString());
+        cardFirstItemBean.setDepartmentName(itemDanweiName.getText().toString());
+        cardFirstItemBean.setMoney(itemMoney.getText().toString());
         cardFirstItemBean.setItemContent(itemContent.getText().toString());
+        cardFirstItemBean.setTime(DateUtil.getCurDate("yyyy-MM-dd"));
+
 /*        if (selectList != null) {
             cardFirstItemBean.setItemImagePath(selectList);
         }*/
@@ -168,16 +178,27 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     @OnClick({R.id.imageView1_back, R.id.button1_save})
     public void onViewClicked(View view) {
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.imageView1_back:
-                Intent intent = new Intent(this, BusinessPlanActivity.class);
+                if (getIntent().getBooleanExtra("DemandManagementFragment",false)){
+                    finish();
+                }else {
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
+                }
+                finish();
+                break;
+            case R.id.textView_delete1:
+                updateItemPresenter.visitUpdateItem(this, TYPE1, bean1);//更新后台数据
+                intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.button1_save:
                 initDate();
 //                Log.v("yyyyy","*****cardFirstItemBean*****"+cardFirstItemBean.getItemImagePath().get(0).getPath());
-                if (!TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
+                if (!TextUtils.isEmpty(itemMoney.getText().toString()) && !TextUtils.isEmpty(itemTitle.getText().toString()) && !TextUtils.isEmpty(itemContent.getText().toString()) && cardFirstItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     EventBus.getDefault().postSticky(cardFirstItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);

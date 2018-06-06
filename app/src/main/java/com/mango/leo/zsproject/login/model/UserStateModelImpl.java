@@ -174,7 +174,7 @@ public class UserStateModelImpl implements UserStateModel {
                 // Log.v("zzzzzzz","**userMessageBean.getToken()****"+userMessageBean.getToken());
                 mapParams.put("token", userMessageBean.getToken());
                 mapParams.put("username", userMessageBean.getUsername());
-                mapParams.put("company", userMessageBean.getCompany());
+                mapParams.put("company", "");
                 mapParams.put("name", userMessageBean.getName());
                 mapParams.put("department", userMessageBean.getDepartment());
                 mapParams.put("email", userMessageBean.getEmail());
@@ -182,9 +182,9 @@ public class UserStateModelImpl implements UserStateModel {
                     mapParams.put("position", userMessageBean.getPosition());
                 }
                 mapParams.put("type", "0");
-                if (userMessageBean.getCountry() != null) {
+/*                if (userMessageBean.getCountry() != null) {
                     mapParams.put("country", userMessageBean.getCountry());
-                }
+                }*/
                 if (userMessageBean.getProvince() != null) {
                     mapParams.put("province", userMessageBean.getProvince());
                 }
@@ -194,7 +194,7 @@ public class UserStateModelImpl implements UserStateModel {
                 if (userMessageBean.getDistrict() != null) {
                     mapParams.put("district", userMessageBean.getDistrict());
                 }
-                if (userMessageBean.getAddress() != null) {
+/*                if (userMessageBean.getAddress() != null) {
                     mapParams.put("address", userMessageBean.getAddress());
                 }
                 if (userMessageBean.getLon() != null) {
@@ -202,7 +202,7 @@ public class UserStateModelImpl implements UserStateModel {
                 }
                 if (userMessageBean.getLat() != null) {
                     mapParams.put("lat", String.valueOf(userMessageBean.getLat()));
-                }
+                }*/
                 /*mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("username", "123");
                 mapParams.put("company", "123");

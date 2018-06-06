@@ -49,32 +49,57 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             CardFirstItemBean cardFirstItemBean = (CardFirstItemBean) o;
             //File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
             if (TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
+                Log.v("11111","____1___"+sharedPreferences.getString("token", ""));
                 url = Urls.HOST_PROJECT;
-                mapParams.put("createdBy", sharedPreferences.getString("userName", ""));
                 mapParams.put("name", cardFirstItemBean.getItemName());
-                mapParams.put("description", cardFirstItemBean.getItemContent());
+                mapParams.put("organizerDepartment", cardFirstItemBean.getDepartmentName());
+                mapParams.put("totalInvestmentRequired", cardFirstItemBean.getMoney());
+                mapParams.put("Summary", cardFirstItemBean.getItemContent());
+                mapParams.put("token", sharedPreferences.getString("token", ""));
+                HttpUtils.doPost(url, mapParams, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.v("doPostAll", "^^^^^onFailure^^^^^");
+                        listener.onFailure("SAVE FAILURE", e);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (String.valueOf(response.code()).startsWith("2")) {
+                            listener.onSuccess("SAVE SUCCESS");//异步请求
+                        } else {
+                            Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
+                            listener.onSuccess("SAVE FAILURE");
+                        }
+                    }
+                });
             } else {
+                Log.v("11111","____2___");
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("name", cardFirstItemBean.getItemName());
-                mapParams.put("description", cardFirstItemBean.getItemContent());
-            }
-            HttpUtils.doPost(url, mapParams, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.v("doPostAll", "^^^^^onFailure^^^^^");
-                    listener.onFailure("SAVE FAILURE", e);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (String.valueOf(response.code()).startsWith("2")) {
-                        listener.onSuccess("SAVE SUCCESS");//异步请求
-                    } else {
-                        Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
-                        listener.onSuccess("SAVE FAILURE");
+                mapParams.put("organizerDepartment", cardFirstItemBean.getDepartmentName());
+                mapParams.put("totalInvestmentRequired", String.valueOf(cardFirstItemBean.getMoney()));
+                mapParams.put("Summary", cardFirstItemBean.getItemContent());
+                mapParams.put("token", sharedPreferences.getString("token", ""));
+                HttpUtils.doPut(url, mapParams, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.v("doPostAll", "^^^^^onFailure^^^^^");
+                        listener.onFailure("UPDATE FAILURE", e);
                     }
-                }
-            });
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (String.valueOf(response.code()).startsWith("2")) {
+                            listener.onSuccess("UPDATE SUCCESS");//异步请求
+                        } else {
+                            Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
+                            listener.onSuccess("UPDATE FAILURE");
+                        }
+                    }
+                });
+            }
+
         }
         if (o instanceof CardSecondItemBean) {
             CardSecondItemBean cardFirstItemBean = (CardSecondItemBean) o;

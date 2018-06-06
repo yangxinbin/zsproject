@@ -9,7 +9,7 @@ import java.util.List;
 public class AllProjectsBean {
 
     /**
-     * responseObject : {"content":[{"id":"5afe83d0bc2ab975d270096d","name":"一下吧","description":"一下吧","utilityFee":null,"photos":[],"location":{"id":null,"province":null,"city":"深圳","address":"芒果","lon":30.1,"lat":30.2},"resourceFeeInfo":null,"industries":null,"contacts":[{"id":null,"username":"tom","department":"yunnan","position":"zhuren","mobile":"121212","phone":"12313","email":"1212@qq.com"}],"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6c5bc2ab93359ad5abc","name":"ccF","description":"哈哈哈哈哈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6e2bc2ab93359ad5abd","name":"vb梵蒂冈地方","description":"哈反恭喜你发财","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6eebc2ab93359ad5abe","name":"会突然发火","description":"发到郭富城","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6f9bc2ab93359ad5abf","name":"vbn","description":"话题风格化风格化","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a701bc2ab93359ad5ac0","name":"从婢女","description":"太有太阳","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03850abc2ab93d89160536","name":"fsgfgd","description":"dsgfd","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03851bbc2ab93d89160537","name":"广泛大锅饭个","description":"士大夫似的","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038525bc2ab93d89160538","name":"发的话三个","description":"修改v和幸福感和风格是官方","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03852cbc2ab93d89160539","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038530bc2ab93d8916053a","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038534bc2ab93d8916053b","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038557bc2ab93d8916053c","name":"发个","description":"很反感和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038561bc2ab93d8916053d","name":"机会更多","description":"v环境和国家的风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b0395dfbc2ab93d89160546","name":null,"description":null,"utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d2a4bc2ab974e7753097","name":null,"description":null,"utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d375bc2ab974e7753098","name":"士干","description":"家的风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d380bc2ab974e7753099","name":"士干fb","description":"是的改革风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d387bc2ab974e775309a","name":"和煤化工","description":"还不够分享格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d38dbc2ab974e775309b","name":"和煤化工宣传部非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null}],"pageable":{"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":false,"totalElements":24,"totalPages":2,"first":true,"sort":{"unsorted":true,"sorted":false},"numberOfElements":20,"size":20,"number":0}
+     * responseObject : {"content":[{"id":"5b17481abc2ab92a07b9e380","name":"test pro1","summary":"abcd1231","organizerDepartment":"招商部1","totalInvestmentRequired":223451,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b1660fabc2ab941d047a176","createdOn":1528252442458,"updatedBy":"5b1660fabc2ab941d047a176","updatedOn":1528252592307,"recommended":null,"tenant":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalElements":1,"totalPages":1,"first":true,"sort":{"sorted":false,"unsorted":true},"numberOfElements":1,"size":20,"number":0}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,14 +64,14 @@ public class AllProjectsBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5afe83d0bc2ab975d270096d","name":"一下吧","description":"一下吧","utilityFee":null,"photos":[],"location":{"id":null,"province":null,"city":"深圳","address":"芒果","lon":30.1,"lat":30.2},"resourceFeeInfo":null,"industries":null,"contacts":[{"id":null,"username":"tom","department":"yunnan","position":"zhuren","mobile":"121212","phone":"12313","email":"1212@qq.com"}],"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6c5bc2ab93359ad5abc","name":"ccF","description":"哈哈哈哈哈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6e2bc2ab93359ad5abd","name":"vb梵蒂冈地方","description":"哈反恭喜你发财","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6eebc2ab93359ad5abe","name":"会突然发火","description":"发到郭富城","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a6f9bc2ab93359ad5abf","name":"vbn","description":"话题风格化风格化","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b02a701bc2ab93359ad5ac0","name":"从婢女","description":"太有太阳","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03850abc2ab93d89160536","name":"fsgfgd","description":"dsgfd","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03851bbc2ab93d89160537","name":"广泛大锅饭个","description":"士大夫似的","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038525bc2ab93d89160538","name":"发的话三个","description":"修改v和幸福感和风格是官方","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b03852cbc2ab93d89160539","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038530bc2ab93d8916053a","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038534bc2ab93d8916053b","name":"豆腐干岁的法国","description":"修梵蒂冈","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038557bc2ab93d8916053c","name":"发个","description":"很反感和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b038561bc2ab93d8916053d","name":"机会更多","description":"v环境和国家的风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b0395dfbc2ab93d89160546","name":null,"description":null,"utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d2a4bc2ab974e7753097","name":null,"description":null,"utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d375bc2ab974e7753098","name":"士干","description":"家的风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d380bc2ab974e7753099","name":"士干fb","description":"是的改革风格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d387bc2ab974e775309a","name":"和煤化工","description":"还不够分享格和","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null},{"id":"5b04d38dbc2ab974e775309b","name":"和煤化工宣传部非常","description":"还","utilityFee":null,"photos":[],"location":null,"resourceFeeInfo":null,"industries":null,"contacts":null,"advantages":null,"relatedFiles":null,"joinAsAFirmCriteria":null,"investmentCriteria":null,"standard":null,"status":null,"stage":0,"createdBy":"18318836309","createdOn":null,"recommended":null}]
-         * pageable : {"sort":{"unsorted":true,"sorted":false},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false}
-         * last : false
-         * totalElements : 24
-         * totalPages : 2
+         * content : [{"id":"5b17481abc2ab92a07b9e380","name":"test pro1","summary":"abcd1231","organizerDepartment":"招商部1","totalInvestmentRequired":223451,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b1660fabc2ab941d047a176","createdOn":1528252442458,"updatedBy":"5b1660fabc2ab941d047a176","updatedOn":1528252592307,"recommended":null,"tenant":null}]
+         * pageable : {"sort":{"sorted":false,"unsorted":true},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false}
+         * last : true
+         * totalElements : 1
+         * totalPages : 1
          * first : true
-         * sort : {"unsorted":true,"sorted":false}
-         * numberOfElements : 20
+         * sort : {"sorted":false,"unsorted":true}
+         * numberOfElements : 1
          * size : 20
          * number : 0
          */
@@ -169,7 +169,7 @@ public class AllProjectsBean {
 
         public static class PageableBean {
             /**
-             * sort : {"unsorted":true,"sorted":false}
+             * sort : {"sorted":false,"unsorted":true}
              * pageSize : 20
              * pageNumber : 0
              * offset : 0
@@ -234,20 +234,12 @@ public class AllProjectsBean {
 
             public static class SortBean {
                 /**
-                 * unsorted : true
                  * sorted : false
+                 * unsorted : true
                  */
 
-                private boolean unsorted;
                 private boolean sorted;
-
-                public boolean isUnsorted() {
-                    return unsorted;
-                }
-
-                public void setUnsorted(boolean unsorted) {
-                    this.unsorted = unsorted;
-                }
+                private boolean unsorted;
 
                 public boolean isSorted() {
                     return sorted;
@@ -256,25 +248,25 @@ public class AllProjectsBean {
                 public void setSorted(boolean sorted) {
                     this.sorted = sorted;
                 }
+
+                public boolean isUnsorted() {
+                    return unsorted;
+                }
+
+                public void setUnsorted(boolean unsorted) {
+                    this.unsorted = unsorted;
+                }
             }
         }
 
         public static class SortBeanX {
             /**
-             * unsorted : true
              * sorted : false
+             * unsorted : true
              */
 
-            private boolean unsorted;
             private boolean sorted;
-
-            public boolean isUnsorted() {
-                return unsorted;
-            }
-
-            public void setUnsorted(boolean unsorted) {
-                this.unsorted = unsorted;
-            }
+            private boolean unsorted;
 
             public boolean isSorted() {
                 return sorted;
@@ -283,50 +275,72 @@ public class AllProjectsBean {
             public void setSorted(boolean sorted) {
                 this.sorted = sorted;
             }
+
+            public boolean isUnsorted() {
+                return unsorted;
+            }
+
+            public void setUnsorted(boolean unsorted) {
+                this.unsorted = unsorted;
+            }
         }
 
         public static class ContentBean {
             /**
-             * id : 5afe83d0bc2ab975d270096d
-             * name : 一下吧
-             * description : 一下吧
-             * utilityFee : null
+             * id : 5b17481abc2ab92a07b9e380
+             * name : test pro1
+             * summary : abcd1231
+             * organizerDepartment : 招商部1
+             * totalInvestmentRequired : 223451
+             * phase1InvestmentRequired : null
+             * numOfInvestmentPhases : null
+             * location : {"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null}
+             * contacts : [{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}]
+             * cooperationStyles : null
+             * industries : []
+             * typesOfAvailableDox : null
+             * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null}
+             * utilityFee : {"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null}
+             * resourceFeeInfo : []
+             * advantages : []
+             * detail : null
              * photos : []
-             * location : {"id":null,"province":null,"city":"深圳","address":"芒果","lon":30.1,"lat":30.2}
-             * resourceFeeInfo : null
-             * industries : null
-             * contacts : [{"id":null,"username":"tom","department":"yunnan","position":"zhuren","mobile":"121212","phone":"12313","email":"1212@qq.com"}]
-             * advantages : null
-             * relatedFiles : null
-             * joinAsAFirmCriteria : null
-             * investmentCriteria : null
-             * standard : null
-             * status : null
+             * relatedFiles : []
              * stage : 0
-             * createdBy : 18318836309
-             * createdOn : null
+             * createdBy : 5b1660fabc2ab941d047a176
+             * createdOn : 1528252442458
+             * updatedBy : 5b1660fabc2ab941d047a176
+             * updatedOn : 1528252592307
              * recommended : null
+             * tenant : null
              */
 
             private String id;
             private String name;
-            private String description;
-            private Object utilityFee;
+            private String summary;
+            private String organizerDepartment;
+            private int totalInvestmentRequired;
+            private Object phase1InvestmentRequired;
+            private Object numOfInvestmentPhases;
             private LocationBean location;
-            private Object resourceFeeInfo;
-            private Object industries;
-            private Object advantages;
-            private Object relatedFiles;
-            private Object joinAsAFirmCriteria;
-            private Object investmentCriteria;
-            private Object standard;
-            private Object status;
+            private Object cooperationStyles;
+            private Object typesOfAvailableDox;
+            private IcrBean icr;
+            private UtilityFeeBean utilityFee;
+            private Object detail;
             private int stage;
             private String createdBy;
-            private Object createdOn;
+            private long createdOn;
+            private String updatedBy;
+            private long updatedOn;
             private Object recommended;
-            private List<?> photos;
+            private Object tenant;
             private List<ContactsBean> contacts;
+            private List<?> industries;
+            private List<?> resourceFeeInfo;
+            private List<?> advantages;
+            private List<?> photos;
+            private List<?> relatedFiles;
 
             public String getId() {
                 return id;
@@ -344,20 +358,44 @@ public class AllProjectsBean {
                 this.name = name;
             }
 
-            public String getDescription() {
-                return description;
+            public String getSummary() {
+                return summary;
             }
 
-            public void setDescription(String description) {
-                this.description = description;
+            public void setSummary(String summary) {
+                this.summary = summary;
             }
 
-            public Object getUtilityFee() {
-                return utilityFee;
+            public String getOrganizerDepartment() {
+                return organizerDepartment;
             }
 
-            public void setUtilityFee(Object utilityFee) {
-                this.utilityFee = utilityFee;
+            public void setOrganizerDepartment(String organizerDepartment) {
+                this.organizerDepartment = organizerDepartment;
+            }
+
+            public int getTotalInvestmentRequired() {
+                return totalInvestmentRequired;
+            }
+
+            public void setTotalInvestmentRequired(int totalInvestmentRequired) {
+                this.totalInvestmentRequired = totalInvestmentRequired;
+            }
+
+            public Object getPhase1InvestmentRequired() {
+                return phase1InvestmentRequired;
+            }
+
+            public void setPhase1InvestmentRequired(Object phase1InvestmentRequired) {
+                this.phase1InvestmentRequired = phase1InvestmentRequired;
+            }
+
+            public Object getNumOfInvestmentPhases() {
+                return numOfInvestmentPhases;
+            }
+
+            public void setNumOfInvestmentPhases(Object numOfInvestmentPhases) {
+                this.numOfInvestmentPhases = numOfInvestmentPhases;
             }
 
             public LocationBean getLocation() {
@@ -368,68 +406,44 @@ public class AllProjectsBean {
                 this.location = location;
             }
 
-            public Object getResourceFeeInfo() {
-                return resourceFeeInfo;
+            public Object getCooperationStyles() {
+                return cooperationStyles;
             }
 
-            public void setResourceFeeInfo(Object resourceFeeInfo) {
-                this.resourceFeeInfo = resourceFeeInfo;
+            public void setCooperationStyles(Object cooperationStyles) {
+                this.cooperationStyles = cooperationStyles;
             }
 
-            public Object getIndustries() {
-                return industries;
+            public Object getTypesOfAvailableDox() {
+                return typesOfAvailableDox;
             }
 
-            public void setIndustries(Object industries) {
-                this.industries = industries;
+            public void setTypesOfAvailableDox(Object typesOfAvailableDox) {
+                this.typesOfAvailableDox = typesOfAvailableDox;
             }
 
-            public Object getAdvantages() {
-                return advantages;
+            public IcrBean getIcr() {
+                return icr;
             }
 
-            public void setAdvantages(Object advantages) {
-                this.advantages = advantages;
+            public void setIcr(IcrBean icr) {
+                this.icr = icr;
             }
 
-            public Object getRelatedFiles() {
-                return relatedFiles;
+            public UtilityFeeBean getUtilityFee() {
+                return utilityFee;
             }
 
-            public void setRelatedFiles(Object relatedFiles) {
-                this.relatedFiles = relatedFiles;
+            public void setUtilityFee(UtilityFeeBean utilityFee) {
+                this.utilityFee = utilityFee;
             }
 
-            public Object getJoinAsAFirmCriteria() {
-                return joinAsAFirmCriteria;
+            public Object getDetail() {
+                return detail;
             }
 
-            public void setJoinAsAFirmCriteria(Object joinAsAFirmCriteria) {
-                this.joinAsAFirmCriteria = joinAsAFirmCriteria;
-            }
-
-            public Object getInvestmentCriteria() {
-                return investmentCriteria;
-            }
-
-            public void setInvestmentCriteria(Object investmentCriteria) {
-                this.investmentCriteria = investmentCriteria;
-            }
-
-            public Object getStandard() {
-                return standard;
-            }
-
-            public void setStandard(Object standard) {
-                this.standard = standard;
-            }
-
-            public Object getStatus() {
-                return status;
-            }
-
-            public void setStatus(Object status) {
-                this.status = status;
+            public void setDetail(Object detail) {
+                this.detail = detail;
             }
 
             public int getStage() {
@@ -448,12 +462,28 @@ public class AllProjectsBean {
                 this.createdBy = createdBy;
             }
 
-            public Object getCreatedOn() {
+            public long getCreatedOn() {
                 return createdOn;
             }
 
-            public void setCreatedOn(Object createdOn) {
+            public void setCreatedOn(long createdOn) {
                 this.createdOn = createdOn;
+            }
+
+            public String getUpdatedBy() {
+                return updatedBy;
+            }
+
+            public void setUpdatedBy(String updatedBy) {
+                this.updatedBy = updatedBy;
+            }
+
+            public long getUpdatedOn() {
+                return updatedOn;
+            }
+
+            public void setUpdatedOn(long updatedOn) {
+                this.updatedOn = updatedOn;
             }
 
             public Object getRecommended() {
@@ -464,12 +494,12 @@ public class AllProjectsBean {
                 this.recommended = recommended;
             }
 
-            public List<?> getPhotos() {
-                return photos;
+            public Object getTenant() {
+                return tenant;
             }
 
-            public void setPhotos(List<?> photos) {
-                this.photos = photos;
+            public void setTenant(Object tenant) {
+                this.tenant = tenant;
             }
 
             public List<ContactsBean> getContacts() {
@@ -480,22 +510,62 @@ public class AllProjectsBean {
                 this.contacts = contacts;
             }
 
+            public List<?> getIndustries() {
+                return industries;
+            }
+
+            public void setIndustries(List<?> industries) {
+                this.industries = industries;
+            }
+
+            public List<?> getResourceFeeInfo() {
+                return resourceFeeInfo;
+            }
+
+            public void setResourceFeeInfo(List<?> resourceFeeInfo) {
+                this.resourceFeeInfo = resourceFeeInfo;
+            }
+
+            public List<?> getAdvantages() {
+                return advantages;
+            }
+
+            public void setAdvantages(List<?> advantages) {
+                this.advantages = advantages;
+            }
+
+            public List<?> getPhotos() {
+                return photos;
+            }
+
+            public void setPhotos(List<?> photos) {
+                this.photos = photos;
+            }
+
+            public List<?> getRelatedFiles() {
+                return relatedFiles;
+            }
+
+            public void setRelatedFiles(List<?> relatedFiles) {
+                this.relatedFiles = relatedFiles;
+            }
+
             public static class LocationBean {
                 /**
                  * id : null
                  * province : null
-                 * city : 深圳
-                 * address : 芒果
-                 * lon : 30.1
-                 * lat : 30.2
+                 * city : null
+                 * address : null
+                 * lon : null
+                 * lat : null
                  */
 
                 private Object id;
                 private Object province;
-                private String city;
-                private String address;
-                private double lon;
-                private double lat;
+                private Object city;
+                private Object address;
+                private Object lon;
+                private Object lat;
 
                 public Object getId() {
                     return id;
@@ -513,48 +583,180 @@ public class AllProjectsBean {
                     this.province = province;
                 }
 
-                public String getCity() {
+                public Object getCity() {
                     return city;
                 }
 
-                public void setCity(String city) {
+                public void setCity(Object city) {
                     this.city = city;
                 }
 
-                public String getAddress() {
+                public Object getAddress() {
                     return address;
                 }
 
-                public void setAddress(String address) {
+                public void setAddress(Object address) {
                     this.address = address;
                 }
 
-                public double getLon() {
+                public Object getLon() {
                     return lon;
                 }
 
-                public void setLon(double lon) {
+                public void setLon(Object lon) {
                     this.lon = lon;
                 }
 
-                public double getLat() {
+                public Object getLat() {
                     return lat;
                 }
 
-                public void setLat(double lat) {
+                public void setLat(Object lat) {
                     this.lat = lat;
+                }
+            }
+
+            public static class IcrBean {
+                /**
+                 * totalInvestmentRequired : null
+                 * phase1InvestmentRequired : null
+                 * numOfInvestmentPhases : null
+                 * cooperationModel : null
+                 * cooperationStyles : null
+                 * investmentType : null
+                 * investmentSize : null
+                 * other : null
+                 */
+
+                private Object totalInvestmentRequired;
+                private Object phase1InvestmentRequired;
+                private Object numOfInvestmentPhases;
+                private Object cooperationModel;
+                private Object cooperationStyles;
+                private Object investmentType;
+                private Object investmentSize;
+                private Object other;
+
+                public Object getTotalInvestmentRequired() {
+                    return totalInvestmentRequired;
+                }
+
+                public void setTotalInvestmentRequired(Object totalInvestmentRequired) {
+                    this.totalInvestmentRequired = totalInvestmentRequired;
+                }
+
+                public Object getPhase1InvestmentRequired() {
+                    return phase1InvestmentRequired;
+                }
+
+                public void setPhase1InvestmentRequired(Object phase1InvestmentRequired) {
+                    this.phase1InvestmentRequired = phase1InvestmentRequired;
+                }
+
+                public Object getNumOfInvestmentPhases() {
+                    return numOfInvestmentPhases;
+                }
+
+                public void setNumOfInvestmentPhases(Object numOfInvestmentPhases) {
+                    this.numOfInvestmentPhases = numOfInvestmentPhases;
+                }
+
+                public Object getCooperationModel() {
+                    return cooperationModel;
+                }
+
+                public void setCooperationModel(Object cooperationModel) {
+                    this.cooperationModel = cooperationModel;
+                }
+
+                public Object getCooperationStyles() {
+                    return cooperationStyles;
+                }
+
+                public void setCooperationStyles(Object cooperationStyles) {
+                    this.cooperationStyles = cooperationStyles;
+                }
+
+                public Object getInvestmentType() {
+                    return investmentType;
+                }
+
+                public void setInvestmentType(Object investmentType) {
+                    this.investmentType = investmentType;
+                }
+
+                public Object getInvestmentSize() {
+                    return investmentSize;
+                }
+
+                public void setInvestmentSize(Object investmentSize) {
+                    this.investmentSize = investmentSize;
+                }
+
+                public Object getOther() {
+                    return other;
+                }
+
+                public void setOther(Object other) {
+                    this.other = other;
+                }
+            }
+
+            public static class UtilityFeeBean {
+                /**
+                 * waterFeeInfo : null
+                 * electricityFeeInfo : null
+                 * gasFeeInfo : null
+                 * landFeeInfo : null
+                 */
+
+                private Object waterFeeInfo;
+                private Object electricityFeeInfo;
+                private Object gasFeeInfo;
+                private Object landFeeInfo;
+
+                public Object getWaterFeeInfo() {
+                    return waterFeeInfo;
+                }
+
+                public void setWaterFeeInfo(Object waterFeeInfo) {
+                    this.waterFeeInfo = waterFeeInfo;
+                }
+
+                public Object getElectricityFeeInfo() {
+                    return electricityFeeInfo;
+                }
+
+                public void setElectricityFeeInfo(Object electricityFeeInfo) {
+                    this.electricityFeeInfo = electricityFeeInfo;
+                }
+
+                public Object getGasFeeInfo() {
+                    return gasFeeInfo;
+                }
+
+                public void setGasFeeInfo(Object gasFeeInfo) {
+                    this.gasFeeInfo = gasFeeInfo;
+                }
+
+                public Object getLandFeeInfo() {
+                    return landFeeInfo;
+                }
+
+                public void setLandFeeInfo(Object landFeeInfo) {
+                    this.landFeeInfo = landFeeInfo;
                 }
             }
 
             public static class ContactsBean {
                 /**
                  * id : null
-                 * username : tom
-                 * department : yunnan
-                 * position : zhuren
-                 * mobile : 121212
-                 * phone : 12313
-                 * email : 1212@qq.com
+                 * username : Ann
+                 * department : 市场
+                 * position : 推广
+                 * mobile : 89610789
+                 * phone : 13590901998
+                 * email : 269827645@qq.com
                  */
 
                 private Object id;

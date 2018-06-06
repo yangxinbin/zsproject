@@ -22,6 +22,8 @@ public class Urls {
     public static final String PROFILE = "/user-service/user/profile";
     public static final String RETRIEVE = "/user-service/user/retrieve/password";
     public static final String FAVOURITE_LIST = "/event-service/event/list/favourites";
+    public static final String BUYEVENT = "/event-service/event/buyTicket";
+    public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String HOST_AUTH = HOST + AUTH;
     public static final String HOST_REGIST = HOST + REGIST;// 1.拿到手机号 2.设置密码
     public static final String HOST_PROJECT = HOST + PROJECT;
@@ -37,8 +39,10 @@ public class Urls {
     public static final String HOST_PROFILE = HOST + PROFILE;
     public static final String HOST_RETRIEVE = HOST + RETRIEVE;
     public static final String HOST_FAVOURITE_LIST = HOST + FAVOURITE_LIST;
+    public static final String HOST_BUYEVENT = HOST + BUYEVENT;
+    public static final String HOST_PROJECT_BUSSINESSLIST = HOST + PROJECT + BUSSINESSLIST;
 
-    public static final String UPDATE1 = "/update";
+    public static final String UPDATE1 = "/basicInfo";//更改基本信息
     public static final String UPDATE2 = "/industries";
     public static final String UPDATE3 = "/location";
     public static final String UPDATE4 = "/contacts";

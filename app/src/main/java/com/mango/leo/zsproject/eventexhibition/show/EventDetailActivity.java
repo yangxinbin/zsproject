@@ -43,6 +43,7 @@ public class EventDetailActivity extends AppCompatActivity {
     Button signUp;
     private SharedPreferences sharedPreferences;
     private String id;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class EventDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         id = getIntent().getStringExtra("FavouriteId");
+        position = getIntent().getIntExtra("position",-1);
 
     }
 
@@ -68,6 +70,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 break;
             case R.id.sign_up:
                 intent = new Intent(this, EventRegistrationActivity.class);
+                intent.putExtra("position",position);
                 startActivity(intent);
                 finish();
                 break;

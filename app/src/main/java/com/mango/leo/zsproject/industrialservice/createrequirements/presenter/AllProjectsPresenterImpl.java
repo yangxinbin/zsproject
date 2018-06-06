@@ -33,7 +33,13 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
     @Override
     public void visitProjects(Context context, int type,int page) {
         sharedPreferences = context.getSharedPreferences("CIFIT",MODE_PRIVATE);
-        String url = getUrl(type,context)+"?page="+page;
+        Log.v("1111","***"+sharedPreferences.getString("token", ""));
+        String url;
+        if (type == 0){
+            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+1+"&page="+page;
+        }else {
+            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+0+"&page="+page;
+        }
         allProjectsModel.visitProjects(context, type, url, this);
     }
 
@@ -51,15 +57,10 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
         StringBuffer sburl = new StringBuffer();
         switch (type) {
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_DRAFTBOX:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
+                sburl.append(Urls.HOST_PROJECT_BUSSINESSLIST);
                 break;
-            case AllAndCreatedPlanActivity.PROJECTS_TYPE_SUBMISSION:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
-
-                break;
-            case AllAndCreatedPlanActivity.PROJECTS_TYPE_AUDITED:
-                sburl.append(Urls.HOST_PROJECT).append("/"+sharedPreferences.getString("userName","")/*AppUtils.getSharePreferences(context,"CIFIT","userName","")*/);
-
+            case AllAndCreatedPlanActivity.PROJECTS_TYPE_BUSSINESS:
+                sburl.append(Urls.HOST_PROJECT_BUSSINESSLIST);
                 break;
         }
         return sburl.toString();

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card1"
+    android:padding="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,10 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="@dimen/title"
+        android:text="项目基础描述"
         android:textColor="@color/black"
+        android:textSize="@dimen/title"
         android:textStyle="bold"
-        android:text="项目信息"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +29,7 @@
         android:layout_marginTop="11dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_icon_edit_red" />
+        app:srcCompat="@drawable/addplan" />
 <!---->
     <ImageView
         android:id="@+id/imageView15"
@@ -36,6 +37,7 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="8dp"
         android:background="@color/divideregray"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -44,40 +46,61 @@
         android:id="@+id/textView_card1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView15" />
-
-    <com.youth.banner.Banner
-        android:id="@+id/slider_ad"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_card1Name"></com.youth.banner.Banner>
 
     <TextView
         android:id="@+id/textView_card1Content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="26dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textColor="@color/secondblack"
-        android:textSize="@dimen/sencond_textSize"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider_ad" />
+        app:layout_constraintTop_toBottomOf="@+id/textView69" />
+
+    <TextView
+        android:id="@+id/textView_what"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/textSize"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_card1Name" />
+
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toEndOf="@+id/textView_what"
+        app:layout_constraintTop_toBottomOf="@+id/textView_card1Name" />
+
+    <TextView
+        android:id="@+id/textView69"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="项目概述:"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_what" />
 </android.support.constraint.ConstraintLayout>

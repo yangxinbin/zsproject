@@ -92,41 +92,50 @@ public class FragmentOfPersonalCenter extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
+        Log.v("uuuuu",bean.getResponseObject().getName()+"__rrrr__"+bean.getResponseObject().getCompany());
         bean1 = bean;
+        //身份
+        textViewGov.setText(bean.getResponseObject().getDepartment());
+        textViewJob.setText(bean.getResponseObject().getPosition());
+        textViewPhone.setText(bean.getResponseObject().getUsername());
+        textViewEmile.setText(bean.getResponseObject().getEmail());
+        textView20.setText(bean.getResponseObject().getDepartment());
+        if (bean.getResponseObject().getName() == null) {
+            textViewUserName.setText(bean.getResponseObject().getUsername());
+            textViewUserNameNomes.setText(bean.getResponseObject().getUsername());
+        } else {
+            Log.v("uuuuu","_pp_rrrr__");
+            textViewUserName.setText(bean.getResponseObject().getName());
+        }
+        if (bean.getResponseObject().getTenant() != null) {//认证
+            constraintLayouthead2.setVisibility(View.VISIBLE);
+            imageViewState.setVisibility(View.VISIBLE);
+        } else {//非认证
+            constraintLayouthead2.setVisibility(View.GONE);
+            imageViewState.setVisibility(View.GONE);
+        }
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//认证
             Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(imageViePic);
         }
-        if (bean.getResponseObject().getTenant() != null) {//认证
-            imageViewState.setVisibility(View.VISIBLE);
-        } else {//非认证
-            imageViewState.setVisibility(View.GONE);
-        }
+
         if (bean.getResponseObject().getName() == null || bean.getResponseObject().getEmail() == null || bean.getResponseObject().getUsername() == null) {
             Log.v("yxbbb","****");
             cardView3.setVisibility(View.VISIBLE);
             cardView2.setVisibility(View.GONE);
         }
-        //头像
-        if (bean.getResponseObject().getName() == null) {
-            textViewUserName.setText(bean.getResponseObject().getUsername());
-            textViewUserNameNomes.setText(bean.getResponseObject().getUsername());
-        } else {
-            textViewUserName.setText(bean.getResponseObject().getName());
-        }
+
         if (bean.getResponseObject().getEmail() == null) {
             imageView20.setVisibility(View.GONE);
             textViewEmile.setVisibility(View.GONE);
         } else {
+            Log.v("uuuuu","_eee_rrrr__");
+
             imageView20.setVisibility(View.VISIBLE);
             textViewEmile.setVisibility(View.VISIBLE);
             textViewEmile.setText(bean.getResponseObject().getEmail());
         }
-        //身份
-        textViewGov.setText(bean.getResponseObject().getCompany());
-        textViewJob.setText(bean.getResponseObject().getDepartment());
-        textViewPhone.setText(bean.getResponseObject().getUsername());
-        textView20.setText(bean.getResponseObject().getCompany());
+
     }
 
     @Override

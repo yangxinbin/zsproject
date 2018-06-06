@@ -30,10 +30,10 @@ public class AllAndCreatedPlanActivity extends BaseActivity{//
     TabLayout allAndCreatedTabLayout;
     @Bind(R.id.allAndCreated_viewPager)
     ViewPager allAndCreatedViewPager;
-
-    public static final int PROJECTS_TYPE_DRAFTBOX = 0;
-    public static final int PROJECTS_TYPE_SUBMISSION = 1;
-    public static final int PROJECTS_TYPE_AUDITED = 2;
+    public static final int PROJECTS_TYPE_BUSSINESS = 0;
+    public static final int PROJECTS_TYPE_DRAFTBOX = 1;
+    //public static final int PROJECTS_TYPE_SUBMISSION = 1;
+    //public static final int PROJECTS_TYPE_AUDITED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +47,17 @@ public class AllAndCreatedPlanActivity extends BaseActivity{//
     }
 
     private void initDatas() {
+        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.mine_bussiness));
         allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.draftbox));
-        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.submission));
-        allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.audited));
+        //allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.submission));
+        //allAndCreatedTabLayout.addTab(allAndCreatedTabLayout.newTab().setText(R.string.audited));
     }
     private void setupViewPager(ViewPager viewpager) {
         ProjectsPagerAdapter adapter = new ProjectsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_BUSSINESS), getString(R.string.mine_bussiness));
         adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_DRAFTBOX), getString(R.string.draftbox));
-        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_SUBMISSION), getString(R.string.submission));
-        adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_AUDITED), getString(R.string.audited));
+        //adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_SUBMISSION), getString(R.string.submission));
+        //adapter.addFragment(ProjectsRecyclerviewFragment.newInstance(PROJECTS_TYPE_AUDITED), getString(R.string.audited));
         viewpager.setAdapter(adapter);
     }
     @OnClick({R.id.allAndCreated_image_back})

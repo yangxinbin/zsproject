@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 public class InvestorFragment extends Fragment implements ZsActivity.FragmentBackListener {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
-    private String headers[] = {"行业", "资金类型", "投资金额", "投资方式"};
+    private String headers[] = {"行业", "资金类型", "投资金额", "合作方式"};
     private List<View> popViews = new ArrayList<View>();
     private String hangye[] = {"行业1", "行业2", "行业3", "行业2"};
     private String ways[] = {"行业sdf1", "行dsf业2", "行asdf业3", "行df业2"};

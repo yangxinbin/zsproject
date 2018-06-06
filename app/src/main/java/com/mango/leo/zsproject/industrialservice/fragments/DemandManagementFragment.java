@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.industrialservice.fragments;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -44,6 +45,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Administrator on 2018/5/10 0010.
  */
@@ -60,13 +63,16 @@ public class DemandManagementFragment extends Fragment {//
     private ConstraintLayout h;
     private LinearLayout allPlanLayout, addPlanLayout;
     private Banner banner;
-
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.demandmanagement, container, false);
         ButterKnife.bind(this, view);
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         initSwipeRefreshLayout();
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleView11.setLayoutManager(mLayoutManager);
@@ -105,6 +111,8 @@ public class DemandManagementFragment extends Fragment {//
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CardFirstItemActivity.class);
+                editor.putString("projectId","").commit();
+                intent.putExtra("DemandManagementFragment",true);
                 EventBus.getDefault().removeAllStickyEvents();
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),

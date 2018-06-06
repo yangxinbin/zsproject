@@ -77,7 +77,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private CityPickerView mPicker;
-    private String cityString;
+    private String cityString, districtString, provinceString;
     private String token;
     private UserMessageBean.ResponseObjectBean.LocationBean locationBean;
     private BeForeUserMesBean beForeUserMesBean;
@@ -99,11 +99,11 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         editor = sharedPreferences.edit();
         userStatePresenter = new UserStatePresenterImpl(this);
         beForeUserMesBean = new BeForeUserMesBean();
-        if (Build.VERSION.SDK_INT >= 23) {
+        /*if (Build.VERSION.SDK_INT >= 23) {
             needPermission();
         } else {
             setLocat();
-        }
+        }*/
     }
 
     public void needPermission() {
@@ -114,8 +114,8 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-            ActivityCompat.requestPermissions(UserActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
-        }else{
+            ActivityCompat.requestPermissions(UserActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+        } else {
             setLocat();
         }
     }
@@ -207,13 +207,20 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     private void initDate() {
         beForeUserMesBean.setToken(sharedPreferences.getString("token", ""));
         beForeUserMesBean.setName(editTextName.getText().toString());
-        beForeUserMesBean.setCompany(editTextCom.getText().toString());
+        beForeUserMesBean.setDepartment(editTextCom.getText().toString());
         beForeUserMesBean.setUsername(editTextPho.getText().toString());
         beForeUserMesBean.setEmail(editTextEm.getText().toString());
-        beForeUserMesBean.setDepartment(editTextPos.getText().toString());
+        beForeUserMesBean.setPosition(editTextPos.getText().toString());
         if (cityString != null) {
-            beForeUserMesBean.setPosition(cityString);//选择的
+            beForeUserMesBean.setCity(cityString);//选择的
         }
+        if (districtString != null) {
+            beForeUserMesBean.setDistrict(districtString);//选择的
+        }
+        if (provinceString != null) {
+            beForeUserMesBean.setProvince(provinceString);//选择的
+        }
+
         //以下是定位获取的
         //定位获取
         /*beForeUserMesBean.setType("0");
@@ -289,15 +296,17 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
             public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
                 //省份
                 if (province != null) {
-
+                    provinceString = String.valueOf(province);
                 }
                 //城市
                 if (city != null) {
                     cityString = String.valueOf(city);
+                   /* editor.putString("position", cityString)
+                            .commit();*/
                 }
                 //地区
                 if (district != null) {
-
+                    districtString = String.valueOf(district);
                 }
                 tvLocation.setText(province + "-" + city + "-" + district);
             }
@@ -396,6 +405,7 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
     @Override
     public void responeUserMessage(UserMessageBean bean) {
         if (bean != null) {
+            Log.v("uuuuu", "____");
             EventBus.getDefault().postSticky(bean);
         }//Token在前一步注册时保存了
     }
@@ -416,14 +426,14 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
             double latitude = location.getLatitude();    //获取纬度信息
             double longitude = location.getLongitude();    //获取经度信息*/
             if (addr != null) {
-                beForeUserMesBean.setCountry(location.getCountry());
+               /* beForeUserMesBean.setCountry(location.getCountry());
                 beForeUserMesBean.setProvince(location.getProvince());
                 beForeUserMesBean.setCity(location.getCity());
                 beForeUserMesBean.setDistrict(location.getDistrict());
                 beForeUserMesBean.setAddress(location.getStreet());
                 beForeUserMesBean.setLon(String.valueOf(location.getLongitude()));
-                beForeUserMesBean.setLat(String.valueOf(location.getLatitude()));
-                Log.v("zzzzz","____"+addr);
+                beForeUserMesBean.setLat(String.valueOf(location.getLatitude()));*/
+                Log.v("zzzzz", "____" + addr);
                 //mHandler.sendEmptyMessage(2);
                 //flag = -1;
             } else {

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,12 +32,19 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
+    private int type;
+
+    public AllProjectsAdapter(Context applicationContext, int mType) {
+        this.context = applicationContext;
+        this.type = mType;
+    }
 
     public void setmDate(List<AllProjectsBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
-    public void reMove(){
+
+    public void reMove() {
         List<AllProjectsBean> m = new ArrayList<AllProjectsBean>();
         this.mData = m;
         this.notifyDataSetChanged();
@@ -51,8 +59,15 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     public void addItem(AllProjectsBean bean) {
         isShowFooter(false);
-        if (mData != null){
+        if (mData != null) {
             mData.add(bean);
+        }
+        this.notifyDataSetChanged();
+    }
+    public void deleteItem(int position) {
+        isShowFooter(false);
+        if (mData != null) {
+            mData.remove(position);
         }
         this.notifyDataSetChanged();
     }
@@ -60,6 +75,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public AllProjectsAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
@@ -70,9 +86,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .inflate(R.layout.all_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
-        }
-        else
-        {
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.footer, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -80,6 +94,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return new FooterViewHolder(view);
         }
     }
+
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
@@ -95,6 +110,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return TYPE_ITEM;
         }
     }
+
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
         this.notifyDataSetChanged();
@@ -107,6 +123,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void isShowHeader(boolean showHeader) {
         this.mShowHeader = showHeader;
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
@@ -114,19 +131,21 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder instanceof ItemViewHolder) {
 //            AllItemBean dm = mData.get(pos);//add header
 //            if (dm == null) {
- //               return;
- //           }
-            if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject()  != null) {
-                Log.v("yyyyy", "====pos======"+pos%20);//
-                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
-                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getDescription());
+            //               return;
+            //           }
+            if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
+                Log.v("yyyyy", "====pos======" + pos % 20);//
+                ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
+                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getSummary());
             }
         }
     }
+
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
     }
+
     @Override
     public int getItemCount() {
         int isFooter = mShowFooter ? 1 : 0;
@@ -137,9 +156,11 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         return mData.size() + isFooter + isHeader;
     }
+
     public void setOnItemnewsClickListener(OnItemnewsClickListener onItemnewsClickListener) {
         this.mOnItemnewsClickListener = onItemnewsClickListener;
     }
+
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public FooterViewHolder(View view) {
@@ -150,25 +171,56 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public AllProjectsBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
+
     public interface OnItemnewsClickListener {
         public void onItemClick(View view, int position);
+
+        void onEditClick(View view, int position);
+
+        void onDeleteClick(View view, int position);
     }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView allItemName,allItemContent;
+        public TextView allItemName, allItemContent;
+        public Button edit, delete;
+
         public ItemViewHolder(View v) {
             super(v);
-            if(v == mHeaderView)
+            if (v == mHeaderView)
                 return;
             allItemName = (TextView) v.findViewById(R.id.allitemName);
             allItemContent = (TextView) v.findViewById(R.id.allitemContent);
+            edit = (Button) v.findViewById(R.id.edit);
+            delete = (Button) v.findViewById(R.id.delete);
+            if (type == 0){
+                edit.setVisibility(View.VISIBLE);
+                delete.setVisibility(View.GONE);
+            }else {
+                edit.setVisibility(View.GONE);
+                delete.setVisibility(View.VISIBLE);
+            }
             v.setOnClickListener(this);
+            edit.setOnClickListener(this);
+            delete.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mOnItemnewsClickListener != null) {
-                mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+            switch (view.getId()) {
+                case R.id.stateButton:
+                    mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                    break;
+                case R.id.edit:
+                    mOnItemnewsClickListener.onEditClick(view, this.getLayoutPosition());
+                    break;
+                case R.id.delete:
+                    mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                    break;
+                    /*case R.id.delete:
+                        mOnEventnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                        break;*/
+
             }
         }
     }

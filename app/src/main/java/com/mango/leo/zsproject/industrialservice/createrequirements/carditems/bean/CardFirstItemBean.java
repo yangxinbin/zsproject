@@ -13,13 +13,23 @@ public class CardFirstItemBean {
     private String itemName;
     private String departmentName;
     private String money;
+    private String time;
     private String itemContent;
 
-    public CardFirstItemBean(String itemName, String departmentName, String money, String itemContent) {
+    public CardFirstItemBean(String itemName, String departmentName, String money, String time, String itemContent) {
         this.itemName = itemName;
         this.departmentName = departmentName;
         this.money = money;
+        this.time = time;
         this.itemContent = itemContent;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public CardFirstItemBean() {

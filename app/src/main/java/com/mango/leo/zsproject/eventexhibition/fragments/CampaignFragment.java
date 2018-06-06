@@ -41,6 +41,8 @@ import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +64,9 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     LinearLayout id;
     private String headers[] = {"时间", "地区", "类型"};
     private List<View> popViews = new ArrayList<View>();
-    private String times[] = {"2017", "2018", "2019", "2020"};
-    private String wheres[] = {"北京", "深圳", "广州", "上海"};
-    private String whats[] = {"行业1", "行业2", "行业3", "行业4"};
+    private String times[] = {"全部", "近一月", "近三个月","已过期"};
+    private String wheres[] = {"全部", "北京", "上海", "广州", "深圳", "厦门"};
+    private String whats[] = {"全部", "免费", "付费"};
     private SwipeRefreshLayout refresh_cam;
     private RecyclerView recycle_cam;
     private DropDownAdapter timeAdapter;
@@ -75,7 +77,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     private int page = 0;
     private LinearLayoutManager mLayoutManager;
     private EventAdapter adapter;
-    private List<EventBean> mData, mDataAll;
+    private List<EventBean> mData, mDataAll,eventBeans1;
 
 
     @Nullable
@@ -184,9 +186,11 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb","_____"+adapter.getItem(position).getResponseObject().getContent().get(position).getName());
+            EventBus.getDefault().postSticky(eventBeans1.get(position));
+            Log.v("yxbb","_____"+eventBeans1.get(position).getResponseObject().getContent().get(position).getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("position",position);
             startActivity(intent);
         }
     };
@@ -273,6 +277,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
+        eventBeans1 = eventBeans;
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
         if (eventBeans == null) {
             getActivity().runOnUiThread(new Runnable() {

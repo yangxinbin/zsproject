@@ -1,5 +1,7 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,8 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.luck.picture.lib.entity.LocalMedia;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.AllProjectsAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
@@ -33,18 +32,27 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
-import com.mango.leo.zsproject.login.PwdLoginActivity;
+import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.DateUtil;
+import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
+import com.mango.leo.zsproject.utils.SwipeItemLayout;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.lang.ref.WeakReference;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -57,8 +65,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     RecyclerView recycleItems;
     @Bind(R.id.refresh_items)
     SwipeRefreshLayout refreshItems;
-    private AllProjectsPresenter mNewsPresenter;
-    private int mType = AllAndCreatedPlanActivity.PROJECTS_TYPE_DRAFTBOX;
+    private AllProjectsPresenter allProjectsPresenter;
+    private int mType = AllAndCreatedPlanActivity.PROJECTS_TYPE_BUSSINESS;
     private AllProjectsAdapter adapter;
     private LinearLayoutManager mLayoutManager;
     private List<AllProjectsBean> mData;
@@ -79,11 +87,12 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsPresenter = new AllProjectsPresenterImpl(this);
+        allProjectsPresenter = new AllProjectsPresenterImpl(this);
         mType = getArguments().getInt("type");
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         Log.v("yyyyy", "====mType======" + mType);
+
     }
 
     @Nullable
@@ -96,9 +105,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleItems.setLayoutManager(mLayoutManager);
         recycleItems.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        adapter = new AllProjectsAdapter(getActivity().getApplicationContext());
+        adapter = new AllProjectsAdapter(getActivity().getApplicationContext(), mType);
         adapter.setOnItemnewsClickListener(mOnItemClickListener);
         recycleItems.removeAllViews();
+        recycleItems.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         initHeader();
         recycleItems.setAdapter(adapter);
         recycleItems.addOnScrollListener(mOnScrollListener);
@@ -108,7 +118,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             mData.clear();
         }
         page = 0;
-        mNewsPresenter.visitProjects(getActivity(), mType, page);
+        allProjectsPresenter.visitProjects(getActivity(), mType, page);
         return view;
     }
 
@@ -127,7 +137,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                mNewsPresenter.visitProjects(getActivity(), mType, page);
+                allProjectsPresenter.visitProjects(getActivity(), mType, page);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
@@ -148,9 +158,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                         if (NetUtil.isNetConnect(getActivity())) {
                             adapter.isShowFooter(true);
                             page = 0;
-                            mNewsPresenter.visitProjects(getActivity(), mType, page);
+                            allProjectsPresenter.visitProjects(getActivity(), mType, page);
                         } else {
-                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
+                            // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
                     }
                 }, 2000);
@@ -176,13 +186,75 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             startActivity(intent);
             getActivity().finish();
         }
+
+        @Override
+        public void onEditClick(View view, int position) {
+            position = position - 1; //配对headerView
+        }
+
+        @Override
+        public void onDeleteClick(View view, final int position) {
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setIcon(R.drawable.icon)//设置标题的图片
+                    .setTitle("招商信息")//设置对话框的标题
+                    .setMessage("确定删除此项目草稿吗？")//设置对话框的内容
+                    //设置对话框的按钮
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deletePlan(position - 1);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     };
+
+    private void deletePlan(int position) {
+        adapter.deleteItem(position);
+        Map<String, String> mapParams = new HashMap<String, String>();
+        mapParams.clear();
+        mapParams.put("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+        mapParams.put("token", sharedPreferences.getString("token", ""));
+        HttpUtils.doDelete(Urls.HOST_PROJECT, mapParams, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("eeeee", "eeeee = " + e.getMessage());
+                mHandler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")) {
+                    mHandler.sendEmptyMessage(1);
+                    // vivistEvent(0);
+                } else {
+                    Log.e("eeeee", response.body().string() + "Exception = ");
+                    mHandler.sendEmptyMessage(0);
+                }
+            }
+        });
+    }
 
     public void postStickyAll(int position) {
         CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getName() != null) {
             cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
-            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getDescription());
+            cardFirstItemBean.setDepartmentName(adapter.getItem(position).getResponseObject().getContent().get(position).getOrganizerDepartment());
+            long time;
+            if ("0".equals(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn()))) {
+                time = adapter.getItem(position).getResponseObject().getContent().get(position).getCreatedOn();
+            } else {
+                time = adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn();
+            }
+            cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
+            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getSummary());
             //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
@@ -193,7 +265,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getLocation() != null) {
             cardThirdItemBean.setProvince("广东省");
             cardThirdItemBean.setCity("深圳市");
-            cardThirdItemBean.setAddress(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getAddress());
+            //cardThirdItemBean.setAddress(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getAddress());
             cardThirdItemBean.setLon(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLon()));
             cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLat()));
             Log.v("33333", "______!= null_____");
@@ -304,5 +376,24 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     public void noMoreMsg() {
         adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+    }
+
+    private ProjectsRecyclerviewFragment.MyHandler mHandler = new ProjectsRecyclerviewFragment.MyHandler();
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    AppUtils.showToast(getActivity(), "服务器删除失败");
+                    break;
+                case 1:
+                    AppUtils.showToast(getActivity(), "服务器删除成功");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

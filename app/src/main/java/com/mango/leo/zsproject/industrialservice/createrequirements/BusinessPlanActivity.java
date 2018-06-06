@@ -48,6 +48,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -57,6 +58,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -107,9 +109,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardView carninth;
     @Bind(R.id.send)
     Button send;
-    private TextView title, p1, p2;
-    private TextView content;
-    private Banner slider;
+    private TextView title, what, time, content, p1, p2;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
     private ImageView im_1, im_3;
@@ -140,6 +140,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             initLocationMode();
         }
     }
+
     public void needPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -161,9 +162,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //mSearch.setOnGetGeoCodeResultListener(this);
         // Geo搜索
         mSearch.setOnGetGeoCodeResultListener(this);
-        mSearch.geocode(new GeoCodeOption().city("").address("广东省深圳市南山区"+bean3.getAddress()));
+        mSearch.geocode(new GeoCodeOption().city("").address("广东省深圳市南山区" + bean3.getAddress()));
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
@@ -173,10 +175,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         View item1 = LayoutInflater.from(this).inflate(R.layout.carditem1, null);
         carfirst.addView(item1);
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
+        what = (TextView) item1.findViewById(R.id.textView_what);
+        time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
-        slider = (Banner) item1.findViewById(R.id.slider_ad);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
+
         title.setText(bean.getItemName());
+        what.setText(bean.getDepartmentName());
+        time.setText(bean.getTime());
         content.setText(bean.getItemContent());
         im_1.setOnClickListener(this);
 /*        if (bean.getItemImagePath().size() != 0) {

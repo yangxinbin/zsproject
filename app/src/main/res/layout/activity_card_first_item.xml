@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
         <TextView
-            android:id="@+id/textView59"
+            android:id="@+id/textView_delete1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -53,7 +53,7 @@
             android:id="@+id/imageView1_back"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_alignBottom="@+id/textView59"
+            android:layout_alignBottom="@+id/textView_delete1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="16dp"
@@ -104,6 +104,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:background="@null"
                     android:id="@+id/item_title"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -114,6 +115,10 @@
                     android:textColorHint="@color/grayBlack"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -131,6 +136,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:background="@null"
                     android:id="@+id/item_danweiName"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -141,7 +147,10 @@
                     android:textColorHint="@color/grayBlack"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,17 +173,22 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:background="@null"
                     android:id="@+id/item_money"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ellipsize="end"
+                    android:inputType="number"
                     android:hint="请输入总投资金额"
                     android:maxLines="1"
                     android:textColor="@color/secondblack"
                     android:textColorHint="@color/grayBlack"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -204,7 +218,10 @@
                         android:textSize="@dimen/textSize"
                         android:textStyle="bold" />
                 </LinearLayout>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"/>
                 <com.mango.leo.zsproject.viewutil.LinedEditText
                     android:id="@+id/item_content"
                     android:layout_width="match_parent"
@@ -212,6 +229,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:gravity="top"
+                    android:background="@null"
                     android:hint="请输入招商引资项目概况"
                     android:lineSpacingExtra="8dp"
                     android:padding="10dp"
