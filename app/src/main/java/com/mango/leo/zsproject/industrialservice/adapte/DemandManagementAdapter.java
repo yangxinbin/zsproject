@@ -2,6 +2,8 @@ package com.mango.leo.zsproject.industrialservice.adapte;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,6 +37,9 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
+    private boolean hasMore;
+    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
+    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     public void setmDate(List<DemandManagementBean> data) {
         this.mData = data;
@@ -56,6 +61,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     public void addItem(DemandManagementBean bean) {
         mData.add(bean);
+        hasMore = true;
         this.notifyDataSetChanged();
     }
 
@@ -111,7 +117,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
@@ -124,6 +130,35 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                 ((ItemViewHolder) holder).numCompany.setText("50");
                 ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
                 ((ItemViewHolder) holder).numInvestmentActivities.setText("200");
+            }
+        } else {
+            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
+            ((FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+            if (hasMore == true) {
+                // 不隐藏footView提示
+                fadeTips = false;
+                //if (mData.size() > 0) {
+                    // 如果查询数据发现增加之后，就显示正在加载更多
+                    ((FooterViewHolder) holder).footTv.setText("正在加载...");
+               // }
+            }else {
+                //if (mData.size() > 0) {
+                    // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                    ((FooterViewHolder) holder).footTv.setText("没有更多数据了");
+
+                    // 然后通过延时加载模拟网络请求的时间，在500ms后执行
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 隐藏提示条
+                            ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                            // 将fadeTips设置true
+                            fadeTips = true;
+                            // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                            hasMore = true;
+                        }
+                    }, 500);
+                //}
             }
         }
     }
@@ -146,9 +181,13 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
+        private TextView footTv;
 
         public FooterViewHolder(View view) {
             super(view);
+            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
+            ;
+
         }
     }
 
@@ -208,18 +247,18 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                         break;
                     case R.id.canceling_match:
                         if (flag == 0) {
-                            Log.v("aaaaa","__0");
+                            Log.v("aaaaa", "__0");
                             LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) canceling_match.getLayoutParams(); //取控件textView当前的布局参数
-                            linearParams.width =400;// 控件的宽强制设成
+                            linearParams.width = 400;// 控件的宽强制设成
                             canceling_match.setText("确认取消匹配");
                             canceling_match.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         }
                         if (flag == 1) {
-                            Log.v("aaaaa","__1");
+                            Log.v("aaaaa", "__1");
                             mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());
                             flag = 0;//屏蔽只能点一次
                         }
-                        flag = flag +1;
+                        flag = flag + 1;
                         break;
                     /*case R.id.delete:
                         mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
@@ -228,14 +267,15 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                 }
             }
         }
+
         /**
          * dp转为px
+         *
          * @param context  上下文
          * @param dipValue dp值
          * @return
          */
-        private int dip2px(Context context,float dipValue)
-        {
+        private int dip2px(Context context, float dipValue) {
             Resources r = context.getResources();
             return (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP, dipValue, r.getDisplayMetrics());
