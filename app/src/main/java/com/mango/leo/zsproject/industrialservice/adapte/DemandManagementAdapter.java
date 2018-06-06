@@ -1,9 +1,11 @@
 package com.mango.leo.zsproject.industrialservice.adapte;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,7 +167,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         void onCancelingMatchClick(View view, int position);
 
-       // void onDeleteClick(View view, int position);
+        // void onDeleteClick(View view, int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -173,6 +175,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         public TextView itemName, numCompany, numInvestmentInstitution, numInvestmentActivities;
         public LinearLayout stateButton, stateButton2;
         public Button canceling_match/*, delete*/;
+        public int flag = 0;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -183,12 +186,12 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             stateButton = v.findViewById(R.id.stateButton);
             stateButton2 = v.findViewById(R.id.stateButton2);
             canceling_match = v.findViewById(R.id.canceling_match);
-           // delete = v.findViewById(R.id.delete);
+            // delete = v.findViewById(R.id.delete);
             numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
             numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
             stateButton.setOnClickListener(this);
             stateButton2.setOnClickListener(this);
-           // delete.setOnClickListener(this);
+            // delete.setOnClickListener(this);
             canceling_match.setOnClickListener(this);
             v.setOnClickListener(this);
         }
@@ -204,7 +207,19 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                         mOnItemnewsClickListener.onItemClick2(view, this.getLayoutPosition());
                         break;
                     case R.id.canceling_match:
-                        mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());
+                        if (flag == 0) {
+                            Log.v("aaaaa","__0");
+                            LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) canceling_match.getLayoutParams(); //取控件textView当前的布局参数
+                            linearParams.width =400;// 控件的宽强制设成
+                            canceling_match.setText("确认取消匹配");
+                            canceling_match.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+                        }
+                        if (flag == 1) {
+                            Log.v("aaaaa","__1");
+                            mOnItemnewsClickListener.onCancelingMatchClick(view, this.getLayoutPosition());
+                            flag = 0;//屏蔽只能点一次
+                        }
+                        flag = flag +1;
                         break;
                     /*case R.id.delete:
                         mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
@@ -212,6 +227,18 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 }
             }
+        }
+        /**
+         * dp转为px
+         * @param context  上下文
+         * @param dipValue dp值
+         * @return
+         */
+        private int dip2px(Context context,float dipValue)
+        {
+            Resources r = context.getResources();
+            return (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, dipValue, r.getDisplayMetrics());
         }
     }
 }

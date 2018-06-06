@@ -213,6 +213,7 @@ public class DemandManagementFragment extends Fragment {//
 
         @Override
         public void onCancelingMatchClick(View view, int position) {
+            Log.v("aaaaa","clock__1");
             Log.v("oooooooooo", "****onCancelingMatchClick***点击第" + position);
         }
 

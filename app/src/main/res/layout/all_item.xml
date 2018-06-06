@@ -51,7 +51,7 @@
             android:id="@+id/edit"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@color/red"
+            android:background="@color/color_orange"
             android:text="修改"
             android:textColor="#ffffff"
             android:textSize="16sp" />
@@ -60,7 +60,7 @@
                     android:id="@+id/delete"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:background="@color/blue"
+                    android:background="@color/red"
                     android:text="删除"
                     android:textColor="#ffffff"
                     android:textSize="16sp" />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -64,6 +65,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         this.notifyDataSetChanged();
     }
+
     public void deleteItem(int position) {
         isShowFooter(false);
         if (mData != null) {
@@ -184,6 +186,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public TextView allItemName, allItemContent;
         public Button edit, delete;
+        public int flag = 0;
 
         public ItemViewHolder(View v) {
             super(v);
@@ -193,10 +196,10 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             allItemContent = (TextView) v.findViewById(R.id.allitemContent);
             edit = (Button) v.findViewById(R.id.edit);
             delete = (Button) v.findViewById(R.id.delete);
-            if (type == 0){
+            if (type == 0) {
                 edit.setVisibility(View.VISIBLE);
                 delete.setVisibility(View.GONE);
-            }else {
+            } else {
                 edit.setVisibility(View.GONE);
                 delete.setVisibility(View.VISIBLE);
             }
@@ -215,7 +218,22 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     mOnItemnewsClickListener.onEditClick(view, this.getLayoutPosition());
                     break;
                 case R.id.delete:
-                    mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                    if (flag == 0) {
+                        Log.v("aaaaa", "__0");
+                        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
+                        linearParams.width = 400;// 控件的宽强制设成
+                        if (type == 0){
+                            delete.setText("确认修改");
+                        }else {
+                            delete.setText("确认删除");
+                        }
+                        delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+                    }
+                    if (flag == 1) {
+                        mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                        flag = 0;//屏蔽只能点一次
+                    }
+                    flag = flag +1;
                     break;
                     /*case R.id.delete:
                         mOnEventnewsClickListener.onDeleteClick(view, this.getLayoutPosition());

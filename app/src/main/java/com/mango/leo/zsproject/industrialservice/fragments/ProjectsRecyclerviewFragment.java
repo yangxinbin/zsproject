@@ -194,7 +194,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
         @Override
         public void onDeleteClick(View view, final int position) {
-            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+            deletePlan(position - 1);
+            /*AlertDialog dialog = new AlertDialog.Builder(getActivity())
                     .setIcon(R.drawable.icon)//设置标题的图片
                     .setTitle("招商信息")//设置对话框的标题
                     .setMessage("确定删除此项目草稿吗？")//设置对话框的内容
@@ -212,7 +213,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                             dialog.dismiss();
                         }
                     }).create();
-            dialog.show();
+            dialog.show();*/
         }
     };
 
