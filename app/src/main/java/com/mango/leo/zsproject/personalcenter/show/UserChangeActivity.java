@@ -120,14 +120,22 @@ public class UserChangeActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
         textView1.setText(bean.getResponseObject().getName());
-        textView2.setText(bean.getResponseObject().getCompany());
-        textView3.setText(bean.getResponseObject().getDepartment());
+        textView2.setText(bean.getResponseObject().getDepartment());
+        textView3.setText(bean.getResponseObject().getPosition());
         textView4.setText(bean.getResponseObject().getUsername());
         textView5.setText(bean.getResponseObject().getEmail());
+        if (bean.getResponseObject().getTenant() != null) {//认证
+            r1E.setVisibility(View.GONE);
+            r2E.setVisibility(View.GONE);
+            r3E.setVisibility(View.GONE);
+            r1.setClickable(false);
+            r2.setClickable(false);
+            r3.setClickable(false);
+        }
         //头像
-        if (bean.getResponseObject().getAvator().getId() != null) {//认证
-            Log.v("yxbb","dddd");
-            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(circleImageView);
+        if (bean.getResponseObject().getAvator().getId() != null) {//
+            Log.v("yxbb", "dddd");
+            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(circleImageView);
         }
 
     }
@@ -279,14 +287,14 @@ public class UserChangeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.r2:
-                intent = new Intent(this, CompanyActivity.class);
-                intent.putExtra("company", textView2.getText());
+                intent = new Intent(this, CompanyActivity.class);//单位
+                intent.putExtra("department", textView2.getText());
                 startActivity(intent);
                 finish();
                 break;
             case R.id.r3:
-                intent = new Intent(this, DepartmentActivity.class);
-                intent.putExtra("department", textView3.getText());
+                intent = new Intent(this, DepartmentActivity.class);//职称
+                intent.putExtra("position", textView3.getText());
                 startActivity(intent);
                 finish();
                 break;
@@ -340,22 +348,23 @@ public class UserChangeActivity extends BaseActivity {
     }
 
     private void upLoadMap(Uri uri) {
-        Log.v("upLoadMap", uri.toString()+"-----upLoadMap-----" + sharedPreferences.getString("token", ""));
-        HttpUtils.doPostWithAll(Urls.HOST_AVATAR, getRealFilePath(this,uri),sharedPreferences.getString("token", ""), new Callback() {
+        Log.v("upLoadMap", uri.toString() + "-----upLoadMap-----" + sharedPreferences.getString("token", ""));
+        HttpUtils.doPostWithAll(Urls.HOST_AVATAR, getRealFilePath(this, uri), sharedPreferences.getString("token", ""), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 //listener.onFailure("MES_FAILURE",e);
-                Log.v("upLoadMap", e.toString()+"-----MES_FAILURE-----"+e.getMessage());
+                Log.v("upLoadMap", e.toString() + "-----MES_FAILURE-----" + e.getMessage());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.showToast(getBaseContext(),"头像上传失败");
+                        AppUtils.showToast(getBaseContext(), "头像上传失败");
                     }
                 });
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (String.valueOf(response.code()).startsWith("2")){
+                if (String.valueOf(response.code()).startsWith("2")) {
                     //listener.onSuccess("MES_SUCCESS");//异步请求
                     //注册时以及获取Token这里不用重复获取了
                         /*UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
@@ -366,23 +375,24 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(),"头像上传成功");
+                            AppUtils.showToast(getBaseContext(), "头像上传成功");
                         }
                     });
-                }else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(),"头像上传失败");
+                            AppUtils.showToast(getBaseContext(), "头像上传失败");
                         }
                     });
-                    Log.v("upLoadMap",response.body().string()+"******"+response.code()+Urls.HOST_AVATAR);
+                    Log.v("upLoadMap", response.body().string() + "******" + response.code() + Urls.HOST_AVATAR);
                     //listener.onSuccess("MES_FAILURE");
                 }
             }
         });
 
     }
+
     /**
      * Try to return the absolute file path from the given Uri
      *
@@ -390,21 +400,21 @@ public class UserChangeActivity extends BaseActivity {
      * @param uri
      * @return the file path or null
      */
-    public static String getRealFilePath(final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if ( scheme == null )
+        if (scheme == null)
             data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -412,6 +422,7 @@ public class UserChangeActivity extends BaseActivity {
         }
         return data;
     }
+
     private void showImages(Bitmap bitmap) {
         circleImageView.setImageBitmap(bitmap);
     }

@@ -63,7 +63,7 @@
         android:layout_alignParentStart="true">
 
         <EditText
-            android:id="@+id/editText_change"
+            android:id="@+id/editText_change_com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
