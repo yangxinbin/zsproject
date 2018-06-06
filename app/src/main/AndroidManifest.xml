@@ -63,7 +63,9 @@
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CustomRequirementsActivity" />
-        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity" />
+        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".industrialservice.createrequirements.carditems.CardSecondItemActivity" />
         <activity android:name=".industrialservice.createrequirements.carditems.CardThirdItemActivity" />
         <activity android:name=".industrialservice.createrequirements.carditems.CardFourthItemActivity" />
