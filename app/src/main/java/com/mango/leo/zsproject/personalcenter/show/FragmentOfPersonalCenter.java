@@ -161,7 +161,9 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.bu_mes:
-                EventBus.getDefault().postSticky(bean1);
+                if (bean1 != null){
+                    EventBus.getDefault().postSticky(bean1);
+                }
                 intent = new Intent(getActivity(), UserActivity.class);
                 startActivity(intent);
                 break;
