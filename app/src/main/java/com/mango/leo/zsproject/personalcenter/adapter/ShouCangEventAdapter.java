@@ -131,13 +131,15 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
                 ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
-                ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation() != null) {
+                    ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
+                }
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
-                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId() != null) {
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner()!= null) {
                     Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
                 }
             }
-        }else {
+        } else {
             //if (mData.size() > 0) {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((ShouCangEventAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
@@ -245,7 +247,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                             flag = 0;//屏蔽只能点一次
                             return;
                         }
-                        flag = flag +1;
+                        flag = flag + 1;
                         break;
                     /*case R.id.del:
                         mOnEventnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
@@ -255,6 +257,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
     }
+
     /**
      * dp转为px
      *

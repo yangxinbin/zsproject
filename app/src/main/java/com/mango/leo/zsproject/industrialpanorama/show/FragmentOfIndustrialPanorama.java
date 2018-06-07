@@ -63,7 +63,7 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
 
 
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("城市介绍", "招商信息"/*, "招商计划", "定制需求"*/));
+        mDatas = new ArrayList<String>(Arrays.asList("       城市介绍       ", "       招商信息       "/*, "招商计划", "定制需求"*/));
     }
 
     private void init() {

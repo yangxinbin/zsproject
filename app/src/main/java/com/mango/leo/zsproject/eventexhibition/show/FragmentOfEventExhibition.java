@@ -43,7 +43,7 @@ public class FragmentOfEventExhibition extends Fragment {
         return view;
     }
     private void initDatas() {
-        mDatas = new ArrayList<String>(Arrays.asList("活动", "展会","资讯"));
+        mDatas = new ArrayList<String>(Arrays.asList("    活动    ", "    展会    ","    资讯    "));
     }
 
     private void init() {

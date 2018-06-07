@@ -77,8 +77,8 @@ public class ShouCang3Fragment extends Fragment {
     }
 
     private void vivistEvent(int page) {
-        Log.v("vvvvvv", "__" + Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", "") + "&type=EVENT");
-        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", "") + "&type=EVENT", new Callback() {
+        Log.v("vvvvvv", "__" + Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""));
+        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(0);
@@ -260,7 +260,7 @@ public class ShouCang3Fragment extends Fragment {
         Map<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
 //        Log.e("eeeee", adapter.getItem(position).getResponseObject().getContent().get(position).getId()+"eeeee = "+sharedPreferences.getString("token", ""));
-        mapParams.put("favouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+        mapParams.put("id", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
         mapParams.put("token", sharedPreferences.getString("token", ""));
         HttpUtils.doDelete(Urls.HOST_FAVOURITE, mapParams, new Callback() {
             @Override

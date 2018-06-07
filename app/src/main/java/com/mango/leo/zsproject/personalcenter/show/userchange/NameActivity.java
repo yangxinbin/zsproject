@@ -85,6 +85,7 @@ public class NameActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (String.valueOf(response.code()).startsWith("2")) {
                     mHandler.sendEmptyMessage(1);
+                    //Log.v("uuuuuu",editTextChange.getText().toString()+"______"+response.body().string());
                     UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
                     EventBus.getDefault().postSticky(bean);
                 } else {
@@ -115,7 +116,7 @@ public class NameActivity extends BaseActivity {
                         break;
                     case 1:
                         AppUtils.showToast(activity, "姓名修改成功");
-                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
+                        Intent intent = new Intent(activity, UserChangeActivity.class);
                         startActivity(intent);
                         break;
                     default:

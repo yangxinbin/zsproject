@@ -18,10 +18,10 @@ public class Urls {
     public static final String CODEEMAIL = "/user-service/user/send/email/code";
     public static final String EMAIL = "/user-service/user/email";
     public static final String AVATAR = "/user-service/user/avatar";
-    public static final String FAVOURITE = "/event-service/event/favourite";
+    public static final String FAVOURITE = "/event-service/event/favorite";
     public static final String PROFILE = "/user-service/user/profile";
     public static final String RETRIEVE = "/user-service/user/retrieve/password";
-    public static final String FAVOURITE_LIST = "/event-service/event/list/favourites";
+    public static final String FAVOURITE_LIST = "/event-service/event/list/favorites";
     public static final String BUYEVENT = "/event-service/event/buyTicket";
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String HOST_AUTH = HOST + AUTH;

@@ -81,9 +81,9 @@ public class EventDetailActivity extends AppCompatActivity {
         Log.v("FFFFFF",sharedPreferences.getString("token","")+"******");
         Map<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
-        mapParams.put("FavouriteId",id);
-        mapParams.put("createdBy",sharedPreferences.getString("userName",""));
-        mapParams.put("type","EVENT");
+        mapParams.put("eventId",id);
+        //mapParams.put("createdBy",sharedPreferences.getString("userName",""));
+       // mapParams.put("type","EVENT");
         mapParams.put("token",sharedPreferences.getString("token",""));
         HttpUtils.doPost(Urls.HOST_FAVOURITE, mapParams, new Callback() {
             @Override
