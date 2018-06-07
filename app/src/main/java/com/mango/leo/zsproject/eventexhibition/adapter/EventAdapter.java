@@ -129,6 +129,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getLocation().getCity().toString());
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
                 if (mData.get(pos).getResponseObject().getContent().get(pos%20).getBanner().getId() != null) {
+                    Log.v("yyy","iiiiiiiiii"+"http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
                     Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
                 }
             }

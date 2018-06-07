@@ -39,8 +39,9 @@
                     android:gravity="center_vertical"
                     android:padding="3dp"
                     android:text="招商计划1"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textSize" />
+                    android:textSize="@dimen/title" />
 
                 <ImageView
                     android:id="@+id/item_news_img"
@@ -86,7 +87,7 @@
                             android:padding="3dp"
                             android:text="50"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/sencond_textSize" />
+                            android:textSize="@dimen/big" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
                             android:padding="3dp"
                             android:text="150"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/sencond_textSize" />
+                            android:textSize="@dimen/big" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -150,7 +151,7 @@
                             android:padding="3dp"
                             android:text="550"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/sencond_textSize" />
+                            android:textSize="@dimen/big" />
 
                         <TextView
                             android:layout_width="wrap_content"

@@ -124,7 +124,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
-        this.notifyDataSetChanged();
+        //this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -249,6 +249,11 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 edit.setVisibility(View.GONE);
                 delete.setVisibility(View.VISIBLE);
             }
+            if (type == 0){
+                edit.setText("修改");
+            }else {
+                delete.setText("删除");
+            }
             itV.setOnClickListener(this);
             edit.setOnClickListener(this);
             delete.setOnClickListener(this);
@@ -266,18 +271,36 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 case R.id.delete:
                     if (flag == 0) {
                         Log.v("aaaaa", "__0");
-                        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
-                        linearParams.width = 400;// 控件的宽强制设成
+                        LinearLayout.LayoutParams linearParams = null;
                         if (type == 0){
-                            delete.setText("确认修改");
+                            linearParams = (LinearLayout.LayoutParams) edit.getLayoutParams(); //取控件textView当前的布局参数
+                            edit.setText("确认修改");
+                            linearParams.width = 400;// 控件的宽强制设成
+                            edit.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         }else {
+                            linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
                             delete.setText("确认删除");
+                            linearParams.width = 400;// 控件的宽强制设成
+                            delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         }
-                        delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+
                     }
                     if (flag == 1) {
+                        LinearLayout.LayoutParams linearParams = null;
+                        if (type == 0){
+                            linearParams = (LinearLayout.LayoutParams) edit.getLayoutParams(); //取控件textView当前的布局参数
+                            edit.setText("修改");
+                            linearParams.width = 300;// 控件的宽强制设成
+                            edit.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+                        }else {
+                            linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
+                            delete.setText("删除");
+                            linearParams.width = 300;// 控件的宽强制设成
+                            delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+                        }
                         mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
                         flag = 0;//屏蔽只能点一次
+                        return;
                     }
                     flag = flag +1;
                     break;

@@ -89,6 +89,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         eventPresenter = new EventPresenterImpl(this);
         eventPresenter.visitEvent(getActivity(), EVENT1, page);
         initHeader();
+        if (mDataAll != null || mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
         return view;
     }
 
@@ -186,8 +190,8 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(eventBeans1.get(position));
-            Log.v("yxbb","_____"+eventBeans1.get(position).getResponseObject().getContent().get(position).getName());
+            EventBus.getDefault().postSticky(mDataAll.get(position));
+            Log.v("yxbb","_____"+mDataAll.get(position).getResponseObject().getContent().get(position).getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             intent.putExtra("position",position);
@@ -277,6 +281,9 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
+        if (eventBeans1 !=null){
+            eventBeans1.clear();
+        }
         eventBeans1 = eventBeans;
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
         if (eventBeans == null) {

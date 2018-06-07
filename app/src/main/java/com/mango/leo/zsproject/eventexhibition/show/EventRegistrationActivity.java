@@ -1,5 +1,9 @@
 package com.mango.leo.zsproject.eventexhibition.show;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,7 +89,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_registration);
-        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
     }
@@ -94,16 +98,17 @@ public class EventRegistrationActivity extends AppCompatActivity {
     public void eventRegistrationEventBus(EventBean bean) {
         bean1 = bean;
         position = getIntent().getIntExtra("position", -1);
-        Log.v("yxbb", bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
+        Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "!!!!!" + bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
         if (bean != null) {
-            if (String.valueOf(bean.getResponseObject().getContent().get(position).getPrice()) == "0") {//免费
+            if (bean.getResponseObject().getContent().get(position).getPrice() == 0) {//免费
+                Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "!!???!" + bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
                 tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
                 howtoplay.setVisibility(View.GONE);
                 eventFree.setVisibility(View.VISIBLE);
             } else {
-                signUp.setEnabled(false);
+                //signUp.setEnabled(false);
                 eventFree.setVisibility(View.GONE);
                 eventNofree.setVisibility(View.VISIBLE);
                 howtoplay.setVisibility(View.VISIBLE);
@@ -137,10 +142,10 @@ public class EventRegistrationActivity extends AppCompatActivity {
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
-        mapParams.put("eventStr",eventStr /*bean1.getResponseObject().getContent().get(position).getId()*/);
+        mapParams.put("eventStr", eventStr /*bean1.getResponseObject().getContent().get(position).getId()*/);
         mapParams.put("status", "");
-        mapParams.put("registeBy", sharedPreferences.getString("userName",""));
-        Log.v("doPostAll", eventStr+"^^^^j^^^^");
+        mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
+        Log.v("doPostAll", eventStr + "^^^^j^^^^");
 
         mapParams.put("username", editText1.getText().toString());
         mapParams.put("mobile", editText2.getText().toString());
@@ -152,7 +157,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         mapParams.put("feePaid", String.valueOf(bean1.getResponseObject().getContent().get(position).getPrice()));
 
         mapParams.put("numberOfTickets", String.valueOf(tickNum));
-        mapParams.put("token", sharedPreferences.getString("token",""));
+        mapParams.put("token", sharedPreferences.getString("token", ""));
 
 
         HttpUtils.doPost(Urls.HOST_BUYEVENT, mapParams, new Callback() {
@@ -183,7 +188,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
 
     private final EventRegistrationActivity.MyHandler mHandler = new EventRegistrationActivity.MyHandler(this);
 
-    private static class MyHandler extends Handler {
+    private class MyHandler extends Handler {
         private final WeakReference<EventRegistrationActivity> mActivity;
 
         public MyHandler(EventRegistrationActivity activity) {
@@ -200,8 +205,8 @@ public class EventRegistrationActivity extends AppCompatActivity {
                         AppUtils.showToast(activity, "报名失败");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "报名成功");
-                        showSuccess();
+                        //AppUtils.showToast(activity, "报名成功");
+                        showSuccess(activity);
                         break;
                     case 2:
                         //AppUtils.showToast(activity, "令牌保存成功");
@@ -211,10 +216,28 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 }
             }
         }
-
-        private void showSuccess() {
-
-        }
-
+    }
+    private void showSuccess(Activity activity) {
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setIcon(R.drawable.icon)//设置标题的图片
+                .setTitle("报名成功")//设置对话框的标题
+                .setMessage("恭喜您报名成功！")//设置对话框的内容
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EventBus.getDefault().postSticky(bean1);
+                        Intent intent = new Intent(getApplicationContext(),EventDetailActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 }

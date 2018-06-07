@@ -247,7 +247,7 @@
                     android:ems="10"
                     android:gravity="end"
                     android:hint="请输入电话"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:textSize="@dimen/sencond_textSize" />
             </RelativeLayout>
 
