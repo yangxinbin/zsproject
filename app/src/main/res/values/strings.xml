@@ -59,7 +59,7 @@
     <string name="allplan">一键招商+</string>
     <string name="how_to_created">请选择您需创建的需求</string>
     <string name="investmentplan">一键招商</string>
-    <string name="draftbox">草稿箱</string>
+    <string name="draftbox">      草稿箱      </string>
     <string name="submission">已提交</string>
     <string name="audited">已审核</string>
     <string name="no_more">No more projects,Please refresh!</string>
@@ -78,7 +78,7 @@
     <string name="phone_ok">确认绑定</string>
     <string name="sing_up">报名活动</string>
     <string name="signup_sure">确定报名</string>
-    <string name="mine_bussiness">我的招商</string>
+    <string name="mine_bussiness">      我的招商      </string>
 </resources>
 
 

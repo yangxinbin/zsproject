@@ -112,7 +112,7 @@ public class DepartmentActivity extends BaseActivity {
                         break;
                     case 1:
                         AppUtils.showToast(activity, "职位修改成功");
-                        Intent intent = new Intent(activity, AccountSecurityActivity.class);
+                        Intent intent = new Intent(activity, UserChangeActivity.class);
                         startActivity(intent);
                         break;
                     default:
