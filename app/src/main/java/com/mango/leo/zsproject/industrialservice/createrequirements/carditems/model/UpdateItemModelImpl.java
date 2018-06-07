@@ -9,7 +9,10 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.listener.OnUpdateItemListener;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
 
@@ -37,11 +40,14 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class UpdateItemModelImpl implements UpdateItemModel {
     private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
+
 
     @Override
     public void visitUpdateItem(Context context, int type, Object o, String url, final OnUpdateItemListener listener) {
         //Class<?> o = (Class<?>)Class.forName(String.valueOf(c.getClass())).newInstance();
         sharedPreferences = context.getSharedPreferences("CIFIT", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         Log.v("xxxxxxxx", "^^^^^vvvvvvv^^^^^" + sharedPreferences.getString("projectId", ""));
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         if (o instanceof CardFirstItemBean) {
@@ -67,6 +73,9 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                     public void onResponse(Call call, Response response) throws IOException {
                         if (String.valueOf(response.code()).startsWith("2")) {
                             listener.onSuccess("SAVE SUCCESS");//异步请求
+                            ProjectBean bean = ProjectsJsonUtils.readJsonProjectBeans(response.body().string());//data是json字段获得data的值即对象
+                            Log.v("11111","____1_projectId_"+bean.getResponseObject().getId());
+                            editor.putString("projectId",bean.getResponseObject().getId()).commit();
                         } else {
                             Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
                             listener.onSuccess("SAVE FAILURE");

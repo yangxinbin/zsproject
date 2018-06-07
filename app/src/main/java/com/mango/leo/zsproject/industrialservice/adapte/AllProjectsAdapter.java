@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -228,6 +229,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public TextView allItemName, allItemContent;
         public Button edit, delete;
+        RelativeLayout itV;
         public int flag = 0;
 
         public ItemViewHolder(View v) {
@@ -238,6 +240,8 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             allItemContent = (TextView) v.findViewById(R.id.allitemContent);
             edit = (Button) v.findViewById(R.id.edit);
             delete = (Button) v.findViewById(R.id.delete);
+            itV = (RelativeLayout) v.findViewById(R.id.item_content);
+
             if (type == 0) {
                 edit.setVisibility(View.VISIBLE);
                 delete.setVisibility(View.GONE);
@@ -245,7 +249,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 edit.setVisibility(View.GONE);
                 delete.setVisibility(View.VISIBLE);
             }
-            v.setOnClickListener(this);
+            itV.setOnClickListener(this);
             edit.setOnClickListener(this);
             delete.setOnClickListener(this);
         }
@@ -253,7 +257,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.stateButton:
+                case R.id.item_content:
                     mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
                     break;
                 case R.id.edit:

@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.JsonUtils;
@@ -65,6 +66,14 @@ public class ProjectsJsonUtils {
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
+
+    public static ProjectBean readJsonProjectBeans(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+        ProjectBean bean = JsonUtils.deserialize(jsonObject, ProjectBean.class);
+        return bean;
+    }
+
     public static List<EventBean> readJsonEventBeans(String res, String va) {
         List<EventBean> beans = new ArrayList<EventBean>();
         try {
