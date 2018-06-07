@@ -112,6 +112,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void isShowHeader(boolean showHeader) {
         this.mShowHeader = showHeader;
+        this.notifyDataSetChanged();
     }
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
@@ -147,7 +148,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
-            }, 500);
+            }, 1000);
             //}
         }
     }

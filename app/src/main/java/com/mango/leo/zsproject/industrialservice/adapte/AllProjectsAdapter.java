@@ -132,6 +132,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void isShowHeader(boolean showHeader) {
         this.mShowHeader = showHeader;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -174,7 +175,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                         hasMore = true;
                     }
-                }, 500);
+                }, 1000);
                 //}
             }
         }

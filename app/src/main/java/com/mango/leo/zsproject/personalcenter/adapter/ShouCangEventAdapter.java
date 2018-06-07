@@ -108,7 +108,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
-       // this.notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -153,7 +153,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
-            }, 500);
+            }, 1000);
             //}
         }
     }
