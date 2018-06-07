@@ -1,8 +1,12 @@
 package com.mango.leo.zsproject.industrialservice.adapte;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +38,9 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean mShowHeader = true;
     private View mHeaderView;
     private int type;
+    private boolean hasMore;
+    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
+    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     public AllProjectsAdapter(Context applicationContext, int mType) {
         this.context = applicationContext;
@@ -62,6 +69,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         isShowFooter(false);
         if (mData != null) {
             mData.add(bean);
+            hasMore = true;
         }
         this.notifyDataSetChanged();
     }
@@ -127,7 +135,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
@@ -139,6 +147,35 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Log.v("yyyyy", "====pos======" + pos % 20);//
                 ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                 ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getSummary());
+            }
+        }else {
+            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
+            ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+            if (hasMore == true) {
+                // 不隐藏footView提示
+                fadeTips = false;
+                //if (mData.size() > 0) {
+                // 如果查询数据发现增加之后，就显示正在加载更多
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("正在加载...");
+                // }
+            }else {
+                //if (mData.size() > 0) {
+                // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
+
+                // 然后通过延时加载模拟网络请求的时间，在500ms后执行
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 隐藏提示条
+                        ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                        // 将fadeTips设置true
+                        fadeTips = true;
+                        // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                        hasMore = true;
+                    }
+                }, 500);
+                //}
             }
         }
     }
@@ -164,9 +201,13 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
+        private TextView footTv;
 
         public FooterViewHolder(View view) {
             super(view);
+            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
+            ;
+
         }
     }
 
@@ -241,5 +282,17 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             }
         }
+    }
+    /**
+     * dp转为px
+     *
+     * @param context  上下文
+     * @param dipValue dp值
+     * @return
+     */
+    private int dip2px(Context context, float dipValue) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dipValue, r.getDisplayMetrics());
     }
 }

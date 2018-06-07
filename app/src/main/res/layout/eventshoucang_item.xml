@@ -93,7 +93,7 @@
 
         <Button
             android:id="@+id/canceling_shoucang"
-            android:layout_width="100dp"
+            android:layout_width="300px"
             android:layout_height="match_parent"
             android:background="@color/red"
             android:text="取消收藏"

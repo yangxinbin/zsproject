@@ -181,12 +181,11 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
-        private TextView footTv;
+        public TextView footTv;
 
         public FooterViewHolder(View view) {
             super(view);
             footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
-            ;
 
         }
     }

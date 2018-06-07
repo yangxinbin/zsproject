@@ -1,8 +1,12 @@
 package com.mango.leo.zsproject.personalcenter.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
+    private boolean hasMore;
+    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
+    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     public void setmDate(List<EventBean> data) {
         this.mData = data;
@@ -56,6 +62,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
         isShowFooter(false);
         if (mData != null) {
             mData.add(bean);
+            hasMore = true;
         }
         this.notifyDataSetChanged();
     }
@@ -101,7 +108,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
-        this.notifyDataSetChanged();
+       // this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -113,7 +120,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
@@ -130,6 +137,24 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                     Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
                 }
             }
+        }else {
+            //if (mData.size() > 0) {
+            // 如果查询数据发现并没有增加时，就显示没有更多数据了
+            ((ShouCangEventAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
+
+            // 然后通过延时加载模拟网络请求的时间，在500ms后执行
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 隐藏提示条
+                    ((ShouCangEventAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    // 将fadeTips设置true
+                    fadeTips = true;
+                    // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                    hasMore = true;
+                }
+            }, 500);
+            //}
         }
     }
 
@@ -155,8 +180,12 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
+        public TextView footTv;
+
         public FooterViewHolder(View view) {
             super(view);
+            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
+
         }
     }
 
@@ -186,6 +215,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             e_time = (TextView) v.findViewById(R.id.textView_time);
             im = (ImageView) v.findViewById(R.id.im_pic);
             del = (Button) v.findViewById(R.id.canceling_shoucang);
+            del.setText("取消收藏");
             v.setOnClickListener(this);
             del.setOnClickListener(this);
         }
@@ -206,11 +236,16 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                             del.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         }
                         if (flag == 1) {
+                            Log.v("aaaaa", "__1");
+                            LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) del.getLayoutParams(); //取控件textView当前的布局参数
+                            linearParams.width = 300;// 控件的宽强制设成
+                            del.setText("取消收藏");
+                            del.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                             mOnEventnewsClickListener.onCancelingShouCangClick(view, this.getLayoutPosition());
                             flag = 0;//屏蔽只能点一次
+                            return;
                         }
                         flag = flag +1;
-
                         break;
                     /*case R.id.del:
                         mOnEventnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
@@ -219,5 +254,17 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
         }
+    }
+    /**
+     * dp转为px
+     *
+     * @param context  上下文
+     * @param dipValue dp值
+     * @return
+     */
+    private int dip2px(Context context, float dipValue) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dipValue, r.getDisplayMetrics());
     }
 }

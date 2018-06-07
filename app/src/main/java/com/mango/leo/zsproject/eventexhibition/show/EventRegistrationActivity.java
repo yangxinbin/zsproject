@@ -13,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.JsonUtils;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,6 +79,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
     String pattern = "yyyy-MM-dd HH:mm:ss";
     private EventBean bean1;
     private SharedPreferences sharedPreferences;
+    private int tickNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         Log.v("yxbb", bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
         if (bean != null) {
             if (String.valueOf(bean.getResponseObject().getContent().get(position).getPrice()) == "0") {//免费
+                tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
                 howtoplay.setVisibility(View.GONE);
@@ -129,11 +133,14 @@ public class EventRegistrationActivity extends AppCompatActivity {
     }
 
     private void registration() {
+        Gson gs = new Gson();
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
-        mapParams.put("event", bean1.getResponseObject().getContent().get(position).getId());
+        String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
+        mapParams.put("eventStr",eventStr /*bean1.getResponseObject().getContent().get(position).getId()*/);
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName",""));
+        Log.v("doPostAll", eventStr+"^^^^j^^^^");
 
         mapParams.put("username", editText1.getText().toString());
         mapParams.put("mobile", editText2.getText().toString());
@@ -141,10 +148,12 @@ public class EventRegistrationActivity extends AppCompatActivity {
         mapParams.put("position", editText3.getText().toString());
         mapParams.put("department", editText4.getText().toString());
         mapParams.put("email", editText5.getText().toString());
-
         mapParams.put("paymentDateTime", DateUtil.getCurDate(pattern));
         mapParams.put("feePaid", String.valueOf(bean1.getResponseObject().getContent().get(position).getPrice()));
+
+        mapParams.put("numberOfTickets", String.valueOf(tickNum));
         mapParams.put("token", sharedPreferences.getString("token",""));
+
 
         HttpUtils.doPost(Urls.HOST_BUYEVENT, mapParams, new Callback() {
             @Override
@@ -191,7 +200,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                         AppUtils.showToast(activity, "报名失败");
                         break;
                     case 1:
-                        //AppUtils.showToast(activity, "报名成功");
+                        AppUtils.showToast(activity, "报名成功");
                         showSuccess();
                         break;
                     case 2:
@@ -206,5 +215,6 @@ public class EventRegistrationActivity extends AppCompatActivity {
         private void showSuccess() {
 
         }
+
     }
 }

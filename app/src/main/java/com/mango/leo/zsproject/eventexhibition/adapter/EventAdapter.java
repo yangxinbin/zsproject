@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.eventexhibition.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,9 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
+    private boolean hasMore;
+    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
+    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     public void setmDate(List<EventBean> data) {
         this.mData = data;
@@ -52,6 +57,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         isShowFooter(false);
         if (mData != null){
             mData.add(bean);
+            hasMore = true;
+
         }
         this.notifyDataSetChanged();
     }
@@ -96,7 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
-        this.notifyDataSetChanged();
+        //this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -107,7 +114,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.mShowHeader = showHeader;
     }
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
@@ -124,6 +131,24 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
                 }
             }
+        }else {
+            //if (mData.size() > 0) {
+            // 如果查询数据发现并没有增加时，就显示没有更多数据了
+            ((EventAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
+
+            // 然后通过延时加载模拟网络请求的时间，在500ms后执行
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 隐藏提示条
+                    ((EventAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    // 将fadeTips设置true
+                    fadeTips = true;
+                    // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                    hasMore = true;
+                }
+            }, 500);
+            //}
         }
     }
     private int getRealPosition(RecyclerView.ViewHolder holder) {
@@ -145,8 +170,12 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
+        public TextView footTv;
+
         public FooterViewHolder(View view) {
             super(view);
+            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
+
         }
     }
 
