@@ -92,16 +92,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             case R.id.chanye:
                 list1 = new ArrayList<>();
                 list1.add("不限");
-                list1.add("种子轮");
-                list1.add("天使轮");
-                list1.add("pre-A轮");
-                list1.add("A轮");
-                list1.add("B轮");
-                list1.add("C轮");
-                list1.add("D轮");
-                list1.add("E轮");
-                list1.add("新四板");
-                list1.add("IPO上市");
+                list1.add("金融");
+                list1.add("企业服务");
+                list1.add("技术");
+                list1.add("汽车交通");
+                list1.add("房产居家");
+                list1.add("医疗健康");
+                list1.add("硬件");
+                list1.add("体育");
                 list1.add("其它");
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);

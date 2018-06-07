@@ -45,9 +45,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,7 +83,7 @@ public class UserChangeActivity extends BaseActivity {
     TextView textView1;
     @Bind(R.id.textView_2)
     TextView textView2;
-    @Bind(R.id.textView_3)
+    @Bind(R.id.textView)
     TextView textView3;
     @Bind(R.id.textView_4)
     TextView textView4;

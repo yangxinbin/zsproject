@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,13 +27,16 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
-import com.mango.leo.zsproject.adapters.GirdDownAdapter;
-import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.adapters.ListAndGirdDownAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +52,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     @Bind(R.id.imageView9_back)
     ImageView imageView9Back;
     @Bind(R.id.constraintLayout)
-    ConstraintLayout constraintLayout;
+    RelativeLayout constraintLayout;
     @Bind(R.id.button9_save)
     Button button9Save;
     @Bind(R.id.text_1)
@@ -65,6 +73,10 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     RelativeLayout down4;
     @Bind(R.id.all_1)
     ConstraintLayout all1;
+    @Bind(R.id.editText_other)
+    EditText editTextOther;
+    @Bind(R.id.textView_num)
+    TextView textViewNum;
     private ListAndGirdDownAdapter adapter;
     private List<String> list1, list2, list3, list4;
     private PopupWindow popupWindow;
@@ -73,13 +85,83 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     private Map<Integer, Boolean> gvChooseMap3 = new HashMap<Integer, Boolean>();
     private Map<Integer, Boolean> gvChooseMap4 = new HashMap<Integer, Boolean>();
     private DuoXuanAdapter adapter3, adapter4;
-
+    int num = 200;//限制的最大字数
+    private CardNinthItemBean cardNinthItemBean;
+    private CardNinthItemBean bean9;
+    private StringBuffer stringBuffer1, stringBuffer2;
+    private List<String> listwhy, listtype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_ninth_item);
         ButterKnife.bind(this);
+        //editTextOther.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
+        editeNum();
+        EventBus.getDefault().register(this);
+        cardNinthItemBean = new CardNinthItemBean();
+        stringBuffer1 = new StringBuffer();
+        stringBuffer2 = new StringBuffer();
+        listwhy = new ArrayList<>();
+        listtype = new ArrayList<>();
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card9EventBus(CardNinthItemBean bean) {
+        bean9 = bean;
+        text1.setText(bean.getMoshi());
+        text2.setText(bean.getMoney());
+        for (int i = 0; i < bean.getWhy().size(); i++) {
+            stringBuffer1.append(bean.getWhy().get(i) + " ");
+        }
+        for (int i = 0; i < bean.getType().size(); i++) {
+            stringBuffer2.append(bean.getType().get(i) + " ");
+        }
+        text3.setText(stringBuffer1);
+        text4.setText(stringBuffer2);
+        editTextOther.setText(bean.getQita());
+/*        adapter.setList(bean.getItemImagePath());
+        if (bean.getItemImagePath() != null) {
+            selectList = bean.getItemImagePath();
+        }*/
+        //cardFirstItemBean.setProjectId(bean.getProjectId());
+    }
+
+    public void initBean() {
+        cardNinthItemBean.setQita(editTextOther.getText().toString());
+    }
+
+    private void editeNum() {
+        editTextOther.addTextChangedListener(new TextWatcher() {
+            private CharSequence temp;
+            private int selectionStart;
+            private int selectionEnd;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                temp = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int number = num - editable.length();
+                textViewNum.setText("剩余" + number + "字");
+                selectionStart = editTextOther.getSelectionStart();
+                selectionEnd = editTextOther.getSelectionEnd();
+                if (temp.length() > num) {
+                    editable.delete(selectionStart - 1, selectionEnd);
+                    int tempSelection = selectionEnd;
+                    editTextOther.setText(editable);
+                    editTextOther.setSelection(tempSelection);//设置光标在最后
+                }
+            }
+        });
     }
 
     @Override
@@ -89,7 +171,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.imageView9_back, R.id.button9_save, R.id.down_1, R.id.down_2, R.id.down_3, R.id.down_4})
+    @OnClick({R.id.imageView9_back, R.id.button9_save, R.id.textView_delete9, R.id.down_1, R.id.down_2, R.id.down_3, R.id.down_4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView9_back:
@@ -98,6 +180,20 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 finish();
                 break;
             case R.id.button9_save:
+                initBean();
+                Log.v("99999", TextUtils.isEmpty(text1.getText().toString())+"__11_"+text2.getText().toString()+"__11_"+text3.getText().toString()+"__11_");
+                if (!TextUtils.isEmpty(text1.getText().toString())||!TextUtils.isEmpty(text2.getText().toString()) ||!TextUtils.isEmpty(text3.getText().toString())||!TextUtils.isEmpty(text4.getText().toString())|| cardNinthItemBean != null) {
+                    // updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
+                    Log.v("99999", cardNinthItemBean.getQita()+"___"+cardNinthItemBean.getMoney()+"____" + cardNinthItemBean.getMoshi());
+                    EventBus.getDefault().postSticky(cardNinthItemBean);
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    AppUtils.showSnackar(button9Save, "必填项不能为空！");
+                }
+                break;
+            case R.id.textView_delete9:
                 break;
             case R.id.down_1:
                 list1 = new ArrayList<>();
@@ -124,6 +220,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 break;//
             case R.id.down_3:
                 list3 = new ArrayList<>();
+                list3.add("不限");
                 list3.add("合资");
                 list3.add("独资");
                 list3.add("合作");
@@ -135,16 +232,24 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 break;
             case R.id.down_4:
                 list4 = new ArrayList<>();
-                list4.add("11");
-                list4.add("22");
-                list4.add("33");
-                list4.add("44");
-                list4.add("55");
-                list4.add("66");
-                list4.add("77");
-                list4.add("88");
-                list4.add("99");
-                list4.add("00");
+                list4.add("资金类型");
+                list4.add("个人资金");
+                list4.add("企业资金");
+                list4.add("天使投资");
+                list4.add("VC投资");
+                list4.add("PE投资");
+                list4.add("小额贷款");
+                list4.add("典当公司");
+                list4.add("担保公司");
+                list4.add("金融租赁");
+                list4.add("投资公司");
+                list4.add("商业银行");
+                list4.add("基金公司");
+                list4.add("证券公司");
+                list4.add("信托公司");
+                list4.add("资产管理");
+                list4.add("其他资金");
+
                 showPopupWindow(this, list4, 4);
                 adapter4.setCheckItem(gvChooseMap4);
                 break;
@@ -153,7 +258,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
 
     private void showPopupWindow(Context context, List<String> listDate, int i) {
         View view = null;
-        if (i == 3) {//多选
+        if (i == 3) {//
             //设置要显示的view
             view = LayoutInflater.from(context).inflate(R.layout.mutil_girdview_default_down3, null);
             GridView gridView3 = view.findViewById(R.id.gv3);
@@ -221,11 +326,13 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             case 1:
                 currentPosition1 = position;
                 text1.setText(list1.get(position));
+                cardNinthItemBean.setMoshi(list1.get(position));
                 dialog.dismiss();
                 break;
             case 2:
                 currentPosition2 = position;
                 text2.setText(list2.get(position));
+                cardNinthItemBean.setMoney(list2.get(position));
                 dialog.dismiss();
                 break;
             case 3:
@@ -258,6 +365,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 dialog.dismiss();
                 break;
             case R.id.button_go3:
+                listwhy.clear();
                 if (gvChooseMap3.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
                     AppUtils.showToast(this, "请选择领域");
@@ -271,7 +379,9 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                     if (flag == true) {
                         sb3.append(list3.get(strkey) + "  ");
                         Log.v("yyyyyy", strkey + "**********" + sb3);
+                        listwhy.add(list3.get(strkey));
                     }
+                    cardNinthItemBean.setWhy(listwhy);
                 }
                 if (sb3.length() > 0) {
                     //说明有爱好的内容。否则就提示选择爱好
@@ -286,6 +396,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 dialog.dismiss();
                 break;
             case R.id.button_go4:
+                listtype.clear();
                 if (gvChooseMap4.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
                     AppUtils.showToast(this, "请选择投资方式");
@@ -299,6 +410,8 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                     if (flag == true) {
                         sb4.append(list4.get(strkey) + "  ");
                         Log.v("yyyyyy", strkey + "**********" + sb4);
+                        listtype.add(list4.get(strkey));
+                        cardNinthItemBean.setType(listtype);
                     }
                 }
                 if (sb4.length() > 0) {

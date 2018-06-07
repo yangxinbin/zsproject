@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -132,7 +133,11 @@ public class EventRegistrationActivity extends AppCompatActivity {
             case R.id.howtoplay:
                 break;
             case R.id.sign_up:
-                registration();//报名
+                if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString())&& !TextUtils.isEmpty(editText4.getText().toString())&& !TextUtils.isEmpty(editText5.getText().toString()) ){
+                    registration();//报名
+                }else {
+                    AppUtils.showSnackar(signUp, "报名信息不能为空！");
+                }
                 break;
         }
     }
@@ -141,11 +146,10 @@ public class EventRegistrationActivity extends AppCompatActivity {
         Gson gs = new Gson();
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
-        String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
-        mapParams.put("eventStr", eventStr /*bean1.getResponseObject().getContent().get(position).getId()*/);
+        //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
+        mapParams.put("eventId", /*eventStr*/ bean1.getResponseObject().getContent().get(position).getId());
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
-        Log.v("doPostAll", eventStr + "^^^^j^^^^");
 
         mapParams.put("username", editText1.getText().toString());
         mapParams.put("mobile", editText2.getText().toString());

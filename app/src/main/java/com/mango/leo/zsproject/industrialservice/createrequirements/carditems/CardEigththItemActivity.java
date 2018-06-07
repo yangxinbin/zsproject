@@ -55,7 +55,7 @@ public class CardEigththItemActivity extends BaseCardActivity implements Adapter
     TextView textView2;
     @Bind(R.id.down2)
     RelativeLayout down2;
-    @Bind(R.id.textView_3)
+    @Bind(R.id.textView)
     TextView textView3;
     @Bind(R.id.down3)
     RelativeLayout down3;

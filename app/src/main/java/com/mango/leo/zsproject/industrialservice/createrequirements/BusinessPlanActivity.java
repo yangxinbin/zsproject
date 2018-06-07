@@ -46,6 +46,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
@@ -109,10 +110,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardView carninth;
     @Bind(R.id.send)
     Button send;
-    private TextView title, what, time, content, p1, p2;
+    private TextView title, what, time, content, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
-    private ImageView im_1, im_3;
+    private ImageView im_1, im_3, im_9;
     // 声明存储首选项 对象
     private LinearLayoutManager mLayoutManager;
     private List<CardFourthItemBean> bean4;
@@ -121,6 +122,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
     BaiduMap mBaiduMap = null;
     private static final int REQUEST_CODE = 1;
+    private CardNinthItemBean bean9;
+    private StringBuffer stringBuffer1, stringBuffer2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -128,8 +131,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
         bean1 = new CardFirstItemBean();
-        EventBus.getDefault().register(this);
+        bean9 = new CardNinthItemBean();
         //initFirstItem();
+        stringBuffer1 = new StringBuffer();
+        stringBuffer2 = new StringBuffer();
+        EventBus.getDefault().register(this);//放最后
+
     }
 
     private void initLocation() {
@@ -258,6 +265,43 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //EventBus.getDefault().removeStickyEvent(bean);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card9EventBus(CardNinthItemBean bean) {
+        Log.v("99999", "___bus_" + bean.getMoshi());
+        this.bean9 = bean;
+        //渲染card1布局
+        View item9 = LayoutInflater.from(this).inflate(R.layout.carditem9, null);
+        if (bean != null) {
+            item9.setVisibility(View.VISIBLE);
+            carninthContent.setVisibility(View.GONE);
+            carninth.setEnabled(false);
+        } else {
+            item9.setVisibility(View.GONE);
+            carninthContent.setVisibility(View.VISIBLE);
+            carninth.setEnabled(true);
+        }
+        carninth.addView(item9);
+        tv9_1 = item9.findViewById(R.id.textView_91);
+        tv9_2 = item9.findViewById(R.id.textView_92);
+        tv9_3 = item9.findViewById(R.id.textView_93);
+        tv9_4 = item9.findViewById(R.id.textView_94);
+        tv9_5 = item9.findViewById(R.id.textView_95);
+        im_9 = item9.findViewById(R.id.imageView_9);
+        im_9.setOnClickListener(this);
+        for (int i = 0; i < bean.getWhy().size(); i++) {
+            stringBuffer1.append(bean.getWhy().get(i) + " ");
+        }
+        for (int i = 0; i < bean.getType().size(); i++) {
+            stringBuffer2.append(bean.getType().get(i) + " ");
+        }
+        tv9_1.setText(bean.getMoshi());
+        tv9_2.setText(bean.getMoney());
+        tv9_3.setText(stringBuffer1);
+        tv9_4.setText(stringBuffer2);
+        tv9_5.setText(bean.getQita());
+
+    }
+
     @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth,*/ R.id.carninth, R.id.send})
     public void onViewClicked(View view) {
         Intent intent;
@@ -346,6 +390,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.imageView_3:
                 EventBus.getDefault().postSticky(bean3);
                 intent = new Intent(this, CardThirdItemActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.imageView_9:
+                EventBus.getDefault().postSticky(bean9);
+                intent = new Intent(this, CardNinthItemActivity.class);
                 startActivity(intent);
                 finish();
                 break;
