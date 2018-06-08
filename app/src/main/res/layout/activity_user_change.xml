@@ -109,7 +109,47 @@
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/common_jump_arrow" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/where"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
 
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/textView5621"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="地区" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/textView_where"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView5621"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/r1_where"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/r2"
         android:layout_width="match_parent"
@@ -214,16 +254,29 @@
             android:text="手机号" />
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/textView_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView56"
+            android:layout_alignBottom="@+id/textView56"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView56"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:text="TextView"
-            android:layout_centerVertical="true"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/r4_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
 
     </RelativeLayout>
 
@@ -235,7 +288,6 @@
         android:background="@color/white">
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/textView565"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -244,20 +296,33 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:text="邮箱" />
+            android:text="邮箱"
+            android:textColor="@color/black" />
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/textView_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView565"
+            android:layout_alignBottom="@+id/textView565"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView565"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
             android:text="TextView"
-            android:layout_alignBaseline="@+id/textView565"
-            android:layout_alignBottom="@+id/textView565"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/r5_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
 
     </RelativeLayout>
 </LinearLayout>

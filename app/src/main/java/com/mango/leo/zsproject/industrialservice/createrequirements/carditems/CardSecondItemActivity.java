@@ -45,7 +45,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     @Bind(R.id.imageView2_back)
     ImageView imageView2Back;
     @Bind(R.id.constraintLayout)
-    ConstraintLayout constraintLayout;
+    RelativeLayout constraintLayout;
     @Bind(R.id.button2_save)
     Button buttonSave;
     @Bind(R.id.chanye)

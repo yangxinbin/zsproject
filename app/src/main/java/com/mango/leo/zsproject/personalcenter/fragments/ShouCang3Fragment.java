@@ -1,7 +1,5 @@
 package com.mango.leo.zsproject.personalcenter.fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,13 +18,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.adapter.ShouCangEventAdapter;
+import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -60,7 +57,7 @@ public class ShouCang3Fragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private ShouCangEventAdapter adapter;
     private int page = 0;
-    private List<EventBean> mData, mDataAll;
+    private List<MyEventBean> mData, mDataAll;
     private SharedPreferences sharedPreferences;
 
     @Nullable
@@ -87,7 +84,7 @@ public class ShouCang3Fragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    List<EventBean> beanList = ProjectsJsonUtils.readJsonEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                    List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
                     Message msg = mHandler.obtainMessage();
                     msg.obj = beanList;
                     msg.what = 2;
@@ -118,7 +115,7 @@ public class ShouCang3Fragment extends Fragment {
                     startActivity(intent);
                     break;
                 case 2:
-                    List<EventBean> beanList = (List<EventBean>) msg.obj;
+                    List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
                     /*if (beanList.size() == 0){
                         noMoreMsg();
                     }else {
@@ -146,9 +143,9 @@ public class ShouCang3Fragment extends Fragment {
         }
     }
 
-    public void addEventsView(List<EventBean> eventBeans) {
+    public void addEventsView(List<MyEventBean> eventBeans) {
         if (eventBeans == null) {
-            Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
+            Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getEntity().getName() + "======eventBeans======" + eventBeans.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -157,8 +154,8 @@ public class ShouCang3Fragment extends Fragment {
             });
         }
         if (mData == null && mDataAll == null) {
-            mData = new ArrayList<EventBean>();
-            mDataAll = new ArrayList<EventBean>();
+            mData = new ArrayList<MyEventBean>();
+            mDataAll = new ArrayList<MyEventBean>();
         }
         if (mDataAll != null) {
             mDataAll.clear();
@@ -225,7 +222,7 @@ public class ShouCang3Fragment extends Fragment {
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
+            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             startActivity(intent);

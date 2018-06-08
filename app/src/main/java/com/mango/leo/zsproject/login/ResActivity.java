@@ -20,6 +20,7 @@ import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.NetUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -66,6 +67,10 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
 
     @OnClick({R.id.imageView_phoneres_back, R.id.verification_code_res, R.id.button_res})
     public void onViewClicked(View view) {
+        if (!NetUtil.isNetConnect(this)){
+            AppUtils.showToast(this,"请连接网络");
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.imageView_phoneres_back:

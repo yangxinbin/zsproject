@@ -13,6 +13,8 @@ import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.ACache;
+import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.NetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,6 +52,10 @@ public class StartActivity extends BaseActivity {
 
     @OnClick({R.id.start, R.id.res})
     public void onViewClicked(View view) {
+/*        if (!NetUtil.isNetConnect(this)){
+            AppUtils.showToast(this,"请连接网络");
+            return;
+        }*/
         switch (view.getId()) {
             case R.id.start:
                 intent = new Intent(this, PhoneLoginActivity.class);

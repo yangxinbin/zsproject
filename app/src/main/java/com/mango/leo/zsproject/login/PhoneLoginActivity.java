@@ -24,6 +24,7 @@ import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.NetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -79,6 +80,10 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
 
     @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin,R.id.imageView_phonelogin_back})
     public void onViewClicked(View view) {
+        if (!NetUtil.isNetConnect(this)){
+            AppUtils.showToast(this,"请连接网络");
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.verification_code:

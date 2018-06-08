@@ -83,8 +83,9 @@ public class DepartmentActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (String.valueOf(response.code()).startsWith("2")) {
                     mHandler.sendEmptyMessage(1);
-                    UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
-                    EventBus.getDefault().postSticky(bean);
+                    Log.v("yxb","##"+response.body().string());
+                    //UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
+                    //EventBus.getDefault().postSticky(bean);
                 } else {
                     Log.v("yxbbbb", "*****" + response.body().string());
                     mHandler.sendEmptyMessage(0);

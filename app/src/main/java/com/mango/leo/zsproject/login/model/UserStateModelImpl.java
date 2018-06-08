@@ -59,6 +59,7 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
+                        Log.v("uuuuuuu", "______vv_____");
                         listener.onSuccess("SUCCESS");//异步请求
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string(), context);//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);

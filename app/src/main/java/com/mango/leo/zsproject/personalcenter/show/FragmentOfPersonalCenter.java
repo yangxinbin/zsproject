@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 
@@ -72,6 +71,8 @@ public class FragmentOfPersonalCenter extends Fragment {
     TextView textView20;
     @Bind(R.id.textView_userName_nomes)
     TextView textViewUserNameNomes;
+    @Bind(R.id.textView_wheres)
+    TextView textViewWheres;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private UserMessageBean bean1;
@@ -92,7 +93,7 @@ public class FragmentOfPersonalCenter extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
-        Log.v("uuuuu",bean.getResponseObject().getName()+"__rrrr__"+bean.getResponseObject().getCompany());
+        Log.v("uuuuu", bean.getResponseObject().getName() + "__rrrr__" + bean.getResponseObject().getCompany());
         bean1 = bean;
         //身份
         textViewGov.setText(bean.getResponseObject().getDepartment());
@@ -100,11 +101,12 @@ public class FragmentOfPersonalCenter extends Fragment {
         textViewPhone.setText(bean.getResponseObject().getUsername());
         textViewEmile.setText(bean.getResponseObject().getEmail());
         textView20.setText(bean.getResponseObject().getDepartment());
+        textViewWheres.setText(bean.getResponseObject().getLocation().getProvince() + "-" + bean.getResponseObject().getLocation().getCity() + "-" + bean.getResponseObject().getLocation().getDistrict());
         if (bean.getResponseObject().getName() == null) {
             textViewUserName.setText(bean.getResponseObject().getUsername());
             textViewUserNameNomes.setText(bean.getResponseObject().getUsername());
         } else {
-            Log.v("uuuuu","_pp_rrrr__");
+            Log.v("uuuuu", "_pp_rrrr__");
             textViewUserName.setText(bean.getResponseObject().getName());
         }
         if (bean.getResponseObject().getTenant() != null) {//认证
@@ -116,11 +118,11 @@ public class FragmentOfPersonalCenter extends Fragment {
         }
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//认证
-            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+bean.getResponseObject().getAvator().getId()).into(imageViePic);
+            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(imageViePic);
         }
 
         if (bean.getResponseObject().getName() == null || bean.getResponseObject().getEmail() == null || bean.getResponseObject().getUsername() == null) {
-            Log.v("yxbbb","****");
+            Log.v("yxbbb", "****");
             cardView3.setVisibility(View.VISIBLE);
             cardView2.setVisibility(View.GONE);
         }
@@ -129,7 +131,7 @@ public class FragmentOfPersonalCenter extends Fragment {
             imageView20.setVisibility(View.GONE);
             textViewEmile.setVisibility(View.GONE);
         } else {
-            Log.v("uuuuu","_eee_rrrr__");
+            Log.v("uuuuu", "_eee_rrrr__");
 
             imageView20.setVisibility(View.VISIBLE);
             textViewEmile.setVisibility(View.VISIBLE);
@@ -170,7 +172,7 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.bu_mes:
-                if (bean1 != null){
+                if (bean1 != null) {
                     EventBus.getDefault().postSticky(bean1);
                 }
                 intent = new Intent(getActivity(), UserActivity.class);

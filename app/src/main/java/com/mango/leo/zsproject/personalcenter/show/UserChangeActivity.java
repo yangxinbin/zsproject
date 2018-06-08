@@ -25,6 +25,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
@@ -71,6 +77,8 @@ public class UserChangeActivity extends BaseActivity {
     RelativeLayout r4;
     @Bind(R.id.r5)
     RelativeLayout r5;
+    @Bind(R.id.where)
+    RelativeLayout where;
     @Bind(R.id.r1_e)
     ImageView r1E;
     @Bind(R.id.r2_e)
@@ -89,6 +97,12 @@ public class UserChangeActivity extends BaseActivity {
     TextView textView4;
     @Bind(R.id.textView_5)
     TextView textView5;
+    @Bind(R.id.textView_where)
+    TextView textViewWhere;
+    @Bind(R.id.r4_e)
+    ImageView r4E;
+    @Bind(R.id.r5_e)
+    ImageView r5E;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private static final int CODE_GALLERY_REQUEST = 0xa0;
@@ -103,12 +117,17 @@ public class UserChangeActivity extends BaseActivity {
     private static final int OUTPUT_X = 480;
     private static final int OUTPUT_Y = 480;
     private String TAG = "UserChangeActivity";
+    private CityPickerView mPicker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_change);
         ButterKnife.bind(this);
+        //申明对象
+        mPicker = new CityPickerView();
+        mPicker.init(this);
         EventBus.getDefault().register(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         getImageAndMes();//后台请求数据
@@ -121,13 +140,18 @@ public class UserChangeActivity extends BaseActivity {
         textView3.setText(bean.getResponseObject().getPosition());
         textView4.setText(bean.getResponseObject().getUsername());
         textView5.setText(bean.getResponseObject().getEmail());
+        textViewWhere.setText(bean.getResponseObject().getLocation().getProvince() + "-" + bean.getResponseObject().getLocation().getCity() + "-" + bean.getResponseObject().getLocation().getDistrict());
         if (bean.getResponseObject().getTenant() != null) {//认证
             r1E.setVisibility(View.GONE);
             r2E.setVisibility(View.GONE);
             r3E.setVisibility(View.GONE);
+            r4E.setVisibility(View.GONE);
+            r5E.setVisibility(View.GONE);
             r1.setClickable(false);
             r2.setClickable(false);
             r3.setClickable(false);
+            r4.setClickable(false);
+            r5.setClickable(false);
         }
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//
@@ -267,7 +291,7 @@ public class UserChangeActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imageView_user_back, R.id.picture, R.id.r1, R.id.r2, R.id.r3, R.id.r4, R.id.r5})
+    @OnClick({R.id.imageView_user_back, R.id.picture, R.id.r1, R.id.r2, R.id.r3, R.id.r4, R.id.r5, R.id.where})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -295,13 +319,60 @@ public class UserChangeActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.r4:
+                intent = new Intent(this, ChangePhoneActivity.class);//职称
+                intent.putExtra("position", textView3.getText());
+                startActivity(intent);
+                break;
+            case R.id.r5:
+                intent = new Intent(this, ChangeEmailActivity.class);//职称
+                intent.putExtra("position", textView3.getText());
+                startActivity(intent);
+                break;
+            case R.id.where:
+                showSeleteCity();
+                break;
             /*case R.id.r4:
                 break;
             case R.id.r5:
                 break;*/
         }
     }
+    private void showSeleteCity() {
+        //添加默认的配置，不需要自己定义
+        CityConfig cityConfig = new CityConfig.Builder().build();
+        mPicker.setConfig(cityConfig);
+        //监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                //省份
+                if (province != null) {
+                    //provinceString = String.valueOf(province);
+                }
+                //城市
+                if (city != null) {
+                    //cityString = String.valueOf(city);
+                   /* editor.putString("position", cityString)
+                            .commit();*/
+                }
+                //地区
+                if (district != null) {
+                    //districtString = String.valueOf(district);
+                }
+                textViewWhere.setText(province + "-" + city + "-" + district);
+                //上传
+            }
 
+            @Override
+            public void onCancel() {
+                AppUtils.showToast(getApplicationContext(), "城市选择已取消");
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: requestCode: " + requestCode + "  resultCode:" + resultCode);

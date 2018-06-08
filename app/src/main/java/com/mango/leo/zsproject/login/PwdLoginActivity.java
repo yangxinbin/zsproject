@@ -29,6 +29,7 @@ import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.personalcenter.show.ForgetActivity;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.NetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -103,6 +104,10 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     @OnClick({R.id.imageView_pwd_back, R.id.button_login, R.id.textView_phnoelogin, R.id.textView_for})
     public void onViewClicked(View view) {
+        if (!NetUtil.isNetConnect(this)){
+            AppUtils.showToast(this,"请连接网络");
+            return;
+        }
         Intent intent;
         switch (view.getId()) {
             case R.id.imageView_pwd_back:
@@ -131,9 +136,11 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     @Override
     public void showStateView(String s) {
+
         //里面不能更新UI
         Intent intent;
         if (s.equals("SUCCESS")) {
+            Log.v("yyyy", user.getUserPwd() + "====sss=====" + user.getUserName());
             editor.putString("isOk", "yes")
                     .commit();
             editor.putString("skip", "no")
@@ -143,7 +150,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();
-        }else {
+        }if(s.equals("FAILURE")) {
             mHandler.sendEmptyMessage(1);
         }
     }

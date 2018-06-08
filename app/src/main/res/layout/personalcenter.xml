@@ -107,8 +107,8 @@
 
                         <ImageView
                             android:id="@+id/imageView_state"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/img_size"
+                            android:layout_height="@dimen/img_size"
                             android:layout_marginStart="11dp"
                             android:layout_marginTop="5dp"
                             android:src="@drawable/newrequirement_icon_zhaoshang"
@@ -152,28 +152,27 @@
 
                         <ImageView
                             android:id="@+id/imageView19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_width="@dimen/img_size"
+                            android:layout_height="@dimen/img_size"
+                            android:layout_marginTop="12dp"
                             android:src="@drawable/mine_icon_phone"
                             card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toBottomOf="@+id/textView_gov"
-                            tools:layout_editor_absoluteX="8dp" />
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageView75" />
 
                         <TextView
                             android:id="@+id/textView_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="11dp"
                             android:text="15826589634"
                             card_view:layout_constraintStart_toEndOf="@+id/imageView19"
-                            card_view:layout_constraintTop_toBottomOf="@+id/textView_gov" />
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageView75" />
 
                         <ImageView
                             android:id="@+id/imageView20"
-                            android:layout_width="wrap_content"
-                            android:layout_height="10dp"
+                            android:layout_width="@dimen/img_size"
+                            android:layout_height="@dimen/img_size"
                             android:layout_marginTop="12dp"
                             android:src="@drawable/mine_icon_email"
                             card_view:layout_constraintStart_toStartOf="parent"
@@ -184,10 +183,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="11dp"
                             android:text="yanxhh@hotmail.com"
                             card_view:layout_constraintStart_toEndOf="@+id/imageView20"
                             card_view:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+                        <ImageView
+                            android:id="@+id/imageView75"
+                            android:layout_width="@dimen/img_size"
+                            android:layout_height="@dimen/img_size"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/activity_detail_icon_address"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageVie_pic" />
+
+                        <TextView
+                            android:id="@+id/textView_wheres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="10dp"
+                            android:text="广东省深圳市南山区"
+                            card_view:layout_constraintStart_toEndOf="@+id/imageView75"
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageVie_pic" />
 
                     </android.support.constraint.ConstraintLayout>
 

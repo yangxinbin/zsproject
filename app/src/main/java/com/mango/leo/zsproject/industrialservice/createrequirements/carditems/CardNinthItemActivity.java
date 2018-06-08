@@ -185,6 +185,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 if (!TextUtils.isEmpty(text1.getText().toString())||!TextUtils.isEmpty(text2.getText().toString()) ||!TextUtils.isEmpty(text3.getText().toString())||!TextUtils.isEmpty(text4.getText().toString())|| cardNinthItemBean != null) {
                     // updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
                     Log.v("99999", cardNinthItemBean.getQita()+"___"+cardNinthItemBean.getMoney()+"____" + cardNinthItemBean.getMoshi());
+                    EventBus.getDefault().removeStickyEvent(cardNinthItemBean);
                     EventBus.getDefault().postSticky(cardNinthItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);

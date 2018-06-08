@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private OnEventnewsClickListener mOnEventnewsClickListener;//自注册的接口给调用者用于点击逻辑
-    private List<EventBean> mData;
+    private List<MyEventBean> mData;
     public static final int TYPE_ITEM = 0;
     public static final int TYPE_FOOTER = 1;
     public static final int TYPE_HEADER = 2;
@@ -40,13 +40,13 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
-    public void setmDate(List<EventBean> data) {
+    public void setmDate(List<MyEventBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
 
     public void reMove() {
-        List<EventBean> m = new ArrayList<EventBean>();
+        List<MyEventBean> m = new ArrayList<MyEventBean>();
         this.mData = m;
         this.notifyDataSetChanged();
     }
@@ -58,7 +58,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
     /**
      * 添加列表项     * @param item
      */
-    public void addItem(EventBean bean) {
+    public void addItem(MyEventBean bean) {
         isShowFooter(false);
         if (mData != null) {
             mData.add(bean);
@@ -130,13 +130,13 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             //           }
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
-                ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
-                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation() != null) {
-                    ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
+                ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getName());
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getLocation() != null) {
+                    ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getLocation().getCity().toString());
                 }
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
-                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner()!= null) {
-                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner()!= null) {
+                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().get_id()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
                 }
             }
         } else {
@@ -191,7 +191,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public EventBean getItem(int position) {
+    public MyEventBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
