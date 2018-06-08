@@ -132,11 +132,10 @@
                     android:id="@+id/textView_zhubannf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/textView65"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginStart="13dp"
-                    android:layout_toEndOf="@+id/textView_time"
-                    android:layout_toRightOf="@+id/textView_time"
+                    android:layout_alignBaseline="@+id/textView65"
+                    android:layout_alignBottom="@+id/textView65"
+                    android:layout_toEndOf="@+id/textView65"
+                    android:layout_toRightOf="@+id/textView65"
                     android:text="TextView" />
 
                 <TextView
@@ -154,6 +153,7 @@
                     android:id="@+id/textView_xiuban"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView68"
                     android:layout_alignBottom="@+id/textView68"
                     android:layout_alignLeft="@+id/textView_zhubannf"
                     android:layout_alignStart="@+id/textView_zhubannf"

@@ -117,6 +117,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             CardThirdItemBean cardThirdItemBean = (CardThirdItemBean) o;
             mapParams.clear();
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
+                mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 //mapParams.put("province", cardThirdItemBean.getProvince());
                 //mapParams.put("city", cardThirdItemBean.getCity()); //null
@@ -147,6 +148,32 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             // final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
+                mapParams.put("token", sharedPreferences.getString("token", ""));
+                mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
+                mapParams.put("contactInfo", buildArrayJson(cardFourthItemBean));
+            }
+            HttpUtils.doPut(url, mapParams, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    listener.onFailure("SAVE FAILURE", e);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (String.valueOf(response.code()).startsWith("2")) {
+                        listener.onSuccess("SAVE SUCCESS");//异步请求
+                    } else {
+                        listener.onSuccess("SAVE FAILURE");
+                    }
+                }
+            });
+        }
+        if (type == 9) {
+            final List<CardFourthItemBean> cardFourthItemBean = (List<CardFourthItemBean>) o;
+            // final HashMap<String, String> mapParams = new HashMap<String, String>();
+            mapParams.clear();
+            if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
+                mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("contactInfo", buildArrayJson(cardFourthItemBean));
             }

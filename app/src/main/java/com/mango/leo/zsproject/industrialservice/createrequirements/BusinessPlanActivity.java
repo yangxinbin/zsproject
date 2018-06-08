@@ -166,10 +166,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private void initLocationMode() {
         // 初始化搜索模块，注册事件监听
         mSearch = GeoCoder.newInstance();
+        // 删除百度地图LoGo
+        mMapView.removeViewAt(1);
         //mSearch.setOnGetGeoCodeResultListener(this);
         // Geo搜索
         mSearch.setOnGetGeoCodeResultListener(this);
-        mSearch.geocode(new GeoCodeOption().city("").address("广东省深圳市南山区" + bean3.getAddress()));
+        mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince()+bean3.getCity()+bean3.getDistrict() + bean3.getAddress()));
 
     }
 
@@ -228,7 +230,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        p1.setText("广东省深圳市南山区");
+        p1.setText(bean.getProvince()+bean.getCity()+bean.getDistrict());
         p2.setText(bean.getAddress());
         im_3.setOnClickListener(this);
         initLocation();

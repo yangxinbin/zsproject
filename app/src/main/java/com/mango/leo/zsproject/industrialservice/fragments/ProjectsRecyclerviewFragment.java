@@ -32,6 +32,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
@@ -41,6 +42,8 @@ import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +78,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private int page = 0;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
+    private String nowProvince,nowCity,nowDistrict;
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
         Bundle bundle = new Bundle();
@@ -100,6 +104,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.project_items, null);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         initSwipeRefreshLayout();
         recycleItems.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -120,6 +125,13 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         page = 0;
         allProjectsPresenter.visitProjects(getActivity(), mType, page);
         return view;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        nowProvince = String.valueOf(bean.getResponseObject().getLocation().getProvince());
+        nowCity = String.valueOf(bean.getResponseObject().getLocation().getCity());
+        nowDistrict = String.valueOf(bean.getResponseObject().getLocation().getDistrict());
+
     }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -218,7 +230,13 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     };
 
     private void deletePlan(int position) {
-        adapter.deleteItem(position);
+        adapter.deleteItem(position);//因为有头部
+/*        if (mDataAll != null && mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
+        adapter.notifyDataSetChanged();
+        allProjectsPresenter.visitProjects(getActivity(), mType, 0);*/
         Map<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         mapParams.put("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
@@ -264,9 +282,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }
         CardThirdItemBean cardThirdItemBean = new CardThirdItemBean();
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getLocation() != null) {
-            cardThirdItemBean.setProvince("广东省");
-            cardThirdItemBean.setCity("深圳市");
-            //cardThirdItemBean.setAddress(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getAddress());
+            cardThirdItemBean.setProvince(nowProvince);
+            cardThirdItemBean.setCity(nowCity);
+            cardThirdItemBean.setDistrict(nowDistrict);
             cardThirdItemBean.setLon(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLon()));
             cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLat()));
             Log.v("33333", "______!= null_____");
@@ -372,6 +390,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     public void noMoreMsg() {

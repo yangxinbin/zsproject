@@ -117,9 +117,9 @@ public class EventRegistrationActivity extends AppCompatActivity {
             Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "__y___" + bean.getResponseObject().getContent().get(position).getName());
             textView61.setText(bean.getResponseObject().getContent().get(position).getName());
             textViewWhere.setText(bean.getResponseObject().getContent().get(position).getLocation().getCity() + bean.getResponseObject().getContent().get(position).getLocation().getDistrict() + bean.getResponseObject().getContent().get(position).getLocation().getAddress());
-            textViewTime.setText(DateUtil.getDateToString((Integer) bean.getResponseObject().getContent().get(position).getCreatedOn(), pattern));
+            textViewTime.setText(DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getStartTime(), pattern)+"至"+DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getEndTime(), pattern));
             textViewZhubannf.setText(bean.getResponseObject().getContent().get(position).getOrganizer());
-            textViewXiuban.setText((CharSequence) bean.getResponseObject().getContent().get(position).getPublished());
+            textViewXiuban.setText((CharSequence) bean.getResponseObject().getContent().get(position).getCoorganizers());
 
         }
     }

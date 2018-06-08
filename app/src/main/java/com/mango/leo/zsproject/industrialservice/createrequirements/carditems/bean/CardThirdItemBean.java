@@ -8,13 +8,15 @@ public class CardThirdItemBean {
     //private String projectId;
     private String province;
     private String city;
+    private String district;
     private String address;
     private String lon;
     private String lat;
 
-    public CardThirdItemBean(String province, String city, String address, String lon, String lat) {
+    public CardThirdItemBean(String province, String city, String district, String address, String lon, String lat) {
         this.province = province;
         this.city = city;
+        this.district = district;
         this.address = address;
         this.lon = lon;
         this.lat = lat;
@@ -22,6 +24,14 @@ public class CardThirdItemBean {
 
     public CardThirdItemBean() {
 
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getProvince() {

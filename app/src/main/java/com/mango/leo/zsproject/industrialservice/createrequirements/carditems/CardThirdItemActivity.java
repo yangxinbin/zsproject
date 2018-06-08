@@ -40,6 +40,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,6 +92,8 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
             .fromResource(R.drawable.icon_gcoding);
     private CardThirdItemBean cardThirdItemBean;
     private UpdateItemPresenter updateItemPresenter;
+    private String nowProvince,nowCity,nowDistrict;
+
     /**
      * 此demo用来展示如何进行地理编码搜索（用地址检索坐标）
      */
@@ -103,7 +106,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         EventBus.getDefault().register(this);
         //mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         // 地图初始化
-        textViewPlace.setText("广东省深圳市南山区");
+        //textViewPlace.setText("广东省深圳市南山区");
         mBaiduMap = mMapView.getMap();
         editTextWhere.addTextChangedListener(this);
         cardThirdItemBean = new CardThirdItemBean();
@@ -118,10 +121,17 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
     private void initDate() {
         cardThirdItemBean.setAddress(editTextWhere.getText().toString());//确保数据完整性
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        Log.v("333333333",bean.getResponseObject().getLocation().getCity()+"****"+bean.getResponseObject().getLocation().getProvince()+"  "+bean.getResponseObject().getLocation().getDistrict());
+        textViewPlace.setText(String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity()) + String.valueOf(bean.getResponseObject().getLocation().getDistrict()));
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card3EventBus(CardThirdItemBean bean) {
         Log.v("33333", "_____card3EventBus______" + bean.getAddress());
-        textViewPlace.setText(bean.getCity());
+        //textViewPlace.setText(bean.getProvince()+bean.getCity()+bean.getDistrict());
         editTextWhere.setText(bean.getAddress());
         needPermission();
     }

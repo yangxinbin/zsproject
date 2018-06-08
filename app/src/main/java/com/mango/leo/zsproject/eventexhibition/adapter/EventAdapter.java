@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +128,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 Log.v("yyyyy", "====pos======"+pos%20);//
                 ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
                 ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getLocation().getCity().toString());
-//                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
+                ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos%20).getStartTime(),"yyyy-MM-dd HH:mm:ss"));
                 if (mData.get(pos).getResponseObject().getContent().get(pos%20).getBanner().getId() != null) {
                     Log.v("yyy","iiiiiiiiii"+"http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
                     Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
