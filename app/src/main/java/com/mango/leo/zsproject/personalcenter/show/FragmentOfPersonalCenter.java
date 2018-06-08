@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.personalcenter.show.userchange.MesActivity;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
@@ -148,10 +149,14 @@ public class FragmentOfPersonalCenter extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.bu_mes, R.id.constraintLayouthead1, R.id.constraintLayouthead2, R.id.shengbao, R.id.shouc, R.id.baoming, R.id.settings})
+    @OnClick({R.id.image_msg5,R.id.bu_mes, R.id.constraintLayouthead1, R.id.constraintLayouthead2, R.id.shengbao, R.id.shouc, R.id.baoming,R.id.kefu, R.id.settings})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.image_msg5:
+                intent = new Intent(getActivity(), MesActivity.class);//商务厅介绍
+                startActivity(intent);
+                break;
             case R.id.constraintLayouthead1:
                 intent = new Intent(getActivity(), UserChangeActivity.class);
                 startActivity(intent);
@@ -167,6 +172,10 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.baoming:
+                break;
+            case R.id.kefu:
+                intent = new Intent(getActivity(), KefuActivity.class);//商务厅介绍
+                startActivity(intent);
                 break;
             case R.id.settings:
                 intent = new Intent(getActivity(), SettingActivity.class);

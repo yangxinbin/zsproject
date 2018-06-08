@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_gray"
+    android:orientation="vertical"
+    tools:context="com.mango.leo.zsproject.personalcenter.show.AboutActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imageView_userback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+
+        <TextView
+            android:id="@+id/textView82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_userback"
+            android:layout_centerHorizontal="true"
+            android:text="@string/user_back"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.52"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/down_4"
+            tools:layout_editor_absoluteX="8dp">
+
+            <TextView
+                android:id="@+id/textView_numba"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="11dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="200字"
+                android:textSize="@dimen/small_textSize" />
+
+            <EditText
+                android:id="@+id/editText_ba"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView76"
+                android:layout_alignStart="@+id/textView76"
+                android:background="@null"
+                android:maxLength="200"
+                android:hint="写下您需要解决的问题，我们将会为你及时解决。"
+                android:inputType="textMultiLine"
+                android:textSize="@dimen/sencond_textSize" />
+        </RelativeLayout>
+        <Button
+            android:id="@+id/send_back"
+            android:background="@drawable/rec_red_background"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            android:layout_margin="18dp"
+            android:textStyle="bold"
+            android:text="@string/back_mes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        
+    </LinearLayout>
+
+
+</LinearLayout>

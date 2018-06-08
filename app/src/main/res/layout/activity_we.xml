@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_gray"
+    android:orientation="vertical"
+    tools:context="com.mango.leo.zsproject.personalcenter.show.AboutActivity">
+    
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/imageView_we"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    app:srcCompat="@drawable/common_nav_icon_back" />
+
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageView_we"
+                    android:layout_centerHorizontal="true"
+                    android:text="微信客服"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/w1"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/imageView85"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:srcCompat="@drawable/erweima"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView90"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="17dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:text="资讯总监：齐婉桥"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView85"
+            android:layout_toEndOf="@+id/imageView85" />
+
+        <TextView
+            android:id="@+id/textView102"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView90"
+            android:layout_alignStart="@+id/textView90"
+            android:layout_below="@+id/textView90"
+            android:layout_marginTop="13dp"
+            android:text="微信号：Minger121212" />
+
+        <TextView
+            android:id="@+id/textView103"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView102"
+            android:layout_alignStart="@+id/textView102"
+            android:layout_below="@+id/textView102"
+            android:layout_marginTop="13dp"
+            android:text="添加微信，您遇到的问题我们专业的" />
+
+        <TextView
+            android:id="@+id/textView105"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView103"
+            android:layout_alignStart="@+id/textView103"
+            android:layout_below="@+id/textView103"
+            android:layout_marginTop="11dp"
+            android:text="工作人员会为你解决" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/w2"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/imageView86"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:srcCompat="@drawable/erweima"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="17dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:text="资讯总监：齐婉桥"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView86"
+            android:layout_toEndOf="@+id/imageView86" />
+
+        <TextView
+            android:id="@+id/textView104"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView91"
+            android:layout_alignStart="@+id/textView91"
+            android:layout_below="@+id/textView91"
+            android:layout_marginTop="13dp"
+            android:text="微信号：Minger121212" />
+
+        <TextView
+            android:id="@+id/textView106"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView104"
+            android:layout_alignStart="@+id/textView104"
+            android:layout_below="@+id/textView104"
+            android:layout_marginTop="13dp"
+            android:text="添加微信，您遇到的问题我们专业的" />
+
+        <TextView
+            android:id="@+id/textView107"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView106"
+            android:layout_alignStart="@+id/textView106"
+            android:layout_below="@+id/textView106"
+            android:layout_marginTop="11dp"
+            android:text="工作人员会为你解决" />
+
+    </RelativeLayout>
+
+</LinearLayout>

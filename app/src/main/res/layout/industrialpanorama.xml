@@ -33,17 +33,17 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView45"
+        android:layout_margin="8dp"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         app:layout_constraintTop_toBottomOf="@+id/imageView45"
+        style="@style/table"
         app:tabGravity="center"
-        app:tabIndicatorColor="@color/red"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabTextOther" />
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/TabTextOther"
+        android:layout_below="@+id/imageView45"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/imageView45"

@@ -41,8 +41,6 @@ public class AccountSecurityActivity extends BaseActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.imageView_security_back:
-                intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
                 finish();
                 break;
             case R.id.s1:

@@ -79,6 +79,11 @@
     <string name="sing_up">报名活动</string>
     <string name="signup_sure">确定报名</string>
     <string name="mine_bussiness">      我的招商      </string>
+    <string name="aboutus">关于我们</string>
+    <string name="user_back">用户反馈</string>
+    <string name="back_mes">提交反馈</string>
+    <string name="mes_centry">信息中心</string>
+    <string name="kefu">我的客服</string>
 </resources>
 
 

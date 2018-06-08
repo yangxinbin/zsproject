@@ -83,4 +83,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="table" parent="android:Widget">
+        <item name="tabBackground">@drawable/tab_background</item>
+        <item name="tabIndicatorColor">@null</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
 </resources>

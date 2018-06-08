@@ -119,7 +119,7 @@
         android:layout_marginTop="13dp"
         android:text="验证码登录"
         android:textColor="@color/secondblack"
-        android:textSize="@dimen/sencond_textSize" />
+        android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/textView_for"
@@ -129,7 +129,7 @@
         android:layout_alignStart="@+id/button_login"
         android:layout_alignTop="@+id/textView_phnoelogin"
         android:textColor="@color/secondblack"
-        android:textSize="@dimen/sencond_textSize"
+        android:textSize="@dimen/textSize"
         android:text="忘记密码？" />
 
 

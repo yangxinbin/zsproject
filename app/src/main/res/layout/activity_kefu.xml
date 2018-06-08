@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_gray"
+    android:orientation="vertical"
+    tools:context="com.mango.leo.zsproject.personalcenter.show.AboutActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/imageView_kefuback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+
+        <TextView
+            android:id="@+id/textView82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_kefuback"
+            android:layout_centerHorizontal="true"
+            android:text="@string/kefu"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/textView84"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="账户问题" />
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:id="@+id/k1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/textView93"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            android:text="如何修改登录密码？" />
+
+        <ImageView
+            android:id="@+id/imageView79"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:id="@+id/k2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/textView94"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            android:text="忘记登录密码怎么办？" />
+
+        <ImageView
+            android:id="@+id/imageView80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:id="@+id/k3"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/textView95"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            android:text="如何修改手机号？" />
+
+        <ImageView
+            android:id="@+id/imageView81"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:id="@+id/k4"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/textView96"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            android:text="如何修改邮箱？" />
+
+        <ImageView
+            android:id="@+id/imageView82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/common_jump_arrow" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:textSize="@dimen/textSize"
+        android:id="@+id/textView97"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="业务问题" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_margin="8dp"
+            android:background="@color/white"
+            android:id="@+id/wx"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView83"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
+                app:srcCompat="@drawable/wechart" />
+
+            <TextView
+                android:id="@+id/textView98"
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信客服"
+                android:layout_marginLeft="8dp"
+                android:layout_alignTop="@+id/imageView83"
+                android:layout_toRightOf="@+id/imageView83"
+                android:layout_toEndOf="@+id/imageView83" />
+
+            <TextView
+                android:id="@+id/textView99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信专属服务"
+                android:layout_alignBottom="@+id/imageView83"
+                android:layout_alignLeft="@+id/textView98"
+                android:layout_alignStart="@+id/textView98" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_margin="8dp"
+            android:background="@color/white"
+            android:id="@+id/ph"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView84"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginStart="19dp"
+                app:srcCompat="@drawable/phone"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/black"
+                android:id="@+id/textView100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="电话客服"
+                android:layout_alignTop="@+id/imageView84"
+                android:layout_toRightOf="@+id/imageView84"
+                android:layout_toEndOf="@+id/imageView84" />
+
+            <TextView
+                android:id="@+id/textView101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView84"
+                android:layout_alignLeft="@+id/textView100"
+                android:layout_alignStart="@+id/textView100"
+                android:text="拨打客服热线" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

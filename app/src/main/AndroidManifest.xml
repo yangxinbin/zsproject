@@ -59,6 +59,7 @@
         <activity android:name=".ZsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -66,9 +67,9 @@
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CustomRequirementsActivity" />
-        <activity android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
+        <activity
+            android:name=".industrialservice.createrequirements.carditems.CardFirstItemActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".industrialservice.createrequirements.carditems.CardSecondItemActivity" />
         <activity android:name=".industrialservice.createrequirements.carditems.CardThirdItemActivity" />
         <activity android:name=".industrialservice.createrequirements.carditems.CardFourthItemActivity" />
@@ -79,14 +80,10 @@
         <activity android:name=".industrialservice.createrequirements.carditems.CardNinthItemActivity" />
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
-        <activity android:name=".login.PwdLoginActivity"></activity>
-        <activity android:name=".login.StartActivity">
-
-        </activity>
+        <activity android:name=".login.PwdLoginActivity" />
+        <activity android:name=".login.StartActivity" />
         <activity android:name=".login.ResActivity" />
-        <activity android:name=".login.UserActivity">
-
-        </activity>
+        <activity android:name=".login.UserActivity" />
         <activity android:name=".personalcenter.show.UserChangeActivity" />
         <activity android:name=".personalcenter.show.AccountSecurityActivity" />
         <activity android:name=".personalcenter.show.SettingActivity" />
@@ -100,8 +97,15 @@
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
         <activity android:name=".eventexhibition.show.EventDetailActivity" />
-        <activity android:name=".eventexhibition.show.EventRegistrationActivity"></activity>
-        <activity android:name=".personalcenter.show.ShouCangActivity"></activity>
+        <activity android:name=".eventexhibition.show.EventRegistrationActivity" />
+        <activity android:name=".personalcenter.show.ShouCangActivity" />
+        <activity android:name=".personalcenter.show.AboutActivity" />
+        <activity android:name=".login.UserBackActivity" />
+        <activity android:name=".personalcenter.show.userchange.MesActivity" />
+        <activity android:name=".personalcenter.show.KefuActivity" />
+        <activity android:name=".personalcenter.show.kefu.WeActivity" />
+        <activity android:name=".personalcenter.show.kefu.PhActivity" />
+        <activity android:name=".personalcenter.show.kefu.QueActivity"></activity>
     </application>
 
 </manifest>

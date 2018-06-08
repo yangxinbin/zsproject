@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_gray"
+    android:orientation="vertical"
+    tools:context="com.mango.leo.zsproject.personalcenter.show.AboutActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imageView_mesback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/common_nav_icon_back" />
+
+        <TextView
+            android:id="@+id/textView82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_mesback"
+            android:layout_centerHorizontal="true"
+            android:text="@string/mes_centry"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/mes_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

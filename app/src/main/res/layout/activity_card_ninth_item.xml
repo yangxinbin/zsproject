@@ -9,7 +9,7 @@
     tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity">
     <RelativeLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:background="@color/common_gray"
@@ -86,7 +86,7 @@
 
     <RelativeLayout
         android:id="@+id/down_1"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
@@ -143,7 +143,7 @@
 
     <RelativeLayout
         android:id="@+id/down_2"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
@@ -201,7 +201,7 @@
 
     <RelativeLayout
         android:id="@+id/down_3"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
@@ -258,7 +258,7 @@
 
     <RelativeLayout
         android:id="@+id/down_4"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="60dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
@@ -314,14 +314,15 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="181dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/down_4">
+        app:layout_constraintTop_toBottomOf="@+id/down_4"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/textView_num"

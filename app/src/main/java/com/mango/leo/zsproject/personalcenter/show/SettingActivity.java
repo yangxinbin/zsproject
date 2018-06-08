@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.login.UserBackActivity;
 import com.mango.leo.zsproject.utils.PublicWay;
 
 import butterknife.Bind;
@@ -53,11 +54,14 @@ public class SettingActivity extends BaseActivity {
             case R.id.s1:
                 intent = new Intent(this, AccountSecurityActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.s2:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
                 break;
             case R.id.s3:
+                intent = new Intent(this, UserBackActivity.class);
+                startActivity(intent);
                 break;
             case R.id.s4:
                 break;
