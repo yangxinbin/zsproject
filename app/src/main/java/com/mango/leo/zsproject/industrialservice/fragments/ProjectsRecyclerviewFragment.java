@@ -231,7 +231,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     };
 
     private void deletePlan(int position) {
-        adapter.deleteItem(position);//因为有头部
+        adapter.deleteItem(position - 1);//因为有头部
 /*        if (mDataAll != null && mData != null) {
             mDataAll.clear();
             mData.clear();
@@ -272,6 +272,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 time = adapter.getItem(position).getResponseObject().getContent().get(position).getCreatedOn();
             } else {
                 time = adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn();
+            }
+            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null){
+                cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired()));
             }
             cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getSummary());

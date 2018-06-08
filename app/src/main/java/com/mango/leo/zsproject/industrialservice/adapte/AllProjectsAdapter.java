@@ -79,14 +79,14 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Log.v("gggggg", mData.size() + "--" + position + "   " + mData.get(0).getResponseObject().getContent().get(0).getName());
         isShowFooter(false);
         if (mData != null) {
-            //mData.set(position,null);
+            mData.remove(position);
             /*for (int i = 0; i < mData.size(); i++) {
                 if (i == position) {
                     mData.remove(i);
                     i--;
                 }
             }*/
-            this.notifyItemRemoved(position);
+            //this.notifyItemRemoved(position);
         }
         this.notifyDataSetChanged();
     }
@@ -160,7 +160,18 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
-            ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+            //((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 隐藏提示条
+                    ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    // 将fadeTips设置true
+                    fadeTips = true;
+                    // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                    hasMore = true;
+                }
+            }, 2000);
             if (hasMore == true) {
                 // 不隐藏footView提示
                 Log.v("rrrrrrrrr","----");
