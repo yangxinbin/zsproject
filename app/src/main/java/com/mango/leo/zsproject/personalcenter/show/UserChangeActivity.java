@@ -51,6 +51,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -363,7 +365,7 @@ public class UserChangeActivity extends BaseActivity {
                 textViewWhere.setText(province + "-" + city + "-" + district);
                 //上传
 
-                updateWhere();
+                updateWhere(String.valueOf(province),String.valueOf(city),String.valueOf(district));
             }
 
             @Override
@@ -376,10 +378,47 @@ public class UserChangeActivity extends BaseActivity {
         mPicker.showCityPicker();
     }
 
-    private void updateWhere() {
+    private void updateWhere(String s, String s1, String s2) {
+        Map<String, String> mapParams = new HashMap<String, String>();
+        mapParams.put("province", s);
+        mapParams.put("city", s1);
+        mapParams.put("district", s2);
+        mapParams.put("token", sharedPreferences.getString("token", ""));
+        HttpUtils.doPut(Urls.HOST_PROFILE, mapParams, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppUtils.showToast(getBaseContext(),"地区修改失败");
+                    }
+                });            }
 
-
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AppUtils.showToast(getBaseContext(),"地区修改成功");
+                        }
+                    });
+                    //Log.v("uuuuuu",editTextChange.getText().toString()+"______"+response.body().string());
+                    UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());
+                    EventBus.getDefault().postSticky(bean);
+                } else {
+                    Log.v("yxbbbb", "*****" + response.body().string());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AppUtils.showToast(getBaseContext(),"地区修改失败");
+                        }
+                    });
+                }
+            }
+        });
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
