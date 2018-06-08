@@ -128,10 +128,11 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
+/*        editor.putString("where",nowProvince+nowCity+nowDistrict).commit();
+        Log.v("yxb","-----="+sharedPreferences.getString("where","广东省深圳市南山区"));*/
         nowProvince = String.valueOf(bean.getResponseObject().getLocation().getProvince());
         nowCity = String.valueOf(bean.getResponseObject().getLocation().getCity());
         nowDistrict = String.valueOf(bean.getResponseObject().getLocation().getDistrict());
-
     }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {

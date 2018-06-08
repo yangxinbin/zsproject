@@ -12,6 +12,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
@@ -31,6 +32,7 @@ public class StartActivity extends BaseActivity {
     private Intent intent;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private UserMessageBean bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,16 @@ public class StartActivity extends BaseActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
+        Log.v("ssssssssss","ooo");
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         if (sharedPreferences.getString("isOk","no").equals("yes")){
+            Log.v("ssssssssss","  ");
             ACache mCache = ACache.get(this);
-            EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
-            Log.v("yxb",""+mCache.getAsString("message"));
+            bean = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
+            EventBus.getDefault().postSticky(bean);
+            editor.putString("where",String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
+            Log.v("ssssssssss",sharedPreferences.getString("where","广东省深圳市南山区")+"___"+mCache.getAsString("message"));
             Intent intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();

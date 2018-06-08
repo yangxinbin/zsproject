@@ -362,6 +362,8 @@ public class UserChangeActivity extends BaseActivity {
                 }
                 textViewWhere.setText(province + "-" + city + "-" + district);
                 //上传
+
+                updateWhere();
             }
 
             @Override
@@ -373,6 +375,12 @@ public class UserChangeActivity extends BaseActivity {
         //显示
         mPicker.showCityPicker();
     }
+
+    private void updateWhere() {
+
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult: requestCode: " + requestCode + "  resultCode:" + resultCode);

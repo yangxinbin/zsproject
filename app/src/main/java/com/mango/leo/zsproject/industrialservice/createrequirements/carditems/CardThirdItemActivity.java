@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -93,6 +94,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
     private CardThirdItemBean cardThirdItemBean;
     private UpdateItemPresenter updateItemPresenter;
     private String nowProvince,nowCity,nowDistrict;
+    private SharedPreferences sharedPreferences;
 
     /**
      * 此demo用来展示如何进行地理编码搜索（用地址检索坐标）
@@ -104,8 +106,10 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         setContentView(R.layout.activity_card_third_item);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         //mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         // 地图初始化
+        textViewPlace.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
         //textViewPlace.setText("广东省深圳市南山区");
         mBaiduMap = mMapView.getMap();
         editTextWhere.addTextChangedListener(this);
@@ -120,12 +124,6 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
     }
     private void initDate() {
         cardThirdItemBean.setAddress(editTextWhere.getText().toString());//确保数据完整性
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void userMessageEventBus(UserMessageBean bean) {
-        Log.v("333333333",bean.getResponseObject().getLocation().getCity()+"****"+bean.getResponseObject().getLocation().getProvince()+"  "+bean.getResponseObject().getLocation().getDistrict());
-        textViewPlace.setText(String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity()) + String.valueOf(bean.getResponseObject().getLocation().getDistrict()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)

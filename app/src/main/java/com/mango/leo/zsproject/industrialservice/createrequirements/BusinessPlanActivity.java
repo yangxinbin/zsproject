@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
@@ -124,12 +126,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private static final int REQUEST_CODE = 1;
     private CardNinthItemBean bean9;
     private StringBuffer stringBuffer1, stringBuffer2;
+    private UserMessageBean userBean;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
         //initFirstItem();
@@ -174,7 +179,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince()+bean3.getCity()+bean3.getDistrict() + bean3.getAddress()));
 
     }
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
@@ -230,7 +234,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        p1.setText(bean.getProvince()+bean.getCity()+bean.getDistrict());
+        p1.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
         p2.setText(bean.getAddress());
         im_3.setOnClickListener(this);
         initLocation();
@@ -326,6 +330,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.carthird:
+               // EventBus.getDefault().postSticky(userBean);
                 intent = new Intent(this, CardThirdItemActivity.class);
                 startActivity(intent);
                 finish();
