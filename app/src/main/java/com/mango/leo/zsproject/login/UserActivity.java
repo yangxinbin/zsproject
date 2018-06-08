@@ -291,7 +291,6 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
         //监听选择点击事件及返回结果
         mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
 
-
             @Override
             public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
                 //省份

@@ -348,7 +348,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getActivity(), "加载失败");
+                AppUtils.showToast(getActivity(), "没有更多的数据");
             }
         });
     }

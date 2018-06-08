@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.utils.Urls;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +137,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
                 if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner()!= null) {
-                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().get_id()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
+                    Glide.with(context).load(Urls.HOST+"/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().get_id()).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
                 }
             }
         } else {

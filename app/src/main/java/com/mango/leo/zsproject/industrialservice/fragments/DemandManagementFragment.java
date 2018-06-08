@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -22,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -62,7 +65,7 @@ public class DemandManagementFragment extends Fragment {//
     //private Button createButton;
     private ConstraintLayout h;
     private LinearLayout allPlanLayout, addPlanLayout;
-    private Banner banner;
+    private Banner banner,banner2;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
@@ -73,6 +76,31 @@ public class DemandManagementFragment extends Fragment {//
         ButterKnife.bind(this, view);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        if (sharedPreferences.getString("type","") == ""){
+            recycleView11.setVisibility(View.GONE);
+            View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.header2, container, false);
+            ImageView imageVie = view1.findViewById(R.id.imageVie);
+            ImageView imageVie1 = view1.findViewById(R.id.imageVie9);
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);//饱和度 0灰色 100过度彩色，50正常
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            imageVie.setColorFilter(filter);
+            imageVie1.setColorFilter(filter);
+            banner2 = (Banner) view1.findViewById(R.id.imageVieb);
+            List<String> pathsImage = new ArrayList<>();
+            List<String> pathsTitle = new ArrayList<>();
+            pathsImage.add(getResourcesUri(R.drawable.wechat));
+            pathsImage.add(getResourcesUri(R.drawable.wechat2));
+            pathsTitle.add("");
+            pathsTitle.add("");
+            banner2.setImages(pathsImage)
+                    .setBannerTitles(pathsTitle)
+                    .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                    .setImageLoader(new GlideImageLoader())
+                    // .setOnBannerClickListener(this)
+                    .start();
+            return view1;
+        }
         initSwipeRefreshLayout();
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleView11.setLayoutManager(mLayoutManager);
