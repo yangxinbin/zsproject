@@ -39,7 +39,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean mShowHeader = true;
     private View mHeaderView;
     private int type;
-    private boolean hasMore;
+    private boolean hasMore = false;
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
@@ -163,7 +163,8 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
             if (hasMore == true) {
                 // 不隐藏footView提示
-                fadeTips = false;
+                Log.v("rrrrrrrrr","----");
+                hasMore = false;
                 //if (mData.size() > 0) {
                 // 如果查询数据发现增加之后，就显示正在加载更多
                 ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("正在加载...");

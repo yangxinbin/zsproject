@@ -156,7 +156,7 @@ public class UserChangeActivity extends BaseActivity {
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//
             Log.v("yxbb", "dddd");
-            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(circleImageView);
+            Glide.with(this).load(Urls.HOST+"/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(circleImageView);
         }
 
     }

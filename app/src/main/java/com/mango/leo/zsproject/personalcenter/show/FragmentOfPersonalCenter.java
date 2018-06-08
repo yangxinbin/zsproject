@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -118,7 +119,7 @@ public class FragmentOfPersonalCenter extends Fragment {
         }
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//认证
-            Glide.with(this).load("http://192.168.1.166:9999/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(imageViePic);
+            Glide.with(this).load(Urls.HOST+"/user-service/user/get/file?fileId="+ bean.getResponseObject().getAvator().getId()).into(imageViePic);
         }
 
         if (bean.getResponseObject().getName() == null || bean.getResponseObject().getEmail() == null || bean.getResponseObject().getUsername() == null) {

@@ -365,6 +365,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
+                            Log.v("rrrrrrrrr","--adapter--");
+
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                             if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                 noMoreMsg();
