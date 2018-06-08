@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
@@ -348,7 +349,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getActivity(), "没有更多的数据");
+                Toast.makeText(getActivity(), "没有更多的数据",Toast.LENGTH_LONG).show();
             }
         });
     }

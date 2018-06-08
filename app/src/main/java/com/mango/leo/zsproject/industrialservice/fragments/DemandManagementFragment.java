@@ -76,7 +76,7 @@ public class DemandManagementFragment extends Fragment {//
         ButterKnife.bind(this, view);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        if (/*sharedPreferences.getString("type","") == ""*/false){
+        if (/*sharedPreferences.getString("type","") == ""*/true){
             recycleView11.setVisibility(View.GONE);
             View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.header2, container, false);
             ImageView imageVie = view1.findViewById(R.id.imageVie);

@@ -70,11 +70,11 @@ public class DropDownAdapter extends BaseAdapter {
         viewHolder.tv.setText(list.get(position));
         if (checkItemPosition != -1) {
             if (checkItemPosition == position) {
-                viewHolder.tv.setTextSize(12);
+                viewHolder.tv.setTextSize(18);
                 //viewHolder.co.setBackgroundResource(R.drawable.button_red);
                 viewHolder.tv.setTextColor(context.getResources().getColor(R.color.red));
             } else {
-                viewHolder.tv.setTextSize(12);
+                viewHolder.tv.setTextSize(16);
                // viewHolder.co.setBackgroundResource(R.drawable.button_gray);
                 viewHolder.tv.setTextColor(context.getResources().getColor(R.color.black));
             }
