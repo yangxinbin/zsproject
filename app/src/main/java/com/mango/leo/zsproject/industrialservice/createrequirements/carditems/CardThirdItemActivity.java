@@ -95,6 +95,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
     private UpdateItemPresenter updateItemPresenter;
     private String nowProvince,nowCity,nowDistrict;
     private SharedPreferences sharedPreferences;
+    private boolean flag;
 
     /**
      * 此demo用来展示如何进行地理编码搜索（用地址检索坐标）
@@ -327,7 +328,12 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 initDate();
                 if (!TextUtils.isEmpty(editTextWhere.getText().toString()) && cardThirdItemBean != null) {
                     Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^"+cardThirdItemBean.toString());
-                    updateItemPresenter.visitUpdateItem(this, TYPE3,cardThirdItemBean);//更新后台数据
+                    if(flag){
+                        updateItemPresenter.visitUpdateItem(this, TYPE3,cardThirdItemBean);//更新后台数据
+                    }else {
+                        Toast.makeText(CardThirdItemActivity.this, "请重新输入地址！", Toast.LENGTH_LONG)
+                                .show();
+                    }
                     EventBus.getDefault().postSticky(cardThirdItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
@@ -378,10 +384,12 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(CardThirdItemActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+            Toast.makeText(CardThirdItemActivity.this, "未能找到输入地址，请重新输入！", Toast.LENGTH_LONG)
                     .show();
+            flag = false;
             return;
         }
+        flag = true;
         double latitude = geoCodeResult.getLocation().latitude;
         double longitude = geoCodeResult.getLocation().longitude;
         cardThirdItemBean.setLat(String.valueOf(latitude));
