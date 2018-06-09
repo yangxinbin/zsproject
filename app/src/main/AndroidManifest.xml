@@ -31,6 +31,7 @@
 
     <application
         android:name=".CIFITApplication"
+        tools:replace="android:name"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -76,11 +77,7 @@
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
         <activity android:name=".login.StartActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".login.ResActivity" />
@@ -97,8 +94,15 @@
         <activity android:name=".personalcenter.show.userchange.NameActivity" />
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
-        <activity android:name=".eventexhibition.show.EventDetailActivity" />
+        <activity android:name=".eventexhibition.show.EventDetailActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity android:name=".eventexhibition.show.EventRegistrationActivity" />
+
         <activity android:name=".personalcenter.show.ShouCangActivity" />
         <activity android:name=".personalcenter.show.AboutActivity" />
         <activity android:name=".login.UserBackActivity" />
@@ -109,7 +113,6 @@
         <activity android:name=".personalcenter.show.kefu.QueActivity" />
         <activity android:name=".personalcenter.show.shengbao.ShengBaoActivity" />
         <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity">
-
         </activity>
         <activity android:name=".personalcenter.show.baoming.BaoMingActivity"></activity>
     </application>
