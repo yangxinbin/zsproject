@@ -70,17 +70,20 @@ public class DropDownAdapter extends BaseAdapter {
         viewHolder.tv.setText(list.get(position));
         if (checkItemPosition != -1) {
             if (checkItemPosition == position) {
-                viewHolder.tv.setTextSize(18);
+                //viewHolder.tv.setTextSize(18);
                 //viewHolder.co.setBackgroundResource(R.drawable.button_red);
                 viewHolder.tv.setTextColor(context.getResources().getColor(R.color.red));
             } else {
-                viewHolder.tv.setTextSize(16);
+                //viewHolder.tv.setTextSize(16);
                // viewHolder.co.setBackgroundResource(R.drawable.button_gray);
                 viewHolder.tv.setTextColor(context.getResources().getColor(R.color.black));
             }
         }
     }
-
+    private int dp2px(float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
     public static class MyViewHolder {
         TextView tv;
     }
