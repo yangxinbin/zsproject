@@ -63,7 +63,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by admin on 2018/5/21.
  */
 
-public class ProjectsRecyclerviewFragment extends Fragment implements AllProjectsView {
+public class ProjectsRecyclerviewFragment extends Fragment implements AllProjectsView, SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.recycle_items)
     RecyclerView recycleItems;
     @Bind(R.id.refresh_items)
@@ -157,28 +157,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     };
 
     public void initSwipeRefreshLayout() {
-        refreshItems.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshItems.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshItems.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                            mData.clear();
-                        }
-                        if (NetUtil.isNetConnect(getActivity())) {
-                            adapter.isShowFooter(true);
-                            page = 0;
-                            allProjectsPresenter.visitProjects(getActivity(), mType, page);
-                        } else {
-                            // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
-                        }
-                    }
-                }, 2000);
-            }
-        });
+        refreshItems.setOnRefreshListener(this);
         refreshItems.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -231,7 +210,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     };
 
     private void deletePlan(int position) {
-        adapter.deleteItem(position - 1);//因为有头部
+        adapter.deleteItem(position);//因为有头部
 /*        if (mDataAll != null && mData != null) {
             mDataAll.clear();
             mData.clear();
@@ -260,6 +239,27 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 }
             }
         });
+        refreshItems.setOnRefreshListener(this);
+        refreshItems.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //refreshItems.setRefreshing(true);
+                //refreshItems.setRefreshing(false);
+                if (mData != null && mDataAll != null) {
+                    mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                    mData.clear();
+                }
+                if (NetUtil.isNetConnect(getActivity())) {
+                    adapter.isShowFooter(true);
+                    page = 0;
+                    allProjectsPresenter.visitProjects(getActivity(), mType, page);
+                } else {
+                    // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
+                }
+            }
+        },2000);
+        //getActivity().onRefresh();
     }
 
     public void postStickyAll(int position) {
@@ -406,6 +406,27 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 
+
+    @Override
+    public void onRefresh() {
+        refreshItems.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshItems.setRefreshing(false);
+                if (mData != null && mDataAll != null) {
+                    mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                    mData.clear();
+                }
+                if (NetUtil.isNetConnect(getActivity())) {
+                    adapter.isShowFooter(true);
+                    page = 0;
+                    allProjectsPresenter.visitProjects(getActivity(), mType, page);
+                } else {
+                    // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
+                }
+            }
+        }, 2000);
+    }
     private ProjectsRecyclerviewFragment.MyHandler mHandler = new ProjectsRecyclerviewFragment.MyHandler();
 
     private class MyHandler extends Handler {
@@ -418,6 +439,15 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     break;
                 case 1:
                     AppUtils.showToast(getActivity(), "服务器删除成功");
+                    refreshItems.setRefreshing(false);
+                    /*refreshItems.setOnRefreshListener(this);
+                    refreshItems.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            refreshItems.setRefreshing(true);
+                        }
+                    });*/
                     break;
                 default:
                     break;

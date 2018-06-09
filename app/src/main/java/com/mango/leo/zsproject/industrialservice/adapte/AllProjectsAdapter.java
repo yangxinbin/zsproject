@@ -79,14 +79,14 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Log.v("gggggg", mData.size() + "--" + position + "   " + mData.get(0).getResponseObject().getContent().get(0).getName());
         isShowFooter(false);
         if (mData != null) {
-            mData.remove(position);
+            //mData.remove(position);
             /*for (int i = 0; i < mData.size(); i++) {
                 if (i == position) {
                     mData.remove(i);
                     i--;
                 }
             }*/
-            //this.notifyItemRemoved(position);
+            this.notifyItemRemoved(position);
         }
         this.notifyDataSetChanged();
     }
@@ -233,6 +233,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public AllProjectsBean getItem(int position) {
+        Log.v("gggggg", mData.size() + "-2-" + position + "   " + mData.get(0).getResponseObject().getContent().get(0).getName());
         return mData == null ? null : mData.get(position);
     }
 
