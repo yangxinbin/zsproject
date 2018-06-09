@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="1dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="3dp"
+    card_view:contentPadding="8dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_zhaoshang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/im_pic"
+            android:layout_toRightOf="@+id/im_pic"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title" />
+
+        <TextView
+            android:id="@+id/imageView_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_zhaoshang"
+            android:layout_alignBottom="@+id/tv_zhaoshang"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:layout_toEndOf="@+id/tv_zhaoshang"
+            android:layout_toRightOf="@+id/tv_zhaoshang"
+            android:background="@drawable/tuijian"
+            android:textColor="@color/red"
+            android:text="推荐"
+            card_view:srcCompat="@drawable/activity_detail_icon_address" />
+
+        <TextView
+            android:id="@+id/textView_zhaoshangC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_zhaoshang"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/tv_zhaoshang"
+            android:layout_marginBottom="11dp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

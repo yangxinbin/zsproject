@@ -6,6 +6,8 @@ package com.mango.leo.zsproject.industrialpanorama.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
-import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
+import com.mango.leo.zsproject.utils.Urls;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ import java.util.List;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.mViewHolder> {
 
-    private List<CityBean> list;
+    private List<CityBean.ResponseObjectBean.IntroductionBean> list;
     private Context context;
     private View mHeaderView;
     public static final int TYPE_HEADER = 0;
@@ -33,7 +35,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.mViewHolder> {
     public CityAdapter(Context context) {
         this.context = context;
     }
-    public void setmDate(List<CityBean> data) {
+
+    public void setmDate(List<CityBean.ResponseObjectBean.IntroductionBean> data) {
+        Log.v("bbbbbb","___"+data.size());
         this.list = data;
         this.notifyDataSetChanged();
     }
@@ -49,12 +53,33 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.mViewHolder> {
 
     @Override
     public void onBindViewHolder(mViewHolder holder, int position) {
-        CityBean dataBean = list.get(position);
+        CityBean.ResponseObjectBean.IntroductionBean dataBean = list.get(position);
         if (getItemViewType(position) == TYPE_HEADER) return;
         if (holder instanceof mViewHolder) {
-           //Glide.with(context).load(dataBean.getUserImg()).into(holder.img);
-           // holder.tv_title.setText();
-           // holder.tv_content.setText();
+            if (list.get(position).getPhoto() != null) {
+                if (list.get(position).getPhoto().getId() != null || !TextUtils.isEmpty(list.get(position).getPhoto().getId())) {
+                    holder.img.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(Urls.HOST + "/user-service/user/get/file?fileId=" + list.get(position).getPhoto().getId()).into(holder.img);
+                } else {
+                    holder.img.setVisibility(View.GONE);
+                }
+
+            }
+            if (list.get(position) != null) {
+                if (list.get(position).getTitle() != null || !TextUtils.isEmpty(list.get(position).getTitle())) {
+                    holder.tv_title.setVisibility(View.VISIBLE);
+                    holder.tv_title.setText(list.get(position).getTitle());
+                } else {
+                    holder.tv_title.setVisibility(View.GONE);
+                }
+                if (list.get(position).getDetail() != null || !TextUtils.isEmpty(list.get(position).getDetail())) {
+                    holder.tv_content.setVisibility(View.VISIBLE);
+                    holder.tv_content.setText(list.get(position).getDetail());
+                } else {
+                    holder.tv_content.setVisibility(View.GONE);
+                }
+            }
+
         }
     }
 
@@ -82,7 +107,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.mViewHolder> {
     class mViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView tv_title,tv_content;
+        TextView tv_title, tv_content;
 
         public mViewHolder(View itemView) {
             super(itemView);

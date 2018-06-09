@@ -87,8 +87,8 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
     @OnClick(R.id.city)
     public void onViewClicked() {
         listDate = new ArrayList<>();
-        listDate.add("北京");
         listDate.add("深圳");
+        listDate.add("北京");
         listDate.add("上海");
         listDate.add("广州");
         showPopupWindow(getActivity(), listDate);

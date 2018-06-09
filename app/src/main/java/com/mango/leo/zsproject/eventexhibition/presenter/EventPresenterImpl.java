@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.eventexhibition.presenter;
 import android.content.Context;
 
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.ShaiXuanEvent;
 import com.mango.leo.zsproject.eventexhibition.listener.OnEventListener;
 import com.mango.leo.zsproject.eventexhibition.model.EventModel;
 import com.mango.leo.zsproject.eventexhibition.model.EventModelImpl;
@@ -26,8 +27,9 @@ public class EventPresenterImpl implements EventPresenter, OnEventListener {
     }
 
     @Override
-    public void visitEvent(Context context, int type , int page) {
-        String url = getUrl(type)+"?page="+page;
+    public void visitEvent(Context context, int type , int page, ShaiXuanEvent shaiXuanEvent) {
+        //shaiXuanEvent.getTimePast()
+        String url = getUrl(type)+"?page="+page+"&city="+shaiXuanEvent.getCity()+"&timePast="+shaiXuanEvent.getTimePast()+shaiXuanEvent.getCity()+"&city="+shaiXuanEvent.getCity();
         eventModel.visitEventItem(context,type,url,this);
     }
 

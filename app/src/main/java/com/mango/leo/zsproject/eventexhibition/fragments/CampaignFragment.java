@@ -3,7 +3,6 @@ package com.mango.leo.zsproject.eventexhibition.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -15,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +27,11 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.ShaiXuanEvent;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenter;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenterImpl;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.eventexhibition.view.EventView;
-import com.mango.leo.zsproject.industrialservice.adapte.AllProjectsAdapter;
-import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
@@ -46,13 +41,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity.TYPE1;
 
 /**
  * Created by admin on 2018/5/11.
@@ -65,7 +59,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     LinearLayout id;
     private String headers[] = {"时间", "地区", "类型"};
     private List<View> popViews = new ArrayList<View>();
-    private String times[] = {"全部", "近一月", "近三个月","已过期"};
+    private String times[] = {"全部", "近一月", "近三个月", "已过期"};
     private String wheres[] = {"全部", "北京", "上海", "广州", "深圳", "厦门"};
     private String whats[] = {"全部", "免费", "付费"};
     private SwipeRefreshLayout refresh_cam;
@@ -78,8 +72,11 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     private int page = 0;
     private LinearLayoutManager mLayoutManager;
     private EventAdapter adapter;
-    private List<EventBean> mData, mDataAll,eventBeans1;
-
+    private List<EventBean> mData, mDataAll;
+    Long timePast, timeFuture;
+    Calendar calendar;
+    private ShaiXuanEvent shaiXuanEvent;
+    private Date da;
 
     @Nullable
     @Override
@@ -87,8 +84,9 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.campaign, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        shaiXuanEvent = new ShaiXuanEvent();
         eventPresenter = new EventPresenterImpl(this);
-        eventPresenter.visitEvent(getActivity(), EVENT1, page);
+        eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
         initHeader();
         if (mDataAll != null || mData != null) {
             mDataAll.clear();
@@ -178,7 +176,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
@@ -192,10 +190,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 return;
             }
             EventBus.getDefault().postSticky(mDataAll.get(position));
-            Log.v("yxbb","_____"+mDataAll.get(position).getResponseObject().getContent().get(position).getName());
+            Log.v("yxbb", "_____" + mDataAll.get(position).getResponseObject().getContent().get(position).getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
-            intent.putExtra("position",position);
+            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("position", position);
             startActivity(intent);
         }
     };
@@ -215,7 +213,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                         if (NetUtil.isNetConnect(getActivity())) {
                             adapter.isShowFooter(true);
                             page = 0;
-                            eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                            eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                         } else {
                             // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
@@ -237,11 +235,44 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
         switch (adapterView.getId()) {
             case 0://时间
+                calendar = Calendar.getInstance();
+                //获取当前时间
+                da = new Date();
+                calendar.setTime(da);//把当前时间赋给日历
+                if (position == 0) {
+                     shaiXuanEvent.setTimeFuture("");
+                     shaiXuanEvent.setTimePast("");
+                }
+                if (position == 1) {
+                    calendar.add(Calendar.MONTH, -1);
+                    timePast = calendar.getTimeInMillis();
+                    Log.v("zzzzzzzzzz", calendar.getTime() + "----");
+                    calendar.add(Calendar.MONTH, 2);
+                    timeFuture = calendar.getTimeInMillis();
+                    Log.v("zzzzzzzzzz", calendar.getTime() + "----");
+                    shaiXuanEvent.setTimePast(String.valueOf(timePast));
+                    shaiXuanEvent.setTimeFuture(String.valueOf(timeFuture));
+                    Log.v("zzzzzzzzzz", timePast + "----" + timeFuture);
+                }
+                if (position == 2) {
+                    calendar.add(Calendar.MONTH, -3);
+                    timePast = calendar.getTimeInMillis();
+                    calendar.add(Calendar.MONTH, 6);
+                    timeFuture = calendar.getTimeInMillis();
+                    shaiXuanEvent.setTimePast(String.valueOf(timePast));
+                    shaiXuanEvent.setTimeFuture(String.valueOf(timeFuture));
+                    Log.v("zzzzzzzzz", timePast + "----" + timeFuture);
+                }
+                if (position == 3) {
+                }
+                eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                 timeAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(times[position]);
                 dropdownmenu.closeMenu();
+                Log.v("zzzzzbbbbbb", "----" + shaiXuanEvent.getTimePast());
                 break;
             case 1://地区
                 whereAdapter.setCheckItem(position);
@@ -252,7 +283,9 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 whatAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(whats[position]);
                 dropdownmenu.closeMenu();
+
                 break;
+
         }
     }
 
@@ -282,10 +315,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
-        if (eventBeans1 !=null){
-            eventBeans1.clear();
-        }
-        eventBeans1 = eventBeans;
+
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
         if (eventBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
@@ -349,7 +379,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "没有更多的数据",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "没有更多的数据", Toast.LENGTH_LONG).show();
             }
         });
     }

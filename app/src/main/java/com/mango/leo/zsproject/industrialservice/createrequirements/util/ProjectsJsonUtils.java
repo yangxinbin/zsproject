@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
+import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
@@ -74,6 +76,12 @@ public class ProjectsJsonUtils {
         ProjectBean bean = JsonUtils.deserialize(jsonObject, ProjectBean.class);
         return bean;
     }
+    public static CityBean readJsonCityBeans(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+        CityBean bean = JsonUtils.deserialize(jsonObject, CityBean.class);
+        return bean;
+    }
 
     public static List<EventBean> readJsonEventBeans(String res, String va) {
         List<EventBean> beans = new ArrayList<EventBean>();
@@ -83,6 +91,21 @@ public class ProjectsJsonUtils {
             JsonArray jsonArray = ob.getAsJsonArray(va);
             for (int i = 0; i < jsonArray.size(); i++) {
                 EventBean event = JsonUtils.deserialize(jsonObject, EventBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+
+    public static List<ZhaoShangBean> readJsonZhaoShangBeans(String res, String va) {
+        List<ZhaoShangBean> beans = new ArrayList<ZhaoShangBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                ZhaoShangBean event = JsonUtils.deserialize(jsonObject, ZhaoShangBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象
             }
         } catch (Exception e) {

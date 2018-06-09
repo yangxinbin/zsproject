@@ -51,9 +51,10 @@ public class EventDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
-        id = getIntent().getStringExtra("FavouriteId");
+        id = getIntent().getStringExtra("id");
         position = getIntent().getIntExtra("position",-1);
-
+        Log.v("ssss",""+"http://192.168.1.170:8080/#/iosactivityDetail/:"+id);
+        webview.loadUrl("http://192.168.1.170:8080/#/iosactivityDetail/:"+id);
     }
 
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
