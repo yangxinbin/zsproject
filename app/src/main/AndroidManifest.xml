@@ -56,13 +56,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ZsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ZsActivity"></activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
@@ -81,7 +75,14 @@
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
-        <activity android:name=".login.StartActivity" />
+        <activity android:name=".login.StartActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".login.ResActivity" />
         <activity android:name=".login.UserActivity" />
         <activity android:name=".personalcenter.show.UserChangeActivity" />
@@ -105,7 +106,12 @@
         <activity android:name=".personalcenter.show.KefuActivity" />
         <activity android:name=".personalcenter.show.kefu.WeActivity" />
         <activity android:name=".personalcenter.show.kefu.PhActivity" />
-        <activity android:name=".personalcenter.show.kefu.QueActivity"></activity>
+        <activity android:name=".personalcenter.show.kefu.QueActivity" />
+        <activity android:name=".personalcenter.show.shengbao.ShengBaoActivity" />
+        <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity">
+
+        </activity>
+        <activity android:name=".personalcenter.show.baoming.BaoMingActivity"></activity>
     </application>
 
 </manifest>

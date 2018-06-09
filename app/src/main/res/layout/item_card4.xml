@@ -16,7 +16,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/common_jump_arrow" />
+        app:srcCompat="@drawable/addplan" />
 <!---->
     <TextView
         android:id="@+id/textView43"

@@ -9,7 +9,7 @@ import java.util.List;
 public class AllProjectsBean {
 
     /**
-     * responseObject : {"content":[{"id":"5b17481abc2ab92a07b9e380","name":"test pro1","summary":"abcd1231","organizerDepartment":"招商部1","totalInvestmentRequired":223451,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b1660fabc2ab941d047a176","createdOn":1528252442458,"updatedBy":"5b1660fabc2ab941d047a176","updatedOn":1528252592307,"recommended":null,"tenant":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"last":true,"totalElements":1,"totalPages":1,"first":true,"sort":{"sorted":false,"unsorted":true},"numberOfElements":1,"size":20,"number":0}
+     * responseObject : {"content":[{"id":"5b1b4a20bc2ab930c751e8a4","name":"医院","summary":"得好吃","organizerDepartment":"唱的好","totalInvestmentRequired":565,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"name":"的很好","department":"发的","position":"fre","mobile":"855","phone":"855","email":"ffd"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515104482,"updatedBy":"5b191b23bc2ab90367d15e8c","updatedOn":1528519836878,"recommended":null,"tenant":null},{"id":"5b1b4bd5bc2ab930c751e8a6","name":"虚虚","summary":"飞歌导航","organizerDepartment":"长号","totalInvestmentRequired":7845,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":"深圳大学好的宝贝很方便","lon":113.94279559763588,"lat":22.5378642078624},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515541242,"updatedBy":"5b191b23bc2ab90367d15e8c","updatedOn":1528515627621,"recommended":null,"tenant":null},{"id":"5b1b4d14bc2ab930c751e8a7","name":"复合弓","summary":"果皇果后","organizerDepartment":"国际版","totalInvestmentRequired":588,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515860008,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null},{"id":"5b1b4f64bc2ab930c751e8a9","name":"wer","summary":"123","organizerDepartment":"231","totalInvestmentRequired":312,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528516452943,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false},"totalElements":4,"totalPages":1,"last":true,"first":true,"sort":{"sorted":false,"unsorted":true},"numberOfElements":4,"size":20,"number":0}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,22 +64,22 @@ public class AllProjectsBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5b17481abc2ab92a07b9e380","name":"test pro1","summary":"abcd1231","organizerDepartment":"招商部1","totalInvestmentRequired":223451,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b1660fabc2ab941d047a176","createdOn":1528252442458,"updatedBy":"5b1660fabc2ab941d047a176","updatedOn":1528252592307,"recommended":null,"tenant":null}]
+         * content : [{"id":"5b1b4a20bc2ab930c751e8a4","name":"医院","summary":"得好吃","organizerDepartment":"唱的好","totalInvestmentRequired":565,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"name":"的很好","department":"发的","position":"fre","mobile":"855","phone":"855","email":"ffd"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515104482,"updatedBy":"5b191b23bc2ab90367d15e8c","updatedOn":1528519836878,"recommended":null,"tenant":null},{"id":"5b1b4bd5bc2ab930c751e8a6","name":"虚虚","summary":"飞歌导航","organizerDepartment":"长号","totalInvestmentRequired":7845,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":"深圳大学好的宝贝很方便","lon":113.94279559763588,"lat":22.5378642078624},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515541242,"updatedBy":"5b191b23bc2ab90367d15e8c","updatedOn":1528515627621,"recommended":null,"tenant":null},{"id":"5b1b4d14bc2ab930c751e8a7","name":"复合弓","summary":"果皇果后","organizerDepartment":"国际版","totalInvestmentRequired":588,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528515860008,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null},{"id":"5b1b4f64bc2ab930c751e8a9","name":"wer","summary":"123","organizerDepartment":"231","totalInvestmentRequired":312,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b191b23bc2ab90367d15e8c","createdOn":1528516452943,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null}]
          * pageable : {"sort":{"sorted":false,"unsorted":true},"pageSize":20,"pageNumber":0,"offset":0,"paged":true,"unpaged":false}
-         * last : true
-         * totalElements : 1
+         * totalElements : 4
          * totalPages : 1
+         * last : true
          * first : true
          * sort : {"sorted":false,"unsorted":true}
-         * numberOfElements : 1
+         * numberOfElements : 4
          * size : 20
          * number : 0
          */
 
         private PageableBean pageable;
-        private boolean last;
         private int totalElements;
         private int totalPages;
+        private boolean last;
         private boolean first;
         private SortBeanX sort;
         private int numberOfElements;
@@ -93,14 +93,6 @@ public class AllProjectsBean {
 
         public void setPageable(PageableBean pageable) {
             this.pageable = pageable;
-        }
-
-        public boolean isLast() {
-            return last;
-        }
-
-        public void setLast(boolean last) {
-            this.last = last;
         }
 
         public int getTotalElements() {
@@ -117,6 +109,14 @@ public class AllProjectsBean {
 
         public void setTotalPages(int totalPages) {
             this.totalPages = totalPages;
+        }
+
+        public boolean isLast() {
+            return last;
+        }
+
+        public void setLast(boolean last) {
+            this.last = last;
         }
 
         public boolean isFirst() {
@@ -287,15 +287,15 @@ public class AllProjectsBean {
 
         public static class ContentBean {
             /**
-             * id : 5b17481abc2ab92a07b9e380
-             * name : test pro1
-             * summary : abcd1231
-             * organizerDepartment : 招商部1
-             * totalInvestmentRequired : 223451
+             * id : 5b1b4a20bc2ab930c751e8a4
+             * name : 医院
+             * summary : 得好吃
+             * organizerDepartment : 唱的好
+             * totalInvestmentRequired : 565
              * phase1InvestmentRequired : null
              * numOfInvestmentPhases : null
-             * location : {"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null}
-             * contacts : [{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}]
+             * location : {"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null}
+             * contacts : [{"id":null,"name":"的很好","department":"发的","position":"fre","mobile":"855","phone":"855","email":"ffd"}]
              * cooperationStyles : null
              * industries : []
              * typesOfAvailableDox : null
@@ -307,10 +307,10 @@ public class AllProjectsBean {
              * photos : []
              * relatedFiles : []
              * stage : 0
-             * createdBy : 5b1660fabc2ab941d047a176
-             * createdOn : 1528252442458
-             * updatedBy : 5b1660fabc2ab941d047a176
-             * updatedOn : 1528252592307
+             * createdBy : 5b191b23bc2ab90367d15e8c
+             * createdOn : 1528515104482
+             * updatedBy : 5b191b23bc2ab90367d15e8c
+             * updatedOn : 1528519836878
              * recommended : null
              * tenant : null
              */
@@ -552,27 +552,29 @@ public class AllProjectsBean {
 
             public static class LocationBean {
                 /**
-                 * id : null
+                 * country : null
                  * province : null
                  * city : null
+                 * district : null
                  * address : null
                  * lon : null
                  * lat : null
                  */
 
-                private Object id;
+                private Object country;
                 private Object province;
                 private Object city;
+                private Object district;
                 private Object address;
                 private Object lon;
                 private Object lat;
 
-                public Object getId() {
-                    return id;
+                public Object getCountry() {
+                    return country;
                 }
 
-                public void setId(Object id) {
-                    this.id = id;
+                public void setCountry(Object country) {
+                    this.country = country;
                 }
 
                 public Object getProvince() {
@@ -589,6 +591,14 @@ public class AllProjectsBean {
 
                 public void setCity(Object city) {
                     this.city = city;
+                }
+
+                public Object getDistrict() {
+                    return district;
+                }
+
+                public void setDistrict(Object district) {
+                    this.district = district;
                 }
 
                 public Object getAddress() {
@@ -751,16 +761,16 @@ public class AllProjectsBean {
             public static class ContactsBean {
                 /**
                  * id : null
-                 * username : Ann
-                 * department : 市场
-                 * position : 推广
-                 * mobile : 89610789
-                 * phone : 13590901998
-                 * email : 269827645@qq.com
+                 * name : 的很好
+                 * department : 发的
+                 * position : fre
+                 * mobile : 855
+                 * phone : 855
+                 * email : ffd
                  */
 
                 private Object id;
-                private String username;
+                private String name;
                 private String department;
                 private String position;
                 private String mobile;
@@ -775,12 +785,12 @@ public class AllProjectsBean {
                     this.id = id;
                 }
 
-                public String getUsername() {
-                    return username;
+                public String getName() {
+                    return name;
                 }
 
-                public void setUsername(String username) {
-                    this.username = username;
+                public void setName(String name) {
+                    this.name = name;
                 }
 
                 public String getDepartment() {

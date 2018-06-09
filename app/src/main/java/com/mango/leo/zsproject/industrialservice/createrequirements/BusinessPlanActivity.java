@@ -429,8 +429,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
-                    .show();
+          //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+          //          .show();
             return;
         }
         double latitude = geoCodeResult.getLocation().latitude;

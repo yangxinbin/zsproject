@@ -415,13 +415,14 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString() + charSequence));
-        mBaiduMap.clear();
+        mSearch.geocode(new GeoCodeOption().city(textViewPlace.getText().toString()).address(String.valueOf(charSequence)));
+        mSearch.setOnGetGeoCodeResultListener(this);
+        //mBaiduMap.clear();
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
-}
+    }
 
     /**
      * 更新地图状态显示面板

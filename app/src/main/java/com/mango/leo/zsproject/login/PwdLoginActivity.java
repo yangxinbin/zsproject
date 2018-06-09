@@ -164,6 +164,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     public void responeUserMessage(UserMessageBean bean) {
         if (bean != null){
             EventBus.getDefault().postSticky(bean);
+            editor.putString("where",String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
+        Log.v("sssss111",""+String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict()));
         }
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
             token = bean.getResponseObject().getToken();

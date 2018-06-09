@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
@@ -163,19 +164,20 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                     if (String.valueOf(response.code()).startsWith("2")) {
                         listener.onSuccess("SAVE SUCCESS");//异步请求
                     } else {
+                        Log.v("doPutWithJson", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
                         listener.onSuccess("SAVE FAILURE");
                     }
                 }
             });
         }
         if (type == 9) {
-            final List<CardFourthItemBean> cardFourthItemBean = (List<CardFourthItemBean>) o;
+            final List<CardNinthItemBean> cardNinthItemBeans = (List<CardNinthItemBean>) o;
             // final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
-                mapParams.put("contactInfo", buildArrayJson(cardFourthItemBean));
+               // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
             }
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
@@ -200,7 +202,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         try {
             for (int i = 0; i < cardFourthItemBean.size(); i++) {
                 JSONObject jsonObj = new JSONObject();//一定要new对象
-                jsonObj.put("username", cardFourthItemBean.get(i).getName().toString());
+                jsonObj.put("name", cardFourthItemBean.get(i).getName().toString());
                 jsonObj.put("department", cardFourthItemBean.get(i).getCompany().toString());
                 jsonObj.put("position", cardFourthItemBean.get(i).getPosition().toString());
                 jsonObj.put("mobile", cardFourthItemBean.get(i).getPhoneNumber().toString());
@@ -216,19 +218,18 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         return json.toString();
     }//
 
-   /* public String buildObjectJson(CardThirdItemBean cardThirdItemBean) {
+   /*public String buildStypeJson(CardNinthItemBean cardNinthItemBean) {
         JSONObject jsonObj = new JSONObject();//一定要new对象
         try {
-            jsonObj.put("province", cardThirdItemBean.getProvince().toString());
-            jsonObj.put("city", cardThirdItemBean.getCity().toString());
-            jsonObj.put("address", cardThirdItemBean.getAddress().toString());
-            jsonObj.put("lot", cardThirdItemBean.getLon().toString());
-            jsonObj.put("lat", cardThirdItemBean.getLat().toString());
+            for (int i = 0 ; i<cardNinthItemBean.getWhy().size();i++ ){
+
+            }
+            jsonObj.put("province", cardNinthItemBean.getProvince().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         //把每个数据当作一对象添加到数组里
-        Log.v("doPutWithJson",  "^^cardThirdItemBean^^^^" + jsonObj.toString());
+        Log.v("doPutWithJson",  "^^cardNinthItemBean^^^^" + jsonObj.toString());
         return jsonObj.toString();
     }*/
 }

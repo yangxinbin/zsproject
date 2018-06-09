@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.BaoMingActivity;
+import com.mango.leo.zsproject.personalcenter.show.shengbao.ShengBaoActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.MesActivity;
 import com.mango.leo.zsproject.utils.Urls;
 
@@ -166,12 +168,16 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.shengbao:
+                intent = new Intent(getActivity(), ShengBaoActivity.class);//商务厅介绍
+                startActivity(intent);
                 break;
             case R.id.shouc:
                 intent = new Intent(getActivity(), ShouCangActivity.class);//商务厅介绍
                 startActivity(intent);
                 break;
             case R.id.baoming:
+                intent = new Intent(getActivity(), BaoMingActivity.class);//商务厅介绍
+                startActivity(intent);
                 break;
             case R.id.kefu:
                 intent = new Intent(getActivity(), KefuActivity.class);//商务厅介绍

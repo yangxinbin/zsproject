@@ -32,6 +32,9 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlan
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +50,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener, View.OnClickListener,UpdateItemView {
     public static final int TYPE9 = 9;
     @Bind(R.id.imageView9_back)
     ImageView imageView9Back;
@@ -90,6 +93,8 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     private CardNinthItemBean bean9;
     private StringBuffer stringBuffer1, stringBuffer2;
     private List<String> listwhy, listtype;
+    private UpdateItemPresenter updateItemPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         //editTextOther.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
         editeNum();
         EventBus.getDefault().register(this);
+        updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardNinthItemBean = new CardNinthItemBean();
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
@@ -183,7 +189,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 initBean();
                 Log.v("99999", TextUtils.isEmpty(text1.getText().toString())+"__11_"+text2.getText().toString()+"__11_"+text3.getText().toString()+"__11_");
                 if (!TextUtils.isEmpty(text1.getText().toString())||!TextUtils.isEmpty(text2.getText().toString()) ||!TextUtils.isEmpty(text3.getText().toString())||!TextUtils.isEmpty(text4.getText().toString())|| cardNinthItemBean != null) {
-                    // updateItemPresenter.visitUpdateItem(this, TYPE1, cardFirstItemBean);//更新后台数据
+                    updateItemPresenter.visitUpdateItem(this, TYPE9, cardNinthItemBean);//更新后台数据
                     Log.v("99999", cardNinthItemBean.getQita()+"___"+cardNinthItemBean.getMoney()+"____" + cardNinthItemBean.getMoshi());
                     EventBus.getDefault().removeStickyEvent(cardNinthItemBean);
                     EventBus.getDefault().postSticky(cardNinthItemBean);
@@ -425,6 +431,16 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 dialog.dismiss();
                 break;
         }
+
+    }
+
+    @Override
+    public void showUpdateStateView(String string) {
+
+    }
+
+    @Override
+    public void showUpdateFailMsg(String string) {
 
     }
 }
