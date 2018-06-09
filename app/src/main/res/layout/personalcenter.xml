@@ -166,11 +166,11 @@
                             android:id="@+id/textView_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_marginTop="11dp"
                             android:text="15826589634"
                             card_view:layout_constraintStart_toEndOf="@+id/imageView19"
-                            card_view:layout_constraintTop_toBottomOf="@+id/imageView75"
-                            tools:layout_editor_absoluteX="41dp" />
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageView75" />
 
                         <ImageView
                             android:id="@+id/imageView20"
@@ -186,11 +186,11 @@
                             android:id="@+id/textView_emile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_marginTop="11dp"
                             android:text="yanxhh@hotmail.com"
                             card_view:layout_constraintStart_toEndOf="@+id/imageView20"
-                            card_view:layout_constraintTop_toBottomOf="@+id/imageView19"
-                            tools:layout_editor_absoluteX="41dp" />
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageView19" />
 
                         <ImageView
                             android:id="@+id/imageView75"
@@ -206,11 +206,11 @@
                             android:id="@+id/textView_wheres"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_marginTop="10dp"
                             android:text="广东省深圳市南山区"
                             card_view:layout_constraintStart_toEndOf="@+id/imageView75"
-                            card_view:layout_constraintTop_toBottomOf="@+id/imageVie_pic"
-                            tools:layout_editor_absoluteX="41dp" />
+                            card_view:layout_constraintTop_toBottomOf="@+id/imageVie_pic" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -378,12 +378,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="申报"
+                        android:textSize="@dimen/textSize"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView22"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="38dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/imageView23"
@@ -437,12 +439,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="收藏"
+                        android:textSize="@dimen/textSize"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView35"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="38dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/imageView26"
@@ -506,13 +510,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="活动报名"
+                        android:text="已活动报名"
+                        android:textSize="@dimen/textSize"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.523"
-                        tools:layout_editor_absoluteX="36dp" />
+                        app:layout_constraintVertical_bias="0.523" />
 
                     <ImageView
                         android:id="@+id/imageView33"
@@ -576,13 +582,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="客服"
+                        android:textSize="@dimen/textSize"
+                        android:textColor="@color/black"
+                        android:text="我的客服"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView43"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.523"
-                        tools:layout_editor_absoluteX="38dp" />
+                        app:layout_constraintVertical_bias="0.523" />
 
                     <ImageView
                         android:id="@+id/imageView41"
@@ -637,13 +645,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:textSize="@dimen/textSize"
+                        android:textColor="@color/black"
                         android:text="设置"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView64"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.523"
-                        tools:layout_editor_absoluteX="39dp" />
+                        app:layout_constraintVertical_bias="0.523" />
 
                     <ImageView
                         android:id="@+id/imageView61"
