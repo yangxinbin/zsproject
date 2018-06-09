@@ -84,6 +84,7 @@
     <string name="back_mes">提交反馈</string>
     <string name="mes_centry">信息中心</string>
     <string name="kefu">我的客服</string>
+    <string name="clear">清空</string>
 </resources>
 
 

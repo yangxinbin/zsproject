@@ -176,7 +176,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     };*/
 
-    @OnClick({R.id.imageView1_back, R.id.button1_save})
+    @OnClick({R.id.imageView1_back,R.id.textView_delete1, R.id.button1_save})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -190,10 +190,14 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
                 finish();
                 break;
             case R.id.textView_delete1:
-                updateItemPresenter.visitUpdateItem(this, TYPE1, bean1);//更新后台数据
-                intent = new Intent(this, BusinessPlanActivity.class);
-                startActivity(intent);
-                finish();
+                //updateItemPresenter.visitUpdateItem(this, TYPE1, bean1);//更新后台数据
+                //intent = new Intent(this, BusinessPlanActivity.class);
+                //startActivity(intent);
+                //finish();
+                itemTitle.setText("");
+                itemDanweiName.setText("");
+                itemMoney.setText("");
+                itemContent.setText("");
                 break;
             case R.id.button1_save:
                 initDate();

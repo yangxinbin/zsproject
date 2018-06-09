@@ -47,7 +47,7 @@
             android:layout_marginTop="18dp"
             android:textSize="@dimen/textSize"
             android:textColor="@color/red"
-            android:text="@string/delete" />
+            android:text="@string/clear" />
 
         <ImageView
             android:id="@+id/imageView1_back"
