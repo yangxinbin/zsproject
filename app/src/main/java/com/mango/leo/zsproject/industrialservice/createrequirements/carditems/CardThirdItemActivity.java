@@ -330,14 +330,14 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                     Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^"+cardThirdItemBean.toString());
                     if(flag){
                         updateItemPresenter.visitUpdateItem(this, TYPE3,cardThirdItemBean);//更新后台数据
+                        EventBus.getDefault().postSticky(cardThirdItemBean);
+                        intent = new Intent(this, BusinessPlanActivity.class);
+                        startActivity(intent);
+                        finish();
                     }else {
                         Toast.makeText(CardThirdItemActivity.this, "请重新输入地址！", Toast.LENGTH_LONG)
                                 .show();
                     }
-                    EventBus.getDefault().postSticky(cardThirdItemBean);
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     AppUtils.showSnackar(buttonSave, "必填项不能为空！");
                 }
