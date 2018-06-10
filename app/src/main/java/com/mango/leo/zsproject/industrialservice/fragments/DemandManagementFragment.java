@@ -1,11 +1,14 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -28,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
@@ -83,6 +87,13 @@ public class DemandManagementFragment extends Fragment {//
             View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.header2, container, false);
             ImageView imageVie = view1.findViewById(R.id.imageVie);
             ImageView imageVie1 = view1.findViewById(R.id.imageVie9);
+            TextView phCall = view1.findViewById(R.id.textView_phone);
+            phCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callPhone();
+                }
+            });
             ColorMatrix matrix = new ColorMatrix();
             matrix.setSaturation(0);//饱和度 0灰色 100过度彩色，50正常
             ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
@@ -257,5 +268,37 @@ public class DemandManagementFragment extends Fragment {//
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+    private void callPhone() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setIcon(R.drawable.icon)//设置标题的图片
+                .setTitle("客服")//设置对话框的标题
+                .setMessage("拨打客服电话：88888888")//设置对话框的内容
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callPhone("88888888");
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
+    }
+    /**
+     * 拨打电话（直接拨打电话）
+     * @param phoneNum 电话号码
+     */
+    public void callPhone(String phoneNum){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
     }
 }

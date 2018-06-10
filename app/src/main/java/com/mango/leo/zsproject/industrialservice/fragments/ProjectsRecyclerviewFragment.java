@@ -177,12 +177,18 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             startActivity(intent);
-            getActivity().finish();
+            //getActivity().finish();
         }
 
         @Override
         public void onEditClick(View view, int position) {
             position = position - 1; //配对headerView
+            editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
+            Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
+            postStickyAll(position);
+            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            startActivity(intent);
+
         }
 
         @Override
@@ -446,10 +452,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "服务器删除失败");
+                    AppUtils.showToast(getActivity(), "项目删除失败");
                     break;
                 case 1:
-                    AppUtils.showToast(getActivity(), "服务器删除成功");
+                    AppUtils.showToast(getActivity(), "项目删除成功");
                     refreshItems.setRefreshing(false);
                     /*refreshItems.setOnRefreshListener(this);
                     refreshItems.post(new Runnable() {
