@@ -35,10 +35,12 @@ import com.mango.leo.zsproject.eventexhibition.view.EventView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
+import com.mango.leo.zsproject.utils.URLEncoderURI;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -84,7 +86,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.campaign, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        shaiXuanEvent = new ShaiXuanEvent();
+        shaiXuanEvent = new ShaiXuanEvent("", "", "", "");
         eventPresenter = new EventPresenterImpl(this);
         eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
         initHeader();
@@ -235,7 +237,11 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
+        if (mDataAll != null || mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
+        adapter.notifyDataSetChanged();
         switch (adapterView.getId()) {
             case 0://时间
                 calendar = Calendar.getInstance();
@@ -243,8 +249,8 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 da = new Date();
                 calendar.setTime(da);//把当前时间赋给日历
                 if (position == 0) {
-                     shaiXuanEvent.setTimeFuture("");
-                     shaiXuanEvent.setTimePast("");
+                    shaiXuanEvent.setTimeFuture("");
+                    shaiXuanEvent.setTimePast("");
                 }
                 if (position == 1) {
                     calendar.add(Calendar.MONTH, -1);
@@ -275,18 +281,37 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 Log.v("zzzzzbbbbbb", "----" + shaiXuanEvent.getTimePast());
                 break;
             case 1://地区
+                if (position == 0) {
+                    shaiXuanEvent.setCity("");
+                } else {
+                    try {
+                        shaiXuanEvent.setCity(URLEncoderURI.encode(wheres[position], "UTF-8"));
+                        Log.v("zzzzzbbbbbb", "----" + URLEncoderURI.encode(wheres[position], "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
                 whereAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(wheres[position]);
                 dropdownmenu.closeMenu();
                 break;
             case 2://类型
+                if (position == 0) {
+                    shaiXuanEvent.setTypePay("");
+                }
+                if (position == 1) {
+                    shaiXuanEvent.setTypePay("0");
+                }
+                if (position == 2) {
+                    shaiXuanEvent.setTypePay("1");
+                }
                 whatAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(whats[position]);
                 dropdownmenu.closeMenu();
-
                 break;
-
         }
+        Log.v("zzzzzyyybb", "----" + shaiXuanEvent.toString());
+        eventPresenter.visitEvent(getActivity(), EVENT1, 0, shaiXuanEvent);
     }
 
     @Override

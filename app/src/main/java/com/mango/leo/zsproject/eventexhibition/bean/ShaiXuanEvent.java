@@ -52,4 +52,14 @@ public class ShaiXuanEvent {
     public void setTypePay(String typePay) {
         this.typePay = typePay;
     }
+
+    @Override
+    public String toString() {
+        return "ShaiXuanEvent{" +
+                "timePast='" + timePast + '\'' +
+                ", timeFuture='" + timeFuture + '\'' +
+                ", city='" + city + '\'' +
+                ", typePay='" + typePay + '\'' +
+                '}';
+    }
 }

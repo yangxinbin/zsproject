@@ -71,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editText_verification_code"
         android:layout_alignBottom="@+id/editText_verification_code"
-        android:layout_alignEnd="@+id/button_login"
-        android:layout_alignRight="@+id/button_login"
+        android:layout_alignLeft="@+id/textView_pwdlogin"
+        android:layout_alignStart="@+id/textView_pwdlogin"
         android:text="发送验证码"
         android:textColor="@color/blue" />
 
