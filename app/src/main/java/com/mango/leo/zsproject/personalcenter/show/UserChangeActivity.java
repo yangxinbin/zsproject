@@ -105,6 +105,8 @@ public class UserChangeActivity extends BaseActivity {
     ImageView r4E;
     @Bind(R.id.r5_e)
     ImageView r5E;
+    @Bind(R.id.r1_where)
+    ImageView r1Where;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private static final int CODE_GALLERY_REQUEST = 0xa0;
@@ -149,16 +151,18 @@ public class UserChangeActivity extends BaseActivity {
             r3E.setVisibility(View.GONE);
             r4E.setVisibility(View.GONE);
             r5E.setVisibility(View.GONE);
+            r1Where.setVisibility(View.GONE);
             r1.setClickable(false);
             r2.setClickable(false);
             r3.setClickable(false);
             r4.setClickable(false);
             r5.setClickable(false);
+            where.setClickable(false);
         }
         //头像
         if (bean.getResponseObject().getAvator().getId() != null) {//
             Log.v("yxbb", "dddd");
-            Glide.with(this).load(Urls.HOST+"/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(circleImageView);
+            Glide.with(this).load(Urls.HOST + "/user-service/user/get/file?fileId=" + bean.getResponseObject().getAvator().getId()).into(circleImageView);
         }
 
     }
@@ -340,6 +344,7 @@ public class UserChangeActivity extends BaseActivity {
                 break;*/
         }
     }
+
     private void showSeleteCity() {
         //添加默认的配置，不需要自己定义
         CityConfig cityConfig = new CityConfig.Builder().build();
@@ -365,7 +370,7 @@ public class UserChangeActivity extends BaseActivity {
                 textViewWhere.setText(province + "-" + city + "-" + district);
                 //上传
 
-                updateWhere(String.valueOf(province),String.valueOf(city),String.valueOf(district));
+                updateWhere(String.valueOf(province), String.valueOf(city), String.valueOf(district));
             }
 
             @Override
@@ -390,9 +395,10 @@ public class UserChangeActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.showToast(getBaseContext(),"地区修改失败");
+                        AppUtils.showToast(getBaseContext(), "地区修改失败");
                     }
-                });            }
+                });
+            }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -400,7 +406,7 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(),"地区修改成功");
+                            AppUtils.showToast(getBaseContext(), "地区修改成功");
                         }
                     });
                     //Log.v("uuuuuu",editTextChange.getText().toString()+"______"+response.body().string());
@@ -411,7 +417,7 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(),"地区修改失败");
+                            AppUtils.showToast(getBaseContext(), "地区修改失败");
                         }
                     });
                 }

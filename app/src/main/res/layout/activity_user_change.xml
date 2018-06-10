@@ -85,6 +85,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize"
             android:text="姓名" />
 
         <TextView
@@ -95,8 +96,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView562"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView" />
 
         <ImageView
@@ -126,6 +127,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize"
+
             android:text="地区" />
 
         <TextView
@@ -136,8 +139,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView5621"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView" />
 
         <ImageView
@@ -167,6 +170,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize"
+
             android:text="单位" />
 
         <TextView
@@ -176,8 +181,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView"
             android:layout_alignTop="@+id/textView563" />
 
@@ -209,6 +214,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize"
+
             android:text="职务" />
 
         <TextView
@@ -219,8 +226,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView564"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView" />
 
         <ImageView
@@ -251,6 +258,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize"
+
             android:text="手机号" />
 
         <TextView
@@ -262,8 +271,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView56"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView"
             android:textColor="@color/black" />
 
@@ -297,6 +306,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:text="邮箱"
+            android:textSize="@dimen/textSize"
+
             android:textColor="@color/black" />
 
         <TextView
@@ -308,8 +319,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView565"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:text="TextView"
             android:textColor="@color/black" />
 

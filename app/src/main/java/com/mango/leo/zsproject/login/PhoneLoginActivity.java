@@ -144,6 +144,11 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         if (bean != null){
             EventBus.getDefault().postSticky(bean);
         }
+        if (bean.getResponseObject().getTenant() == null){
+            editor.putString("type", "no").commit();
+        }else {
+            editor.putString("type", "yes").commit();
+        }
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);

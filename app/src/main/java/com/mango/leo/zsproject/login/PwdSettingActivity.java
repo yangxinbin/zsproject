@@ -150,5 +150,10 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
                     .commit();
             Log.v("tttttp","--------------"+token);
         }
+        if (bean.getResponseObject().getTenant() == null){
+            editor.putString("type", "no").commit();
+        }else {
+            editor.putString("type", "yes").commit();
+        }
     }
 }
