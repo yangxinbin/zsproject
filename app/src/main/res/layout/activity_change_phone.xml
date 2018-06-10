@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mango.leo.zsproject.login.PhoneLoginActivity">
+
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/common_gray"
-        android:gravity="center_vertical"
-        android:id="@+id/relativeLayout">
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/imageView_changephone_back"
@@ -58,7 +59,7 @@
         android:layout_alignLeft="@+id/editText_phone"
         android:layout_alignStart="@+id/editText_phone"
         android:layout_below="@+id/editText_phone"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="45dp"
         android:background="@null"
         android:ems="10"
         android:hint="短信验证码"
@@ -68,11 +69,11 @@
         android:id="@+id/verification_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发送验证码"
-        android:textColor="@color/blue"
-        android:layout_alignTop="@+id/editText_verification_code"
+        android:layout_alignEnd="@+id/button_changephoneok"
         android:layout_alignRight="@+id/button_changephoneok"
-        android:layout_alignEnd="@+id/button_changephoneok" />
+        android:layout_alignTop="@+id/editText_verification_code"
+        android:text="发送验证码"
+        android:textColor="@color/blue" />
 
     <Button
         android:id="@+id/button_changephoneok"
@@ -91,17 +92,16 @@
         android:id="@+id/imageView27"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/black"
-        android:layout_below="@+id/editText_verification_code" />
+        android:layout_below="@+id/editText_verification_code"
+        android:layout_margin="10dp"
+        android:background="@color/black" />
 
     <ImageView
         android:id="@+id/imageView29"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_alignLeft="@+id/imageView27"
-        android:layout_alignStart="@+id/imageView27"
         android:layout_below="@+id/editText_phone"
+        android:layout_margin="10dp"
         android:background="@color/black" />
 
 

@@ -78,7 +78,11 @@
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
         <activity android:name=".login.StartActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".login.ResActivity" />
@@ -96,11 +100,7 @@
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
         <activity android:name=".eventexhibition.show.EventDetailActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
     </activity>
         <activity android:name=".eventexhibition.show.EventRegistrationActivity" />
 

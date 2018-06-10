@@ -136,8 +136,12 @@ public class UserStateModelImpl implements UserStateModel {
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     } else {
-                        Log.v("zzzzzzz", response.body().string() + "******" + response.code());
-                        listener.onSuccess("RES_FAILURE");
+                        if (String.valueOf(response.code()).startsWith("5")){
+                            listener.onSuccess("HAS");
+                        }else{
+                            Log.v("zzzzzzz", response.body().string() + "******" + response.code());
+                            listener.onSuccess("RES_FAILURE");
+                        }
                     }
                 }
             });
