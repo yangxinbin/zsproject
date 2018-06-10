@@ -91,7 +91,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // titleUrl QQ和QQ空间跳转链接
         //oks.setTitleUrl(newsurl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("活动详情");
+        oks.setText("活动详情页面");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用

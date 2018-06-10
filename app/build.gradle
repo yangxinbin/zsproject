@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: "com.mob.sdk"
+//apply plugin: "com.mob.sdk"
 android {
     compileSdkVersion 26
     buildToolsVersion '25.0.0'
@@ -36,7 +36,7 @@ android {
         }
     }
 }
-MobSDK {
+/*MobSDK {
     appKey "264de1c3bdfe9"
     appSecret "3df56a487772e2af23564c4d553bd4ae"
 
@@ -58,7 +58,7 @@ MobSDK {
             }
         }
     }
-}
+}*/
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
