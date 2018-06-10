@@ -54,7 +54,7 @@ public class Urls {
     public static final String UPDATE6 = "/resourceFeeInfo";
     public static final String UPDATE7 = "/relatedFile";
     public static final String UPDATE8 = "/joinAsAFirmCriteria";
-    public static final String UPDATE9 = "/projectCriteria ";
+    public static final String UPDATE9 = "/icr";
 
 
 }//

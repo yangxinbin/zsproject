@@ -50,7 +50,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener, View.OnClickListener,UpdateItemView {
+public class CardNinthItemActivity extends BaseCardActivity implements AdapterView.OnItemClickListener, View.OnClickListener, UpdateItemView {
     public static final int TYPE9 = 9;
     @Bind(R.id.imageView9_back)
     ImageView imageView9Back;
@@ -94,7 +94,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     private StringBuffer stringBuffer1, stringBuffer2;
     private List<String> listwhy, listtype;
     private UpdateItemPresenter updateItemPresenter;
-
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,28 +103,97 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         ButterKnife.bind(this);
         //editTextOther.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
         editeNum();
-        EventBus.getDefault().register(this);
+        intDate();
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardNinthItemBean = new CardNinthItemBean();
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
         listwhy = new ArrayList<>();
         listtype = new ArrayList<>();
+        flag = getIntent().getBooleanExtra("flag", false);
+        EventBus.getDefault().register(this);
+    }
 
+    private void intDate() {
+        list1 = new ArrayList<>();
+        list1.add("招商");
+        list1.add("引资");
+        list1.add("招商引资");
+        list2 = new ArrayList<>();
+        list2.add("1000万以下");
+        list2.add("1000万—5000万");
+        list2.add("（含）5000万—1亿");
+        list2.add("（含）1亿—10亿");
+        list2.add("（含）10亿—50亿");
+        list2.add("（含）50亿—100亿");
+        list2.add("（含）1000亿—500亿");
+        list2.add("（含）500亿—1000亿");
+        list2.add("（含）1000亿以上");
+        list3 = new ArrayList<>();
+        list3.add("不限");
+        list3.add("合资");
+        list3.add("独资");
+        list3.add("合作");
+        list3.add("租赁");
+        list3.add("股权转让");
+        list3.add("其它");
+        list4 = new ArrayList<>();
+        list4.add("资金类型");
+        list4.add("个人资金");
+        list4.add("企业资金");
+        list4.add("天使投资");
+        list4.add("VC投资");
+        list4.add("PE投资");
+        list4.add("小额贷款");
+        list4.add("典当公司");
+        list4.add("担保公司");
+        list4.add("金融租赁");
+        list4.add("投资公司");
+        list4.add("商业银行");
+        list4.add("基金公司");
+        list4.add("证券公司");
+        list4.add("信托公司");
+        list4.add("资产管理");
+        list4.add("其他资金");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card9EventBus(CardNinthItemBean bean) {
+        if (flag) {
+            if (gvChooseMap3 != null || gvChooseMap4 != null) {
+                gvChooseMap3.clear();
+                gvChooseMap4.clear();
+            }
+        }
+/*
+        }*/
+        Log.v("4444499888", bean.getType().size() + "-----" + bean.getWhy().size());
         bean9 = bean;
         text1.setText(bean.getMoshi());
         text2.setText(bean.getMoney());
-        for (int i = 0; i < bean.getWhy().size(); i++) {
-            stringBuffer1.append(bean.getWhy().get(i) + " ");
-        }
-        for (int i = 0; i < bean.getType().size(); i++) {
-            stringBuffer2.append(bean.getType().get(i) + " ");
+        for (int k = 0; k < bean.getWhy().size(); k++) {
+            stringBuffer1.append(bean.getWhy().get(k) + " ");
+            if (flag) {
+                for (int n = 0; n < list3.size(); n++) {
+                    Log.v("4444499", "--1---" );
+                    if (bean.getWhy().get(k).toString().equals(list3.get(n))) {
+                        Log.v("4444499", "--2---"+n );
+                        gvChooseMap3.put(n, true);
+                    }
+                }
+            }
         }
         text3.setText(stringBuffer1);
+        for (int i = 0; i < bean.getType().size(); i++) {
+            stringBuffer2.append(bean.getType().get(i) + " ");
+            if (flag) {
+                for (int j = 0; j < list4.size(); j++) {
+                    if (bean.getType().get(i).toString().equals(list4.get(j))) {
+                        gvChooseMap4.put(j, true);
+                    }
+                }
+            }
+        }
         text4.setText(stringBuffer2);
         editTextOther.setText(bean.getQita());
 /*        adapter.setList(bean.getItemImagePath());
@@ -187,11 +256,12 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 break;
             case R.id.button9_save:
                 initBean();
-                Log.v("99999", TextUtils.isEmpty(text1.getText().toString())+"__11_"+text2.getText().toString()+"__11_"+text3.getText().toString()+"__11_");
-                if (!TextUtils.isEmpty(text1.getText().toString())||!TextUtils.isEmpty(text2.getText().toString()) ||!TextUtils.isEmpty(text3.getText().toString())||!TextUtils.isEmpty(text4.getText().toString())|| cardNinthItemBean != null) {
+                Log.v("99999", TextUtils.isEmpty(text1.getText().toString()) + "__11_" + text2.getText().toString() + "__11_" + text3.getText().toString() + "__11_");
+                if (!TextUtils.isEmpty(text1.getText().toString()) || !TextUtils.isEmpty(text2.getText().toString()) || !TextUtils.isEmpty(text3.getText().toString()) || !TextUtils.isEmpty(text4.getText().toString()) || cardNinthItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE9, cardNinthItemBean);//更新后台数据
-                    Log.v("99999", cardNinthItemBean.getQita()+"___"+cardNinthItemBean.getMoney()+"____" + cardNinthItemBean.getMoshi());
-                    EventBus.getDefault().removeStickyEvent(cardNinthItemBean);
+                    //Log.v("99999", cardNinthItemBean.getQita() + "___" + cardNinthItemBean.getMoney() + "____" + cardNinthItemBean.getMoshi());
+                    //EventBus.getDefault().removeStickyEvent(cardNinthItemBean);
+                    flag = false;
                     EventBus.getDefault().postSticky(cardNinthItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
@@ -203,59 +273,22 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             case R.id.textView_delete9:
                 break;
             case R.id.down_1:
-                list1 = new ArrayList<>();
-                list1.add("招商");
-                list1.add("引资");
-                list1.add("招商引资");
+
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);
                 break;
             case R.id.down_2:
-                list2 = new ArrayList<>();
-                list2.add("1000万以下");
-                list2.add("1000万—5000万");
-                list2.add("（含）5000万—1亿");
-                list2.add("（含）1亿—10亿");
-                list2.add("（含）10亿—50亿");
-                list2.add("（含）50亿—100亿");
-                list2.add("（含）1000亿—500亿");
-                list2.add("（含）500亿—1000亿");
-                list2.add("（含）1000亿以上");
 
                 showPopupWindow(this, list2, 2);
                 adapter.setCheckItem(currentPosition2);
                 break;//
             case R.id.down_3:
-                list3 = new ArrayList<>();
-                list3.add("不限");
-                list3.add("合资");
-                list3.add("独资");
-                list3.add("合作");
-                list3.add("租赁");
-                list3.add("股权转让");
-                list3.add("其它");
+
                 showPopupWindow(this, list3, 3);
                 adapter3.setCheckItem(gvChooseMap3);
                 break;
             case R.id.down_4:
-                list4 = new ArrayList<>();
-                list4.add("资金类型");
-                list4.add("个人资金");
-                list4.add("企业资金");
-                list4.add("天使投资");
-                list4.add("VC投资");
-                list4.add("PE投资");
-                list4.add("小额贷款");
-                list4.add("典当公司");
-                list4.add("担保公司");
-                list4.add("金融租赁");
-                list4.add("投资公司");
-                list4.add("商业银行");
-                list4.add("基金公司");
-                list4.add("证券公司");
-                list4.add("信托公司");
-                list4.add("资产管理");
-                list4.add("其他资金");
+
 
                 showPopupWindow(this, list4, 4);
                 adapter4.setCheckItem(gvChooseMap4);
@@ -436,11 +469,31 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
 
     @Override
     public void showUpdateStateView(String string) {
+        if (string.equals("SAVE_SUCCESS")){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), "投资信息上传成功");
+                }
+            });
+        }else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), "投资信息上传失败");
+                }
+            });
+        }
 
     }
 
     @Override
     public void showUpdateFailMsg(String string) {
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getBaseContext(), "投资信息上传失败");
+            }
+        });
     }
 }

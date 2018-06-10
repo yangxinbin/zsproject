@@ -403,6 +403,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.imageView_9:
                 EventBus.getDefault().postSticky(bean9);
                 intent = new Intent(this, CardNinthItemActivity.class);
+                intent.putExtra("flag",true);
                 startActivity(intent);
                 finish();
                 break;

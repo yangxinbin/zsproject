@@ -28,6 +28,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlan
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
@@ -318,6 +319,16 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             EventBus.getDefault().postSticky(beans4);//替换残留事件
             // EventBus.getDefault().removeStickyEvent(new ArrayList<CardFourthItemBean>()) ;//移除事件传递
         }
+        CardNinthItemBean cardNinthItemBean = new CardNinthItemBean();
+        if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()+"****position*****xxxx**");
+
+            cardNinthItemBean.setMoshi(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()));
+            EventBus.getDefault().postSticky(cardNinthItemBean);
+        }else {
+            EventBus.getDefault().postSticky(cardNinthItemBean);
+        }
+
     }
 
     private void initHeader() {
