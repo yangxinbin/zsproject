@@ -11,12 +11,17 @@ package cn.sharesdk.onekeyshare.themes.classic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sharesdk.framework.CustomPlatform;
@@ -27,6 +32,8 @@ import cn.sharesdk.onekeyshare.CustomerLogo;
 import cn.sharesdk.onekeyshare.OnekeySharePage;
 import cn.sharesdk.onekeyshare.OnekeyShareThemeImpl;
 
+import com.luck.picture.lib.tools.ScreenUtils;
+import com.mango.leo.zsproject.R;
 import com.mob.tools.gui.MobViewPager;
 import com.mob.tools.utils.ResHelper;
 
@@ -87,8 +94,31 @@ public abstract class PlatformPage extends OnekeySharePage {
 		vInd.onScreenChange(0, 0);
 		adapter.setIndicator(vInd);
 		mvp.setAdapter(adapter);
+		//取消按钮//
+		lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ScreenUtils.dip2px(activity,80));
+		//lp.leftMargin = ScreenUtils.dip2px(activity,100);
+		//lp.rightMargin = ScreenUtils.dip2px(activity,100);
+		//lp.topMargin = ScreenUtils.dip2px(activity,5);
+		//lp.bottomMargin = ScreenUtils.dip2px(activity,5);
+		lp.gravity = Gravity.CENTER;
+		Button btnCancel = new Button(activity);
+		btnCancel.setText("取消");
+		btnCancel.setTextSize(18);
+		btnCancel.setTextColor(Color.parseColor("#539ef2"));
+		btnCancel.setBackgroundResource(R.drawable.shape_share_bg);
+		btnCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		llPanel.addView(btnCancel,lp);
 	}
-
+	public  int px2dp(Context context, float pxValue) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (pxValue / scale + 0.5f);
+	}
 	protected abstract PlatformPageAdapter newAdapter(ArrayList<Object> cells);
 
 	protected ArrayList<Object> collectCells() {
