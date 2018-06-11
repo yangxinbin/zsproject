@@ -77,7 +77,7 @@ public class UserStateModelImpl implements UserStateModel {
             HttpUtils.doGet(url + "?phoneOrEmail=" + userPhone.getPhoneN(), new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    listener.onFailure("FAILURE", e);
+                    listener.onFailure("CODE_FAILURE", e);
                 }
 
                 @Override

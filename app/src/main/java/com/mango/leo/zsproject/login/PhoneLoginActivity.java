@@ -62,7 +62,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         userStatePresenter = new UserStatePresenterImpl(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        if (sharedPreferences.getString("isOk","no").equals("yes")){
+        if (sharedPreferences.getString("isOk", "no").equals("yes")) {
             ACache mCache = ACache.get(this);
             EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
             Intent intent = new Intent(this, ZsActivity.class);
@@ -78,10 +78,10 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         editor.putString("userName", editTextPhone.getText().toString());
     }
 
-    @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin,R.id.imageView_phonelogin_back})
+    @OnClick({R.id.verification_code, R.id.button_login, R.id.textView_pwdlogin, R.id.imageView_phonelogin_back})
     public void onViewClicked(View view) {
-        if (!NetUtil.isNetConnect(this)){
-            AppUtils.showToast(this,"请连接网络");
+        if (!NetUtil.isNetConnect(this)) {
+            AppUtils.showToast(this, "请连接网络");
             return;
         }
         Intent intent;
@@ -135,21 +135,26 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
 
     @Override
     public void showVisitFailMsg(String string) {
-        mHandler.sendEmptyMessage(0);
+        if (string.equals("FAILURE")) {
+            mHandler.sendEmptyMessage(1);
+        }
+        if (string.equals("CODE_FAILURE")) {
+            mHandler.sendEmptyMessage(3);
+        }
 
     }
 
     @Override
     public void responeUserMessage(UserMessageBean bean) {
-        if (bean != null){
+        if (bean != null) {
             EventBus.getDefault().postSticky(bean);
         }
-        if (bean.getResponseObject().getTenant() == null){
+        if (bean.getResponseObject().getTenant() == null) {
             editor.putString("type", "no").commit();
-        }else {
+        } else {
             editor.putString("type", "yes").commit();
         }
-        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
         }
@@ -185,9 +190,9 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 4:
                         AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token",token)
+                        editor.putString("token", token)
                                 .commit();
-                        Log.v("zzzzzz","--------------"+token);
+                        Log.v("zzzzzz", "--------------" + token);
                         break;
                     default:
                         break;

@@ -116,7 +116,12 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
 
     @Override
     public void showVisitFailMsg(String string) {
-
+        if (string.equals("RES_FAILURE")) {
+            mHandler.sendEmptyMessage(1);
+        }
+        if (string.equals("CODE_FAILURE")) {
+            mHandler.sendEmptyMessage(3);
+        }
     }
 
     @Override
