@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -138,6 +139,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private String xiugai;
     private int type;
     private TextView textView;
+    private ConstraintLayout card1;
+    private RelativeLayout card3;
+    private ConstraintLayout card9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -238,6 +242,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
+        card1 = (ConstraintLayout)item1.findViewById(R.id.card1);
         if (type == 1 || type == 2) {
             im_1.setVisibility(View.INVISIBLE);
         }
@@ -245,7 +250,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         what.setText(bean.getDepartmentName());
         time.setText(bean.getTime());
         content.setText(bean.getItemContent());
-        im_1.setOnClickListener(this);
+        //im_1.setOnClickListener(this);
+        card1.setOnClickListener(this);
 /*        if (bean.getItemImagePath().size() != 0) {
             Log.v("yyyyy", "__________");
             slider.setVisibility(View.VISIBLE);
@@ -282,12 +288,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
+        card3 = (RelativeLayout) item1.findViewById(R.id.card3);
+
         if (type == 1 || type == 2) {
             im_3.setVisibility(View.INVISIBLE);
         }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
         p2.setText(bean.getAddress());
-        im_3.setOnClickListener(this);
+        //im_3.setOnClickListener(this);
+        card3.setOnClickListener(this);
         initLocation();
     }
 
@@ -348,10 +357,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_4 = item9.findViewById(R.id.textView_94);
         tv9_5 = item9.findViewById(R.id.textView_95);
         im_9 = item9.findViewById(R.id.imageView_9);
+        card9 = item9.findViewById(R.id.card9);
         if (type == 1 || type == 2) {
             im_9.setVisibility(View.INVISIBLE);
         }
-        im_9.setOnClickListener(this);
+        //im_9.setOnClickListener(this);
+        card9.setOnClickListener(this);
         for (int i = 0; i < bean.getWhy().size(); i++) {
             stringBuffer1.append(bean.getWhy().get(i) + " ");
         }
@@ -496,13 +507,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.imageView_1:
+            case R.id.card1:
                 EventBus.getDefault().postSticky(bean1);
                 intent = new Intent(this, CardFirstItemActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.imageView_3:
+            case R.id.card3:
                 EventBus.getDefault().postSticky(bean3);
                 intent = new Intent(this, CardThirdItemActivity.class);
                 startActivity(intent);
