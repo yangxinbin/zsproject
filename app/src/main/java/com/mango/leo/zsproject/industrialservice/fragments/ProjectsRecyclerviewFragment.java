@@ -166,6 +166,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     }
 
     private AllProjectsAdapter.OnItemnewsClickListener mOnItemClickListener = new AllProjectsAdapter.OnItemnewsClickListener() {
+
+        private int state;
+
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView

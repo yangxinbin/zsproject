@@ -43,9 +43,10 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
-    public AllProjectsAdapter(Context applicationContext, int mType) {
+    public AllProjectsAdapter(Context applicationContext, int mType ) {
         this.context = applicationContext;
         this.type = mType;
+
     }
 
     public void setmDate(List<AllProjectsBean> data) {
@@ -160,9 +161,11 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (type == 0){
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getStage() == 2){
                         ((ItemViewHolder) holder).stage.setText("已审核");
+                        ((ItemViewHolder) holder).edit.setVisibility(View.VISIBLE);
                         ((ItemViewHolder) holder).stage.setTextColor(context.getResources().getColor(R.color.color_green));
                     }else {
                         ((ItemViewHolder) holder).stage.setText("待审核");
+                        ((ItemViewHolder) holder).edit.setVisibility(View.GONE);
                         ((ItemViewHolder) holder).stage.setTextColor(context.getResources().getColor(R.color.red));
                     }
                 }
