@@ -59,6 +59,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -438,19 +439,40 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void publishProject() {
-        Log.v("hhhhh","----");
-        HttpUtils.doGet(Urls.HOST_PUBLISH, new Callback() {
+        Log.v("hhhhh","----"+Urls.HOST_PUBLISH+"?token="+sharedPreferences.getString("token","")+"&projectId="+sharedPreferences.getString("projectId", ""));
+        HashMap<String, String> mapParams = new HashMap<String, String>();
+        if (mapParams != null){
+            mapParams.clear();
+        }
+        mapParams.put("token", sharedPreferences.getString("token",""));
+        mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
+        HttpUtils.doPost(Urls.HOST_PUBLISH,mapParams,new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                showDailog("审核","恭喜你提交审核失败！");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showDailog("审核","提交审核失败！");
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (String.valueOf(response.code()).startsWith("2")){
-                    showDailog("审核","恭喜你提交审核成功！");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDailog("审核","恭喜你提交审核成功！");
+                        }
+                    });
                 }else {
-                    showDailog("审核","恭喜你提交审核失败！");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDailog("审核","提交审核失败！");
+                        }
+                    });
                 }
             }
         });

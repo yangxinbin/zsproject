@@ -68,7 +68,6 @@ public class ChangePwdForActivity extends BaseActivity {
                 } else {
                     AppUtils.showToast(this, "两次密码输入不相同");
                 }
-                finish();
                 break;
         }
     }
@@ -80,7 +79,7 @@ public class ChangePwdForActivity extends BaseActivity {
         mapParams.put("code", code);
         mapParams.put("phone", username);
         mapParams.put("newPassword", editTextNewpwdok.getText().toString());
-        HttpUtils.doPut(Urls.HOST_RETRIEVE, mapParams, new Callback() {
+        HttpUtils.doPutRePhone(Urls.HOST_RETRIEVE, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(2);

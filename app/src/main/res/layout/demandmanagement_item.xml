@@ -49,7 +49,7 @@
                     android:layout_height="@dimen/img_size"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/red_i" />
+                    android:src="@drawable/ri" />
 
             </LinearLayout>
 

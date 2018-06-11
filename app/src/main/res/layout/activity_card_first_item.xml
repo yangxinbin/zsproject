@@ -112,7 +112,7 @@
                     android:hint="请输入招商引资项目名称"
                     android:maxLines="1"
                     android:textColor="@color/secondblack"
-                    android:textColorHint="@color/grayBlack"
+                    android:textColorHint="@color/hint"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
             <ImageView
@@ -144,7 +144,7 @@
                     android:hint="请输入组织单位名称"
                     android:maxLines="1"
                     android:textColor="@color/secondblack"
-                    android:textColorHint="@color/grayBlack"
+                    android:textColorHint="@color/hint"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
             <ImageView
@@ -182,7 +182,7 @@
                     android:hint="请输入总投资金额"
                     android:maxLines="1"
                     android:textColor="@color/secondblack"
-                    android:textColorHint="@color/grayBlack"
+                    android:textColorHint="@color/hint"
                     android:textSize="@dimen/sencond_textSize" />
             </LinearLayout>
             <ImageView
@@ -235,7 +235,7 @@
                     android:padding="10dp"
                     android:scrollbars="vertical"
                     android:textColor="@color/secondblack"
-                    android:textColorHint="@color/secondblack"
+                    android:textColorHint="@color/hint"
                     android:textSize="@dimen/sencond_textSize" />
 
 

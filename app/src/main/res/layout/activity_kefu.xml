@@ -188,8 +188,8 @@
 
             <ImageView
                 android:id="@+id/imageView83"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
@@ -202,8 +202,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginStart="22dp"
+                android:layout_toEndOf="@+id/imageView83"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/imageView83"
                 android:text="微信客服"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize" />
@@ -213,9 +216,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView98"
+                android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/textView98"
-                android:layout_below="@+id/textView98"
-                android:layout_marginTop="11dp"
+                android:layout_marginBottom="10dp"
                 android:text="微信专属服务" />
         </RelativeLayout>
         <RelativeLayout
@@ -228,10 +231,10 @@
 
             <ImageView
                 android:id="@+id/imageView84"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginStart="19dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
                 app:srcCompat="@drawable/phone"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -242,8 +245,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginStart="19dp"
+                android:layout_toEndOf="@+id/imageView84"
+                android:layout_toRightOf="@+id/imageView84"
+                android:layout_marginTop="10dp"
                 android:text="电话客服"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize" />
@@ -253,9 +259,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView100"
+                android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/textView100"
-                android:layout_below="@+id/textView100"
-                android:layout_marginTop="11dp"
+                android:layout_marginBottom="10dp"
                 android:text="拨打客服热线" />
         </RelativeLayout>
 

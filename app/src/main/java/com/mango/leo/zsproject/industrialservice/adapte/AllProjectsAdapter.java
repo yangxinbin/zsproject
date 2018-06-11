@@ -301,14 +301,14 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         LinearLayout.LayoutParams linearParams = null;
                         linearParams = (LinearLayout.LayoutParams) edit.getLayoutParams(); //取控件textView当前的布局参数
                         edit.setText("确认修改");
-                        linearParams.width = 400;// 控件的宽强制设成
+                        linearParams.width = 450;// 控件的宽强制设成
                         edit.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                     }
                     if (flag == 1) {
                         LinearLayout.LayoutParams linearParams = null;
                         linearParams = (LinearLayout.LayoutParams) edit.getLayoutParams(); //取控件textView当前的布局参数
                         edit.setText("修改");
-                        linearParams.width = 300;// 控件的宽强制设成
+                        linearParams.width = 350;// 控件的宽强制设成
                         edit.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         mOnItemnewsClickListener.onEditClick(view, this.getLayoutPosition());
                         flag = 0;//屏蔽只能点一次
@@ -322,7 +322,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         LinearLayout.LayoutParams linearParams = null;
                         linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
                         delete.setText("确认删除");
-                        linearParams.width = 400;// 控件的宽强制设成
+                        linearParams.width = 450;// 控件的宽强制设成
                         delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
 
                     }
@@ -330,7 +330,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         LinearLayout.LayoutParams linearParams = null;
                         linearParams = (LinearLayout.LayoutParams) delete.getLayoutParams(); //取控件textView当前的布局参数
                         delete.setText("删除");
-                        linearParams.width = 300;// 控件的宽强制设成
+                        linearParams.width = 350;// 控件的宽强制设成
                         delete.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
                         Log.v("gggggg", "--" + this.getLayoutPosition());
                         mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.fragments.ProjectsRecyclerviewFragment;
 
@@ -64,6 +65,8 @@ public class AllAndCreatedPlanActivity extends BaseActivity{//
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.allAndCreated_image_back:
+                Intent intent = new Intent(this, ZsActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }
