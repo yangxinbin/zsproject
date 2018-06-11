@@ -79,7 +79,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private int page = 0;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    private String nowProvince,nowCity,nowDistrict;
+    private String nowProvince, nowCity, nowDistrict;
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
         Bundle bundle = new Bundle();
@@ -127,6 +127,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         allProjectsPresenter.visitProjects(getActivity(), mType, page);
         return view;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
 /*        editor.putString("where",nowProvince+nowCity+nowDistrict).commit();
@@ -179,7 +180,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
-            intent.putExtra("type",adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
+            intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
             startActivity(intent);
             //getActivity().finish();
         }
@@ -191,7 +192,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
-            intent.putExtra("xiugai","xiugai");
+            intent.putExtra("xiugai", "xiugai");
             startActivity(intent);
 
         }
@@ -270,7 +271,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
                 }
             }
-        },2000);
+        }, 2000);
         //getActivity().onRefresh();
     }
 
@@ -285,7 +286,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             } else {
                 time = adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn();
             }
-            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null){
+            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null) {
                 cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired()));
             }
             cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
@@ -332,22 +333,23 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }
         CardNinthItemBean cardNinthItemBean = new CardNinthItemBean();
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
-            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()+"****position*****xxxx**");
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel() + "****position*****xxxx**");
             cardNinthItemBean.setMoshi(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()));
             cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getCaption());
-
-            for(int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().size();i++){
-
+            List<String> whyList = new ArrayList<>();
+            for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().size(); i++) {
+                whyList.add(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().get(i));
             }
-            for(int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().size();i++){
-
+            cardNinthItemBean.setWhy(whyList);
+            List<String> typeList = new ArrayList<>();
+            for (int j = 0; j < adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().size(); j++) {
+                typeList.add(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().get(j));
             }
-
-           // cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
-            cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getCaption());
-
+            cardNinthItemBean.setType(typeList);
+            // cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
+            cardNinthItemBean.setQita((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getOther());
             EventBus.getDefault().postSticky(cardNinthItemBean);
-        }else {
+        } else {
             EventBus.getDefault().postSticky(cardNinthItemBean);
         }
 
@@ -401,7 +403,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
-                            Log.v("rrrrrrrrr","--adapter--");
+                            Log.v("rrrrrrrrr", "--adapter--");
 
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                             if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
@@ -417,7 +419,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsFail(String e) {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -460,6 +462,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             }
         }, 2000);
     }
+
     private ProjectsRecyclerviewFragment.MyHandler mHandler = new ProjectsRecyclerviewFragment.MyHandler();
 
     private class MyHandler extends Handler {
