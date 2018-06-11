@@ -38,6 +38,7 @@ import com.luck.picture.lib.tools.ScreenUtils;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity;
@@ -47,18 +48,25 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener {
 
@@ -374,7 +382,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     finish();
                 }
                 if (type == 0) {//草稿箱才能存草稿
-                    saveToBox();
+                    showDailog("一键招商", "恭喜你项目创建成功！");
                 }
                 break;
             case R.id.carfirst:
@@ -424,8 +432,28 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.send:
+                publishProject();
                 break;
         }
+    }
+
+    private void publishProject() {
+        Log.v("hhhhh","----");
+        HttpUtils.doGet(Urls.HOST_PUBLISH, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                showDailog("审核","恭喜你提交审核失败！");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")){
+                    showDailog("审核","恭喜你提交审核成功！");
+                }else {
+                    showDailog("审核","恭喜你提交审核失败！");
+                }
+            }
+        });
     }
 
     @Override
@@ -508,11 +536,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void saveToBox() {
+    private void showDailog(String s1, String s2) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.icon)//设置标题的图片
-                .setTitle("一键招商")//设置对话框的标题
-                .setMessage("恭喜你项目创建成功！")//设置对话框的内容
+                .setTitle(s1)//设置对话框的标题
+                .setMessage(s2)//设置对话框的内容
                 //设置对话框的按钮
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
