@@ -16,9 +16,7 @@
         app:tabIndicatorColor="@color/red"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <!--<ImageView
@@ -37,8 +35,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="@android:color/white"

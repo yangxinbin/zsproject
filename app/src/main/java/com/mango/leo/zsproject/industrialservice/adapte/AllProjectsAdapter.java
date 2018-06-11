@@ -300,7 +300,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         edit.setText("修改");
                         linearParams.width = 300;// 控件的宽强制设成
                         edit.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
-                        mOnItemnewsClickListener.onDeleteClick(view, this.getLayoutPosition());
+                        mOnItemnewsClickListener.onEditClick(view, this.getLayoutPosition());
                         flag = 0;//屏蔽只能点一次
                         return;
                     }

@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginBottom="3dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:background="@color/white"
     android:layout_marginTop="1dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="3dp"
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="1dp"
     card_view:contentPadding="8dp">
 
 
@@ -52,6 +51,8 @@
             android:id="@+id/textView_zhaoshangC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_alignLeft="@+id/tv_zhaoshang"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/tv_zhaoshang"

@@ -80,7 +80,7 @@
         android:layout_height="55sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/rec_red_background"
+        android:background="@drawable/rec2_red_background"
         android:text="@string/sing_up"
         android:textColor="@color/white"
         android:textSize="@dimen/title"

@@ -130,7 +130,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
         xiugai = getIntent().getStringExtra("xiugai");
+        //whereFrom();
         EventBus.getDefault().register(this);//放最后
+    }
+
+    private void whereFrom() {
+        if (xiugai == "xiugai"){
+            save.setVisibility(View.INVISIBLE);
+            textView5.setText("修改招商计划");
+        }
 
     }
 

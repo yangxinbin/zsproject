@@ -238,6 +238,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         EventBus.getDefault().postSticky(bean1);
                         Intent intent = new Intent(getApplicationContext(),EventDetailActivity.class);
+                        intent.putExtra("id", bean1.getResponseObject().getContent().get(position).getId());
                         startActivity(intent);
                         dialog.dismiss();
                     }
