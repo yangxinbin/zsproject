@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -126,6 +128,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private SharedPreferences sharedPreferences;
     private String xiugai;
     private int type;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -133,7 +136,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
         xiugai = getIntent().getStringExtra("xiugai");
-        type = getIntent().getIntExtra("type", 1);
+        type = getIntent().getIntExtra("type", -1);
         whereFrom();
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
@@ -151,21 +154,30 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             save.setVisibility(View.INVISIBLE);
             textView5.setText("修改招商计划");
         }
-        if (type == 0) {
-            save.setText("申请修改");
-            textView5.setText("招商信息");
-            TextView textView = new TextView(this);
+        if (type > 0) {
+            textView = new TextView(this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.dip2px(this, 50));
             //lp.gravity = Gravity.CENTER_HORIZONTAL;
             textView.setGravity(Gravity.CENTER);
-            textView.setText("已完成审核");
+            switch (type) {
+                case 1:
+                    save.setVisibility(View.INVISIBLE);
+                    textView5.setText("招商信息");
+                    textView.setText("审核中，请耐心等待！");
+                    break;
+                case 2:
+                    save.setText("申请修改");
+                    textView5.setText("招商信息");
+                    textView.setText("已完成审核");
+                    break;
+            }
             textView.setTextSize(18);
             textView.setTextColor(getResources().getColor(R.color.red));
             zhaoshang.addView(textView, 1, lp);
             send.setVisibility(View.GONE);
             co.setVisibility(View.GONE);
-        }
 
+        }
     }
 
     private void initLocation() {
@@ -217,7 +229,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
-        if (type == 0) {
+        if (type == 1 || type == 2) {
             im_1.setVisibility(View.INVISIBLE);
         }
         title.setText(bean.getItemName());
@@ -261,7 +273,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        if (type == 0) {
+        if (type == 1 || type == 2) {
             im_3.setVisibility(View.INVISIBLE);
         }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
@@ -297,7 +309,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
         recyclerView.setAdapter(adapter4);
         imageView.setOnClickListener(this);
-        if (type == 0) {
+        if (type == 1 || type == 2) {
             imageView.setVisibility(View.INVISIBLE);
         } else {
             adapter4.setOnItemnewsClickListener(this);
@@ -327,7 +339,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_4 = item9.findViewById(R.id.textView_94);
         tv9_5 = item9.findViewById(R.id.textView_95);
         im_9 = item9.findViewById(R.id.imageView_9);
-        if (type == 0) {
+        if (type == 1 || type == 2) {
             im_9.setVisibility(View.INVISIBLE);
         }
         im_9.setOnClickListener(this);
@@ -355,11 +367,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.save:
-                if (type == 0){
+                if (type == 2) {
                     intent = new Intent(this, BusinessPlanActivity.class);
-                    intent.putExtra("xiugai","xiugai");
+                    intent.putExtra("xiugai", "xiugai");
                     startActivity(intent);
                     finish();
+                }
+                if (type == 0) {//草稿箱才能存草稿
+                    saveToBox();
                 }
                 break;
             case R.id.carfirst:
@@ -491,5 +506,27 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
 
+    }
+
+    private void saveToBox() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setIcon(R.drawable.icon)//设置标题的图片
+                .setTitle("一键招商")//设置对话框的标题
+                .setMessage("恭喜你项目创建成功！")//设置对话框的内容
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 }

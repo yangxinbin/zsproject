@@ -112,7 +112,7 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
             tv_phoneNum = (TextView) view.findViewById(R.id.textView_phonenum);
             tv_position = (TextView) view.findViewById(R.id.textView_position);
             tv_email = (TextView) view.findViewById(R.id.textView_email);
-            if (mtype == 0){
+            if (mtype == 1 || mtype == 2){
                 imageView_edit.setVisibility(View.INVISIBLE);
             }else {
                 item4.setOnClickListener(this);

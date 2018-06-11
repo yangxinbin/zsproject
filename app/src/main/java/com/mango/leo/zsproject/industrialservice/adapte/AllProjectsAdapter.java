@@ -157,6 +157,15 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Log.v("yyyyy", "====pos======" + pos % 20);//
                 ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                 ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getSummary());
+                if (type == 0){
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getStage() == 2){
+                        ((ItemViewHolder) holder).stage.setText("已审核");
+                        ((ItemViewHolder) holder).stage.setTextColor(context.getResources().getColor(R.color.color_green));
+                    }else {
+                        ((ItemViewHolder) holder).stage.setText("待审核");
+                        ((ItemViewHolder) holder).stage.setTextColor(context.getResources().getColor(R.color.red));
+                    }
+                }
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
@@ -247,7 +256,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView allItemName, allItemContent;
+        public TextView allItemName, allItemContent,stage;
         public Button edit, delete;
         RelativeLayout itV;
         public int flag = 0;
@@ -258,6 +267,7 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return;
             allItemName = (TextView) v.findViewById(R.id.allitemName);
             allItemContent = (TextView) v.findViewById(R.id.allitemContent);
+            stage = (TextView) v.findViewById(R.id.stage);
             edit = (Button) v.findViewById(R.id.edit);
             delete = (Button) v.findViewById(R.id.delete);
             itV = (RelativeLayout) v.findViewById(R.id.item_content);
