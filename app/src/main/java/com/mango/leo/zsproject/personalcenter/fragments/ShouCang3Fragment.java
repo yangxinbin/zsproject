@@ -109,11 +109,6 @@ public class ShouCang3Fragment extends Fragment {
                 case 0:
                     AppUtils.showToast(getActivity(), "访问失败");
                     break;
-                case 1:
-                    AppUtils.showToast(getActivity(), "访问成功");
-                    Intent intent = new Intent(getActivity(), AccountSecurityActivity.class);
-                    startActivity(intent);
-                    break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
                     /*if (beanList.size() == 0){

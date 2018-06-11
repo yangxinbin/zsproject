@@ -168,19 +168,19 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.shengbao:
-                intent = new Intent(getActivity(), ShengBaoActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), ShengBaoActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.shouc:
-                intent = new Intent(getActivity(), ShouCangActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), ShouCangActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.baoming:
-                intent = new Intent(getActivity(), BaoMingActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), BaoMingActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.kefu:
-                intent = new Intent(getActivity(), KefuActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), KefuActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.settings:
