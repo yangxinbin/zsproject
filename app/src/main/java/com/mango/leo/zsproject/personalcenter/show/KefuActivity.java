@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.personalcenter.show.kefu.PhActivity;
 import com.mango.leo.zsproject.personalcenter.show.kefu.QueActivity;
 import com.mango.leo.zsproject.personalcenter.show.kefu.WeActivity;
@@ -16,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class KefuActivity extends AppCompatActivity {
+public class KefuActivity extends BaseActivity {
 
     @Bind(R.id.imageView_kefuback)
     ImageView imageViewKefuback;

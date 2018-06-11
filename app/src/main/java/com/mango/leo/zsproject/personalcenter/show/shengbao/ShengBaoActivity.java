@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.eventexhibition.fragments.CampaignFragment;
 import com.mango.leo.zsproject.eventexhibition.fragments.ExhibitionFragment;
 import com.mango.leo.zsproject.eventexhibition.fragments.InformationFragment;
@@ -25,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShengBaoActivity extends AppCompatActivity {
+public class ShengBaoActivity extends BaseActivity {
 
     @Bind(R.id.imageView_shengbaoback)
     ImageView imageViewShengbaoback;

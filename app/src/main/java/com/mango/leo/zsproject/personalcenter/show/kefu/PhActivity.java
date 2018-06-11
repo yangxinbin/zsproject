@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PhActivity extends AppCompatActivity {
+public class PhActivity extends BaseActivity {
 
     @Bind(R.id.imageView_ph)
     ImageView imageViewPh;

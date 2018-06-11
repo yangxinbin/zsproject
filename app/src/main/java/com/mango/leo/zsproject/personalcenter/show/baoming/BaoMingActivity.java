@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
@@ -41,7 +42,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class BaoMingActivity extends AppCompatActivity {
+public class BaoMingActivity extends BaseActivity {
 
     @Bind(R.id.imageView_baomingback)
     ImageView imageViewBaomingback;

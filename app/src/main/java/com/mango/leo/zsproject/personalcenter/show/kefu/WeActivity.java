@@ -7,12 +7,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WeActivity extends AppCompatActivity {
+public class WeActivity extends BaseActivity {
 
     @Bind(R.id.imageView_we)
     ImageView imageViewWe;

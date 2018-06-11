@@ -6,12 +6,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MesActivity extends AppCompatActivity {
+public class MesActivity extends BaseActivity {
 
     @Bind(R.id.imageView_mesback)
     ImageView imageViewMesback;
