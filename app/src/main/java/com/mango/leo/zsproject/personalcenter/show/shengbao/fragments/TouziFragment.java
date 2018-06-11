@@ -31,7 +31,7 @@ public class TouziFragment extends Fragment {
     SwipeRefreshLayout refreshTouzi;
     private LinearLayoutManager mLayoutManager;
     private ShengBaoAdapter adapter;
-    private RelativeLayout h;
+    private ConstraintLayout h;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class TouziFragment extends Fragment {
     private void initHeader() {
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.city_header, null);
-        h = (RelativeLayout) header.findViewById(R.id.header_city);
+        h = (ConstraintLayout) header.findViewById(R.id.header_city);
         ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParam.setMargins(0, 0, 0, 20);
         h.setLayoutParams(layoutParam);

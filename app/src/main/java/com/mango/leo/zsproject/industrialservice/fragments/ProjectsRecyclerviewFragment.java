@@ -383,37 +383,42 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mData != null) {
-                        adapter.setmDate(mData);
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mData != null) {
+                            adapter.setmDate(mData);
+                        }
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mDataAll != null) {
-                        //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
-                        int i;
-                        for (i = 0; i < mDataAll.size(); i++) {
-                            if (mDataAll == null) {
-                                return;//一开始断网报空指针的情况
-                            }
-                            Log.v("rrrrrrrrr", "--adapter--");
+                });
+            }
 
-                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
+        } else {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            //加载更多
+                            int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                            int i;
+                            for (i = 0; i < mDataAll.size(); i++) {
+                                if (mDataAll == null) {
+                                    return;//一开始断网报空指针的情况
+                                }
+                                Log.v("rrrrrrrrr", "--adapter--");
+
+                                adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                                if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                    noMoreMsg();
+                                    return;
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
