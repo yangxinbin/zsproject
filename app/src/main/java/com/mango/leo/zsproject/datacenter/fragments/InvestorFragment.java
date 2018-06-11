@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InvestorFragment extends Fragment implements ZsActivity.FragmentBackListener {
+public class InvestorFragment extends Fragment implements ZsActivity.FragmentBackListener, AdapterView.OnItemClickListener {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"行业", "资金类型", "投资金额", "合作方式"};
@@ -47,7 +48,7 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
     private RecyclerView recycle_touzi;
     private LinearLayoutManager mLayoutManager;
     private TouZiAdapter adapter;
-    private List<TouZiBean> mData, mDataAll,eventBeans1;
+    private List<TouZiBean> mData, mDataAll, eventBeans1;
     private int page = 0;
 
     @Nullable
@@ -58,26 +59,32 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
         initViews();
         return view;
     }
+
     private void initViews() {
         ListView lvHangye = new ListView(getActivity());
+        lvHangye.setId(0);
         lvHangye.setDividerHeight(0);
         lvHangye.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(hangye)));
 
         ListView lvWays = new ListView(getActivity());
+        lvWays.setId(1);
         lvWays.setDividerHeight(0);
         lvWays.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(ways)));
 
         ListView lvWhere = new ListView(getActivity());
+        lvWhere.setId(2);
         lvWhere.setDividerHeight(0);
         lvWhere.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(where)));
 
         ListView lvHow = new ListView(getActivity());
+        lvHow.setId(3);
         lvHow.setDividerHeight(0);
         lvHow.setAdapter(new DropDownAdapter(getActivity(), Arrays.asList(how)));
-/*        lvHangye.setOnClickListener((View.OnClickListener) getActivity());
-        lvWays.setOnClickListener((View.OnClickListener) getActivity());
-        lvWhere.setOnClickListener((View.OnClickListener) getActivity());
-        lvHow.setOnClickListener((View.OnClickListener) getActivity());*/
+
+        lvHangye.setOnItemClickListener(this);
+        lvWays.setOnItemClickListener(this);
+        lvWhere.setOnItemClickListener(this);
+        lvHow.setOnItemClickListener(this);
         popViews.add(lvHangye);
         popViews.add(lvWays);
         popViews.add(lvWhere);
@@ -105,6 +112,7 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
         }
 
     }
+
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -142,6 +150,7 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
             startActivity(intent);*/
         }
     };
+
     public void initSwipeRefreshLayout() {
         refresh_touzi.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -170,11 +179,13 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -197,5 +208,23 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
     public void onbackForward() {
         // 处理fragment的返回事件
         dropdownmenu.closeMenu();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId()) {
+            case 0://行业
+                dropdownmenu.closeMenu();
+                break;
+            case 1://类型
+                dropdownmenu.closeMenu();
+                break;
+            case 2://金额
+                dropdownmenu.closeMenu();
+                break;
+            case 3://方式
+                dropdownmenu.closeMenu();
+                break;
+        }
     }
 }
