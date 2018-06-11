@@ -334,7 +334,18 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()+"****position*****xxxx**");
             cardNinthItemBean.setMoshi(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()));
-            //cardNinthItemBean.setMoney(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax());
+            cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getCaption());
+
+            for(int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().size();i++){
+
+            }
+            for(int i= 0;i<adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().size();i++){
+
+            }
+
+           // cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
+            cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getCaption());
+
             EventBus.getDefault().postSticky(cardNinthItemBean);
         }else {
             EventBus.getDefault().postSticky(cardNinthItemBean);

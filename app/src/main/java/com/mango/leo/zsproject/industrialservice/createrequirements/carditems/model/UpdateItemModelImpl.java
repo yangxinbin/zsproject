@@ -178,11 +178,11 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("cooperationModel", cardNinthItemBeans.getMoshi());
-                mapParams.put("min", "12");
-                mapParams.put("max", "12");
-                mapParams.put("cooperationStyles", "[“合资”,”独资”,”股权”]"/*String.valueOf(cardNinthItemBeans.getWhy())*/);
+                mapParams.put("min", sharedPreferences.getString("min", "0"));
+                mapParams.put("max", sharedPreferences.getString("max", "0"));
+                mapParams.put("cooperationStyles", String.valueOf(cardNinthItemBeans.getWhy()));
                 mapParams.put("investmentType", String.valueOf(cardNinthItemBeans.getType()));
-
+                mapParams.put("other", cardNinthItemBeans.getQita());
                 // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
             }
             HttpUtils.doPut(url, mapParams, new Callback() {
@@ -194,7 +194,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
-
+                        Log.v("xxxxx", ""+response.body().string());
                         listener.onSuccess("SAVE_SUCCESS");//异步请求
                     } else {
                         Log.v("xxxxx", ""+response.body().string());

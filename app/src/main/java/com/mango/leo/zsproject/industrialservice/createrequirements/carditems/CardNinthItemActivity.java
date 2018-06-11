@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.Editable;
@@ -95,12 +96,16 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     private List<String> listwhy, listtype;
     private UpdateItemPresenter updateItemPresenter;
     boolean flag = false;
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_ninth_item);
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         //editTextOther.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
         editeNum();
         intDate();
@@ -167,14 +172,19 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         }
 /*
         }*/
-        Log.v("4444499888", bean.getType().size() + "-----" + bean.getWhy().size());
+//        Log.v("4444499888", bean.getType().size() + "-----" + bean.getWhy().size());
         bean9 = bean;
         for (int a = 0; a < list1.size(); a++) {
-            if (bean.getMoshi().equals(list1.get(a))){
+            if (bean.getMoshi().equals(list1.get(a))) {
                 currentPosition1 = a;
             }
         }
         text1.setText(bean.getMoshi());
+        for (int b = 0; b < list2.size(); b++) {
+            if (bean.getMoney().equals(list2.get(b))) {
+                currentPosition2 = b;
+            }
+        }
         text2.setText(bean.getMoney());
         for (int k = 0; k < bean.getWhy().size(); k++) {
             stringBuffer1.append(bean.getWhy().get(k) + " ");
@@ -283,18 +293,14 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 adapter.setCheckItem(currentPosition1);
                 break;
             case R.id.down_2:
-
                 showPopupWindow(this, list2, 2);
                 adapter.setCheckItem(currentPosition2);
                 break;//
             case R.id.down_3:
-
                 showPopupWindow(this, list3, 3);
                 adapter3.setCheckItem(gvChooseMap3);
                 break;
             case R.id.down_4:
-
-
                 showPopupWindow(this, list4, 4);
                 adapter4.setCheckItem(gvChooseMap4);
                 break;
@@ -378,6 +384,53 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 currentPosition2 = position;
                 text2.setText(list2.get(position));
                 cardNinthItemBean.setMoney(list2.get(position));
+                switch (position) {
+                    case 0:
+                        editor.putString("min","0");
+                        editor.putString("max","1000");
+                        editor.commit();
+                        break;
+                    case 1:
+                        editor.putString("min","1000");
+                        editor.putString("max","5000");
+                        editor.commit();
+                        break;
+                    case 2:
+                        editor.putString("min","5000");
+                        editor.putString("max","10000");
+                        editor.commit();
+                        break;
+                    case 3:
+                        editor.putString("min","10000");
+                        editor.putString("max","100000");
+                        editor.commit();
+                        break;
+                    case 4:
+                        editor.putString("min","100000");
+                        editor.putString("max","500000");
+                        editor.commit();
+                        break;
+                    case 5:
+                        editor.putString("min","500000");
+                        editor.putString("max","1000000");
+                        editor.commit();
+                        break;
+                    case 6:
+                        editor.putString("min","1000000");
+                        editor.putString("max","5000000");
+                        editor.commit();
+                        break;
+                    case 7:
+                        editor.putString("min","5000000");
+                        editor.putString("max","10000000");
+                        editor.commit();
+                        break;
+                    case 8:
+                        editor.putString("min","10000000");
+                        editor.putString("max","100000000");
+                        editor.commit();
+                        break;
+                }
                 dialog.dismiss();
                 break;
             case 3:
