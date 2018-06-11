@@ -4,13 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -36,14 +32,10 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardEigththItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFifthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSecondItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSeventhItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSixthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
@@ -51,17 +43,11 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
-import com.mango.leo.zsproject.utils.DateUtil;
-import com.mango.leo.zsproject.utils.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,8 +58,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
-    @Bind(R.id.save)
-    TextView save;
     @Bind(R.id.carfirst_content)
     ConstraintLayout carfirstContent;
     @Bind(R.id.carfirst)
@@ -112,6 +96,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardView carninth;
     @Bind(R.id.send)
     Button send;
+    @Bind(R.id.textView5)
+    TextView textView5;
+    @Bind(R.id.save)
+    TextView save;
     private TextView title, what, time, content, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
@@ -128,6 +116,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private StringBuffer stringBuffer1, stringBuffer2;
     private UserMessageBean userBean;
     private SharedPreferences sharedPreferences;
+    private String xiugai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -140,6 +129,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //initFirstItem();
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
+        xiugai = getIntent().getStringExtra("xiugai");
         EventBus.getDefault().register(this);//放最后
 
     }
@@ -176,9 +166,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //mSearch.setOnGetGeoCodeResultListener(this);
         // Geo搜索
         mSearch.setOnGetGeoCodeResultListener(this);
-        mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince()+bean3.getCity()+bean3.getDistrict() + bean3.getAddress()));
+        mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince() + bean3.getCity() + bean3.getDistrict() + bean3.getAddress()));
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
@@ -234,7 +225,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        p1.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
+        p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
         p2.setText(bean.getAddress());
         im_3.setOnClickListener(this);
         initLocation();
@@ -330,7 +321,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.carthird:
-               // EventBus.getDefault().postSticky(userBean);
+                // EventBus.getDefault().postSticky(userBean);
                 intent = new Intent(this, CardThirdItemActivity.class);
                 startActivity(intent);
                 finish();
@@ -403,7 +394,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.imageView_9:
                 EventBus.getDefault().postSticky(bean9);
                 intent = new Intent(this, CardNinthItemActivity.class);
-                intent.putExtra("flag",true);
+                intent.putExtra("flag", true);
                 startActivity(intent);
                 finish();
                 break;
@@ -430,8 +421,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-          //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
-          //          .show();
+            //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+            //          .show();
             return;
         }
         double latitude = geoCodeResult.getLocation().latitude;

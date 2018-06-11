@@ -187,6 +187,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            intent.putExtra("xiugai","xiugai");
             startActivity(intent);
 
         }

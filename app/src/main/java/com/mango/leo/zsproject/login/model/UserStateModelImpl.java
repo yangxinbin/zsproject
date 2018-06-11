@@ -53,6 +53,7 @@ public class UserStateModelImpl implements UserStateModel {
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    Log.v("uuuuuuu", "____FAILURE_______");
                     listener.onFailure("FAILURE", e);
                 }
 
