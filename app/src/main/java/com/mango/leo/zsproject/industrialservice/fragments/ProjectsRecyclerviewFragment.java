@@ -176,6 +176,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            intent.putExtra("type",mType);
             startActivity(intent);
             //getActivity().finish();
         }
@@ -313,7 +314,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size() + "****position*******");
             for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size(); i++) {
                 CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
-                cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getName());
+                cardFourthItemBean.setName(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getName()));
                 cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getDepartment());
                 cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPhone());
                 cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPosition());
@@ -329,8 +330,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         CardNinthItemBean cardNinthItemBean = new CardNinthItemBean();
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()+"****position*****xxxx**");
-
             cardNinthItemBean.setMoshi(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()));
+            //cardNinthItemBean.setMoney(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax());
             EventBus.getDefault().postSticky(cardNinthItemBean);
         }else {
             EventBus.getDefault().postSticky(cardNinthItemBean);

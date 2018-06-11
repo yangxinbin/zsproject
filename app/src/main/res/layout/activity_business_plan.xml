@@ -7,6 +7,7 @@
     tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity">
 <!---->
     <LinearLayout
+        android:id="@+id/zhaoshang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -83,6 +84,7 @@
             android:layout_marginTop="5dp"></include>-->
 
         <TextView
+            android:id="@+id/co"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

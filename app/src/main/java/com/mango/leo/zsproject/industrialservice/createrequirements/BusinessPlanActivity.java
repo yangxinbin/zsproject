@@ -12,10 +12,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -29,6 +32,7 @@ import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
@@ -100,6 +104,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     TextView textView5;
     @Bind(R.id.save)
     TextView save;
+    @Bind(R.id.zhaoshang)
+    LinearLayout zhaoshang;
+    @Bind(R.id.co)
+    TextView co;
     private TextView title, what, time, content, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
@@ -117,27 +125,45 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private UserMessageBean userBean;
     private SharedPreferences sharedPreferences;
     private String xiugai;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
+        xiugai = getIntent().getStringExtra("xiugai");
+        type = getIntent().getIntExtra("type", 1);
+        whereFrom();
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
         //initFirstItem();
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
-        xiugai = getIntent().getStringExtra("xiugai");
-        //whereFrom();
         EventBus.getDefault().register(this);//放最后
     }
 
     private void whereFrom() {
-        if (xiugai == "xiugai"){
+        Log.v("xxxxxxxxxx", "___" + getIntent().getStringExtra("xiugai"));
+        if ("xiugai".equals(xiugai)) {
+            Log.v("xxxxxxxxx", "_xxxxx_");
             save.setVisibility(View.INVISIBLE);
             textView5.setText("修改招商计划");
+        }
+        if (type == 0) {
+            save.setText("申请修改");
+            textView5.setText("招商信息");
+            TextView textView = new TextView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.dip2px(this, 50));
+            //lp.gravity = Gravity.CENTER_HORIZONTAL;
+            textView.setGravity(Gravity.CENTER);
+            textView.setText("已完成审核");
+            textView.setTextSize(18);
+            textView.setTextColor(getResources().getColor(R.color.red));
+            zhaoshang.addView(textView, 1, lp);
+            send.setVisibility(View.GONE);
+            co.setVisibility(View.GONE);
         }
 
     }
@@ -191,7 +217,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
-
+        if (type == 0) {
+            im_1.setVisibility(View.INVISIBLE);
+        }
         title.setText(bean.getItemName());
         what.setText(bean.getDepartmentName());
         time.setText(bean.getTime());
@@ -233,6 +261,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
+        if (type == 0) {
+            im_3.setVisibility(View.INVISIBLE);
+        }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
         p2.setText(bean.getAddress());
         im_3.setOnClickListener(this);
@@ -263,10 +294,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);//禁止滑动
-        RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean);
+        RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
         recyclerView.setAdapter(adapter4);
         imageView.setOnClickListener(this);
-        adapter4.setOnItemnewsClickListener(this);
+        if (type == 0) {
+            imageView.setVisibility(View.INVISIBLE);
+        } else {
+            adapter4.setOnItemnewsClickListener(this);
+        }
         //EventBus.getDefault().removeStickyEvent(bean);
     }
 
@@ -292,6 +327,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_4 = item9.findViewById(R.id.textView_94);
         tv9_5 = item9.findViewById(R.id.textView_95);
         im_9 = item9.findViewById(R.id.imageView_9);
+        if (type == 0) {
+            im_9.setVisibility(View.INVISIBLE);
+        }
         im_9.setOnClickListener(this);
         for (int i = 0; i < bean.getWhy().size(); i++) {
             stringBuffer1.append(bean.getWhy().get(i) + " ");
@@ -317,6 +355,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.save:
+                if (type == 0){
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    intent.putExtra("xiugai","xiugai");
+                    startActivity(intent);
+                    finish();
+                }
                 break;
             case R.id.carfirst:
                 intent = new Intent(this, CardFirstItemActivity.class);

@@ -169,15 +169,20 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         }*/
         Log.v("4444499888", bean.getType().size() + "-----" + bean.getWhy().size());
         bean9 = bean;
+        for (int a = 0; a < list1.size(); a++) {
+            if (bean.getMoshi().equals(list1.get(a))){
+                currentPosition1 = a;
+            }
+        }
         text1.setText(bean.getMoshi());
         text2.setText(bean.getMoney());
         for (int k = 0; k < bean.getWhy().size(); k++) {
             stringBuffer1.append(bean.getWhy().get(k) + " ");
             if (flag) {
                 for (int n = 0; n < list3.size(); n++) {
-                    Log.v("4444499", "--1---" );
+                    Log.v("4444499", "--1---");
                     if (bean.getWhy().get(k).toString().equals(list3.get(n))) {
-                        Log.v("4444499", "--2---"+n );
+                        Log.v("4444499", "--2---" + n);
                         gvChooseMap3.put(n, true);
                     }
                 }
@@ -469,14 +474,14 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
 
     @Override
     public void showUpdateStateView(String string) {
-        if (string.equals("SAVE_SUCCESS")){
+        if (string.equals("SAVE_SUCCESS")) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     AppUtils.showToast(getBaseContext(), "投资信息上传成功");
                 }
             });
-        }else {
+        } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
