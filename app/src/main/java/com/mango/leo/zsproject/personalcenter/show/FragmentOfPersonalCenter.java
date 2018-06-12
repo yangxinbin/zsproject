@@ -3,6 +3,8 @@ package com.mango.leo.zsproject.personalcenter.show;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -98,15 +100,36 @@ public class FragmentOfPersonalCenter extends Fragment {
         init();//页面跳转
         return view;
     }
-
+private HandlerUI handlerUI = new HandlerUI();
     private void init() {
-        ACache mCache = ACache.get(getActivity());
-        bean1 = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
-        EventBus.getDefault().postSticky(bean1);
+        new Thread() {
+            @Override
+            public void run() {
+                ACache mCache = ACache.get(getActivity());
+                bean1 = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
+                Message message = handlerUI.obtainMessage();
+                message.obj = bean1;
+                message.what = 0;
+                handlerUI.sendMessage(message);
+            }
+        }.start();
     }
-
+    public class HandlerUI extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    bean1 = (UserMessageBean) msg.obj;
+                    EventBus.getDefault().postSticky(bean1);
+                    break;
+            }
+        }
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
+        if (bean == null){
+            return;
+        }
         Log.v("ppppppp",  "__rrrr__"+bean);
         bean1 = bean;
         //身份
