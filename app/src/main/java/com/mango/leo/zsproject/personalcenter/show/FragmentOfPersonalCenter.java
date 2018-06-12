@@ -17,11 +17,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.show.baoming.BaoMingActivity;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.ShengBaoActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.MesActivity;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
@@ -88,16 +90,24 @@ public class FragmentOfPersonalCenter extends Fragment {
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
+        Log.v("ppppppp",  "__yyyyyy__");
         if (sharedPreferences.getString("skip", "no").equals("yes")) {
             cardView3.setVisibility(View.VISIBLE);
             cardView2.setVisibility(View.GONE);
         }
+        init();//页面跳转
         return view;
+    }
+
+    private void init() {
+        ACache mCache = ACache.get(getActivity());
+        bean1 = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
+        EventBus.getDefault().postSticky(bean1);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
-        Log.v("uuuuu", bean.getResponseObject().getName() + "__rrrr__" + bean.getResponseObject().getCompany());
+        Log.v("ppppppp",  "__rrrr__"+bean);
         bean1 = bean;
         //身份
         textViewGov.setText(bean.getResponseObject().getDepartment());
@@ -121,7 +131,7 @@ public class FragmentOfPersonalCenter extends Fragment {
             imageViewState.setVisibility(View.GONE);
         }
         //头像
-        if (bean.getResponseObject().getAvator().getId() != null) {//认证
+        if (bean.getResponseObject().getAvator() != null) {//认证
             Glide.with(this).load(Urls.HOST+"/user-service/user/get/file?fileId="+ bean.getResponseObject().getAvator().getId()).into(imageViePic);
         }
 
@@ -143,6 +153,8 @@ public class FragmentOfPersonalCenter extends Fragment {
         }
 
     }
+
+
 
     @Override
     public void onDestroyView() {

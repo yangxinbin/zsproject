@@ -48,7 +48,7 @@ public class StartActivity extends BaseActivity {
             ACache mCache = ACache.get(this);
             bean = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
             EventBus.getDefault().postSticky(bean);
-            editor.putString("where",bean.getResponseObject().getTenant()+"!!!"+String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
+            editor.putString("where",String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
             if (bean.getResponseObject().getTenant() == null){
                 editor.putString("type", "no").commit();
             }else {

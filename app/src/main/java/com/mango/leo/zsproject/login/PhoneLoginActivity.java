@@ -148,6 +148,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
     public void responeUserMessage(UserMessageBean bean) {
         if (bean != null) {
             EventBus.getDefault().postSticky(bean);
+            editor.putString("where", String.valueOf(bean.getResponseObject().getLocation().getProvince()) + String.valueOf(bean.getResponseObject().getLocation().getCity()) + String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
         }
         if (bean.getResponseObject().getTenant() == null) {
             editor.putString("type", "no").commit();

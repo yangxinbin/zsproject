@@ -18,19 +18,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
 import com.mango.leo.zsproject.adapters.GirdDownAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ResponseListBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.HttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +46,9 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView, AdapterView.OnItemClickListener, View.OnClickListener {
     public static final int TYPE2 = 2;
@@ -76,6 +86,35 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         ButterKnife.bind(this);
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardSecondItemBean = new CardSecondItemBean();
+        list1 = new ArrayList<>();
+        getChan("");
+    }
+
+    private void getChan(String parm) {
+        String url = "http://192.168.1.166:9999/business-service/tool//list/industries?parent="+parm;
+        HttpUtils.doGet(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+               // listener.onFailure("FAILURE", e);
+                Log.v("2222222222222222","__--_");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    final List<ChanyLingyuBean.ResponseListBean> bean = ProjectsJsonUtils.readJsonCBeans(response.body().string(), "");//data是json字段获得data的值即对象数组
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0;i<bean.size();i++)
+                            list1.add(String.valueOf(bean.get(i).getName()));
+                        }
+                    });
+                    Log.v("2222222222222222","__vvvvv_"+bean.toString());
+                } catch (Exception e) {
+                    Log.e("yyyyy", "Exception = " + e);
+                }
+            }
+        });
     }
 
     @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu})
@@ -90,8 +129,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 updateItemPresenter.visitUpdateItem(this, TYPE2, cardSecondItemBean);//更新后台数据
                 break;
             case R.id.chanye:
-                list1 = new ArrayList<>();
-                list1.add("不限");
+                /*list1.add("不限");
                 list1.add("金融");
                 list1.add("企业服务");
                 list1.add("技术");
@@ -100,7 +138,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list1.add("医疗健康");
                 list1.add("硬件");
                 list1.add("体育");
-                list1.add("其它");
+                list1.add("其它");*/
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);
                 break;

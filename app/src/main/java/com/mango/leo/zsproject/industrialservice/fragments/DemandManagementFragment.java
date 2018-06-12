@@ -146,6 +146,7 @@ public class DemandManagementFragment extends Fragment {//
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                                 allPlanLayout, getString(R.string.transition_news_img));
                 ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                //getActivity().finish();
             }
         });
         addPlanLayout.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +160,7 @@ public class DemandManagementFragment extends Fragment {//
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                                 allPlanLayout, getString(R.string.transition_news_img));
                 ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                //getActivity().finish();
             }
         });
     }

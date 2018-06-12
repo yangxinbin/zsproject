@@ -109,6 +109,7 @@ public class ChangePwdActivity extends BaseActivity {
                         AppUtils.showToast(activity, "密码修改成功");
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     default:
                         break;
