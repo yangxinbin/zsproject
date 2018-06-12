@@ -357,6 +357,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_5 = item9.findViewById(R.id.textView_95);
         im_9 = item9.findViewById(R.id.imageView_9);
         card9 = item9.findViewById(R.id.card9);
+        tv9_1.setText(bean.getMoshi());
+        tv9_2.setText(bean.getMoney());
         if (type == 1 || type == 2) {
             im_9.setVisibility(View.INVISIBLE);
         }
@@ -366,17 +368,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             stringBuffer1.append(bean.getWhy().get(i) + " ");
             Log.v("77777", bean.getWhy().get(i)+"___bus_");
         }
-
-        for (int i = 0; i < bean.getType().size(); i++) {
-            stringBuffer2.append(bean.getType().get(i) + " ");
-            Log.v("6666", bean.getWhy().get(i)+"___bus_");
-        }
-        tv9_1.setText(bean.getMoshi());
-        tv9_2.setText(bean.getMoney());
         tv9_3.setText(stringBuffer1);
+        for (int j = 0; j < bean.getType().size(); j++) {
+            stringBuffer2.append(bean.getType().get(j) + " ");
+            Log.v("6666", bean.getType().get(j)+"___bus_");
+        }
         tv9_4.setText(stringBuffer2);
         tv9_5.setText(bean.getQita());
-
     }
 
     @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth,*/ R.id.carninth, R.id.send})

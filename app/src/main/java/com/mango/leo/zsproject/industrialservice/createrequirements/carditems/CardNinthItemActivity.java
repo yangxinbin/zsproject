@@ -171,58 +171,58 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             }
 /*
         }*/
-        Log.v("99999", bean.getType().size() + "-----" + bean.getWhy().size());
-        bean9 = bean;
-        for (int a = 0; a < list1.size(); a++) {
-            if (bean.getMoshi().equals(list1.get(a))) {
-                currentPosition1 = a;
+            Log.v("99999", bean.getMoney() + "--s---");
+            bean9 = bean;
+            for (int a = 0; a < list1.size(); a++) {
+                if (bean.getMoshi().equals(list1.get(a))) {
+                    currentPosition1 = a;
+                }
             }
-        }
-        text1.setText(bean.getMoshi());
-        cardNinthItemBean.setMoshi(bean.getMoshi());
-        for (int b = 0; b < list2.size(); b++) {
-            if (bean.getMoney().equals(list2.get(b))) {
-                currentPosition2 = b;
+            text1.setText(bean.getMoshi());
+            text2.setText(bean.getMoney());
+            cardNinthItemBean.setMoshi(bean.getMoshi());
+            cardNinthItemBean.setMoney(bean.getMoney());
+            for (int b = 0; b < list2.size(); b++) {
+                if (bean.getMoney().equals(list2.get(b))) {
+                    currentPosition2 = b;
+                }
             }
-        }
-        text2.setText(bean.getMoney());
-        cardNinthItemBean.setMoney(bean.getMoney());
-        List<String> l3 = new ArrayList<>();
-        for (int k = 0; k < bean.getWhy().size(); k++) {
-            stringBuffer1.append(bean.getWhy().get(k) + " ");
-            l3.add(bean.getWhy().get(k));
-            if (flag) {
-                for (int n = 0; n < list3.size(); n++) {
-                    Log.v("4444499", "--1---");
-                    if (bean.getWhy().get(k).toString().equals(list3.get(n))) {
-                        Log.v("4444499", "--2---" + n);
-                        gvChooseMap3.put(n, true);
+            List<String> l3 = new ArrayList<>();
+            for (int k = 0; k < bean.getWhy().size(); k++) {
+                stringBuffer1.append(bean.getWhy().get(k) + " ");
+                l3.add(bean.getWhy().get(k));
+                if (flag) {
+                    for (int n = 0; n < list3.size(); n++) {
+                        Log.v("4444499", "--1---");
+                        if (bean.getWhy().get(k).toString().equals(list3.get(n))) {
+                            Log.v("4444499", "--2---" + n);
+                            gvChooseMap3.put(n, true);
+                        }
                     }
                 }
             }
-        }
-        text3.setText(stringBuffer1);
-        cardNinthItemBean.setWhy(l3);
-        List<String> l4 = new ArrayList<>();
-        for (int i = 0; i < bean.getType().size(); i++) {
-            stringBuffer2.append(bean.getType().get(i) + " ");
-            l4.add(bean.getType().get(i));
-            if (flag) {
-                for (int j = 0; j < list4.size(); j++) {
-                    if (bean.getType().get(i).toString().equals(list4.get(j))) {
-                        gvChooseMap4.put(j, true);
+            text3.setText(stringBuffer1);
+            cardNinthItemBean.setWhy(l3);
+            List<String> l4 = new ArrayList<>();
+            for (int i = 0; i < bean.getType().size(); i++) {
+                stringBuffer2.append(bean.getType().get(i) + " ");
+                l4.add(bean.getType().get(i));
+                if (flag) {
+                    for (int j = 0; j < list4.size(); j++) {
+                        if (bean.getType().get(i).toString().equals(list4.get(j))) {
+                            gvChooseMap4.put(j, true);
+                        }
                     }
                 }
             }
-        }
-        text4.setText(stringBuffer2);
-        cardNinthItemBean.setType(l4);
-        editTextOther.setText(bean.getQita());
+            text4.setText(stringBuffer2);
+            cardNinthItemBean.setType(l4);
+            editTextOther.setText(bean.getQita());
 /*        adapter.setList(bean.getItemImagePath());
         if (bean.getItemImagePath() != null) {
             selectList = bean.getItemImagePath();
         }*/
-        //cardFirstItemBean.setProjectId(bean.getProjectId());
+            //cardFirstItemBean.setProjectId(bean.getProjectId());
         }
     }
 
@@ -392,48 +392,48 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 cardNinthItemBean.setMoney(list2.get(position));
                 switch (position) {
                     case 0:
-                        editor.putString("min","0");
-                        editor.putString("max","1000");
+                        editor.putString("min", "");
+                        editor.putString("max", "1000");
                         editor.commit();
                         break;
                     case 1:
-                        editor.putString("min","1000");
-                        editor.putString("max","5000");
+                        editor.putString("min", "1000");
+                        editor.putString("max", "5000");
                         editor.commit();
                         break;
                     case 2:
-                        editor.putString("min","5000");
-                        editor.putString("max","10000");
+                        editor.putString("min", "5000");
+                        editor.putString("max", "10000");
                         editor.commit();
                         break;
                     case 3:
-                        editor.putString("min","10000");
-                        editor.putString("max","100000");
+                        editor.putString("min", "10000");
+                        editor.putString("max", "100000");
                         editor.commit();
                         break;
                     case 4:
-                        editor.putString("min","100000");
-                        editor.putString("max","500000");
+                        editor.putString("min", "100000");
+                        editor.putString("max", "500000");
                         editor.commit();
                         break;
                     case 5:
-                        editor.putString("min","500000");
-                        editor.putString("max","1000000");
+                        editor.putString("min", "500000");
+                        editor.putString("max", "1000000");
                         editor.commit();
                         break;
                     case 6:
-                        editor.putString("min","1000000");
-                        editor.putString("max","5000000");
+                        editor.putString("min", "1000000");
+                        editor.putString("max", "5000000");
                         editor.commit();
                         break;
                     case 7:
-                        editor.putString("min","5000000");
-                        editor.putString("max","10000000");
+                        editor.putString("min", "5000000");
+                        editor.putString("max", "10000000");
                         editor.commit();
                         break;
                     case 8:
-                        editor.putString("min","10000000");
-                        editor.putString("max","100000000");
+                        editor.putString("min", "10000000");
+                        editor.putString("max", "");
                         editor.commit();
                         break;
                 }

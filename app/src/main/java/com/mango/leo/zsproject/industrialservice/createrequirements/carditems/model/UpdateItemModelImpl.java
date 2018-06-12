@@ -174,6 +174,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             final CardNinthItemBean cardNinthItemBeans = (CardNinthItemBean) o;
             // final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
+            Log.v("99999", sharedPreferences.getString("projectId", "") + "___"+sharedPreferences.getString("min", "0"));
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
@@ -189,7 +190,6 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 for (int j = 0;j<cardNinthItemBeans.getType().size();j++){
                     mtype.append(cardNinthItemBeans.getType().get(j)+",");
                 }
-                Log.v("99999999999999",wht.deleteCharAt(mtype.length() - 1).toString()+"-----"+mtype.deleteCharAt(mtype.length() - 1).toString());
                 mapParams.put("investmentType", mtype.deleteCharAt(mtype.length() - 1).toString());
                 mapParams.put("other", cardNinthItemBeans.getQita());
                 // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
