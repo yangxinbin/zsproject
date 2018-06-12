@@ -36,8 +36,8 @@ public class FragmentOfIndustrialPanorama extends Fragment {
     ImageView imageViewChcity;
     @Bind(R.id.city)
     TextView city_t;
-    @Bind(R.id.web_city)
-    WebView webview;
+    /*    @Bind(R.id.web_city)
+        WebView webview;*/
     private CityPickerView mPicker;
     private String provinceString, cityString, districtString;
 
@@ -49,10 +49,10 @@ public class FragmentOfIndustrialPanorama extends Fragment {
         //申明对象
         mPicker = new CityPickerView();
         mPicker.init(getActivity());
-        init("深圳");
+        //init("深圳");
         return view;
     }
-
+/*
     private void init(String parm) {
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
@@ -67,11 +67,11 @@ public class FragmentOfIndustrialPanorama extends Fragment {
             }
         });
         try {
-            webview.loadUrl("http://192.168.1.166:8080/jetc/#/iosCityIntroduction/:" + URLEncoderURI.encode(parm,"UTF-8"));
+            webview.loadUrl("http://192.168.1.166:8080/jetc/#/iosCityIntroduction/:" + URLEncoderURI.encode(parm, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void onDestroyView() {
@@ -118,6 +118,6 @@ public class FragmentOfIndustrialPanorama extends Fragment {
     @OnClick(R.id.city)
     public void onViewClicked() {
         showSeleteCity();
-        init(cityString);
+       // init(cityString);
     }
 }

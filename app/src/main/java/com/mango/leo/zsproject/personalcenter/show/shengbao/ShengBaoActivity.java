@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.personalcenter.show.shengbao;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.personalcenter.show.shengbao.adapter.ShenBaoViewPageAdapter;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.TouziFragment;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.XiangMuFragment;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
@@ -22,7 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShengBaoActivity extends BaseActivity {
+public class ShengBaoActivity extends FragmentActivity {
 
     @Bind(R.id.imageView_shengbaoback)
     ImageView imageViewShengbaoback;
