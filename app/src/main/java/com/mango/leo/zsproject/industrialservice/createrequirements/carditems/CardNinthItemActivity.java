@@ -169,10 +169,9 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 gvChooseMap3.clear();
                 gvChooseMap4.clear();
             }
-        }
 /*
         }*/
-//        Log.v("4444499888", bean.getType().size() + "-----" + bean.getWhy().size());
+        Log.v("99999", bean.getType().size() + "-----" + bean.getWhy().size());
         bean9 = bean;
         for (int a = 0; a < list1.size(); a++) {
             if (bean.getMoshi().equals(list1.get(a))) {
@@ -180,14 +179,18 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             }
         }
         text1.setText(bean.getMoshi());
+        cardNinthItemBean.setMoshi(bean.getMoshi());
         for (int b = 0; b < list2.size(); b++) {
             if (bean.getMoney().equals(list2.get(b))) {
                 currentPosition2 = b;
             }
         }
         text2.setText(bean.getMoney());
+        cardNinthItemBean.setMoney(bean.getMoney());
+        List<String> l3 = new ArrayList<>();
         for (int k = 0; k < bean.getWhy().size(); k++) {
             stringBuffer1.append(bean.getWhy().get(k) + " ");
+            l3.add(bean.getWhy().get(k));
             if (flag) {
                 for (int n = 0; n < list3.size(); n++) {
                     Log.v("4444499", "--1---");
@@ -199,8 +202,11 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             }
         }
         text3.setText(stringBuffer1);
+        cardNinthItemBean.setWhy(l3);
+        List<String> l4 = new ArrayList<>();
         for (int i = 0; i < bean.getType().size(); i++) {
             stringBuffer2.append(bean.getType().get(i) + " ");
+            l4.add(bean.getType().get(i));
             if (flag) {
                 for (int j = 0; j < list4.size(); j++) {
                     if (bean.getType().get(i).toString().equals(list4.get(j))) {
@@ -210,12 +216,14 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             }
         }
         text4.setText(stringBuffer2);
+        cardNinthItemBean.setType(l4);
         editTextOther.setText(bean.getQita());
 /*        adapter.setList(bean.getItemImagePath());
         if (bean.getItemImagePath() != null) {
             selectList = bean.getItemImagePath();
         }*/
         //cardFirstItemBean.setProjectId(bean.getProjectId());
+        }
     }
 
     public void initBean() {
@@ -271,11 +279,9 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 break;
             case R.id.button9_save:
                 initBean();
-                Log.v("99999", TextUtils.isEmpty(text1.getText().toString()) + "__11_" + text2.getText().toString() + "__11_" + text3.getText().toString() + "__11_");
-                if (!TextUtils.isEmpty(text1.getText().toString()) || !TextUtils.isEmpty(text2.getText().toString()) || !TextUtils.isEmpty(text3.getText().toString()) || !TextUtils.isEmpty(text4.getText().toString()) || cardNinthItemBean != null) {
+                Log.v("99999", cardNinthItemBean.toString() + "___");
+                if (!"请选择".equals(text1.getText().toString()) && !"请选择".equals(text2.getText().toString()) && !"请选择".equals(text3.getText().toString()) && !"请选择".equals(text4.getText().toString()) && cardNinthItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE9, cardNinthItemBean);//更新后台数据
-                    //Log.v("99999", cardNinthItemBean.getQita() + "___" + cardNinthItemBean.getMoney() + "____" + cardNinthItemBean.getMoshi());
-                    //EventBus.getDefault().removeStickyEvent(cardNinthItemBean);
                     flag = false;
                     EventBus.getDefault().postSticky(cardNinthItemBean);
                     intent = new Intent(this, BusinessPlanActivity.class);
@@ -454,6 +460,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 adapter4.setCheckItem(gvChooseMap4);
                 break;
         }
+        initBean();
     }
 
     @Override

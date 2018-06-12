@@ -75,4 +75,5 @@ public class CardNinthItemBean {
                 ", qita='" + qita + '\'' +
                 '}';
     }
+
 }
