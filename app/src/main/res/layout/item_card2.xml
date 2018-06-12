@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item2"
+    android:background="@drawable/select_gray_background"
+    android:layout_marginTop="8dp"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/ri" />
+<!---->
+    <TextView
+        android:id="@+id/textView_chanye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="产业"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize" />
+
+    <!--<TextView
+        android:id="@+id/textView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_toEndOf="@+id/textView_chanye"
+        android:layout_toRightOf="@+id/textView_chanye"
+        android:text="TextView" />-->
+
+    <!--<TextView
+        android:id="@+id/textView_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView_name"
+        android:layout_alignRight="@+id/textView_name"
+        android:layout_alignTop="@+id/textView48"
+        android:text="TextView" />-->
+
+    <!--<TextView
+        android:id="@+id/textView_phonenum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView48"
+        android:layout_alignLeft="@+id/textView_name"
+        android:layout_alignStart="@+id/textView_name"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:text="TextView" />-->
+
+    <!--<TextView
+        android:id="@+id/textView_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView_phonenum"
+        android:layout_alignRight="@+id/textView_phonenum"
+        android:layout_alignTop="@+id/textView38"
+        android:text="TextView" />-->
+
+    <!-- <TextView
+         android:id="@+id/textView_email"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/textView47"
+         android:layout_alignBottom="@+id/textView47"
+         android:layout_alignLeft="@+id/textView_position"
+         android:layout_alignStart="@+id/textView_position"
+         android:text="TextView" />-->
+
+    <com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout
+        android:id="@+id/id_flowlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageView_edit"
+        android:layout_alignRight="@+id/imageView_edit"
+        android:layout_below="@+id/textView_chanye"
+        android:layout_marginTop="13dp"
+        android:background="#E5E5F5"
+        android:padding="20dp">
+
+    </com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout>
+</RelativeLayout>

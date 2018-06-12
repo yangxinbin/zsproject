@@ -38,6 +38,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter2;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
@@ -48,6 +49,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
@@ -70,7 +72,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener, RecycleAdapter2.OnCard2ClickListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
@@ -142,6 +144,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private ConstraintLayout card1;
     private RelativeLayout card3;
     private RelativeLayout card9;
+    private List<CardSecondItemBean> bean2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -298,6 +301,40 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         initLocation();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card2EventBus(List<CardSecondItemBean> bean) {
+ /*       if(bean == null){
+            return;
+        }*/
+        this.bean2 = bean;
+        carsecondContent.setVisibility(View.GONE);
+        carsecond.setEnabled(false);
+        //渲染card1布局
+        View item2 = LayoutInflater.from(this).inflate(R.layout.carditem2, null);
+        if (bean.size() == 0) {
+            carsecondContent.setVisibility(View.VISIBLE);
+            item2.setVisibility(View.GONE);
+            carsecond.setEnabled(true);
+        } else {
+            carsecondContent.setVisibility(View.GONE);
+            item2.setVisibility(View.VISIBLE);
+            carsecond.setEnabled(false);
+        }
+        carsecond.addView(item2);
+        ImageView imageView2 = item2.findViewById(R.id.img_2add);
+        RecyclerView recyclerView2 = item2.findViewById(R.id.recycle_2);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView2.setLayoutManager(mLayoutManager);
+        recyclerView2.setNestedScrollingEnabled(false);//禁止滑动
+        RecycleAdapter2 adapter2 = new RecycleAdapter2(this, bean, type);
+        recyclerView2.setAdapter(adapter2);
+        imageView2.setOnClickListener(this);
+        if (type == 1 || type == 2) {
+            imageView2.setVisibility(View.INVISIBLE);
+        } else {
+            adapter2.setOnItemnewsClickListener(this);
+        }
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card4EventBus(List<CardFourthItemBean> bean) {
         /*if (bean4 != null){
@@ -589,5 +626,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     }
                 }).create();
         dialog.show();
+    }
+
+    @Override
+    public void onItem2Click(View view, int position) {
+
     }
 }
