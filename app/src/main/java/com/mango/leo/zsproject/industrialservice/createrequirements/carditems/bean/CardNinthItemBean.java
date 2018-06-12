@@ -64,4 +64,15 @@ public class CardNinthItemBean {
     public void setQita(String qita) {
         this.qita = qita;
     }
+
+    @Override
+    public String toString() {
+        return "CardNinthItemBean{" +
+                "moshi='" + moshi + '\'' +
+                ", money='" + money + '\'' +
+                ", why=" + why +
+                ", type=" + type +
+                ", qita='" + qita + '\'' +
+                '}';
+    }
 }

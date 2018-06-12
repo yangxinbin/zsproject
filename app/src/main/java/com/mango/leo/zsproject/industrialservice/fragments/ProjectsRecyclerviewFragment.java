@@ -335,22 +335,55 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel() + "****position*****xxxx**");
             cardNinthItemBean.setMoshi(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel()));
-            cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getCaption());
-            List<String> whyList = new ArrayList<>();
+            int min = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMin();
+            int max = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax();
+            if (max <= 1000) {
+                cardNinthItemBean.setMoney("1000万以下");
+            }
+            if (min >= 1000 && max <= 5000) {
+                cardNinthItemBean.setMoney("1000万—5000万");
+            }
+            if (min >= 5000 && max <= 10000) {
+                cardNinthItemBean.setMoney("（含）5000万—1亿");
+            }
+            if (min >= 10000 && max <= 100000) {
+                cardNinthItemBean.setMoney("（含）1亿—10亿");
+            }
+            if (min >= 100000 && max <= 500000) {
+                cardNinthItemBean.setMoney("（含）10亿—50亿");
+            }
+            if (min >= 500000 && max <= 1000000) {
+                cardNinthItemBean.setMoney("（含）50亿—100亿");
+            }
+            if (min >= 1000000 && max <= 5000000) {
+                cardNinthItemBean.setMoney("（含）100亿—500亿");
+            }
+            if (min >= 5000000 && max <= 10000000) {
+                cardNinthItemBean.setMoney("（含）500亿—1000亿");
+            }
+            if (max >= 10000000) {
+                cardNinthItemBean.setMoney("（含）1000亿以上");
+            }
+/*            List<String> whyList = new ArrayList<>();
             for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().size(); i++) {
                 whyList.add(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles().get(i));
-            }
-            cardNinthItemBean.setWhy(whyList);
-            List<String> typeList = new ArrayList<>();
+                Log.v("99999", "___bus_" + adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
+
+            }*/
+
+            cardNinthItemBean.setWhy(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
+/*            List<String> typeList = new ArrayList<>();
             for (int j = 0; j < adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().size(); j++) {
                 typeList.add(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().get(j));
-            }
-            cardNinthItemBean.setType(typeList);
+                Log.v("888888",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType().get(j)+"___bus_");
+            }*/
+            Log.v("888888",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType()+"___bus_");
+            cardNinthItemBean.setType(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType());
             // cardNinthItemBean.setMoney((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
             cardNinthItemBean.setQita((String) adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getOther());
-            EventBus.getDefault().postSticky(cardNinthItemBean);
+           // EventBus.getDefault().postSticky(cardNinthItemBean);
         } else {
-            EventBus.getDefault().postSticky(cardNinthItemBean);
+          //  EventBus.getDefault().postSticky(cardNinthItemBean);
         }
 
     }

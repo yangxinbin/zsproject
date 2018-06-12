@@ -131,6 +131,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                 ((ItemViewHolder) holder).numCompany.setText("50");
                 ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
                 ((ItemViewHolder) holder).numInvestmentActivities.setText("200");
+                ((ItemViewHolder) holder).canceling_match.setVisibility(View.GONE);//先屏蔽
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView

@@ -141,7 +141,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private TextView textView;
     private ConstraintLayout card1;
     private RelativeLayout card3;
-    private ConstraintLayout card9;
+    private RelativeLayout card9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -155,8 +155,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
         //initFirstItem();
-        stringBuffer1 = new StringBuffer();
-        stringBuffer2 = new StringBuffer();
         EventBus.getDefault().register(this);//放最后
     }
 
@@ -337,9 +335,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card9EventBus(CardNinthItemBean bean) {
-        Log.v("99999", "___bus_" + bean.getMoshi());
         this.bean9 = bean;
         //渲染card1布局
+        stringBuffer1 = new StringBuffer();
+        stringBuffer2 = new StringBuffer();
         View item9 = LayoutInflater.from(this).inflate(R.layout.carditem9, null);
         if (bean != null) {
             item9.setVisibility(View.VISIBLE);
@@ -365,9 +364,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         card9.setOnClickListener(this);
         for (int i = 0; i < bean.getWhy().size(); i++) {
             stringBuffer1.append(bean.getWhy().get(i) + " ");
+            Log.v("77777", bean.getWhy().get(i)+"___bus_");
         }
+
         for (int i = 0; i < bean.getType().size(); i++) {
             stringBuffer2.append(bean.getType().get(i) + " ");
+            Log.v("6666", bean.getWhy().get(i)+"___bus_");
         }
         tv9_1.setText(bean.getMoshi());
         tv9_2.setText(bean.getMoney());
@@ -519,7 +521,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.imageView_9:
+            case R.id.card9:
                 EventBus.getDefault().postSticky(bean9);
                 intent = new Intent(this, CardNinthItemActivity.class);
                 intent.putExtra("flag", true);

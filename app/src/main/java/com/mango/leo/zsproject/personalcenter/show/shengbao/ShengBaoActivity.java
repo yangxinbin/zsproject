@@ -4,16 +4,12 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.eventexhibition.fragments.CampaignFragment;
-import com.mango.leo.zsproject.eventexhibition.fragments.ExhibitionFragment;
-import com.mango.leo.zsproject.eventexhibition.fragments.InformationFragment;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.TouziFragment;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.XiangMuFragment;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
@@ -59,6 +55,7 @@ public class ShengBaoActivity extends BaseActivity {
         tabLayoutShengbao.setupWithViewPager(viewPagerShengbao);
         mfragments.add(new TouziFragment());
         mfragments.add(new XiangMuFragment());
+
         viewPagerShengbao.setAdapter(vp);
         viewPagerShengbao.setCurrentItem(0);
     }

@@ -58,10 +58,9 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         ButterKnife.bind(this, view);
         initDatas();
         init();
+
         return view;
     }
-
-
     private void initDatas() {
         mDatas = new ArrayList<String>(Arrays.asList("     城市介绍     ", "     招商信息     "/*, "招商计划", "定制需求"*/));
     }

@@ -180,8 +180,17 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("cooperationModel", cardNinthItemBeans.getMoshi());
                 mapParams.put("min", sharedPreferences.getString("min", "0"));
                 mapParams.put("max", sharedPreferences.getString("max", "0"));
-                mapParams.put("cooperationStyles", String.valueOf(cardNinthItemBeans.getWhy()));
-                mapParams.put("investmentType", String.valueOf(cardNinthItemBeans.getType()));
+                StringBuffer wht = new StringBuffer();
+                for (int i = 0;i<cardNinthItemBeans.getWhy().size();i++){
+                    wht.append(cardNinthItemBeans.getWhy().get(i)+",");
+                }
+                mapParams.put("cooperationStyles", wht.deleteCharAt(wht.length() - 1).toString());
+                StringBuffer mtype = new StringBuffer();
+                for (int j = 0;j<cardNinthItemBeans.getType().size();j++){
+                    mtype.append(cardNinthItemBeans.getType().get(j)+",");
+                }
+                Log.v("99999999999999",wht.deleteCharAt(mtype.length() - 1).toString()+"-----"+mtype.deleteCharAt(mtype.length() - 1).toString());
+                mapParams.put("investmentType", mtype.deleteCharAt(mtype.length() - 1).toString());
                 mapParams.put("other", cardNinthItemBeans.getQita());
                 // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
             }

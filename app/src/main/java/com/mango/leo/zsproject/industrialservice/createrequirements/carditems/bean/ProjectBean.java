@@ -8,9 +8,8 @@ import java.util.List;
 
 public class ProjectBean {
 
-
     /**
-     * responseObject : {"id":"5b1e1e0a81c6d547ecdadfaa","name":"这是专门给阿才测试创建的项目","summary":"这条信息专门为阿才创建的，独一无二","organizerDepartment":"double KK","totalInvestmentRequired":10000,"phase1InvestmentRequired":100,"numOfInvestmentPhases":2,"location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"东方科技大厦1002","lon":null,"lat":null},"contacts":[{"id":null,"name":"nasion","department":"芒果软件","position":"boss","mobile":"13428969654","phone":"13428969654","email":"1371400483@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":["项目简介","可行性研究报告"],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"招商","cooperationStyles":["合作","股权转让"],"investmentType":["天使投资","基金公司","信托公司"],"investmentSize":{"caption":"（含）1000万-5000万","min":1000,"max":5000},"other":"测试用"},"utilityFee":{"waterFeeInfo":"test from kk","electricityFeeInfo":"test from kk\r\n","gasFeeInfo":"test from kk","landFeeInfo":"test from kk"},"resourceFeeInfo":[{"id":1528700816506,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}],"advantages":[{"id":1528700435834,"title":"test from kk only one","detail":"<p>test from kk test from kk15277157545<\/p>","photos":[{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]}],"detail":"<p>h很好<\/p>","photos":[],"relatedFiles":[{"id":"5b1e1e1181c6d547ecdadfab","alias":"1527564707525.png","fileName":"15287004332413444.png","contentType":"image/png","size":12947,"createdOn":1528700433241}],"stage":2,"createdBy":"5b1c9ad581c6d52f50ffb0f9","createdOn":null,"updatedBy":null,"updatedOn":null,"recommended":false,"tenant":"@super"}
+     * responseObject : {"id":"5b1e1e0a81c6d547ecdadfaa","name":"这是专门给阿才测试创建的项目","summary":"这条信息专门为阿才创建的，独一无二","organizerDepartment":"double KK","totalInvestmentRequired":10000,"phase1InvestmentRequired":100,"numOfInvestmentPhases":2,"location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"东方科技大厦1002","lon":null,"lat":null},"contacts":[{"id":null,"name":"nasion","department":"芒果软件","position":"boss","mobile":"13428969654","phone":"13428969654","email":"1371400483@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":["项目简介","可行性研究报告"],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":["asdf","asdf","nihao"],"investmentType":["asdfasdf","fdsfdfasdfdsf","fdfd"],"investmentSize":{"caption":null,"min":21,"max":1232},"other":null},"utilityFee":{"waterFeeInfo":"test from kk","electricityFeeInfo":"test from kk\r\n","gasFeeInfo":"test from kk","landFeeInfo":"test from kk"},"resourceFeeInfo":[{"id":1528776218492,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}],"advantages":[{"id":1528700435834,"title":"test from kk only one","detail":"<p>test from kk test from kk15277157545<\/p>","photos":[{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]}],"detail":"<p>h很好<\/p>","photos":[],"relatedFiles":[{"id":"5b1e1e1181c6d547ecdadfab","alias":"1527564707525.png","fileName":"15287004332413444.png","contentType":"image/png","size":12947,"createdOn":1528700433241}],"stage":2,"createdBy":"5b1e6bcabc2ab941b1c1524b","createdOn":null,"updatedBy":"5b1e6bcabc2ab941b1c1524b","updatedOn":1528776648813,"recommended":false,"tenant":"@super"}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -77,18 +76,18 @@ public class ProjectBean {
          * cooperationStyles : null
          * industries : []
          * typesOfAvailableDox : ["项目简介","可行性研究报告"]
-         * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"招商","cooperationStyles":["合作","股权转让"],"investmentType":["天使投资","基金公司","信托公司"],"investmentSize":{"caption":"（含）1000万-5000万","min":1000,"max":5000},"other":"测试用"}
+         * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":["asdf","asdf","nihao"],"investmentType":["asdfasdf","fdsfdfasdfdsf","fdfd"],"investmentSize":{"caption":null,"min":21,"max":1232},"other":null}
          * utilityFee : {"waterFeeInfo":"test from kk","electricityFeeInfo":"test from kk\r\n","gasFeeInfo":"test from kk","landFeeInfo":"test from kk"}
-         * resourceFeeInfo : [{"id":1528700816506,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}]
+         * resourceFeeInfo : [{"id":1528776218492,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}]
          * advantages : [{"id":1528700435834,"title":"test from kk only one","detail":"<p>test from kk test from kk15277157545<\/p>","photos":[{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]}]
          * detail : <p>h很好</p>
          * photos : []
          * relatedFiles : [{"id":"5b1e1e1181c6d547ecdadfab","alias":"1527564707525.png","fileName":"15287004332413444.png","contentType":"image/png","size":12947,"createdOn":1528700433241}]
          * stage : 2
-         * createdBy : 5b1c9ad581c6d52f50ffb0f9
+         * createdBy : 5b1e6bcabc2ab941b1c1524b
          * createdOn : null
-         * updatedBy : null
-         * updatedOn : null
+         * updatedBy : 5b1e6bcabc2ab941b1c1524b
+         * updatedOn : 1528776648813
          * recommended : false
          * tenant : @super
          */
@@ -108,8 +107,8 @@ public class ProjectBean {
         private int stage;
         private String createdBy;
         private Object createdOn;
-        private Object updatedBy;
-        private Object updatedOn;
+        private String updatedBy;
+        private long updatedOn;
         private boolean recommended;
         private String tenant;
         private List<ContactsBean> contacts;
@@ -240,19 +239,19 @@ public class ProjectBean {
             this.createdOn = createdOn;
         }
 
-        public Object getUpdatedBy() {
+        public String getUpdatedBy() {
             return updatedBy;
         }
 
-        public void setUpdatedBy(Object updatedBy) {
+        public void setUpdatedBy(String updatedBy) {
             this.updatedBy = updatedBy;
         }
 
-        public Object getUpdatedOn() {
+        public long getUpdatedOn() {
             return updatedOn;
         }
 
-        public void setUpdatedOn(Object updatedOn) {
+        public void setUpdatedOn(long updatedOn) {
             this.updatedOn = updatedOn;
         }
 
@@ -409,11 +408,11 @@ public class ProjectBean {
              * totalInvestmentRequired : null
              * phase1InvestmentRequired : null
              * numOfInvestmentPhases : null
-             * cooperationModel : 招商
-             * cooperationStyles : ["合作","股权转让"]
-             * investmentType : ["天使投资","基金公司","信托公司"]
-             * investmentSize : {"caption":"（含）1000万-5000万","min":1000,"max":5000}
-             * other : 测试用
+             * cooperationModel :
+             * cooperationStyles : ["asdf","asdf","nihao"]
+             * investmentType : ["asdfasdf","fdsfdfasdfdsf","fdfd"]
+             * investmentSize : {"caption":null,"min":21,"max":1232}
+             * other : null
              */
 
             private Object totalInvestmentRequired;
@@ -421,7 +420,7 @@ public class ProjectBean {
             private Object numOfInvestmentPhases;
             private String cooperationModel;
             private InvestmentSizeBean investmentSize;
-            private String other;
+            private Object other;
             private List<String> cooperationStyles;
             private List<String> investmentType;
 
@@ -465,11 +464,11 @@ public class ProjectBean {
                 this.investmentSize = investmentSize;
             }
 
-            public String getOther() {
+            public Object getOther() {
                 return other;
             }
 
-            public void setOther(String other) {
+            public void setOther(Object other) {
                 this.other = other;
             }
 
@@ -491,20 +490,20 @@ public class ProjectBean {
 
             public static class InvestmentSizeBean {
                 /**
-                 * caption : （含）1000万-5000万
-                 * min : 1000
-                 * max : 5000
+                 * caption : null
+                 * min : 21
+                 * max : 1232
                  */
 
-                private String caption;
+                private Object caption;
                 private int min;
                 private int max;
 
-                public String getCaption() {
+                public Object getCaption() {
                     return caption;
                 }
 
-                public void setCaption(String caption) {
+                public void setCaption(Object caption) {
                     this.caption = caption;
                 }
 
@@ -651,7 +650,7 @@ public class ProjectBean {
 
         public static class ResourceFeeInfoBean {
             /**
-             * id : 1528700816506
+             * id : 1528776218492
              * resourceType : test from kk
              * senior : 10000
              * medium : 8888

@@ -131,7 +131,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         list2.add("（含）1亿—10亿");
         list2.add("（含）10亿—50亿");
         list2.add("（含）50亿—100亿");
-        list2.add("（含）1000亿—500亿");
+        list2.add("（含）100亿—500亿");
         list2.add("（含）500亿—1000亿");
         list2.add("（含）1000亿以上");
         list3 = new ArrayList<>();
