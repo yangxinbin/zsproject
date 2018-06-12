@@ -335,15 +335,27 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel() + "****position*****xxxx**");
             cardNinthItemBean.setMoshi(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel());
-            int min = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMin();
-            int max = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax();
-            if (max <= 1000) {
+            int min = -1;
+            int max = -1;
+            if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize() != null) {
+                min = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMin();
+                max = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax();
+                Log.v("xxxxx", min + "!!!!!!!" + max);
+            } else {
+                cardNinthItemBean.setMoney("");
+            }
+            if (max <= 1000 && 0<= max) {
                 cardNinthItemBean.setMoney("1000万以下");
+                Log.v("xxxxx", "fdsf");
             }
             if (min >= 1000 && max <= 5000) {
+                Log.v("xxxxx", "fdsf");
+
                 cardNinthItemBean.setMoney("1000万—5000万");
             }
             if (min >= 5000 && max <= 10000) {
+                Log.v("xxxxx", "fdsf");
+
                 cardNinthItemBean.setMoney("（含）5000万—1亿");
             }
             if (min >= 10000 && max <= 100000) {
@@ -364,7 +376,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             if (max >= 10000000) {
                 cardNinthItemBean.setMoney("（含）1000亿以上");
             }
-            Log.v("999999",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles()+"***"+max+"===="+min+"*****"+cardNinthItemBean.getMoney());
+            //Log.v("999999",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles()+"***"+max+"===="+min+"*****"+cardNinthItemBean.getMoney());
             cardNinthItemBean.setWhy(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
             cardNinthItemBean.setType(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType());
             cardNinthItemBean.setQita(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getOther()));

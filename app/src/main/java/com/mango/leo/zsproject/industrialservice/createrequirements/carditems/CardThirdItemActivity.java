@@ -111,6 +111,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         //mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         // 地图初始化
         textViewPlace.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
+        Log.v("33333333",""+sharedPreferences.getString("where","广东省深圳市南山区"));
         //textViewPlace.setText("广东省深圳市南山区");
         mBaiduMap = mMapView.getMap();
         editTextWhere.addTextChangedListener(this);

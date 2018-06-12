@@ -35,7 +35,7 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
         WebSettings webSettings = webZhaoshan.getSettings();
         webSettings.setJavaScriptEnabled(true);
         //webview.loadUrl("http://www.baidu.com");
-        webZhaoshan.setWebViewClient(new WebViewClient(){
+        /*webZhaoshan.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub
@@ -43,7 +43,7 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
                 view.loadUrl(url);
                 return true;
             }
-        });
+        });*/
        //?? webZhaoshan.loadUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
     }
 

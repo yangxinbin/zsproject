@@ -66,8 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView77"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView77"
@@ -88,8 +87,7 @@
         android:layout_alignBaseline="@+id/textView77"
         android:layout_alignBottom="@+id/textView77"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView"
@@ -109,8 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView85"
@@ -130,8 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView85"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView91"
@@ -152,8 +148,7 @@
         android:layout_alignLeft="@+id/textView91"
         android:layout_alignStart="@+id/textView91"
         android:layout_below="@+id/textView91"
-        android:layout_marginTop="13dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView" />
+        android:layout_marginTop="13dp" />
 
 </RelativeLayout>

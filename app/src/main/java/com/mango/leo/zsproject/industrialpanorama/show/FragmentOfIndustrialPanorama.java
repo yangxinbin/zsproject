@@ -19,10 +19,17 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.adapters.ListAndGirdDownAdapter;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CityIntroductionFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
@@ -45,12 +52,13 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
     @Bind(R.id.imageView_chcity)
     ImageView imageViewChcity;
     @Bind(R.id.city)
-    TextView city;
+    TextView city_t;
     private List<String> mDatas;
     private ListAndGirdDownAdapter adapter;
     private Dialog dialog;
     private List<String> listDate;
-
+    private CityPickerView mPicker;
+    private String cityString, districtString, provinceString;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +66,6 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         ButterKnife.bind(this, view);
         initDatas();
         init();
-
         return view;
     }
     private void initDatas() {
@@ -85,15 +92,50 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
 
     @OnClick(R.id.city)
     public void onViewClicked() {
-        listDate = new ArrayList<>();
+        /*listDate = new ArrayList<>();
         listDate.add("深圳");
         listDate.add("北京");
         listDate.add("上海");
         listDate.add("广州");
-        showPopupWindow(getActivity(), listDate);
-    }
+        showPopupWindow(getActivity(), listDate);*/
 
-    private void showPopupWindow(Context context, List<String> listDate) {
+    }
+    private void showSeleteCity() {
+        //添加默认的配置，不需要自己定义
+        CityConfig cityConfig = new CityConfig.Builder().build();
+        mPicker.setConfig(cityConfig);
+        //监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                //省份
+                if (province != null) {
+                    provinceString = String.valueOf(province);
+                }
+                //城市
+                if (city != null) {
+                    cityString = String.valueOf(city);
+                   /* editor.putString("position", cityString)
+                            .commit();*/
+                }
+                //地区
+                if (district != null) {
+                    districtString = String.valueOf(district);
+                }
+                city_t.setText(province + "-" + city + "-" + district);
+            }
+
+            @Override
+            public void onCancel() {
+                AppUtils.showToast(getContext(), "城市选择已取消");
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
+    }
+/*    private void showPopupWindow(Context context, List<String> listDate) {
         //设置要显示的view
         View view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
         //此处可按需求为各控件设置属性
@@ -112,11 +154,11 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         window.setWindowAnimations(R.style.AnimBottom);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
-    }
+    }*/
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        city.setText(listDate.get(position));
+        city_t.setText(listDate.get(position));
         dialog.dismiss();
     }
 }

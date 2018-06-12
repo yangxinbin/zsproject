@@ -295,6 +295,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             im_3.setVisibility(View.INVISIBLE);
         }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
+        Log.v("33333333",""+sharedPreferences.getString("where","广东省深圳市南山区"));
         p2.setText(bean.getAddress());
         //im_3.setOnClickListener(this);
         card3.setOnClickListener(this);
@@ -570,6 +571,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.img_2add:
+                EventBus.getDefault().postSticky(bean2);
+                intent = new Intent(this, CardSecondItemActivity.class);
+                intent.putExtra("position", bean2.size());
+                startActivity(intent);
+                finish();
+                break;
         }
 
     }
@@ -630,6 +638,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onItem2Click(View view, int position) {
-
+        EventBus.getDefault().postSticky(bean2);
+        Intent intent = new Intent(this, CardSecondItemActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
+        finish();
     }
 }
