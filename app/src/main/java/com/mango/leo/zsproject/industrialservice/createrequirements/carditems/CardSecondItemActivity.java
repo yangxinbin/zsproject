@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -21,17 +19,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
 import com.mango.leo.zsproject.adapters.GirdDownAdapter;
+import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
@@ -54,7 +52,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView, AdapterView.OnItemClickListener, View.OnClickListener {
+public class CardSecondItemActivity extends BaseCardActivity implements UpdateItemView, View.OnClickListener, StaggeredGridView.OnItemClickListener {
     public static final int TYPE2 = 2;
     @Bind(R.id.imageView2_back)
     ImageView imageView2Back;
@@ -100,6 +98,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         if (beans2 != null) {
             beans2.clear();
         }
+        getChan("", mtype);
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
         position = getIntent().getIntExtra("position", 0);
@@ -192,6 +191,31 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
     private final CardSecondItemActivity.MyHandler mHandler = new CardSecondItemActivity.MyHandler(this);
 
+    @Override
+    public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case 1:
+                date1 = list1.get(position);
+                currentPosition1 = position;
+                adapter.setCheckItem(position);
+                textViewChanye.setText(date1);
+                dialog.dismiss();
+                mtype = 1;
+                getChan(textViewChanye.getText().toString(), mtype);//接着请求
+                break;
+            case 2:
+                if (view.isPressed()) {
+                    view.setActivated(false);
+                    gvChooseMap.put(position, false);
+                } else {
+                    view.setActivated(true);
+                    gvChooseMap.put(position, true);
+                }
+                adapter2.setCheckItem(gvChooseMap);
+                break;
+        }
+    }
+
     private class MyHandler extends Handler {
         private final WeakReference<CardSecondItemActivity> mActivity;
 
@@ -247,10 +271,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     flag = false;
                     updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
                     EventBus.getDefault().postSticky(beans2);
-                    Log.v("2222222222111",""+beans2.size());
                     EventBus.getDefault().unregister(this);
-                    /*intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);*/
+                    //intent = new Intent(this, BusinessPlanActivity.class);
+                    //startActivity(intent);
                     finish();
                 } else {
                     AppUtils.showToast(this, "请添加产业领域");
@@ -286,8 +309,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("新四板");
                 list2.add("IPO上市");
                 list2.add("其它");*/
-                mtype = 1;
-                getChan(textViewChanye.getText().toString(), mtype);
                 showPopupWindow(this, list2, 2);
                 adapter2.setCheckItem(gvChooseMap);
                 break;
@@ -331,11 +352,11 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         if (i == 1) {//单选
             //设置要显示的view
             view = LayoutInflater.from(context).inflate(R.layout.single_girdview_default_down, null);
-            GridView gridView = view.findViewById(R.id.gv);
+            StaggeredGridView gridView = view.findViewById(R.id.gv);
             ImageView imageViewDelete1 = view.findViewById(R.id.imageView_delete1);
-            Button buttonGo1 = view.findViewById(R.id.button_go1);
+            //Button buttonGo1 = view.findViewById(R.id.button_go1);
             imageViewDelete1.setOnClickListener(this);
-            buttonGo1.setOnClickListener(this);
+            //buttonGo1.setOnClickListener(this);
             adapter = new GirdDownAdapter(context, listDate, i);
             gridView.setAdapter(adapter);
             gridView.setId(i);
@@ -344,7 +365,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         if (i == 2) {//多选
             //设置要显示的view
             view = LayoutInflater.from(context).inflate(R.layout.mutil_girdview_default_down, null);
-            GridView gridView = view.findViewById(R.id.gv);
+            StaggeredGridView gridView = view.findViewById(R.id.gv);
             ImageView imageViewDelete2 = view.findViewById(R.id.imageView_delete2);
             Button buttonGo2 = view.findViewById(R.id.button_go2);
             imageViewDelete2.setOnClickListener(this);
@@ -367,7 +388,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
-
+/*
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         switch (adapterView.getId()) {
@@ -387,7 +408,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 adapter2.setCheckItem(gvChooseMap);
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onClick(View view) {
@@ -395,11 +416,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             case R.id.imageView_delete1:
                 dialog.dismiss();
                 break;
-            case R.id.button_go1:
+/*            case R.id.button_go1:
                 Log.v("yyyyyy", "****date1****" + date1);
-                textViewChanye.setText(date1);
-                dialog.dismiss();
-                break;
+                break;*/
             case R.id.imageView_delete2:
                 dialog.dismiss();
                 break;

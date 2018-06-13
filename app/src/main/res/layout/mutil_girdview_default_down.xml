@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg"><!---->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -31,9 +36,9 @@
             android:layout_marginRight="24dp"
             app:srcCompat="@drawable/delete" />
     </RelativeLayout>
-    <GridView
+    <com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView
         android:id="@+id/gv"
-        android:layout_columnWeight="1"
+        app:itemMargin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -44,7 +49,7 @@
         android:layout_margin="8dp"
         android:numColumns="4"
         android:verticalSpacing="8dp" />
-
+    </LinearLayout>
     <Button
         android:id="@+id/button_go2"
         android:layout_width="match_parent"
