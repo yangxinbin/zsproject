@@ -34,6 +34,7 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
         webZhaoshan.setVisibility(View.VISIBLE);
         WebSettings webSettings = webZhaoshan.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        initW(getIntent().getStringExtra("FavouriteId"));
         //webview.loadUrl("http://www.baidu.com");
         /*webZhaoshan.setWebViewClient(new WebViewClient(){
             @Override
@@ -46,7 +47,21 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
         });*/
        //?? webZhaoshan.loadUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
     }
-
+    private void initW(final String sp) {
+        webZhaoshan.setVisibility(View.VISIBLE);
+        WebSettings webSettings = webZhaoshan.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webZhaoshan.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        webZhaoshan.loadUrl("http://47.106.184.121/jetc/#/iosdeclareDetailnobtn/:" + sp);
+    }
     @OnClick({R.id.imageView_zhaoshan_back, R.id.imageView_zhaoshan_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -72,7 +87,7 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosdeclareDetail/:"+id);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI

@@ -127,7 +127,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             //               return;
             //           }
             if (((ItemViewHolder) holder) != null) {
-                ((ItemViewHolder) holder).itemName.setText("sdfsd");
+                ((ItemViewHolder) holder).itemName.setText("昆明市招商计划");
                 ((ItemViewHolder) holder).numCompany.setText("50");
                 ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
                 ((ItemViewHolder) holder).numInvestmentActivities.setText("200");

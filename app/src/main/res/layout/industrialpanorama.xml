@@ -68,7 +68,7 @@
         android:textStyle="bold"
         android:layout_alignBottom="@+id/image_msg2"
         android:layout_centerHorizontal="true"
-        android:text="深圳" />
+        android:text="深圳市南山区" />
 
     <ImageView
         android:id="@+id/imageView_chcity"

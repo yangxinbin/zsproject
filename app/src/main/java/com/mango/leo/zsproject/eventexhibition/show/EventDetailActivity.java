@@ -56,7 +56,7 @@ public class EventDetailActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
         id = getIntent().getStringExtra("id");
         position = getIntent().getIntExtra("position",-1);
-        Log.v("ssss",""+"http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
+        Log.v("ssss",""+"http://47.106.184.121/jetc/#/iosactivityDetailnobtn/:"+id);
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -70,7 +70,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 return true;
             }
         });
-      //  webview.loadUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
+      webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:"+id);
     }
 
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
@@ -109,7 +109,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:"+id);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI

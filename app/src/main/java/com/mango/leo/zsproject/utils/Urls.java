@@ -5,7 +5,7 @@ package com.mango.leo.zsproject.utils;
  */
 
 public class Urls {
-    public static final String HOST = "http://192.168.1.166:9999";
+    public static final String HOST = "http://47.106.184.121:9999";
     public static final String AUTH = "/user-service/user/auth/password";
     public static final String REGIST = "/user-service/user/register";
     // public static final String CODE = "/user-service/user/send/message/code";

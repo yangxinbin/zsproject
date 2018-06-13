@@ -119,7 +119,8 @@
         <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity">
         </activity>
         <activity android:name=".personalcenter.show.baoming.BaoMingActivity"></activity>
-
+        <activity android:name=".industrialpanorama.show.ZhaoShanDetailActivity">
+        </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

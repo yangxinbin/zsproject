@@ -1,54 +1,46 @@
 package com.mango.leo.zsproject.industrialpanorama.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialpanorama.adapter.CityAdapter;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.utils.AppUtils;
-import com.mango.leo.zsproject.utils.GlideImageLoader;
-import com.mango.leo.zsproject.utils.HttpUtils;
-import com.mango.leo.zsproject.utils.SwipeItemLayout;
-import com.mango.leo.zsproject.utils.Urls;
+import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
 
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by admin on 2018/5/30.
  */
 
 public class CityIntroductionFragment extends Fragment {
-    @Bind(R.id.recycle_city)
-    RecyclerView recycleCity;
-    @Bind(R.id.refresh_city)
-    SwipeRefreshLayout refreshCity;
+    @Bind(R.id.w)
+    WebView webview;
+    /*@Bind(R.id.recycle_city)
+        RecyclerView recycleCity;
+        @Bind(R.id.refresh_city)
+        SwipeRefreshLayout refreshCity;*/
     private LinearLayoutManager mLayoutManager;
     private CityAdapter adapter;
     private RelativeLayout h;
@@ -56,20 +48,49 @@ public class CityIntroductionFragment extends Fragment {
     private ConstraintLayout h1;
     private CityBean cityBean;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.city_introduction, container, false);
         ButterKnife.bind(this, view);
-        loadCityMes();
+        EventBus.getDefault().register(this);
+/*        loadCityMes();
         initSwipeRefreshLayout();
-        initRecycle();
+        initRecycle();*/
+        TextView c = getActivity().findViewById(R.id.city);
+        Log.v("yyyyyyyyyy","----------"+c.getText());
+        initW("深圳");
         return view;
     }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card1EventBus(CityS bean) {
+        Log.v("yyyyyyyyyy","------szD----"+bean.getCity());
+        initW(bean.getCity());
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    private void initW(final String sp) {
+                webview.setVisibility(View.VISIBLE);
+                WebSettings webSettings = webview.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                webview.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        // TODO Auto-generated method stub
+                        //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                        view.loadUrl(url);
+                        return true;
+                    }
+                });
+                    webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
+            }
 
     private void loadCityMes() {
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpUtils.doGet(Urls.HOST_CITY + "?city=" + "深圳", new Callback() {
@@ -94,10 +115,17 @@ public class CityIntroductionFragment extends Fragment {
                     }
                 });
             }
-        }).start();
+        }).start();*/
     }
 
-    private void initRecycle() {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
+    }
+
+   /* private void initRecycle() {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleCity.setLayoutManager(mLayoutManager);
         recycleCity.setItemAnimator(new DefaultItemAnimator());//设置默认动画
@@ -196,10 +224,10 @@ public class CityIntroductionFragment extends Fragment {
                         AppUtils.showToast(getActivity(), "获取城市信息成功");
                         initHeader();
                         recycleCity.setAdapter(adapter);
-                        /*List<IntroductionBean> list = new ArrayList<>();
+                        *//*List<IntroductionBean> list = new ArrayList<>();
                         for (int i=0;i<cityBean.getResponseObject().getIntroduction().size();i++){
                             list.add(cityBean.getResponseObject().getIntroduction().get(i));
-                        }*/
+                        }*//*
                         adapter.setmDate(cityBean.getResponseObject().getIntroduction());
                         Log.v("dddddddd",""+cityBean.getResponseObject().getIntroduction().size());
                     default:
@@ -207,5 +235,5 @@ public class CityIntroductionFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 }

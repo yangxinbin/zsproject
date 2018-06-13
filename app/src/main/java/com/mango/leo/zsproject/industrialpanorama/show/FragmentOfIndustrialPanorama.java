@@ -26,10 +26,13 @@ import com.lljjcoder.citywheel.CityConfig;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.adapters.ListAndGirdDownAdapter;
+import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CityIntroductionFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,6 +144,9 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
                 //城市
                 if (city != null) {
                     cityString = String.valueOf(city);
+                    CityS cityS = new CityS();
+                    cityS.setCity(cityString.substring(0,cityString.length()-1));
+                    EventBus.getDefault().postSticky(cityS);
                    /* editor.putString("position", cityString)
                             .commit();*/
                 }
@@ -171,11 +177,11 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         // titleUrl QQ和QQ空间跳转链接
         //oks.setTitleUrl(newsurl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("活动详情");
+        oks.setText("城市介绍");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:");
+        oks.setUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+cityString);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI

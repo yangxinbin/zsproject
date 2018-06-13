@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialpanorama.adapter.ZhaoShanAdapter;
+import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialpanorama.show.ZhaoShanDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
@@ -27,6 +28,10 @@ import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -52,6 +57,7 @@ public class InvestmentInformationFragment extends Fragment {
     private ZhaoShanAdapter adapter;
     private ArrayList<ZhaoShangBean> mData,mDataAll;
     private int page = 0;
+    private String beanM = "深圳";
 
     @Nullable
     @Override
@@ -62,11 +68,17 @@ public class InvestmentInformationFragment extends Fragment {
         initHeader();
         loadZhaoShanMes(0);
         initSwipeRefreshLayout();
+        EventBus.getDefault().register(this);
         if (mDataAll != null && mData != null) {
             mDataAll.clear();
             mData.clear();
         }
         return view;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card1EventBus(CityS bean) {
+        Log.v("yyyyyyyyyy","------111---"+bean.getCity());
+        beanM = bean.getCity();
     }
     private void initHeader() {
         //渲染header布局
@@ -84,10 +96,11 @@ public class InvestmentInformationFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     private void loadZhaoShanMes(final int page) {
-        Log.v("zzzzzzzzz","__0_"+Urls.HOST_CITY_MES + "?city=" + "深圳"+"&page="+page);
+        Log.v("zzzzzzzzz","__0_"+Urls.HOST_CITY_MES + "?city=" +beanM+"&page="+page);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -96,7 +109,6 @@ public class InvestmentInformationFragment extends Fragment {
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
                     }
-
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
@@ -145,9 +157,9 @@ public class InvestmentInformationFragment extends Fragment {
                 return;
             }
             Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
-           // Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
-            //intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
-           // startActivity(intent);
+            Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
+            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            startActivity(intent);
         }
     };
     private int lastVisibleItem;
