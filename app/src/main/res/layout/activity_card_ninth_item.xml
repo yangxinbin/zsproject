@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="投资条件"
+            android:text="招商引资"
             android:textColor="@color/black"
             android:textSize="@dimen/title"
             android:textStyle="bold"

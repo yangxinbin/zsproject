@@ -46,12 +46,14 @@
         android:layout_alignLeft="@+id/textView15"
         android:layout_alignStart="@+id/textView15"
         android:layout_below="@+id/textView15"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
+        android:layout_marginRight="11dp"
         android:hint="输入密码"
         android:inputType="textPassword" />
 
     <EditText
+        android:layout_marginRight="11dp"
         android:id="@+id/editText_pwdok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,14 +67,17 @@
 
     <Button
         android:id="@+id/button2_login"
-        android:layout_width="350dp"
-        android:background="@drawable/rec_red_background"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText_pwdok"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/rec_red_background"
+        android:text="@string/go"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="@dimen/title"
-        android:text="@string/go" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

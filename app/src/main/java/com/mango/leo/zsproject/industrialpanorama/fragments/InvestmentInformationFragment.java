@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.industrialpanorama.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,10 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialpanorama.adapter.ZhaoShanAdapter;
-import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
+import com.mango.leo.zsproject.industrialpanorama.show.ZhaoShanDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -125,11 +125,25 @@ public class InvestmentInformationFragment extends Fragment {
         recycleMes.setItemAnimator(new DefaultItemAnimator());//设置默认动画
         recycleMes.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         adapter = new ZhaoShanAdapter(getActivity().getApplicationContext());
+        adapter.setOnZhaoShanClickListener(mOnItemClickListener);
         recycleMes.addOnScrollListener(mOnScrollListener);
         //recycleMes.setAdapter(adapter);
         recycleMes.removeAllViews();
         recycleMes.setAdapter(adapter);
     }
+    private ZhaoShanAdapter.OnZhaoShanClickListener mOnItemClickListener = new ZhaoShanAdapter.OnZhaoShanClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
+            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
+            Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
+            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            startActivity(intent);
+        }
+    };
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 

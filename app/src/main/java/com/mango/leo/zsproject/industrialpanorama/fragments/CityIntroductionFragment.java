@@ -43,7 +43,7 @@ import okhttp3.Response;
  */
 
 public class CityIntroductionFragment extends Fragment {
-    @Bind(R.id.recycle_city)
+/*    @Bind(R.id.recycle_city)
     RecyclerView recycleCity;
     @Bind(R.id.refresh_city)
     SwipeRefreshLayout refreshCity;
@@ -52,20 +52,18 @@ public class CityIntroductionFragment extends Fragment {
     private RelativeLayout h;
     private Banner banner;
     private ConstraintLayout h1;
-    private CityBean cityBean;
+    private CityBean cityBean;*/
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.city_introduction, container, false);
         ButterKnife.bind(this, view);
-        loadCityMes();
-        initSwipeRefreshLayout();
-        initRecycle();
+
         return view;
     }
 
-    private void loadCityMes() {
+    /*private void loadCityMes() {
                     HttpUtils.doGet(Urls.HOST_CITY + "?city=" + "深圳", new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
@@ -183,15 +181,15 @@ public class CityIntroductionFragment extends Fragment {
                         AppUtils.showToast(getActivity(), "获取城市信息成功");
                         initHeader();
                         recycleCity.setAdapter(adapter);
-                        /*List<IntroductionBean> list = new ArrayList<>();
+                        *//*List<IntroductionBean> list = new ArrayList<>();
                         for (int i=0;i<cityBean.getResponseObject().getIntroduction().size();i++){
                             list.add(cityBean.getResponseObject().getIntroduction().get(i));
-                        }*/
+                        }*//*
                         adapter.setmDate(cityBean.getResponseObject().getIntroduction());
                     default:
                         break;
                 }
             }
         }
-    }
+    }*/
 }

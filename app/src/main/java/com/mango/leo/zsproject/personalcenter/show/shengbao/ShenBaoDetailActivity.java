@@ -6,12 +6,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShenBaoDetailActivity extends AppCompatActivity {
+public class ShenBaoDetailActivity extends BaseActivity {
 
     @Bind(R.id.imageView_sback)
     ImageView imageViewSback;

@@ -60,7 +60,7 @@
         android:layout_alignLeft="@+id/editText_phone_res"
         android:layout_alignStart="@+id/editText_phone_res"
         android:layout_below="@+id/editText_phone_res"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="请输入验证码"
         android:inputType="textPersonName" />
@@ -77,14 +77,14 @@
 
     <Button
         android:id="@+id/button_res"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView27"
-        android:layout_alignStart="@+id/imageView27"
         android:layout_below="@+id/imageView27"
-        android:layout_marginTop="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
         android:background="@drawable/rec_red_background"
         android:text="@string/go"
+        android:layout_margin="20dp"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize"
         android:textStyle="bold" />
@@ -93,16 +93,15 @@
         android:id="@+id/imageView27"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="20dp"
+        android:layout_margin="10dp"
         android:background="@color/black"
         android:layout_below="@+id/editText_verification_code_res" />
 
     <ImageView
         android:id="@+id/imageView29"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_alignLeft="@+id/imageView27"
-        android:layout_alignStart="@+id/imageView27"
         android:layout_below="@+id/editText_phone_res"
         android:background="@color/black" />
 

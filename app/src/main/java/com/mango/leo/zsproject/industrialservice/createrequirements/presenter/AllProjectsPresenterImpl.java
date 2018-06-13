@@ -33,13 +33,13 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
     @Override
     public void visitProjects(Context context, int type,int page) {
         sharedPreferences = context.getSharedPreferences("CIFIT",MODE_PRIVATE);
-        Log.v("1111","***"+sharedPreferences.getString("token", ""));
         String url;
         if (type == 0){
             url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+1+"&page="+page;
         }else {
             url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+0+"&page="+page;
         }
+        Log.v("pppppppppppp",""+url);
         allProjectsModel.visitProjects(context, type, url, this);
     }
 

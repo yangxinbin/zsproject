@@ -3,6 +3,8 @@ package com.mango.leo.zsproject.personalcenter.show;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -17,11 +19,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.show.baoming.BaoMingActivity;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.ShengBaoActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.MesActivity;
+import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
@@ -88,16 +92,45 @@ public class FragmentOfPersonalCenter extends Fragment {
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
+        Log.v("ppppppp",  "__yyyyyy__");
         if (sharedPreferences.getString("skip", "no").equals("yes")) {
             cardView3.setVisibility(View.VISIBLE);
             cardView2.setVisibility(View.GONE);
         }
+        init();//页面跳转
         return view;
     }
-
+private HandlerUI handlerUI = new HandlerUI();
+    private void init() {
+        new Thread() {
+            @Override
+            public void run() {
+                ACache mCache = ACache.get(getActivity());
+                bean1 = ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message"));
+                Message message = handlerUI.obtainMessage();
+                message.obj = bean1;
+                message.what = 0;
+                handlerUI.sendMessage(message);
+            }
+        }.start();
+    }
+    public class HandlerUI extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    bean1 = (UserMessageBean) msg.obj;
+                    EventBus.getDefault().postSticky(bean1);
+                    break;
+            }
+        }
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
-        Log.v("uuuuu", bean.getResponseObject().getName() + "__rrrr__" + bean.getResponseObject().getCompany());
+        if (bean == null){
+            return;
+        }
+        Log.v("ppppppp",  "__rrrr__"+bean);
         bean1 = bean;
         //身份
         textViewGov.setText(bean.getResponseObject().getDepartment());
@@ -121,7 +154,7 @@ public class FragmentOfPersonalCenter extends Fragment {
             imageViewState.setVisibility(View.GONE);
         }
         //头像
-        if (bean.getResponseObject().getAvator().getId() != null) {//认证
+        if (bean.getResponseObject().getAvator() != null) {//认证
             Glide.with(this).load(Urls.HOST+"/user-service/user/get/file?fileId="+ bean.getResponseObject().getAvator().getId()).into(imageViePic);
         }
 
@@ -143,6 +176,8 @@ public class FragmentOfPersonalCenter extends Fragment {
         }
 
     }
+
+
 
     @Override
     public void onDestroyView() {
@@ -168,19 +203,19 @@ public class FragmentOfPersonalCenter extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.shengbao:
-                intent = new Intent(getActivity(), ShengBaoActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), ShengBaoActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.shouc:
-                intent = new Intent(getActivity(), ShouCangActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), ShouCangActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.baoming:
-                intent = new Intent(getActivity(), BaoMingActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), BaoMingActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.kefu:
-                intent = new Intent(getActivity(), KefuActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), KefuActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.settings:

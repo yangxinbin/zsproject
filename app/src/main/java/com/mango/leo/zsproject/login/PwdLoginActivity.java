@@ -68,9 +68,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
         ButterKnife.bind(this);
         ifShowPwd();
         userStatePresenter = new UserStatePresenterImpl(this);
-        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        if (sharedPreferences.getString("isOk","no").equals("yes")){
+        if (sharedPreferences.getString("isOk", "no").equals("yes")) {
             ACache mCache = ACache.get(this);
             EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(mCache.getAsString("message")));
             Intent intent = new Intent(this, ZsActivity.class);
@@ -82,7 +82,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
     private void initEdit() {
         user = new User(editTextPhoneNum.getText().toString(), editTextPwd.getText().toString());
         //通过editor对象写入数据
-        editor.putString("userName",editTextPhoneNum.getText().toString());
+        editor.putString("userName", editTextPhoneNum.getText().toString());
     }
 
     private void ifShowPwd() {
@@ -104,8 +104,8 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
 
     @OnClick({R.id.imageView_pwd_back, R.id.button_login, R.id.textView_phnoelogin, R.id.textView_for})
     public void onViewClicked(View view) {
-        if (!NetUtil.isNetConnect(this)){
-            AppUtils.showToast(this,"请连接网络");
+        if (!NetUtil.isNetConnect(this)) {
+            AppUtils.showToast(this, "请连接网络");
             return;
         }
         Intent intent;
@@ -118,7 +118,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                 break;
             case R.id.button_login:
                 initEdit();
-                userStatePresenter.visitPwdUserState(this,1, user);
+                userStatePresenter.visitPwdUserState(this, 1, user);
                 Log.v("yyyy", user.getUserPwd() + "====initEdit=====" + user.getUserName());
                 break;
             case R.id.textView_phnoelogin:
@@ -150,30 +150,31 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             intent = new Intent(this, ZsActivity.class);
             startActivity(intent);
             finish();
-        }if(s.equals("FAILURE")) {
+        }
+        if (s.equals("FAILURE")) {
             mHandler.sendEmptyMessage(1);
         }
     }
 
     @Override
     public void showVisitFailMsg(String string) {
-        mHandler.sendEmptyMessage(0);
+        mHandler.sendEmptyMessage(1);
     }
 
     @Override
     public void responeUserMessage(UserMessageBean bean) {
-        if (bean != null){
+        if (bean != null) {
             EventBus.getDefault().postSticky(bean);
-            editor.putString("where",String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
-        Log.v("sssss111",""+String.valueOf(bean.getResponseObject().getLocation().getProvince())+String.valueOf(bean.getResponseObject().getLocation().getCity())+String.valueOf(bean.getResponseObject().getLocation().getDistrict()));
+            editor.putString("where", String.valueOf(bean.getResponseObject().getLocation().getProvince()) + String.valueOf(bean.getResponseObject().getLocation().getCity()) + String.valueOf(bean.getResponseObject().getLocation().getDistrict())).commit();
+            Log.v("sssss111", "" + String.valueOf(bean.getResponseObject().getLocation().getProvince()) + String.valueOf(bean.getResponseObject().getLocation().getCity()) + String.valueOf(bean.getResponseObject().getLocation().getDistrict()));
         }
-        if (bean.getResponseObject().getTenant() == null){
-            Log.v("sssss111","11111111");
+        if (bean.getResponseObject().getTenant() == null) {
+            Log.v("sssss111", "11111111");
             editor.putString("type", "no").commit();
-        }else {
+        } else {
             editor.putString("type", "yes").commit();
         }
-        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null){
+        if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(2);
         }
@@ -203,9 +204,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 2:
                         AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token",token)
+                        editor.putString("token", token)
                                 .commit();
-                        Log.v("zzzzzz","--------------"+token);
+                        Log.v("zzzzzz", "--------------" + token);
                         break;
                     default:
                         break;

@@ -116,21 +116,26 @@
         android:layout_alignEnd="@+id/button_login"
         android:layout_alignRight="@+id/button_login"
         android:layout_below="@+id/button_login"
-        android:layout_marginTop="13dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="12dp"
         android:text="验证码登录"
-        android:textColor="@color/secondblack"
+        android:textColor="@color/black"
         android:textSize="@dimen/textSize" />
 
     <TextView
         android:id="@+id/textView_for"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_phnoelogin"
+        android:layout_alignBottom="@+id/textView_phnoelogin"
         android:layout_alignLeft="@+id/button_login"
         android:layout_alignStart="@+id/button_login"
-        android:layout_alignTop="@+id/textView_phnoelogin"
-        android:textColor="@color/secondblack"
-        android:textSize="@dimen/textSize"
-        android:text="忘记密码？" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:text="忘记密码？"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize" />
 
 
 </RelativeLayout>

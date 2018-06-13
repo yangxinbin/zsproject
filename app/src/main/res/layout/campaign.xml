@@ -4,6 +4,7 @@
     android:id="@+id/id"
     android:background="@color/bg"
     android:layout_height="match_parent">
-    <include  layout="@layout/dropdownmenu" />
+    <include
+        layout="@layout/dropdownmenu" />
 
 </LinearLayout>

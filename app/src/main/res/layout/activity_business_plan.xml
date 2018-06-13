@@ -2,11 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbars="none"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity">
 <!---->
     <LinearLayout
+        android:id="@+id/zhaoshang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -41,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/saveinbox"
-                android:textColor="@color/grayBlack"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +85,7 @@
             android:layout_marginTop="5dp"></include>-->
 
         <TextView
+            android:id="@+id/co"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

@@ -70,7 +70,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/common_jump_arrow" />
+                app:srcCompat="@drawable/other" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -101,7 +101,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/common_jump_arrow" />
+                app:srcCompat="@drawable/other" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -132,7 +132,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/common_jump_arrow" />
+                app:srcCompat="@drawable/other" />
         </RelativeLayout>
 
         <RelativeLayout

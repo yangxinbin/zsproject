@@ -26,6 +26,8 @@ public class Urls {
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String CITY = "/business-service/project/city/tour";
     public static final String CITY_MES = "/business-service/project/list";
+    public static final String PUBLISH = "/business-service/project/publish";
+
     public static final String HOST_AUTH = HOST + AUTH;
     public static final String HOST_REGIST = HOST + REGIST;// 1.拿到手机号 2.设置密码
     public static final String HOST_PROJECT = HOST + PROJECT;
@@ -45,6 +47,7 @@ public class Urls {
     public static final String HOST_PROJECT_BUSSINESSLIST = HOST + PROJECT + BUSSINESSLIST;
     public static final String HOST_CITY = HOST + CITY;
     public static final String HOST_CITY_MES = HOST + CITY_MES;
+    public static final String HOST_PUBLISH = HOST + PUBLISH;
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息
     public static final String UPDATE2 = "/industries";
@@ -54,7 +57,7 @@ public class Urls {
     public static final String UPDATE6 = "/resourceFeeInfo";
     public static final String UPDATE7 = "/relatedFile";
     public static final String UPDATE8 = "/joinAsAFirmCriteria";
-    public static final String UPDATE9 = "/projectCriteria ";
+    public static final String UPDATE9 = "/icr";
 
 
 }//

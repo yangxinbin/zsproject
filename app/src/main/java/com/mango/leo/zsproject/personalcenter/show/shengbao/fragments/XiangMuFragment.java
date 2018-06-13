@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,14 +59,19 @@ public class XiangMuFragment extends Fragment {
         adapter = new ShengBaoAdapter(getActivity().getApplicationContext());
         recycleXiangmu.removeAllViews();
     }
+
     private void initHeader() {
         //渲染header布局
-        View header = LayoutInflater.from(getActivity()).inflate(R.layout.city_header, null);
-        h = (RelativeLayout) header.findViewById(R.id.header_city);
-        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ConstraintLayout h = new ConstraintLayout(getActivity());
+        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
         layoutParam.setMargins(0, 0, 0, 20);
         h.setLayoutParams(layoutParam);
         adapter.setHeaderView(h);
+    }
+
+    private int dp2px(float v) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
 
     public void initSwipeRefreshLayout() {
@@ -85,6 +92,7 @@ public class XiangMuFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

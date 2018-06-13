@@ -9,7 +9,7 @@ import java.util.List;
 public class ProjectBean {
 
     /**
-     * responseObject : {"id":"5b17481abc2ab92a07b9e380","name":"test pro1","summary":"abcd1231","organizerDepartment":"招商部1","totalInvestmentRequired":223451,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null},"contacts":[{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b1660fabc2ab941d047a176","createdOn":1528252442458,"updatedBy":"5b1660fabc2ab941d047a176","updatedOn":1528252592307,"recommended":null,"tenant":null}
+     * responseObject : {"id":"5b1e1e0a81c6d547ecdadfaa","name":"这是专门给阿才测试创建的项目","summary":"这条信息专门为阿才创建的，独一无二","organizerDepartment":"double KK","totalInvestmentRequired":10000,"phase1InvestmentRequired":100,"numOfInvestmentPhases":2,"location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"东方科技大厦1002","lon":null,"lat":null},"contacts":[{"id":null,"name":"nasion","department":"芒果软件","position":"boss","mobile":"13428969654","phone":"13428969654","email":"1371400483@qq.com"}],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":["项目简介","可行性研究报告"],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":["asdf","asdf","nihao"],"investmentType":["asdfasdf","fdsfdfasdfdsf","fdfd"],"investmentSize":{"caption":null,"min":21,"max":1232},"other":null},"utilityFee":{"waterFeeInfo":"test from kk","electricityFeeInfo":"test from kk\r\n","gasFeeInfo":"test from kk","landFeeInfo":"test from kk"},"resourceFeeInfo":[{"id":1528776218492,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}],"advantages":[{"id":1528700435834,"title":"test from kk only one","detail":"<p>test from kk test from kk15277157545<\/p>","photos":[{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]}],"detail":"<p>h很好<\/p>","photos":[],"relatedFiles":[{"id":"5b1e1e1181c6d547ecdadfab","alias":"1527564707525.png","fileName":"15287004332413444.png","contentType":"image/png","size":12947,"createdOn":1528700433241}],"stage":2,"createdBy":"5b1e6bcabc2ab941b1c1524b","createdOn":null,"updatedBy":"5b1e6bcabc2ab941b1c1524b","updatedOn":1528776648813,"recommended":false,"tenant":"@super"}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,32 +64,32 @@ public class ProjectBean {
 
     public static class ResponseObjectBean {
         /**
-         * id : 5b17481abc2ab92a07b9e380
-         * name : test pro1
-         * summary : abcd1231
-         * organizerDepartment : 招商部1
-         * totalInvestmentRequired : 223451
-         * phase1InvestmentRequired : null
-         * numOfInvestmentPhases : null
-         * location : {"id":null,"province":null,"city":null,"address":null,"lon":null,"lat":null}
-         * contacts : [{"id":null,"username":"Ann","department":"市场","position":"推广","mobile":"89610789","phone":"13590901998","email":"269827645@qq.com"}]
+         * id : 5b1e1e0a81c6d547ecdadfaa
+         * name : 这是专门给阿才测试创建的项目
+         * summary : 这条信息专门为阿才创建的，独一无二
+         * organizerDepartment : double KK
+         * totalInvestmentRequired : 10000
+         * phase1InvestmentRequired : 100
+         * numOfInvestmentPhases : 2
+         * location : {"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"东方科技大厦1002","lon":null,"lat":null}
+         * contacts : [{"id":null,"name":"nasion","department":"芒果软件","position":"boss","mobile":"13428969654","phone":"13428969654","email":"1371400483@qq.com"}]
          * cooperationStyles : null
          * industries : []
-         * typesOfAvailableDox : null
-         * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null}
-         * utilityFee : {"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null}
-         * resourceFeeInfo : []
-         * advantages : []
-         * detail : null
+         * typesOfAvailableDox : ["项目简介","可行性研究报告"]
+         * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":["asdf","asdf","nihao"],"investmentType":["asdfasdf","fdsfdfasdfdsf","fdfd"],"investmentSize":{"caption":null,"min":21,"max":1232},"other":null}
+         * utilityFee : {"waterFeeInfo":"test from kk","electricityFeeInfo":"test from kk\r\n","gasFeeInfo":"test from kk","landFeeInfo":"test from kk"}
+         * resourceFeeInfo : [{"id":1528776218492,"resourceType":"test from kk","senior":10000,"medium":8888,"junior":6666}]
+         * advantages : [{"id":1528700435834,"title":"test from kk only one","detail":"<p>test from kk test from kk15277157545<\/p>","photos":[{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]}]
+         * detail : <p>h很好</p>
          * photos : []
-         * relatedFiles : []
-         * stage : 0
-         * createdBy : 5b1660fabc2ab941d047a176
-         * createdOn : 1528252442458
-         * updatedBy : 5b1660fabc2ab941d047a176
-         * updatedOn : 1528252592307
-         * recommended : null
-         * tenant : null
+         * relatedFiles : [{"id":"5b1e1e1181c6d547ecdadfab","alias":"1527564707525.png","fileName":"15287004332413444.png","contentType":"image/png","size":12947,"createdOn":1528700433241}]
+         * stage : 2
+         * createdBy : 5b1e6bcabc2ab941b1c1524b
+         * createdOn : null
+         * updatedBy : 5b1e6bcabc2ab941b1c1524b
+         * updatedOn : 1528776648813
+         * recommended : false
+         * tenant : @super
          */
 
         private String id;
@@ -97,27 +97,27 @@ public class ProjectBean {
         private String summary;
         private String organizerDepartment;
         private int totalInvestmentRequired;
-        private Object phase1InvestmentRequired;
-        private Object numOfInvestmentPhases;
+        private int phase1InvestmentRequired;
+        private int numOfInvestmentPhases;
         private LocationBean location;
         private Object cooperationStyles;
-        private Object typesOfAvailableDox;
         private IcrBean icr;
         private UtilityFeeBean utilityFee;
-        private Object detail;
+        private String detail;
         private int stage;
         private String createdBy;
-        private long createdOn;
+        private Object createdOn;
         private String updatedBy;
         private long updatedOn;
-        private Object recommended;
-        private Object tenant;
+        private boolean recommended;
+        private String tenant;
         private List<ContactsBean> contacts;
         private List<?> industries;
-        private List<?> resourceFeeInfo;
-        private List<?> advantages;
+        private List<String> typesOfAvailableDox;
+        private List<ResourceFeeInfoBean> resourceFeeInfo;
+        private List<AdvantagesBean> advantages;
         private List<?> photos;
-        private List<?> relatedFiles;
+        private List<RelatedFilesBean> relatedFiles;
 
         public String getId() {
             return id;
@@ -159,19 +159,19 @@ public class ProjectBean {
             this.totalInvestmentRequired = totalInvestmentRequired;
         }
 
-        public Object getPhase1InvestmentRequired() {
+        public int getPhase1InvestmentRequired() {
             return phase1InvestmentRequired;
         }
 
-        public void setPhase1InvestmentRequired(Object phase1InvestmentRequired) {
+        public void setPhase1InvestmentRequired(int phase1InvestmentRequired) {
             this.phase1InvestmentRequired = phase1InvestmentRequired;
         }
 
-        public Object getNumOfInvestmentPhases() {
+        public int getNumOfInvestmentPhases() {
             return numOfInvestmentPhases;
         }
 
-        public void setNumOfInvestmentPhases(Object numOfInvestmentPhases) {
+        public void setNumOfInvestmentPhases(int numOfInvestmentPhases) {
             this.numOfInvestmentPhases = numOfInvestmentPhases;
         }
 
@@ -191,14 +191,6 @@ public class ProjectBean {
             this.cooperationStyles = cooperationStyles;
         }
 
-        public Object getTypesOfAvailableDox() {
-            return typesOfAvailableDox;
-        }
-
-        public void setTypesOfAvailableDox(Object typesOfAvailableDox) {
-            this.typesOfAvailableDox = typesOfAvailableDox;
-        }
-
         public IcrBean getIcr() {
             return icr;
         }
@@ -215,11 +207,11 @@ public class ProjectBean {
             this.utilityFee = utilityFee;
         }
 
-        public Object getDetail() {
+        public String getDetail() {
             return detail;
         }
 
-        public void setDetail(Object detail) {
+        public void setDetail(String detail) {
             this.detail = detail;
         }
 
@@ -239,11 +231,11 @@ public class ProjectBean {
             this.createdBy = createdBy;
         }
 
-        public long getCreatedOn() {
+        public Object getCreatedOn() {
             return createdOn;
         }
 
-        public void setCreatedOn(long createdOn) {
+        public void setCreatedOn(Object createdOn) {
             this.createdOn = createdOn;
         }
 
@@ -263,19 +255,19 @@ public class ProjectBean {
             this.updatedOn = updatedOn;
         }
 
-        public Object getRecommended() {
+        public boolean isRecommended() {
             return recommended;
         }
 
-        public void setRecommended(Object recommended) {
+        public void setRecommended(boolean recommended) {
             this.recommended = recommended;
         }
 
-        public Object getTenant() {
+        public String getTenant() {
             return tenant;
         }
 
-        public void setTenant(Object tenant) {
+        public void setTenant(String tenant) {
             this.tenant = tenant;
         }
 
@@ -295,19 +287,27 @@ public class ProjectBean {
             this.industries = industries;
         }
 
-        public List<?> getResourceFeeInfo() {
+        public List<String> getTypesOfAvailableDox() {
+            return typesOfAvailableDox;
+        }
+
+        public void setTypesOfAvailableDox(List<String> typesOfAvailableDox) {
+            this.typesOfAvailableDox = typesOfAvailableDox;
+        }
+
+        public List<ResourceFeeInfoBean> getResourceFeeInfo() {
             return resourceFeeInfo;
         }
 
-        public void setResourceFeeInfo(List<?> resourceFeeInfo) {
+        public void setResourceFeeInfo(List<ResourceFeeInfoBean> resourceFeeInfo) {
             this.resourceFeeInfo = resourceFeeInfo;
         }
 
-        public List<?> getAdvantages() {
+        public List<AdvantagesBean> getAdvantages() {
             return advantages;
         }
 
-        public void setAdvantages(List<?> advantages) {
+        public void setAdvantages(List<AdvantagesBean> advantages) {
             this.advantages = advantages;
         }
 
@@ -319,60 +319,70 @@ public class ProjectBean {
             this.photos = photos;
         }
 
-        public List<?> getRelatedFiles() {
+        public List<RelatedFilesBean> getRelatedFiles() {
             return relatedFiles;
         }
 
-        public void setRelatedFiles(List<?> relatedFiles) {
+        public void setRelatedFiles(List<RelatedFilesBean> relatedFiles) {
             this.relatedFiles = relatedFiles;
         }
 
         public static class LocationBean {
             /**
-             * id : null
-             * province : null
-             * city : null
-             * address : null
+             * country : 中国
+             * province : 广东省
+             * city : 深圳
+             * district : 深圳
+             * address : 东方科技大厦1002
              * lon : null
              * lat : null
              */
 
-            private Object id;
-            private Object province;
-            private Object city;
-            private Object address;
+            private String country;
+            private String province;
+            private String city;
+            private String district;
+            private String address;
             private Object lon;
             private Object lat;
 
-            public Object getId() {
-                return id;
+            public String getCountry() {
+                return country;
             }
 
-            public void setId(Object id) {
-                this.id = id;
+            public void setCountry(String country) {
+                this.country = country;
             }
 
-            public Object getProvince() {
+            public String getProvince() {
                 return province;
             }
 
-            public void setProvince(Object province) {
+            public void setProvince(String province) {
                 this.province = province;
             }
 
-            public Object getCity() {
+            public String getCity() {
                 return city;
             }
 
-            public void setCity(Object city) {
+            public void setCity(String city) {
                 this.city = city;
             }
 
-            public Object getAddress() {
+            public String getDistrict() {
+                return district;
+            }
+
+            public void setDistrict(String district) {
+                this.district = district;
+            }
+
+            public String getAddress() {
                 return address;
             }
 
-            public void setAddress(Object address) {
+            public void setAddress(String address) {
                 this.address = address;
             }
 
@@ -398,21 +408,21 @@ public class ProjectBean {
              * totalInvestmentRequired : null
              * phase1InvestmentRequired : null
              * numOfInvestmentPhases : null
-             * cooperationModel : null
-             * cooperationStyles : null
-             * investmentType : null
-             * investmentSize : null
+             * cooperationModel :
+             * cooperationStyles : ["asdf","asdf","nihao"]
+             * investmentType : ["asdfasdf","fdsfdfasdfdsf","fdfd"]
+             * investmentSize : {"caption":null,"min":21,"max":1232}
              * other : null
              */
 
             private Object totalInvestmentRequired;
             private Object phase1InvestmentRequired;
             private Object numOfInvestmentPhases;
-            private Object cooperationModel;
-            private Object cooperationStyles;
-            private Object investmentType;
-            private Object investmentSize;
+            private String cooperationModel;
+            private InvestmentSizeBean investmentSize;
             private Object other;
+            private List<String> cooperationStyles;
+            private List<String> investmentType;
 
             public Object getTotalInvestmentRequired() {
                 return totalInvestmentRequired;
@@ -438,35 +448,19 @@ public class ProjectBean {
                 this.numOfInvestmentPhases = numOfInvestmentPhases;
             }
 
-            public Object getCooperationModel() {
+            public String getCooperationModel() {
                 return cooperationModel;
             }
 
-            public void setCooperationModel(Object cooperationModel) {
+            public void setCooperationModel(String cooperationModel) {
                 this.cooperationModel = cooperationModel;
             }
 
-            public Object getCooperationStyles() {
-                return cooperationStyles;
-            }
-
-            public void setCooperationStyles(Object cooperationStyles) {
-                this.cooperationStyles = cooperationStyles;
-            }
-
-            public Object getInvestmentType() {
-                return investmentType;
-            }
-
-            public void setInvestmentType(Object investmentType) {
-                this.investmentType = investmentType;
-            }
-
-            public Object getInvestmentSize() {
+            public InvestmentSizeBean getInvestmentSize() {
                 return investmentSize;
             }
 
-            public void setInvestmentSize(Object investmentSize) {
+            public void setInvestmentSize(InvestmentSizeBean investmentSize) {
                 this.investmentSize = investmentSize;
             }
 
@@ -477,50 +471,103 @@ public class ProjectBean {
             public void setOther(Object other) {
                 this.other = other;
             }
+
+            public List<String> getCooperationStyles() {
+                return cooperationStyles;
+            }
+
+            public void setCooperationStyles(List<String> cooperationStyles) {
+                this.cooperationStyles = cooperationStyles;
+            }
+
+            public List<String> getInvestmentType() {
+                return investmentType;
+            }
+
+            public void setInvestmentType(List<String> investmentType) {
+                this.investmentType = investmentType;
+            }
+
+            public static class InvestmentSizeBean {
+                /**
+                 * caption : null
+                 * min : 21
+                 * max : 1232
+                 */
+
+                private Object caption;
+                private int min;
+                private int max;
+
+                public Object getCaption() {
+                    return caption;
+                }
+
+                public void setCaption(Object caption) {
+                    this.caption = caption;
+                }
+
+                public int getMin() {
+                    return min;
+                }
+
+                public void setMin(int min) {
+                    this.min = min;
+                }
+
+                public int getMax() {
+                    return max;
+                }
+
+                public void setMax(int max) {
+                    this.max = max;
+                }
+            }
         }
 
         public static class UtilityFeeBean {
             /**
-             * waterFeeInfo : null
-             * electricityFeeInfo : null
-             * gasFeeInfo : null
-             * landFeeInfo : null
+             * waterFeeInfo : test from kk
+             * electricityFeeInfo : test from kk
+
+             * gasFeeInfo : test from kk
+             * landFeeInfo : test from kk
              */
 
-            private Object waterFeeInfo;
-            private Object electricityFeeInfo;
-            private Object gasFeeInfo;
-            private Object landFeeInfo;
+            private String waterFeeInfo;
+            private String electricityFeeInfo;
+            private String gasFeeInfo;
+            private String landFeeInfo;
 
-            public Object getWaterFeeInfo() {
+            public String getWaterFeeInfo() {
                 return waterFeeInfo;
             }
 
-            public void setWaterFeeInfo(Object waterFeeInfo) {
+            public void setWaterFeeInfo(String waterFeeInfo) {
                 this.waterFeeInfo = waterFeeInfo;
             }
 
-            public Object getElectricityFeeInfo() {
+            public String getElectricityFeeInfo() {
                 return electricityFeeInfo;
             }
 
-            public void setElectricityFeeInfo(Object electricityFeeInfo) {
+            public void setElectricityFeeInfo(String electricityFeeInfo) {
                 this.electricityFeeInfo = electricityFeeInfo;
             }
 
-            public Object getGasFeeInfo() {
+            public String getGasFeeInfo() {
                 return gasFeeInfo;
             }
 
-            public void setGasFeeInfo(Object gasFeeInfo) {
+            public void setGasFeeInfo(String gasFeeInfo) {
                 this.gasFeeInfo = gasFeeInfo;
             }
 
-            public Object getLandFeeInfo() {
+            public String getLandFeeInfo() {
                 return landFeeInfo;
             }
 
-            public void setLandFeeInfo(Object landFeeInfo) {
+            public void setLandFeeInfo(String landFeeInfo) {
                 this.landFeeInfo = landFeeInfo;
             }
         }
@@ -528,16 +575,16 @@ public class ProjectBean {
         public static class ContactsBean {
             /**
              * id : null
-             * username : Ann
-             * department : 市场
-             * position : 推广
-             * mobile : 89610789
-             * phone : 13590901998
-             * email : 269827645@qq.com
+             * name : nasion
+             * department : 芒果软件
+             * position : boss
+             * mobile : 13428969654
+             * phone : 13428969654
+             * email : 1371400483@qq.com
              */
 
             private Object id;
-            private String username;
+            private String name;
             private String department;
             private String position;
             private String mobile;
@@ -552,12 +599,12 @@ public class ProjectBean {
                 this.id = id;
             }
 
-            public String getUsername() {
-                return username;
+            public String getName() {
+                return name;
             }
 
-            public void setUsername(String username) {
-                this.username = username;
+            public void setName(String name) {
+                this.name = name;
             }
 
             public String getDepartment() {
@@ -598,6 +645,240 @@ public class ProjectBean {
 
             public void setEmail(String email) {
                 this.email = email;
+            }
+        }
+
+        public static class ResourceFeeInfoBean {
+            /**
+             * id : 1528776218492
+             * resourceType : test from kk
+             * senior : 10000
+             * medium : 8888
+             * junior : 6666
+             */
+
+            private long id;
+            private String resourceType;
+            private int senior;
+            private int medium;
+            private int junior;
+
+            public long getId() {
+                return id;
+            }
+
+            public void setId(long id) {
+                this.id = id;
+            }
+
+            public String getResourceType() {
+                return resourceType;
+            }
+
+            public void setResourceType(String resourceType) {
+                this.resourceType = resourceType;
+            }
+
+            public int getSenior() {
+                return senior;
+            }
+
+            public void setSenior(int senior) {
+                this.senior = senior;
+            }
+
+            public int getMedium() {
+                return medium;
+            }
+
+            public void setMedium(int medium) {
+                this.medium = medium;
+            }
+
+            public int getJunior() {
+                return junior;
+            }
+
+            public void setJunior(int junior) {
+                this.junior = junior;
+            }
+        }
+
+        public static class AdvantagesBean {
+            /**
+             * id : 1528700435834
+             * title : test from kk only one
+             * detail : <p>test from kk test from kk15277157545</p>
+             * photos : [{"id":"5b1e1e2981c6d547ecdadfad","alias":"1527563930588.png","fileName":"15287004572812495.png","contentType":"image/png","size":12947,"createdOn":1528700457281}]
+             */
+
+            private long id;
+            private String title;
+            private String detail;
+            private List<PhotosBean> photos;
+
+            public long getId() {
+                return id;
+            }
+
+            public void setId(long id) {
+                this.id = id;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getDetail() {
+                return detail;
+            }
+
+            public void setDetail(String detail) {
+                this.detail = detail;
+            }
+
+            public List<PhotosBean> getPhotos() {
+                return photos;
+            }
+
+            public void setPhotos(List<PhotosBean> photos) {
+                this.photos = photos;
+            }
+
+            public static class PhotosBean {
+                /**
+                 * id : 5b1e1e2981c6d547ecdadfad
+                 * alias : 1527563930588.png
+                 * fileName : 15287004572812495.png
+                 * contentType : image/png
+                 * size : 12947
+                 * createdOn : 1528700457281
+                 */
+
+                private String id;
+                private String alias;
+                private String fileName;
+                private String contentType;
+                private int size;
+                private long createdOn;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getAlias() {
+                    return alias;
+                }
+
+                public void setAlias(String alias) {
+                    this.alias = alias;
+                }
+
+                public String getFileName() {
+                    return fileName;
+                }
+
+                public void setFileName(String fileName) {
+                    this.fileName = fileName;
+                }
+
+                public String getContentType() {
+                    return contentType;
+                }
+
+                public void setContentType(String contentType) {
+                    this.contentType = contentType;
+                }
+
+                public int getSize() {
+                    return size;
+                }
+
+                public void setSize(int size) {
+                    this.size = size;
+                }
+
+                public long getCreatedOn() {
+                    return createdOn;
+                }
+
+                public void setCreatedOn(long createdOn) {
+                    this.createdOn = createdOn;
+                }
+            }
+        }
+
+        public static class RelatedFilesBean {
+            /**
+             * id : 5b1e1e1181c6d547ecdadfab
+             * alias : 1527564707525.png
+             * fileName : 15287004332413444.png
+             * contentType : image/png
+             * size : 12947
+             * createdOn : 1528700433241
+             */
+
+            private String id;
+            private String alias;
+            private String fileName;
+            private String contentType;
+            private int size;
+            private long createdOn;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getAlias() {
+                return alias;
+            }
+
+            public void setAlias(String alias) {
+                this.alias = alias;
+            }
+
+            public String getFileName() {
+                return fileName;
+            }
+
+            public void setFileName(String fileName) {
+                this.fileName = fileName;
+            }
+
+            public String getContentType() {
+                return contentType;
+            }
+
+            public void setContentType(String contentType) {
+                this.contentType = contentType;
+            }
+
+            public int getSize() {
+                return size;
+            }
+
+            public void setSize(int size) {
+                this.size = size;
+            }
+
+            public long getCreatedOn() {
+                return createdOn;
+            }
+
+            public void setCreatedOn(long createdOn) {
+                this.createdOn = createdOn;
             }
         }
     }

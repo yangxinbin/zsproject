@@ -28,6 +28,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlan
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
@@ -78,7 +79,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     private int page = 0;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    private String nowProvince,nowCity,nowDistrict;
+    private String nowProvince, nowCity, nowDistrict;
 
     public static ProjectsRecyclerviewFragment newInstance(int type) {
         Bundle bundle = new Bundle();
@@ -126,6 +127,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         allProjectsPresenter.visitProjects(getActivity(), mType, page);
         return view;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
 /*        editor.putString("where",nowProvince+nowCity+nowDistrict).commit();
@@ -165,6 +167,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     }
 
     private AllProjectsAdapter.OnItemnewsClickListener mOnItemClickListener = new AllProjectsAdapter.OnItemnewsClickListener() {
+
+        private int state;
+
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
@@ -175,13 +180,21 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
             startActivity(intent);
-            getActivity().finish();
+            //getActivity().finish();
         }
 
         @Override
         public void onEditClick(View view, int position) {
             position = position - 1; //配对headerView
+            editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
+            Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
+            postStickyAll(position);
+            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
+            intent.putExtra("xiugai", "xiugai");
+            startActivity(intent);
+
         }
 
         @Override
@@ -258,7 +271,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
                 }
             }
-        },2000);
+        }, 2000);
         //getActivity().onRefresh();
     }
 
@@ -273,7 +286,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             } else {
                 time = adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn();
             }
-            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null){
+            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null) {
                 cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired()));
             }
             cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
@@ -305,7 +318,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size() + "****position*******");
             for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size(); i++) {
                 CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
-                cardFourthItemBean.setName(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getName());
+                cardFourthItemBean.setName(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getName()));
                 cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getDepartment());
                 cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPhone());
                 cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPosition());
@@ -318,6 +331,60 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             EventBus.getDefault().postSticky(beans4);//替换残留事件
             // EventBus.getDefault().removeStickyEvent(new ArrayList<CardFourthItemBean>()) ;//移除事件传递
         }
+        CardNinthItemBean cardNinthItemBean = new CardNinthItemBean();
+        if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel() + "****position*****xxxx**");
+            cardNinthItemBean.setMoshi(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel());
+            int min = -1;
+            int max = -1;
+            if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize() != null) {
+                min = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMin();
+                max = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax();
+                Log.v("xxxxx", min + "!!!!!!!" + max);
+            } else {
+                cardNinthItemBean.setMoney("");
+            }
+            if (max <= 1000 && 0<= max) {
+                cardNinthItemBean.setMoney("1000万以下");
+                Log.v("xxxxx", "fdsf");
+            }
+            if (min >= 1000 && max <= 5000) {
+                Log.v("xxxxx", "fdsf");
+
+                cardNinthItemBean.setMoney("1000万—5000万");
+            }
+            if (min >= 5000 && max <= 10000) {
+                Log.v("xxxxx", "fdsf");
+
+                cardNinthItemBean.setMoney("（含）5000万—1亿");
+            }
+            if (min >= 10000 && max <= 100000) {
+                cardNinthItemBean.setMoney("（含）1亿—10亿");
+            }
+            if (min >= 100000 && max <= 500000) {
+                cardNinthItemBean.setMoney("（含）10亿—50亿");
+            }
+            if (min >= 500000 && max <= 1000000) {
+                cardNinthItemBean.setMoney("（含）50亿—100亿");
+            }
+            if (min >= 1000000 && max <= 5000000) {
+                cardNinthItemBean.setMoney("（含）100亿—500亿");
+            }
+            if (min >= 5000000 && max <= 10000000) {
+                cardNinthItemBean.setMoney("（含）500亿—1000亿");
+            }
+            if (max >= 10000000) {
+                cardNinthItemBean.setMoney("（含）1000亿以上");
+            }
+            //Log.v("999999",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles()+"***"+max+"===="+min+"*****"+cardNinthItemBean.getMoney());
+            cardNinthItemBean.setWhy(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
+            cardNinthItemBean.setType(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType());
+            cardNinthItemBean.setQita(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getOther()));
+            EventBus.getDefault().postSticky(cardNinthItemBean);
+        } else {
+            EventBus.getDefault().postSticky(cardNinthItemBean);
+        }
+
     }
 
     private void initHeader() {
@@ -348,43 +415,48 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mData != null) {
-                        adapter.setmDate(mData);
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mData != null) {
+                            adapter.setmDate(mData);
+                        }
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mDataAll != null) {
-                        //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
-                        int i;
-                        for (i = 0; i < mDataAll.size(); i++) {
-                            if (mDataAll == null) {
-                                return;//一开始断网报空指针的情况
-                            }
-                            Log.v("rrrrrrrrr","--adapter--");
+                });
+            }
 
-                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
+        } else {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            //加载更多
+                            int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                            int i;
+                            for (i = 0; i < mDataAll.size(); i++) {
+                                if (mDataAll == null) {
+                                    return;//一开始断网报空指针的情况
+                                }
+                                Log.v("rrrrrrrrr", "--adapter--");
+
+                                adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                                if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                    noMoreMsg();
+                                    return;
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
     @Override
     public void addProjectsFail(String e) {
-        if (getActivity() != null){
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -427,6 +499,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             }
         }, 2000);
     }
+
     private ProjectsRecyclerviewFragment.MyHandler mHandler = new ProjectsRecyclerviewFragment.MyHandler();
 
     private class MyHandler extends Handler {
@@ -435,10 +508,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "服务器删除失败");
+                    AppUtils.showToast(getActivity(), "项目删除失败");
                     break;
                 case 1:
-                    AppUtils.showToast(getActivity(), "服务器删除成功");
+                    AppUtils.showToast(getActivity(), "项目删除成功");
                     refreshItems.setRefreshing(false);
                     /*refreshItems.setOnRefreshListener(this);
                     refreshItems.post(new Runnable() {

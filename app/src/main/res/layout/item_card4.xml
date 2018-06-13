@@ -11,12 +11,12 @@
 
     <ImageView
         android:id="@+id/imageView_edit"
-        android:layout_width="@dimen/img_size"
-        android:layout_height="@dimen/img_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/addplan" />
+        app:srcCompat="@drawable/ri" />
 <!---->
     <TextView
         android:id="@+id/textView43"

@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.datacenter.fragments.ProjectFragment;
 import com.mango.leo.zsproject.datacenter.fragments.InvestorFragment;
+import com.mango.leo.zsproject.datacenter.fragments.ProjectFragment;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class FragmentOfDateCenter extends Fragment {
@@ -42,6 +43,7 @@ public class FragmentOfDateCenter extends Fragment {
         init();
         return view;
     }
+
     private void initDatas() {
         mDatas = new ArrayList<String>(Arrays.asList("投资方", "项目"));
     }
@@ -55,9 +57,15 @@ public class FragmentOfDateCenter extends Fragment {
         viewPager3.setAdapter(vp);
         viewPager3.setCurrentItem(0);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.image_search)
+    public void onViewClicked() {
+
     }
 }

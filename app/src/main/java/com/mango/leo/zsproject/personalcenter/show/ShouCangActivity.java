@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CityIntroductionFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
 import com.mango.leo.zsproject.personalcenter.fragments.ShouCang1Fragment;
@@ -23,7 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShouCangActivity extends AppCompatActivity {
+public class ShouCangActivity extends BaseActivity {
 
     @Bind(R.id.imageView_b)
     ImageView imageViewB;

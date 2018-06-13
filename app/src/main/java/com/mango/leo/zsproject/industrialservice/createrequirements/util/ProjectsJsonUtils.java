@@ -14,6 +14,7 @@ import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
@@ -21,6 +22,7 @@ import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -56,13 +58,20 @@ public class ProjectsJsonUtils {
         return beans;
     }
 
+    public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res, String va) {
+        ChanyLingyuBean chanyLingyuBean = new Gson().fromJson(res, ChanyLingyuBean.class);
+        List<ChanyLingyuBean.ResponseListBean> c = chanyLingyuBean.getResponseList();
+        return c;
+    }
+
     public static UserMessageBean readJsonUserMessageBeans(String res, Context context) {
-        ACache.get(context).put("message",res);
+        ACache.get(context).put("message", res);
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
+
     public static UserMessageBean readJsonUserMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");
@@ -76,6 +85,7 @@ public class ProjectsJsonUtils {
         ProjectBean bean = JsonUtils.deserialize(jsonObject, ProjectBean.class);
         return bean;
     }
+
     public static CityBean readJsonCityBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");

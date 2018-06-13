@@ -53,6 +53,7 @@ public class UserStateModelImpl implements UserStateModel {
             HttpUtils.doPost(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    Log.v("uuuuuuu", "____FAILURE_______");
                     listener.onFailure("FAILURE", e);
                 }
 
@@ -77,7 +78,7 @@ public class UserStateModelImpl implements UserStateModel {
             HttpUtils.doGet(url + "?phoneOrEmail=" + userPhone.getPhoneN(), new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    listener.onFailure("FAILURE", e);
+                    listener.onFailure("CODE_FAILURE", e);
                 }
 
                 @Override
@@ -136,8 +137,12 @@ public class UserStateModelImpl implements UserStateModel {
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     } else {
-                        Log.v("zzzzzzz", response.body().string() + "******" + response.code());
-                        listener.onSuccess("RES_FAILURE");
+                        if (String.valueOf(response.code()).startsWith("5")){
+                            listener.onSuccess("HAS");
+                        }else{
+                            Log.v("zzzzzzz", response.body().string() + "******" + response.code());
+                            listener.onSuccess("RES_FAILURE");
+                        }
                     }
                 }
             });

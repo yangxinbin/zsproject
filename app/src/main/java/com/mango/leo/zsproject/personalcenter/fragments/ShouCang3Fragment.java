@@ -109,11 +109,6 @@ public class ShouCang3Fragment extends Fragment {
                 case 0:
                     AppUtils.showToast(getActivity(), "访问失败");
                     break;
-                case 1:
-                    AppUtils.showToast(getActivity(), "访问成功");
-                    Intent intent = new Intent(getActivity(), AccountSecurityActivity.class);
-                    startActivity(intent);
-                    break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
                     /*if (beanList.size() == 0){
@@ -231,25 +226,7 @@ public class ShouCang3Fragment extends Fragment {
         @Override
         public void onCancelingShouCangClick(View view, final int position) {
             canCelShpuCang(position-1);
-            /*AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                    .setIcon(R.drawable.icon)//设置标题的图片
-                    .setTitle("活动收藏")//设置对话框的标题
-                    .setMessage("确定删除此活动收藏吗？")//设置对话框的内容
-                    //设置对话框的按钮
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            canCelShpuCang(position-1);
-                            dialog.dismiss();
-                        }
-                    }).create();
-            dialog.show();*/
+            /*+*/
         }
     };
 

@@ -171,26 +171,43 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             });
         }
         if (type == 9) {
-            final List<CardNinthItemBean> cardNinthItemBeans = (List<CardNinthItemBean>) o;
+            final CardNinthItemBean cardNinthItemBeans = (CardNinthItemBean) o;
             // final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
+            Log.v("99999", sharedPreferences.getString("projectId", "") + "___"+sharedPreferences.getString("min", "0"));
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
-               // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
+                mapParams.put("cooperationModel", cardNinthItemBeans.getMoshi());
+                mapParams.put("min", sharedPreferences.getString("min", "0"));
+                mapParams.put("max", sharedPreferences.getString("max", "0"));
+                StringBuffer wht = new StringBuffer();
+                for (int i = 0;i<cardNinthItemBeans.getWhy().size();i++){
+                    wht.append(cardNinthItemBeans.getWhy().get(i)+",");
+                }
+                mapParams.put("cooperationStyles", wht.deleteCharAt(wht.length() - 1).toString());
+                StringBuffer mtype = new StringBuffer();
+                for (int j = 0;j<cardNinthItemBeans.getType().size();j++){
+                    mtype.append(cardNinthItemBeans.getType().get(j)+",");
+                }
+                mapParams.put("investmentType", mtype.deleteCharAt(mtype.length() - 1).toString());
+                mapParams.put("other", cardNinthItemBeans.getQita());
+                // mapParams.put("contactInfo", buildArrayJson(cardNinthItemBeans));
             }
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    listener.onFailure("SAVE FAILURE", e);
+                    listener.onFailure("SAVE_FAILURE", e);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
-                        listener.onSuccess("SAVE SUCCESS");//异步请求
+                        Log.v("xxxxx", ""+response.body().string());
+                        listener.onSuccess("SAVE_SUCCESS");//异步请求
                     } else {
-                        listener.onSuccess("SAVE FAILURE");
+                        Log.v("xxxxx", ""+response.body().string());
+                        listener.onSuccess("SAVE_FAILURE");
                     }
                 }
             });

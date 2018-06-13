@@ -46,18 +46,22 @@ public class AccountSecurityActivity extends BaseActivity {
             case R.id.s1:
                 intent = new Intent(this, ChangePwdActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.s2:
                 intent = new Intent(this, ForgetActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.s3:
                 intent = new Intent(this, ChangePhoneActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.s4:
                 intent = new Intent(this, ChangeEmailActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

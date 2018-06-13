@@ -108,12 +108,20 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         }
         if (string.equals("CODE_FAILURE")) {
             mHandler.sendEmptyMessage(3);
+        }if (string.equals("HAS")) {
+            mHandler.sendEmptyMessage(5);
         }
+
     }
 
     @Override
     public void showVisitFailMsg(String string) {
-
+        if (string.equals("RES_FAILURE")) {
+            mHandler.sendEmptyMessage(1);
+        }
+        if (string.equals("CODE_FAILURE")) {
+            mHandler.sendEmptyMessage(3);
+        }
     }
 
     @Override
@@ -159,6 +167,9 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                         editor.putString("token", token)
                                 .commit();
                         Log.v("zzzzzz", "--------------" + token);
+                        break;
+                    case 5:
+                        AppUtils.showToast(activity, "手机号码已经注册，请登录。");
                         break;
                 }
             }

@@ -1,26 +1,28 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -33,47 +35,47 @@ import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter2;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardEigththItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFifthItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSecondItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSeventhItemActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardSixthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
-import com.mango.leo.zsproject.utils.DateUtil;
-import com.mango.leo.zsproject.utils.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
+import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
-public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener {
+public class BusinessPlanActivity extends BaseActivity implements View.OnClickListener, RecycleAdapter4.OnCard4ClickListener, OnGetGeoCoderResultListener, RecycleAdapter2.OnCard2ClickListener {
 
     @Bind(R.id.imageViewback)
     ImageView imageViewback;
-    @Bind(R.id.save)
-    TextView save;
     @Bind(R.id.carfirst_content)
     ConstraintLayout carfirstContent;
     @Bind(R.id.carfirst)
@@ -112,6 +114,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     CardView carninth;
     @Bind(R.id.send)
     Button send;
+    @Bind(R.id.textView5)
+    TextView textView5;
+    @Bind(R.id.save)
+    TextView save;
+    @Bind(R.id.zhaoshang)
+    LinearLayout zhaoshang;
+    @Bind(R.id.co)
+    TextView co;
     private TextView title, what, time, content, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
@@ -128,20 +138,60 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private StringBuffer stringBuffer1, stringBuffer2;
     private UserMessageBean userBean;
     private SharedPreferences sharedPreferences;
+    private String xiugai;
+    private int type;
+    private TextView textView;
+    private ConstraintLayout card1;
+    private RelativeLayout card3;
+    private RelativeLayout card9;
+    private List<CardSecondItemBean> bean2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_plan);
         ButterKnife.bind(this);
+        xiugai = getIntent().getStringExtra("xiugai");
+        type = getIntent().getIntExtra("type", -1);
+        whereFrom();
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
         //initFirstItem();
-        stringBuffer1 = new StringBuffer();
-        stringBuffer2 = new StringBuffer();
         EventBus.getDefault().register(this);//放最后
+    }
 
+    private void whereFrom() {
+        Log.v("xxxxxxxxxx", "___" + getIntent().getStringExtra("xiugai"));
+        if ("xiugai".equals(xiugai)) {
+            Log.v("xxxxxxxxx", "_xxxxx_");
+            save.setVisibility(View.INVISIBLE);
+            textView5.setText("修改招商计划");
+        }
+        if (type > 0) {
+            textView = new TextView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.dip2px(this, 50));
+            //lp.gravity = Gravity.CENTER_HORIZONTAL;
+            textView.setGravity(Gravity.CENTER);
+            switch (type) {
+                case 1:
+                    save.setVisibility(View.INVISIBLE);
+                    textView5.setText("招商信息");
+                    textView.setText("审核中，请耐心等待！");
+                    break;
+                case 2:
+                    save.setText("申请修改");
+                    textView5.setText("招商信息");
+                    textView.setText("已完成审核");
+                    break;
+            }
+            textView.setTextSize(18);
+            textView.setTextColor(getResources().getColor(R.color.red));
+            zhaoshang.addView(textView, 1, lp);
+            send.setVisibility(View.GONE);
+            co.setVisibility(View.GONE);
+
+        }
     }
 
     private void initLocation() {
@@ -176,9 +226,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //mSearch.setOnGetGeoCodeResultListener(this);
         // Geo搜索
         mSearch.setOnGetGeoCodeResultListener(this);
-        mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince()+bean3.getCity()+bean3.getDistrict() + bean3.getAddress()));
+        mSearch.geocode(new GeoCodeOption().city("").address(bean3.getProvince() + bean3.getCity() + bean3.getDistrict() + bean3.getAddress()));
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         this.bean1 = bean;
@@ -192,12 +243,16 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
-
+        card1 = (ConstraintLayout)item1.findViewById(R.id.card1);
+        if (type == 1 || type == 2) {
+            im_1.setVisibility(View.INVISIBLE);
+        }
         title.setText(bean.getItemName());
         what.setText(bean.getDepartmentName());
         time.setText(bean.getTime());
         content.setText(bean.getItemContent());
-        im_1.setOnClickListener(this);
+        //im_1.setOnClickListener(this);
+        card1.setOnClickListener(this);
 /*        if (bean.getItemImagePath().size() != 0) {
             Log.v("yyyyy", "__________");
             slider.setVisibility(View.VISIBLE);
@@ -234,12 +289,53 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         p1 = (TextView) item1.findViewById(R.id.textView_p1);
         p2 = (TextView) item1.findViewById(R.id.textView_p2);
         im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        p1.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
+        card3 = (RelativeLayout) item1.findViewById(R.id.card3);
+
+        if (type == 1 || type == 2) {
+            im_3.setVisibility(View.INVISIBLE);
+        }
+        p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
+        Log.v("33333333",""+sharedPreferences.getString("where","广东省深圳市南山区"));
         p2.setText(bean.getAddress());
-        im_3.setOnClickListener(this);
+        //im_3.setOnClickListener(this);
+        card3.setOnClickListener(this);
         initLocation();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card2EventBus(List<CardSecondItemBean> bean) {
+ /*       if(bean == null){
+            return;
+        }*/
+        this.bean2 = bean;
+        carsecondContent.setVisibility(View.GONE);
+        carsecond.setEnabled(false);
+        //渲染card1布局
+        View item2 = LayoutInflater.from(this).inflate(R.layout.carditem2, null);
+        if (bean.size() == 0) {
+            carsecondContent.setVisibility(View.VISIBLE);
+            item2.setVisibility(View.GONE);
+            carsecond.setEnabled(true);
+        } else {
+            carsecondContent.setVisibility(View.GONE);
+            item2.setVisibility(View.VISIBLE);
+            carsecond.setEnabled(false);
+        }
+        carsecond.addView(item2);
+        ImageView imageView2 = item2.findViewById(R.id.img_2add);
+        RecyclerView recyclerView2 = item2.findViewById(R.id.recycle_2);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView2.setLayoutManager(mLayoutManager);
+        recyclerView2.setNestedScrollingEnabled(false);//禁止滑动
+        RecycleAdapter2 adapter2 = new RecycleAdapter2(this, bean, type);
+        recyclerView2.setAdapter(adapter2);
+        imageView2.setOnClickListener(this);
+        if (type == 1 || type == 2) {
+            imageView2.setVisibility(View.INVISIBLE);
+        } else {
+            adapter2.setOnItemnewsClickListener(this);
+        }
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card4EventBus(List<CardFourthItemBean> bean) {
         /*if (bean4 != null){
@@ -264,18 +360,23 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);//禁止滑动
-        RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean);
+        RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
         recyclerView.setAdapter(adapter4);
         imageView.setOnClickListener(this);
-        adapter4.setOnItemnewsClickListener(this);
+        if (type == 1 || type == 2) {
+            imageView.setVisibility(View.INVISIBLE);
+        } else {
+            adapter4.setOnItemnewsClickListener(this);
+        }
         //EventBus.getDefault().removeStickyEvent(bean);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card9EventBus(CardNinthItemBean bean) {
-        Log.v("99999", "___bus_" + bean.getMoshi());
         this.bean9 = bean;
         //渲染card1布局
+        stringBuffer1 = new StringBuffer();
+        stringBuffer2 = new StringBuffer();
         View item9 = LayoutInflater.from(this).inflate(R.layout.carditem9, null);
         if (bean != null) {
             item9.setVisibility(View.VISIBLE);
@@ -293,19 +394,25 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_4 = item9.findViewById(R.id.textView_94);
         tv9_5 = item9.findViewById(R.id.textView_95);
         im_9 = item9.findViewById(R.id.imageView_9);
-        im_9.setOnClickListener(this);
-        for (int i = 0; i < bean.getWhy().size(); i++) {
-            stringBuffer1.append(bean.getWhy().get(i) + " ");
-        }
-        for (int i = 0; i < bean.getType().size(); i++) {
-            stringBuffer2.append(bean.getType().get(i) + " ");
-        }
+        card9 = item9.findViewById(R.id.card9);
         tv9_1.setText(bean.getMoshi());
         tv9_2.setText(bean.getMoney());
+        if (type == 1 || type == 2) {
+            im_9.setVisibility(View.INVISIBLE);
+        }
+        //im_9.setOnClickListener(this);
+        card9.setOnClickListener(this);
+        for (int i = 0; i < bean.getWhy().size(); i++) {
+            stringBuffer1.append(bean.getWhy().get(i) + " ");
+            Log.v("77777", bean.getWhy().get(i)+"___bus_");
+        }
         tv9_3.setText(stringBuffer1);
+        for (int j = 0; j < bean.getType().size(); j++) {
+            stringBuffer2.append(bean.getType().get(j) + " ");
+            Log.v("6666", bean.getType().get(j)+"___bus_");
+        }
         tv9_4.setText(stringBuffer2);
         tv9_5.setText(bean.getQita());
-
     }
 
     @OnClick({R.id.imageViewback, R.id.save, R.id.carfirst, R.id.carsecond, R.id.carthird, R.id.carfourth, /*R.id.carfifth, R.id.carsixth, R.id.carseventh, R.id.careighth,*/ R.id.carninth, R.id.send})
@@ -318,6 +425,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.save:
+                if (type == 2) {
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    intent.putExtra("xiugai", "xiugai");
+                    startActivity(intent);
+                    finish();
+                }
+                if (type == 0) {//草稿箱才能存草稿
+                    showDailog("一键招商", "恭喜你项目创建成功！");
+                }
                 break;
             case R.id.carfirst:
                 intent = new Intent(this, CardFirstItemActivity.class);
@@ -330,7 +446,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.carthird:
-               // EventBus.getDefault().postSticky(userBean);
+                // EventBus.getDefault().postSticky(userBean);
                 intent = new Intent(this, CardThirdItemActivity.class);
                 startActivity(intent);
                 finish();
@@ -366,8 +482,49 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.send:
+                publishProject();
                 break;
         }
+    }
+
+    private void publishProject() {
+        Log.v("hhhhh","----"+Urls.HOST_PUBLISH+"?token="+sharedPreferences.getString("token","")+"&projectId="+sharedPreferences.getString("projectId", ""));
+        HashMap<String, String> mapParams = new HashMap<String, String>();
+        if (mapParams != null){
+            mapParams.clear();
+        }
+        mapParams.put("token", sharedPreferences.getString("token",""));
+        mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
+        HttpUtils.doPost(Urls.HOST_PUBLISH,mapParams,new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showDailog("审核","提交审核失败！");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDailog("审核","恭喜你提交审核成功！");
+                        }
+                    });
+                }else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDailog("审核","提交审核失败！");
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -388,21 +545,22 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.imageView_1:
+            case R.id.card1:
                 EventBus.getDefault().postSticky(bean1);
                 intent = new Intent(this, CardFirstItemActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.imageView_3:
+            case R.id.card3:
                 EventBus.getDefault().postSticky(bean3);
                 intent = new Intent(this, CardThirdItemActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.imageView_9:
+            case R.id.card9:
                 EventBus.getDefault().postSticky(bean9);
                 intent = new Intent(this, CardNinthItemActivity.class);
+                intent.putExtra("flag", true);
                 startActivity(intent);
                 finish();
                 break;
@@ -410,6 +568,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 EventBus.getDefault().postSticky(bean4);
                 intent = new Intent(this, CardFourthItemActivity.class);
                 intent.putExtra("position", bean4.size());
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.img_2add:
+                EventBus.getDefault().postSticky(bean2);
+                intent = new Intent(this, CardSecondItemActivity.class);
+                intent.putExtra("position", bean2.size());
                 startActivity(intent);
                 finish();
                 break;
@@ -429,8 +594,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-          //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
-          //          .show();
+            //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+            //          .show();
             return;
         }
         double latitude = geoCodeResult.getLocation().latitude;
@@ -447,5 +612,36 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
 
+    }
+
+    private void showDailog(String s1, String s2) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setIcon(R.drawable.icon)//设置标题的图片
+                .setTitle(s1)//设置对话框的标题
+                .setMessage(s2)//设置对话框的内容
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
+    }
+
+    @Override
+    public void onItem2Click(View view, int position) {
+        EventBus.getDefault().postSticky(bean2);
+        Intent intent = new Intent(this, CardSecondItemActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
+        finish();
     }
 }

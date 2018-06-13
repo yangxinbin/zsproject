@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.adapter;
 /**
  * Created by admin on 2018/5/28.
  */
+
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by qzs on 2017/9/04.
  */
@@ -26,12 +28,14 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
     private Context context;
     private List<CardFourthItemBean> list;
     private RecycleAdapter4.OnCard4ClickListener mOnCard4ClickListener;//自注册的接口给调用者用于点击逻辑
+    private int mtype;
 
-
-    public RecycleAdapter4(Context context, List<CardFourthItemBean> list) {
+    public RecycleAdapter4(Context context, List<CardFourthItemBean> list, int type) {
         this.context = context;
         this.list = list;
+        this.mtype = type;
     }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
@@ -39,6 +43,7 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
                 false));
         return holder;
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tv_name.setText(list.get(position).getName());
@@ -58,10 +63,12 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
             }
         });*/
     }
+
     @Override
     public int getItemCount() {
         return list.size();
     }
+
     // 添加数据
     public void addData(int position) {
 //   在list中添加数据，并通知条目加入一条
@@ -69,6 +76,7 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
         //添加动画
         notifyItemInserted(position);
     }
+
     // 删除数据
     public void removeData(int position) {
         list.remove(position);
@@ -88,10 +96,11 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
     /**
      * ViewHolder的类，用于缓存控件
      */
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView_edit;
-        TextView tv_name, tv_company,tv_phoneNum,tv_position,tv_email;
+        TextView tv_name, tv_company, tv_phoneNum, tv_position, tv_email;
         RelativeLayout item4;
+
         //因为删除有可能会删除中间条目，然后会造成角标越界，所以必须整体刷新一下！
         public MyViewHolder(View view) {
             super(view);
@@ -103,7 +112,11 @@ public class RecycleAdapter4 extends RecyclerView.Adapter<RecycleAdapter4.MyView
             tv_phoneNum = (TextView) view.findViewById(R.id.textView_phonenum);
             tv_position = (TextView) view.findViewById(R.id.textView_position);
             tv_email = (TextView) view.findViewById(R.id.textView_email);
-            item4.setOnClickListener(this);
+            if (mtype == 1 || mtype == 2){
+                imageView_edit.setVisibility(View.INVISIBLE);
+            }else {
+                item4.setOnClickListener(this);
+            }
         }
 
         @Override

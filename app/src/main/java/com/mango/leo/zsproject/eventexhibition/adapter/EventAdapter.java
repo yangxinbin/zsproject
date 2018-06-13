@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.utils.DateUtil;
@@ -136,7 +137,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getStartTime(), "yyyy-MM-dd"));
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId() != null) {
                         Log.v("yyy", Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
-                        Glide.with(context).load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
+                        Glide.with(context)
+                                .load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId())
+                                .apply(new RequestOptions().placeholder(R.drawable.gov))
+                                .into(((ItemViewHolder) holder).im);
                     }
                 }
             }

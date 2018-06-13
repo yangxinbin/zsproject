@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private OnEventnewsClickListener mOnEventnewsClickListener;//自注册的接口给调用者用于点击逻辑
+    private OnZhaoShanClickListener mOnZhaoShanClickListener;//自注册的接口给调用者用于点击逻辑
     private List<ZhaoShangBean> mData;
     public static final int TYPE_ITEM = 0;
     public static final int TYPE_FOOTER = 1;
@@ -169,8 +169,8 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         return mData.size() + isFooter + isHeader;
     }
-    public void setOnEventnewsClickListener(OnEventnewsClickListener onItemnewsClickListener) {
-        this.mOnEventnewsClickListener = onItemnewsClickListener;
+    public void setOnZhaoShanClickListener(OnZhaoShanClickListener onItemnewsClickListener) {
+        this.mOnZhaoShanClickListener = onItemnewsClickListener;
     }
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
@@ -179,14 +179,13 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public FooterViewHolder(View view) {
             super(view);
             footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
-
         }
     }
 
     public ZhaoShangBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
-    public interface OnEventnewsClickListener {
+    public interface OnZhaoShanClickListener {
         public void onItemClick(View view, int position);
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -204,8 +203,8 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @Override
         public void onClick(View view) {
-            if (mOnEventnewsClickListener != null) {
-                mOnEventnewsClickListener.onItemClick(view, this.getLayoutPosition());
+            if (mOnZhaoShanClickListener != null) {
+                mOnZhaoShanClickListener.onItemClick(view, this.getLayoutPosition());
             }
         }
     }
