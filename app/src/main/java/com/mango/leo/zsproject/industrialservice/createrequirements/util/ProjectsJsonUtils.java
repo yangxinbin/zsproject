@@ -58,12 +58,17 @@ public class ProjectsJsonUtils {
         return beans;
     }
 
-    public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res, String va) {
+    public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res, Context context) {
+        ACache.get(context).put("changye", res,300);
         ChanyLingyuBean chanyLingyuBean = new Gson().fromJson(res, ChanyLingyuBean.class);
         List<ChanyLingyuBean.ResponseListBean> c = chanyLingyuBean.getResponseList();
         return c;
     }
-
+    public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res) {
+        ChanyLingyuBean chanyLingyuBean = new Gson().fromJson(res, ChanyLingyuBean.class);
+        List<ChanyLingyuBean.ResponseListBean> c = chanyLingyuBean.getResponseList();
+        return c;
+    }
     public static UserMessageBean readJsonUserMessageBeans(String res, Context context) {
         ACache.get(context).put("message", res);
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
