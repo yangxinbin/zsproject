@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialpanorama.adapter.CityAdapter;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.utils.NetUtil;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +38,8 @@ import butterknife.ButterKnife;
 public class CityIntroductionFragment extends Fragment {
     @Bind(R.id.w)
     WebView webview;
+    @Bind(R.id.imageView_noNet)
+    ImageView imageViewNoNet;
     /*@Bind(R.id.recycle_city)
         RecyclerView recycleCity;
         @Bind(R.id.refresh_city)
@@ -58,15 +61,24 @@ public class CityIntroductionFragment extends Fragment {
         initSwipeRefreshLayout();
         initRecycle();*/
         TextView c = getActivity().findViewById(R.id.city);
-        Log.v("yyyyyyyyyy","----------"+c.getText());
-        initW("深圳");
+        Log.v("yyyyyyyyyy", "----------" + c.getText());
+        if (NetUtil.isNetConnect(getActivity())) {
+            initW("深圳");
+            webview.setVisibility(View.VISIBLE);
+            imageViewNoNet.setVisibility(View.GONE);
+        } else {
+            imageViewNoNet.setVisibility(View.VISIBLE);
+            webview.setVisibility(View.GONE);
+        }
         return view;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CityS bean) {
-        Log.v("yyyyyyyyyy","------szD----"+bean.getCity());
+        Log.v("yyyyyyyyyy", "------szD----" + bean.getCity());
         initW(bean.getCity());
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -74,20 +86,20 @@ public class CityIntroductionFragment extends Fragment {
     }
 
     private void initW(final String sp) {
-                webview.setVisibility(View.VISIBLE);
-                WebSettings webSettings = webview.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-                webview.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        // TODO Auto-generated method stub
-                        //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                        view.loadUrl(url);
-                        return true;
-                    }
-                });
-                    webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
+        webview.setVisibility(View.VISIBLE);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
             }
+        });
+        webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
+    }
 
     private void loadCityMes() {
         /*new Thread(new Runnable() {
