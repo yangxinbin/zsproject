@@ -99,7 +99,6 @@
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
         <activity android:name=".eventexhibition.show.EventDetailActivity">
-
     </activity>
         <activity android:name=".eventexhibition.show.EventRegistrationActivity" />
 
