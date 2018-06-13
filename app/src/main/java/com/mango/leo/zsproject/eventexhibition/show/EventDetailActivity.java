@@ -1,9 +1,7 @@
 package com.mango.leo.zsproject.eventexhibition.show;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -72,7 +70,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 return true;
             }
         });
-        webview.loadUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
+      //  webview.loadUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+id);
     }
 
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
@@ -83,6 +81,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.imageView_share:
+                Log.v("yxbbbbb","---------");
                 newShare();
                 break;
             case R.id.imageView_love:
@@ -114,7 +113,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI
-        oks.show(this);
+        oks.show(getApplicationContext());
     }
 
     private void loadLove() {

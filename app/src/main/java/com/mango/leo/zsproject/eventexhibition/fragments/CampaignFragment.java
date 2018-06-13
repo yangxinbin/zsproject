@@ -396,7 +396,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+        AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
     }
 
     @Override
@@ -404,7 +404,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "没有更多的数据", Toast.LENGTH_LONG).show();
+                AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
             }
         });
     }

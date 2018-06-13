@@ -24,7 +24,6 @@ import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.adapter.ShouCangEventAdapter;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
-import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
@@ -107,7 +106,7 @@ public class ShouCang3Fragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "访问失败");
+                    AppUtils.showToast(getActivity(), "访问失败", "正在加载数据，请稍后...");
                     break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
@@ -127,10 +126,10 @@ public class ShouCang3Fragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     break;
                 case 4:
-                    AppUtils.showToast(getActivity(), "取消收藏失败");
+                    AppUtils.showToast(getActivity(), "取消收藏失败", "正在加载数据，请稍后...");
                     break;
                 case 5:
-                    AppUtils.showToast(getActivity(), "已收藏");
+                    AppUtils.showToast(getActivity(), "已收藏", "正在加载数据，请稍后...");
                     break;
                 default:
                     break;
@@ -144,7 +143,7 @@ public class ShouCang3Fragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
+                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！", "正在加载数据，请稍后...");
                 }
             });
         }
@@ -329,6 +328,6 @@ public class ShouCang3Fragment extends Fragment {
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more_s));
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more_s), "正在加载数据，请稍后...");
     }
 }

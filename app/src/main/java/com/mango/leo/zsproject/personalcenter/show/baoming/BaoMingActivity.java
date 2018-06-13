@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -102,7 +101,7 @@ public class BaoMingActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getBaseContext(), "访问失败");
+                    AppUtils.showToast(getBaseContext(), "访问失败", "正在加载数据，请稍后...");
                     break;
                 case 2:
                     List<EventBean> beanList = (List<EventBean>) msg.obj;
@@ -164,7 +163,7 @@ public class BaoMingActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), "没有更多活动，请您稍后刷新！");
+                    AppUtils.showToast(getBaseContext(), "没有更多活动，请您稍后刷新！", "正在加载数据，请稍后...");
                 }
             });
         }
@@ -280,6 +279,6 @@ public class BaoMingActivity extends BaseActivity {
     }
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(this, getResources().getString(R.string.no_more_s));
+        AppUtils.showToast(this, getResources().getString(R.string.no_more_s), "正在加载数据，请稍后...");
     }
 }

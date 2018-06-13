@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,6 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.login.bean.UserMessageBean;
-import com.mango.leo.zsproject.personalcenter.show.userchange.CompanyActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
@@ -134,18 +130,18 @@ public class ChangePhoneActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "验证码发送失败");
+                        AppUtils.showToast(activity, "验证码发送失败", "正在加载数据，请稍后...");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "验证码发送成功");
+                        AppUtils.showToast(activity, "验证码发送成功", "正在加载数据，请稍后...");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "绑定新号码失败");
+                        AppUtils.showToast(activity, "绑定新号码失败", "正在加载数据，请稍后...");
                         break;
                     case 3:
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
-                        AppUtils.showToast(activity, "成功绑定新号码");
+                        AppUtils.showToast(activity, "成功绑定新号码", "正在加载数据，请稍后...");
                         break;
                     default:
                         break;

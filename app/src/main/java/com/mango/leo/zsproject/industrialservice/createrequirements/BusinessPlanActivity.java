@@ -40,7 +40,6 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter2;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFourthItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardNinthItemActivity;
@@ -51,7 +50,6 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -210,7 +208,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            AppUtils.showToast(this, "没有权限,请手动开启定位权限");
+            AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(BusinessPlanActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {

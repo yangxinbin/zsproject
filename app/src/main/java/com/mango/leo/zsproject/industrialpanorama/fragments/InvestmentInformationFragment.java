@@ -88,35 +88,41 @@ public class InvestmentInformationFragment extends Fragment {
 
     private void loadZhaoShanMes(final int page) {
         Log.v("zzzzzzzzz","__0_"+Urls.HOST_CITY_MES + "?city=" + "深圳"+"&page="+page);
-        HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + "深圳"+"&page="+page, new Callback() {
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                mHandler.sendEmptyMessage(0);
-            }
+            public void run() {
+                HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + "深圳"+"&page="+page, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        mHandler.sendEmptyMessage(0);
+                    }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    final List<ZhaoShangBean> beanList = ProjectsJsonUtils.readJsonZhaoShangBeans(response.body().string(),"content");//data是json字段获得data的值即对象数组
-                   if (beanList.size() == 0){
-                       mHandler.sendEmptyMessage(2);
-                   }else {
-                       mHandler.sendEmptyMessage(1);
-                   }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            addZhaoShang(beanList,page);
-                        }
-                    });
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            final List<ZhaoShangBean> beanList = ProjectsJsonUtils.readJsonZhaoShangBeans(response.body().string(),"content");//data是json字段获得data的值即对象数组
+                            if (beanList.size() == 0){
+                                mHandler.sendEmptyMessage(2);
+                            }else {
+                                mHandler.sendEmptyMessage(1);
+                            }
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addZhaoShang(beanList,page);
+                                }
+                            });
                     /*zhaoShangBeanList.clear();
                     zhaoShangBeanList.addAll(beanList);*/
-                } catch (Exception e) {
-                    mHandler.sendEmptyMessage(0);
+                        } catch (Exception e) {
+                            mHandler.sendEmptyMessage(0);
 //                    Log.e("eeeee", response.body().string()+"Exception = " + e);
-                }
+                        }
+                    }
+                });
             }
-        });
+        }).start();
+
     }
 
     private void initRecycle() {
@@ -139,9 +145,9 @@ public class InvestmentInformationFragment extends Fragment {
                 return;
             }
             Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
-            Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
-            startActivity(intent);
+           // Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
+            //intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+           // startActivity(intent);
         }
     };
     private int lastVisibleItem;
@@ -222,7 +228,7 @@ public class InvestmentInformationFragment extends Fragment {
                         //addZhaoShang();
                         break;
                     case 2:
-                        AppUtils.showToast(getActivity(), "没有更多的招商信息");
+                        //AppUtils.showToast(getActivity(), "没有更多的招商信息");
                     default:
                         break;
                 }

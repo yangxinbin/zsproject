@@ -66,13 +66,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.mViewHolder> {
 
             }
             if (list.get(position) != null) {
-                if (list.get(position).getTitle() != null || !TextUtils.isEmpty(list.get(position).getTitle())) {
+                if (list.get(position).getTitle() != null/* || !TextUtils.isEmpty(list.get(position).getTitle())*/) {
                     holder.tv_title.setVisibility(View.VISIBLE);
                     holder.tv_title.setText(list.get(position).getTitle());
                 } else {
                     holder.tv_title.setVisibility(View.GONE);
                 }
-                if (list.get(position).getDetail() != null || !TextUtils.isEmpty(list.get(position).getDetail())) {
+                if (list.get(position).getDetail() != null/* || !TextUtils.isEmpty(list.get(position).getDetail())*/) {
                     holder.tv_content.setVisibility(View.VISIBLE);
                     holder.tv_content.setText(list.get(position).getDetail());
                 } else {

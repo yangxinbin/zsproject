@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,14 +17,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
 import com.mango.leo.zsproject.adapters.GirdDownAdapter;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ResponseListBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
@@ -168,7 +164,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
@@ -178,7 +174,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
@@ -272,7 +268,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
                 if (gvChooseMap.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
-                    AppUtils.showToast(this, "请选择领域");
+                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
                     return;
                 }
                 StringBuffer sb = new StringBuffer();
@@ -288,7 +284,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 if (sb.length() > 0) {
                     //说明有爱好的内容。否则就提示选择爱好
                 } else {
-                    AppUtils.showToast(this, "请选择领域");
+                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
                     return;
                 }
                 textViewLingyu.setText(sb);

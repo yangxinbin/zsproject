@@ -1,7 +1,5 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,7 +32,6 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.Al
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
-import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -460,7 +457,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "加载失败");
+                    AppUtils.showToast(getActivity(), "加载失败", "正在加载数据，请稍后...");
                 }
             });
         }
@@ -475,7 +472,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more), "正在加载数据，请稍后...");
     }
 
 
@@ -508,10 +505,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "项目删除失败");
+                    AppUtils.showToast(getActivity(), "项目删除失败", "正在加载数据，请稍后...");
                     break;
                 case 1:
-                    AppUtils.showToast(getActivity(), "项目删除成功");
+                    AppUtils.showToast(getActivity(), "项目删除成功", "正在加载数据，请稍后...");
                     refreshItems.setRefreshing(false);
                     /*refreshItems.setOnRefreshListener(this);
                     refreshItems.post(new Runnable() {

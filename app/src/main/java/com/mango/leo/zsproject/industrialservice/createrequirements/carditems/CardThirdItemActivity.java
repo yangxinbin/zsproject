@@ -36,12 +36,10 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
-import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -198,7 +196,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            AppUtils.showToast(this, "没有权限,请手动开启定位权限");
+            AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(CardThirdItemActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {
@@ -250,7 +248,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                     initLocationMode();
                 } else {
                     // 没有获取到权限，做特殊处理
-                    AppUtils.showToast(this, "没有权限,请手动开启定位权限");
+                    AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
                 }
                 break;
             default:
@@ -479,7 +477,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
@@ -489,7 +487,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }

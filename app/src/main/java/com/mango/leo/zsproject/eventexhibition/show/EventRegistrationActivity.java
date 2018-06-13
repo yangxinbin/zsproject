@@ -24,7 +24,6 @@ import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
-import com.mango.leo.zsproject.utils.JsonUtils;
 import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
@@ -209,11 +208,11 @@ public class EventRegistrationActivity extends AppCompatActivity {
                         AppUtils.showToast(activity, "报名失败");
                         break;
                     case 1:
-                        //AppUtils.showToast(activity, "报名成功");
+                        AppUtils.showToast(activity, "报名成功");
                         showSuccess(activity);
                         break;
                     case 2:
-                        //AppUtils.showToast(activity, "令牌保存成功");
+                        AppUtils.showToast(activity, "令牌保存成功");
                         break;
                     default:
                         break;

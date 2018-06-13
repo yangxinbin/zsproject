@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.personalcenter.show.shengbao.adapter.ShenBaoViewPageAdapter;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.TouziFragment;
 import com.mango.leo.zsproject.personalcenter.show.shengbao.fragments.XiangMuFragment;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;

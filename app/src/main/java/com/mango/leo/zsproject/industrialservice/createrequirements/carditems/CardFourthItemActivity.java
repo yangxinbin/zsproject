@@ -2,7 +2,6 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -151,7 +150,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
@@ -161,7 +160,7 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }

@@ -14,7 +14,6 @@ import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
-import com.mango.leo.zsproject.personalcenter.show.AccountSecurityActivity;
 import com.mango.leo.zsproject.personalcenter.show.UserChangeActivity;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -108,10 +107,10 @@ public class CompanyActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "单位修改失败");
+                        AppUtils.showToast(activity, "单位修改失败", "正在加载数据，请稍后...");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "单位修改成功");
+                        AppUtils.showToast(activity, "单位修改成功", "正在加载数据，请稍后...");
                         Intent intent = new Intent(activity, UserChangeActivity.class);
                         startActivity(intent);
                         break;

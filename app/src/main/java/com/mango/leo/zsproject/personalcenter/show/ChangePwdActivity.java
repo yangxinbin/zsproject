@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +61,7 @@ public class ChangePwdActivity extends BaseActivity {
                 if (editTextNewpwd.getText().toString().equals(editTextNewpwdok.getText().toString())){
                     changePwd();
                 }else {
-                    AppUtils.showToast(this,"两次密码输入不相同");
+                    AppUtils.showToast(this,"两次密码输入不相同", "正在加载数据，请稍后...");
                 }
                 break;
         }
@@ -103,10 +102,10 @@ public class ChangePwdActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 2:
-                        AppUtils.showToast(activity, "密码修改失败");
+                        AppUtils.showToast(activity, "密码修改失败", "正在加载数据，请稍后...");
                         break;
                     case 3:
-                        AppUtils.showToast(activity, "密码修改成功");
+                        AppUtils.showToast(activity, "密码修改成功", "正在加载数据，请稍后...");
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
                         finish();

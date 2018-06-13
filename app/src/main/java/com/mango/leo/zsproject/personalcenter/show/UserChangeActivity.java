@@ -223,7 +223,7 @@ public class UserChangeActivity extends BaseActivity {
                     || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                    AppUtils.showToast(this, "您已经拒绝过一次");
+                    AppUtils.showToast(this, "您已经拒绝过一次", "正在加载数据，请稍后...");
                 }
                 requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
             } else {//有权限直接调用系统相机拍照
@@ -235,7 +235,7 @@ public class UserChangeActivity extends BaseActivity {
                     }
                     PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
                 } else {
-                    AppUtils.showToast(this, "设备没有SD卡！");
+                    AppUtils.showToast(this, "设备没有SD卡！", "正在加载数据，请稍后...");
                 }
             }
         }
@@ -256,10 +256,10 @@ public class UserChangeActivity extends BaseActivity {
                         }
                         PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
                     } else {
-                        AppUtils.showToast(this, "设备没有SD卡！");
+                        AppUtils.showToast(this, "设备没有SD卡！", "正在加载数据，请稍后...");
                     }
                 } else {
-                    AppUtils.showToast(this, "请允许打开相机！！");
+                    AppUtils.showToast(this, "请允许打开相机！！", "正在加载数据，请稍后...");
                 }
                 break;
             }
@@ -268,7 +268,7 @@ public class UserChangeActivity extends BaseActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
                 } else {
-                    AppUtils.showToast(this, "请允许打操作SDCard！！");
+                    AppUtils.showToast(this, "请允许打操作SDCard！！", "正在加载数据，请稍后...");
                 }
                 break;
             default:
@@ -375,7 +375,7 @@ public class UserChangeActivity extends BaseActivity {
 
             @Override
             public void onCancel() {
-                AppUtils.showToast(getApplicationContext(), "城市选择已取消");
+                AppUtils.showToast(getApplicationContext(), "城市选择已取消", "正在加载数据，请稍后...");
             }
         });
 
@@ -395,7 +395,7 @@ public class UserChangeActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.showToast(getBaseContext(), "地区修改失败");
+                        AppUtils.showToast(getBaseContext(), "地区修改失败", "正在加载数据，请稍后...");
                     }
                 });
             }
@@ -406,7 +406,7 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(), "地区修改成功");
+                            AppUtils.showToast(getBaseContext(), "地区修改成功", "正在加载数据，请稍后...");
                         }
                     });
                     //Log.v("uuuuuu",editTextChange.getText().toString()+"______"+response.body().string());
@@ -417,7 +417,7 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(), "地区修改失败");
+                            AppUtils.showToast(getBaseContext(), "地区修改失败", "正在加载数据，请稍后...");
                         }
                     });
                 }
@@ -452,7 +452,7 @@ public class UserChangeActivity extends BaseActivity {
                     }
                     PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, OUTPUT_X, OUTPUT_Y, CODE_RESULT_REQUEST);
                 } else {
-                    AppUtils.showToast(this, "设备没有SD卡！");
+                    AppUtils.showToast(this, "设备没有SD卡！", "正在加载数据，请稍后...");
                 }
                 break;
             //裁剪返回
@@ -478,7 +478,7 @@ public class UserChangeActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        AppUtils.showToast(getBaseContext(), "头像上传失败");
+                        AppUtils.showToast(getBaseContext(), "头像上传失败", "正在加载数据，请稍后...");
                     }
                 });
             }
@@ -496,14 +496,14 @@ public class UserChangeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(), "头像上传成功");
+                            AppUtils.showToast(getBaseContext(), "头像上传成功", "正在加载数据，请稍后...");
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AppUtils.showToast(getBaseContext(), "头像上传失败");
+                            AppUtils.showToast(getBaseContext(), "头像上传失败", "正在加载数据，请稍后...");
                         }
                     });
                     Log.v("upLoadMap", response.body().string() + "******" + response.code() + Urls.HOST_AVATAR);

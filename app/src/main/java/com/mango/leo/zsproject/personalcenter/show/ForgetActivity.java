@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,10 +98,10 @@ public class ForgetActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "验证码发送失败");
+                        AppUtils.showToast(activity, "验证码发送失败", "正在加载数据，请稍后...");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "验证码发送成功");
+                        AppUtils.showToast(activity, "验证码发送成功", "正在加载数据，请稍后...");
 
                         break;
                     default:

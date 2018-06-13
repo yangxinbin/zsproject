@@ -66,7 +66,7 @@ public class ChangePwdForActivity extends BaseActivity {
                 if (editTextNewpwd.getText().toString().equals(editTextNewpwdok.getText().toString())) {
                     changePwd();
                 } else {
-                    AppUtils.showToast(this, "两次密码输入不相同");
+                    AppUtils.showToast(this, "两次密码输入不相同", "正在加载数据，请稍后...");
                 }
                 break;
         }
@@ -113,10 +113,10 @@ public class ChangePwdForActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 2:
-                        AppUtils.showToast(activity, "密码重置失败");
+                        AppUtils.showToast(activity, "密码重置失败", "正在加载数据，请稍后...");
                         break;
                     case 3:
-                        AppUtils.showToast(activity, "密码重置成功");
+                        AppUtils.showToast(activity, "密码重置成功", "正在加载数据，请稍后...");
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
                         break;

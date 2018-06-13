@@ -240,7 +240,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
@@ -250,7 +250,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
             }
         });
     }
