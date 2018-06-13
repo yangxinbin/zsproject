@@ -164,7 +164,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
@@ -174,7 +174,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
@@ -268,7 +268,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
                 if (gvChooseMap.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
-                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择领域");
                     return;
                 }
                 StringBuffer sb = new StringBuffer();
@@ -284,7 +284,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 if (sb.length() > 0) {
                     //说明有爱好的内容。否则就提示选择爱好
                 } else {
-                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择领域");
                     return;
                 }
                 textViewLingyu.setText(sb);

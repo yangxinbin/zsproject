@@ -124,16 +124,16 @@ public class ChangeEmailActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "验证码发送失败", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "验证码发送失败");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "验证码发送成功", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "验证码发送成功");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "绑定新邮箱失败", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "绑定新邮箱失败");
                         break;
                     case 3:
-                        AppUtils.showToast(activity, "成功绑定新邮箱", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "成功绑定新邮箱");
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
                         break;

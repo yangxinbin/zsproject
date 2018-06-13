@@ -470,7 +470,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 listwhy.clear();
                 if (gvChooseMap3.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
-                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择领域");
                     return;
                 }
                 StringBuffer sb3 = new StringBuffer();
@@ -488,7 +488,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 if (sb3.length() > 0) {
                     //说明有爱好的内容。否则就提示选择爱好
                 } else {
-                    AppUtils.showToast(this, "请选择领域", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择领域");
                     return;
                 }
                 text3.setText(sb3);
@@ -501,7 +501,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 listtype.clear();
                 if (gvChooseMap4.size() == 0)//如果map为0或者，map里面的全是false表示一个也没有选中。
                 {
-                    AppUtils.showToast(this, "请选择投资方式", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择投资方式");
                     return;
                 }
                 StringBuffer sb4 = new StringBuffer();
@@ -519,7 +519,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 if (sb4.length() > 0) {
                     //说明有爱好的内容。否则就提示选择爱好
                 } else {
-                    AppUtils.showToast(this, "请选择资金类型", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "请选择资金类型");
                     return;
                 }
                 text4.setText(sb4);
@@ -535,14 +535,14 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), "投资信息上传成功", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getBaseContext(), "投资信息上传成功");
                 }
             });
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), "投资信息上传失败", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getBaseContext(), "投资信息上传失败");
                 }
             });
         }
@@ -554,7 +554,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getBaseContext(), "投资信息上传失败", "正在加载数据，请稍后...");
+                AppUtils.showToast(getBaseContext(), "投资信息上传失败");
             }
         });
     }

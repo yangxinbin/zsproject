@@ -98,10 +98,10 @@ public class ForgetActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "验证码发送失败", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "验证码发送失败");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "验证码发送成功", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "验证码发送成功");
 
                         break;
                     default:

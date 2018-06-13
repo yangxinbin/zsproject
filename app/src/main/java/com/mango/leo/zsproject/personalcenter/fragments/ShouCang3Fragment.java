@@ -106,7 +106,7 @@ public class ShouCang3Fragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "访问失败", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "访问失败");
                     break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
@@ -126,10 +126,10 @@ public class ShouCang3Fragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     break;
                 case 4:
-                    AppUtils.showToast(getActivity(), "取消收藏失败", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "取消收藏失败");
                     break;
                 case 5:
-                    AppUtils.showToast(getActivity(), "已收藏", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "已收藏");
                     break;
                 default:
                     break;
@@ -143,7 +143,7 @@ public class ShouCang3Fragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
                 }
             });
         }
@@ -328,6 +328,6 @@ public class ShouCang3Fragment extends Fragment {
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more_s), "正在加载数据，请稍后...");
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more_s));
     }
 }

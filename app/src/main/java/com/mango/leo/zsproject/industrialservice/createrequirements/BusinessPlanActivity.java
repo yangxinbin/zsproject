@@ -208,7 +208,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
+            AppUtils.showToast(this, "没有权限,请手动开启定位权限");
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(BusinessPlanActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {

@@ -196,7 +196,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
+            AppUtils.showToast(this, "没有权限,请手动开启定位权限");
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(CardThirdItemActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
         } else {
@@ -248,7 +248,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                     initLocationMode();
                 } else {
                     // 没有获取到权限，做特殊处理
-                    AppUtils.showToast(this, "没有权限,请手动开启定位权限", "正在加载数据，请稍后...");
+                    AppUtils.showToast(this, "没有权限,请手动开启定位权限");
                 }
                 break;
             default:
@@ -477,7 +477,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }
@@ -487,7 +487,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getApplicationContext(), string, "正在加载数据，请稍后...");
+                AppUtils.showToast(getApplicationContext(), string);
             }
         });
     }

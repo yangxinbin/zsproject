@@ -111,10 +111,10 @@ public class NameActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "姓名修改失败", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "姓名修改失败");
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "姓名修改成功", "正在加载数据，请稍后...");
+                        AppUtils.showToast(activity, "姓名修改成功");
                         Intent intent = new Intent(activity, UserChangeActivity.class);
                         startActivity(intent);
                         break;

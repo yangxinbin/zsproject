@@ -457,7 +457,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "加载失败", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "加载失败");
                 }
             });
         }
@@ -472,7 +472,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more), "正在加载数据，请稍后...");
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 
 
@@ -505,10 +505,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    AppUtils.showToast(getActivity(), "项目删除失败", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "项目删除失败");
                     break;
                 case 1:
-                    AppUtils.showToast(getActivity(), "项目删除成功", "正在加载数据，请稍后...");
+                    AppUtils.showToast(getActivity(), "项目删除成功");
                     refreshItems.setRefreshing(false);
                     /*refreshItems.setOnRefreshListener(this);
                     refreshItems.post(new Runnable() {
