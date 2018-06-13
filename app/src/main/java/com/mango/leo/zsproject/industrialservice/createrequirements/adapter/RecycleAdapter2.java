@@ -43,8 +43,8 @@ public class RecycleAdapter2 extends RecyclerView.Adapter<RecycleAdapter2.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-/*        holder.tv_name.setText(list.get(position).getName());
-        holder.tv_phoneNum.setText(list.get(position).getPhoneNumber());
+        holder.tv_name.setText(list.get(position).getChanye());
+ /*       holder.tv_phoneNum.setText(list.get(position).getPhoneNumber());
         holder.tv_company.setText(list.get(position).getCompany());
         holder.tv_position.setText(list.get(position).getPosition());
         holder.tv_email.setText(list.get(position).getEmail());*/

@@ -34,4 +34,12 @@ public class CardSecondItemBean {
     public void setLingyuList(List<String> lingyuList) {
         this.lingyuList = lingyuList;
     }
+
+    @Override
+    public String toString() {
+        return "CardSecondItemBean{" +
+                "changye='" + changye + '\'' +
+                ", lingyuList=" + lingyuList +
+                '}';
+    }
 }

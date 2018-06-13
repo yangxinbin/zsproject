@@ -130,15 +130,14 @@ public class TouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getLocation().getCity().toString());
                 ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos%20).getStartTime(),"yyyy-MM-dd"));
                 if (mData.get(pos).getResponseObject().getContent().get(pos%20).getBanner().getId() != null) {
-                    Log.v("yyy","iiiiiiiiii"+"http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
-                    Glide.with(context).load("http://192.168.1.166:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
+                    Log.v("yyy","iiiiiiiiii"+"http://47.106.184.121:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
+                    Glide.with(context).load("http://47.106.184.121:9999/user-service/user/get/file?fileId="+mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId()).into(((ItemViewHolder) holder).im);
                 }
             }*/
         }else {
             //if (mData.size() > 0) {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((TouZiAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
-
             // 然后通过延时加载模拟网络请求的时间，在500ms后执行
             mHandler.postDelayed(new Runnable() {
                 @Override

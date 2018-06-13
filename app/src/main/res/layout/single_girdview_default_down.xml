@@ -31,7 +31,7 @@
             android:layout_marginRight="24dp"
             app:srcCompat="@drawable/delete" />
     </RelativeLayout>
-    <GridView
+    <com.mango.leo.zsproject.industrialservice.createrequirements.util.MyGridView
         android:id="@+id/gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

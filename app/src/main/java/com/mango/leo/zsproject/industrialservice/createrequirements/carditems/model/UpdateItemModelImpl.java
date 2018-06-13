@@ -51,12 +51,12 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         editor = sharedPreferences.edit();
         Log.v("xxxxxxxx", "^^^^^vvvvvvv^^^^^" + sharedPreferences.getString("projectId", ""));
         final HashMap<String, String> mapParams = new HashMap<String, String>();
-        if (o instanceof CardFirstItemBean) {
+        if (type == 1) {
             mapParams.clear();
             CardFirstItemBean cardFirstItemBean = (CardFirstItemBean) o;
             //File[] files = new File[cardFirstItemBean.getItemImagePath().size()];
             if (TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
-                Log.v("11111","____1___"+sharedPreferences.getString("token", ""));
+                Log.v("11111", "____1___" + sharedPreferences.getString("token", ""));
                 url = Urls.HOST_PROJECT;
                 mapParams.put("name", cardFirstItemBean.getItemName());
                 mapParams.put("organizerDepartment", cardFirstItemBean.getDepartmentName());
@@ -75,8 +75,8 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                         if (String.valueOf(response.code()).startsWith("2")) {
                             listener.onSuccess("SAVE SUCCESS");//异步请求
                             ProjectBean bean = ProjectsJsonUtils.readJsonProjectBeans(response.body().string());//data是json字段获得data的值即对象
-                            Log.v("11111","____1_projectId_"+bean.getResponseObject().getId());
-                            editor.putString("projectId",bean.getResponseObject().getId()).commit();
+                            Log.v("11111", "____1_projectId_" + bean.getResponseObject().getId());
+                            editor.putString("projectId", bean.getResponseObject().getId()).commit();
                         } else {
                             Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
                             listener.onSuccess("SAVE FAILURE");
@@ -84,7 +84,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                     }
                 });
             } else {
-                Log.v("11111","____2___");
+                Log.v("11111", "____2___");
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("name", cardFirstItemBean.getItemName());
                 mapParams.put("organizerDepartment", cardFirstItemBean.getDepartmentName());
@@ -111,10 +111,42 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             }
 
         }
-        if (o instanceof CardSecondItemBean) {
-            CardSecondItemBean cardFirstItemBean = (CardSecondItemBean) o;
+        if (type == 2) {
+            final List<CardSecondItemBean> cardSecondItemBeans = (List<CardSecondItemBean>) o;
+            mapParams.clear();
+            if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
+                mapParams.put("token", sharedPreferences.getString("token", ""));
+                mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
+                mapParams.put("industries", buildArray2Json(cardSecondItemBeans));
+                Log.v("22222222222", "---" + buildArray2Json(cardSecondItemBeans).toString());
+            }
+            final String finalUrl = url;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpUtils.doPut(finalUrl, mapParams, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.v("doPutWithJson", "^^^^^onFailure^^^^^");
+                            listener.onFailure("SAVE FAILURE", e);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (String.valueOf(response.code()).startsWith("2")) {
+                                listener.onSuccess("SAVE SUCCESS");//异步请求
+                            } else {
+                                Log.v("doPutWithJson", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
+                                listener.onSuccess("SAVE FAILURE");
+                            }
+                        }
+                    });
+                }
+            }).start();
+
+
         }
-        if (o instanceof CardThirdItemBean) {
+        if (type == 3) {
             CardThirdItemBean cardThirdItemBean = (CardThirdItemBean) o;
             mapParams.clear();
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
@@ -151,7 +183,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
-                mapParams.put("contactInfo", buildArrayJson(cardFourthItemBean));
+                mapParams.put("contactInfo", buildArray4Json(cardFourthItemBean));
             }
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
@@ -174,7 +206,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             final CardNinthItemBean cardNinthItemBeans = (CardNinthItemBean) o;
             // final HashMap<String, String> mapParams = new HashMap<String, String>();
             mapParams.clear();
-            Log.v("99999", sharedPreferences.getString("projectId", "") + "___"+sharedPreferences.getString("min", "0"));
+            Log.v("99999", sharedPreferences.getString("projectId", "") + "___" + sharedPreferences.getString("min", "0"));
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
@@ -182,13 +214,13 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("min", sharedPreferences.getString("min", "0"));
                 mapParams.put("max", sharedPreferences.getString("max", "0"));
                 StringBuffer wht = new StringBuffer();
-                for (int i = 0;i<cardNinthItemBeans.getWhy().size();i++){
-                    wht.append(cardNinthItemBeans.getWhy().get(i)+",");
+                for (int i = 0; i < cardNinthItemBeans.getWhy().size(); i++) {
+                    wht.append(cardNinthItemBeans.getWhy().get(i) + ",");
                 }
                 mapParams.put("cooperationStyles", wht.deleteCharAt(wht.length() - 1).toString());
                 StringBuffer mtype = new StringBuffer();
-                for (int j = 0;j<cardNinthItemBeans.getType().size();j++){
-                    mtype.append(cardNinthItemBeans.getType().get(j)+",");
+                for (int j = 0; j < cardNinthItemBeans.getType().size(); j++) {
+                    mtype.append(cardNinthItemBeans.getType().get(j) + ",");
                 }
                 mapParams.put("investmentType", mtype.deleteCharAt(mtype.length() - 1).toString());
                 mapParams.put("other", cardNinthItemBeans.getQita());
@@ -203,10 +235,10 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
-                        Log.v("xxxxx", ""+response.body().string());
+                        Log.v("xxxxx", "" + response.body().string());
                         listener.onSuccess("SAVE_SUCCESS");//异步请求
                     } else {
-                        Log.v("xxxxx", ""+response.body().string());
+                        Log.v("xxxxx", "" + response.body().string());
                         listener.onSuccess("SAVE_FAILURE");
                     }
                 }
@@ -214,7 +246,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         }
     }
 
-    public String buildArrayJson(List<CardFourthItemBean> cardFourthItemBean) {
+    public String buildArray4Json(List<CardFourthItemBean> cardFourthItemBean) {
         JSONArray json = new JSONArray();
         try {
             for (int i = 0; i < cardFourthItemBean.size(); i++) {
@@ -233,8 +265,27 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         }
         //把每个数据当作一对象添加到数组里
         return json.toString();
-    }//
+    }
 
+    public String buildArray2Json(List<CardSecondItemBean> cardSecondItemBeans) {
+        JSONArray json = new JSONArray();
+        try {
+            for (int i = 0; i < cardSecondItemBeans.size(); i++) {
+                JSONObject jsonObj = null;
+                for (int j = 0; j < cardSecondItemBeans.get(i).getLingyuList().size(); j++) {
+                    jsonObj = new JSONObject();//一定要new对象
+                    jsonObj.put("parent", cardSecondItemBeans.get(i).getChanye());
+                    jsonObj.put("name", cardSecondItemBeans.get(i).getLingyuList().get(j).toString());
+                    json.put(j, jsonObj);
+                }
+                continue;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //把每个数据当作一对象添加到数组里
+        return json.toString();
+    }
    /*public String buildStypeJson(CardNinthItemBean cardNinthItemBean) {
         JSONObject jsonObj = new JSONObject();//一定要new对象
         try {

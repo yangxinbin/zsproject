@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +26,7 @@ import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
 import com.mango.leo.zsproject.adapters.GirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
@@ -30,10 +34,14 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.vi
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
+import com.mango.leo.zsproject.utils.Urls;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +81,12 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private Map<Integer, Boolean> gvChooseMap = new HashMap<Integer, Boolean>();
     private int currentPosition1 = -1;
     private String projectId;
+    private int mtype = 0;
+    private List<CardSecondItemBean> beans2;
+    private int position;
+    private List<String> bl2;
+    private boolean flag = false;
+
     //private List<Integer> currentPosition2 = new ArrayList<>();
 
     @Override
@@ -82,47 +96,165 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         ButterKnife.bind(this);
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardSecondItemBean = new CardSecondItemBean();
+        beans2 = new ArrayList<>();
+        if (beans2 != null) {
+            beans2.clear();
+        }
         list1 = new ArrayList<>();
-        getChan("");
+        list2 = new ArrayList<>();
+        position = getIntent().getIntExtra("position", 0);
+        bl2 = new ArrayList<>();
+        EventBus.getDefault().register(this);
     }
 
-    private void getChan(String parm) {
-        String url = "http://192.168.1.166:9999/business-service/tool//list/industries?parent="+parm;
-        HttpUtils.doGet(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-               // listener.onFailure("FAILURE", e);
-                Log.v("2222222222222222","__--_");
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card2EventBus(List<CardSecondItemBean> bean) {
+        if (flag) {
+            //Log.v("44444444", position + "___card4EventBus___" + beans2.size());
+            beans2 = bean;
+            if (beans2.size() == position) {
+                Log.v("44444444", position + "___add___");
+                return;
             }
+            textViewChanye.setText(bean.get(position).getChanye());
+            StringBuffer stringBufferL = new StringBuffer();
+            for (int i = 0; i < bean.size(); i++) {
+                stringBufferL.append(i + " ");
+            }
+            textViewLingyu.setText(stringBufferL);
+        /*editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
+        editTextPosition.setText(bean.get(position).getPosition());
+        editTextEmail.setText(bean.get(position).getEmail());*/
+            // cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
+        }
+    }
+
+    private void initDate() {
+        cardSecondItemBean.setChanye(textViewChanye.getText().toString());
+        cardSecondItemBean.setLingyuList(bl2);
+        Log.v("44444444", position + "____initDate____");
+        if (beans2.size() == position) {
+            beans2.add(position, cardSecondItemBean);//第几个修改第几个
+            Log.v("44444444", "____adddd____" + beans2.get(position).getChanye());
+        } else {
+            beans2.set(position, cardSecondItemBean);//第几个修改第几个
+        }
+    }
+
+    private void getChan(String parm, final int type) {
+        if (type == 0) {
+            parm = "";
+        }
+        if (type == 1) {
+            parm = parm;
+        }
+        final String finalParm = parm;
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    final List<ChanyLingyuBean.ResponseListBean> bean = ProjectsJsonUtils.readJsonCBeans(response.body().string(), "");//data是json字段获得data的值即对象数组
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0;i<bean.size();i++)
-                            list1.add(String.valueOf(bean.get(i).getName()));
+            public void run() {
+                String url = Urls.HOST + "/business-service/tool//list/industries?parent=" + finalParm;
+                HttpUtils.doGet(url, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        // listener.onFailure("FAILURE", e);
+                        Log.v("2222222222222222", "__--_");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            final List<ChanyLingyuBean.ResponseListBean> bean = ProjectsJsonUtils.readJsonCBeans(response.body().string(), "");//data是json字段获得data的值即对象数组
+                            /*runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {*/
+                            Message message = mHandler.obtainMessage();
+                            message.obj = bean;
+                            message.what = 0;
+                            mHandler.sendMessage(message);
+                                    /*for (int i = 0;i<bean.size();i++){
+                                        if (type == 0){
+                                            list1.add(String.valueOf(bean.get(i).getName()));
+                                        }if (type == 1){
+                                            list2.add(String.valueOf(bean.get(i).getName()));
+                                        }
+                                    }*/
+                             /*   }
+                            });*/
+                            //Log.v("2222222222222222", "__vvvvv_" + bean.toString());
+                        } catch (Exception e) {
+                            Log.e("yyyyy", "Exception = " + e);
                         }
-                    });
-                    Log.v("2222222222222222","__vvvvv_"+bean.toString());
-                } catch (Exception e) {
-                    Log.e("yyyyy", "Exception = " + e);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private final CardSecondItemActivity.MyHandler mHandler = new CardSecondItemActivity.MyHandler(this);
+
+    private class MyHandler extends Handler {
+        private final WeakReference<CardSecondItemActivity> mActivity;
+
+        public MyHandler(CardSecondItemActivity activity) {
+            mActivity = new WeakReference<CardSecondItemActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            CardSecondItemActivity activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case 0:
+                        list1.clear();
+                        list2.clear();
+                        List<ChanyLingyuBean.ResponseListBean> bean2List = (List<ChanyLingyuBean.ResponseListBean>) msg.obj;
+                        for (int i = 0; i < bean2List.size(); i++) {
+                            if (mtype == 0) {
+                                Log.v("uuuuuuu1", "" + mtype);
+                                list1.add(String.valueOf(bean2List.get(i).getName()));
+                            }
+                            if (mtype == 1) {
+                                Log.v("uuuuuuu2", "" + mtype);
+                                list2.add(String.valueOf(bean2List.get(i).getName()));
+                            }
+                        }
+                        // AppUtils.showToast(getActivity(), "获取招商信息失败");
+                        break;
+                    case 1:
+                        // AppUtils.showToast(getActivity(), "获取招商信息成功");
+                        break;
+                    default:
+                        break;
                 }
             }
-        });
+        }
     }
 
     @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageView2_back:
-                Intent intent = new Intent(this, BusinessPlanActivity.class);
+                intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.button2_save:
-                updateItemPresenter.visitUpdateItem(this, TYPE2, cardSecondItemBean);//更新后台数据
+                initDate();
+                Log.v("222222222222", textViewChanye.getText().length() + "--initDate--" + beans2.toString());
+                if (!textViewChanye.getText().toString().startsWith("请") && !textViewLingyu.getText().toString().startsWith("请") && cardSecondItemBean != null) {
+                    flag = false;
+                    updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
+                    EventBus.getDefault().postSticky(beans2);
+                    Log.v("2222222222111",""+beans2.size());
+                    EventBus.getDefault().unregister(this);
+                    /*intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);*/
+                    finish();
+                } else {
+                    AppUtils.showToast(this, "请添加产业领域");
+                }
                 break;
             case R.id.chanye:
                 /*list1.add("不限");
@@ -135,13 +267,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list1.add("硬件");
                 list1.add("体育");
                 list1.add("其它");*/
+                mtype = 0;
+                getChan("", mtype);
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);
                 break;
             case R.id.lingyu:
-                list2 = new ArrayList<>();
                 //list2 = new HashMap();
-                list2.add("不限");
+/*                list2.add("不限");
                 list2.add("种子轮");
                 list2.add("天使轮");
                 list2.add("pre-A轮");
@@ -152,7 +285,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("E轮");
                 list2.add("新四板");
                 list2.add("IPO上市");
-                list2.add("其它");
+                list2.add("其它");*/
+                mtype = 1;
+                getChan(textViewChanye.getText().toString(), mtype);
                 showPopupWindow(this, list2, 2);
                 adapter2.setCheckItem(gvChooseMap);
                 break;
@@ -161,12 +296,17 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
     @Override
     public void showUpdateStateView(final String string) {
+/*        Intent intent = new Intent(this, BusinessPlanActivity.class);
+        startActivity(intent);
+        finish();*/
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 AppUtils.showToast(getApplicationContext(), string);
+               // finish();
             }
         });
+
     }
 
     @Override
@@ -278,6 +418,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     boolean flag = entry.getValue();
                     if (flag == true) {
                         sb.append(list2.get(strkey) + "  ");
+                        bl2.add(list2.get(strkey));
                         Log.v("yyyyyy", strkey + "**********" + sb);
                     }
                 }

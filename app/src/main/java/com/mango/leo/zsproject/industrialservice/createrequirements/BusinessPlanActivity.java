@@ -230,6 +230,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
+        if (bean == null) {
+            return;
+        }
         this.bean1 = bean;
         carfirstContent.setVisibility(View.GONE);
         carfirst.setEnabled(false);
@@ -241,7 +244,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
-        card1 = (ConstraintLayout)item1.findViewById(R.id.card1);
+        card1 = (ConstraintLayout) item1.findViewById(R.id.card1);
         if (type == 1 || type == 2) {
             im_1.setVisibility(View.INVISIBLE);
         }
@@ -275,37 +278,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void card3EventBus(CardThirdItemBean bean) {
-        this.bean3 = bean;
-        Log.v("33333", "___________" + bean3.getAddress());
-        carthirdContent.setVisibility(View.GONE);
-        carthird.setEnabled(false);
-        //渲染card1布局
-        View item1 = LayoutInflater.from(this).inflate(R.layout.carditem3, null);
-        carthird.addView(item1);
-        mMapView = item1.findViewById(R.id.bmapView3);
-        p1 = (TextView) item1.findViewById(R.id.textView_p1);
-        p2 = (TextView) item1.findViewById(R.id.textView_p2);
-        im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
-        card3 = (RelativeLayout) item1.findViewById(R.id.card3);
-
-        if (type == 1 || type == 2) {
-            im_3.setVisibility(View.INVISIBLE);
-        }
-        p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
-        Log.v("33333333",""+sharedPreferences.getString("where","广东省深圳市南山区"));
-        p2.setText(bean.getAddress());
-        //im_3.setOnClickListener(this);
-        card3.setOnClickListener(this);
-        initLocation();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card2EventBus(List<CardSecondItemBean> bean) {
- /*       if(bean == null){
+        Log.v("22222222333","____"+bean.size());
+        if (bean == null) {
             return;
-        }*/
-        this.bean2 = bean;
+        }
+ /*       this.bean2 = bean;
         carsecondContent.setVisibility(View.GONE);
         carsecond.setEnabled(false);
         //渲染card1布局
@@ -332,8 +310,38 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             imageView2.setVisibility(View.INVISIBLE);
         } else {
             adapter2.setOnItemnewsClickListener(this);
-        }
+        }*/
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card3EventBus(CardThirdItemBean bean) {
+        if (bean == null) {
+            return;
+        }
+        this.bean3 = bean;
+        Log.v("33333", "___________" + bean3.getAddress());
+        carthirdContent.setVisibility(View.GONE);
+        carthird.setEnabled(false);
+        //渲染card1布局
+        View item1 = LayoutInflater.from(this).inflate(R.layout.carditem3, null);
+        carthird.addView(item1);
+        mMapView = item1.findViewById(R.id.bmapView3);
+        p1 = (TextView) item1.findViewById(R.id.textView_p1);
+        p2 = (TextView) item1.findViewById(R.id.textView_p2);
+        im_3 = (ImageView) item1.findViewById(R.id.imageView_3);
+        card3 = (RelativeLayout) item1.findViewById(R.id.card3);
+
+        if (type == 1 || type == 2) {
+            im_3.setVisibility(View.INVISIBLE);
+        }
+        p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
+        Log.v("33333333", "" + sharedPreferences.getString("where", "广东省深圳市南山区"));
+        p2.setText(bean.getAddress());
+        //im_3.setOnClickListener(this);
+        card3.setOnClickListener(this);
+        initLocation();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card4EventBus(List<CardFourthItemBean> bean) {
         /*if (bean4 != null){
@@ -400,14 +408,18 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         }
         //im_9.setOnClickListener(this);
         card9.setOnClickListener(this);
-        for (int i = 0; i < bean.getWhy().size(); i++) {
-            stringBuffer1.append(bean.getWhy().get(i) + " ");
-            Log.v("77777", bean.getWhy().get(i)+"___bus_");
+        if (bean.getWhy() != null) {
+            for (int i = 0; i < bean.getWhy().size(); i++) {
+                stringBuffer1.append(bean.getWhy().get(i) + " ");
+                Log.v("77777", bean.getWhy().get(i) + "___bus_");
+            }
         }
         tv9_3.setText(stringBuffer1);
-        for (int j = 0; j < bean.getType().size(); j++) {
-            stringBuffer2.append(bean.getType().get(j) + " ");
-            Log.v("6666", bean.getType().get(j)+"___bus_");
+        if (bean.getType() != null) {
+            for (int j = 0; j < bean.getType().size(); j++) {
+                stringBuffer2.append(bean.getType().get(j) + " ");
+                Log.v("6666", bean.getType().get(j) + "___bus_");
+            }
         }
         tv9_4.setText(stringBuffer2);
         tv9_5.setText(bean.getQita());
@@ -486,38 +498,38 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void publishProject() {
-        Log.v("hhhhh","----"+Urls.HOST_PUBLISH+"?token="+sharedPreferences.getString("token","")+"&projectId="+sharedPreferences.getString("projectId", ""));
+        Log.v("hhhhh", "----" + Urls.HOST_PUBLISH + "?token=" + sharedPreferences.getString("token", "") + "&projectId=" + sharedPreferences.getString("projectId", ""));
         HashMap<String, String> mapParams = new HashMap<String, String>();
-        if (mapParams != null){
+        if (mapParams != null) {
             mapParams.clear();
         }
-        mapParams.put("token", sharedPreferences.getString("token",""));
+        mapParams.put("token", sharedPreferences.getString("token", ""));
         mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
-        HttpUtils.doPost(Urls.HOST_PUBLISH,mapParams,new Callback() {
+        HttpUtils.doPost(Urls.HOST_PUBLISH, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showDailog("审核","提交审核失败！");
+                        showDailog("审核", "提交审核失败！");
                     }
                 });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (String.valueOf(response.code()).startsWith("2")){
+                if (String.valueOf(response.code()).startsWith("2")) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核","恭喜你提交审核成功！");
+                            showDailog("审核", "恭喜你提交审核成功！");
                         }
                     });
-                }else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核","提交审核失败！");
+                            showDailog("审核", "提交审核失败！");
                         }
                     });
                 }
@@ -572,6 +584,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             case R.id.img_2add:
                 EventBus.getDefault().postSticky(bean2);
                 intent = new Intent(this, CardSecondItemActivity.class);
+                intent.putExtra("flag", true);
                 intent.putExtra("position", bean2.size());
                 startActivity(intent);
                 finish();
