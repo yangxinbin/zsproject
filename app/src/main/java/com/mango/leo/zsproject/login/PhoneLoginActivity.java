@@ -215,7 +215,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         }
     }
 
-    CountDownTimer timer = new CountDownTimer(10000, 1000) {
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
         @Override
         public void onTick(long millisUntilFinished) {
