@@ -1,67 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg"><!---->
+    android:background="@color/bg"
+    android:orientation="vertical"><!---->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="0dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:id="@+id/textView45"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:text="@string/lingyu"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title" />
+
+            <ImageView
+                android:id="@+id/imageView_delete2"
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:layout_alignBottom="@+id/textView45"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                app:srcCompat="@drawable/delete" />
+        </RelativeLayout>
+
+        <com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView
+            android:id="@+id/gv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/title"
-            android:text="@string/lingyu" />
-
-        <ImageView
-            android:id="@+id/imageView_delete2"
-            android:layout_width="@dimen/img_size"
-            android:layout_height="@dimen/img_size"
-            android:layout_alignBottom="@+id/textView45"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            app:srcCompat="@drawable/delete" />
-    </RelativeLayout>
-    <com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView
-        android:id="@+id/gv"
-        app:itemMargin="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView45"
-        android:layout_marginTop="12dp"
-        android:horizontalSpacing="8dp"
-        android:layout_margin="8dp"
-        android:numColumns="4"
-        android:verticalSpacing="8dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView45"
+            android:layout_margin="8dp"
+            android:layout_marginTop="12dp"
+            android:horizontalSpacing="8dp"
+            android:numColumns="4"
+            android:verticalSpacing="8dp"
+            app:itemMargin="8dp" />
     </LinearLayout>
-    <Button
-        android:id="@+id/button_go2"
-        android:layout_width="match_parent"
-        android:layout_margin="8dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rec_red_background"
-        android:layout_alignEnd="@+id/textView45"
-        android:layout_alignRight="@+id/textView45"
-        android:layout_below="@+id/gv"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="@dimen/title"
-        android:text="@string/go" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_re"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView45"
+            android:layout_alignRight="@+id/textView45"
+            android:layout_below="@+id/gv"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rec_red_background"
+            android:text="重置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_go2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView45"
+            android:layout_alignRight="@+id/textView45"
+            android:layout_below="@+id/gv"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rec_red_background"
+            android:text="@string/go"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

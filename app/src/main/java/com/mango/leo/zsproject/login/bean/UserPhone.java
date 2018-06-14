@@ -20,6 +20,10 @@ public class UserPhone {
         this.phoneC = string1;
     }
 
+    public UserPhone() {
+
+    }
+
     public String getPhoneN() {
         return phoneN;
     }

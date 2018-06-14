@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -54,21 +55,37 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res);
+        ButterKnife.bind(this);
         userStatePresenter = new UserStatePresenterImpl(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        ButterKnife.bind(this);
     }
 
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            verificationCodeRes.setText("   " + millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            verificationCodeRes.setEnabled(true);
+            verificationCodeRes.setText("发送验证码");
+        }
+    };
+
     private void initEdit() {
-        userPhone = new UserPhone(editTextPhoneRes.getText().toString(), editTextVerificationCodeRes.getText().toString());
+        userPhone = new UserPhone();
+        userPhone.setPhoneN(editTextPhoneRes.getText().toString());
+        userPhone.setPhoneC(editTextVerificationCodeRes.getText().toString());
         //通过editor对象写入数据
     }
 
     @OnClick({R.id.imageView_phoneres_back, R.id.verification_code_res, R.id.button_res})
     public void onViewClicked(View view) {
-        if (!NetUtil.isNetConnect(this)){
-            AppUtils.showToast(this,"请连接网络");
+        if (!NetUtil.isNetConnect(this)) {
+            AppUtils.showToast(this, "请连接网络");
             return;
         }
         Intent intent;
@@ -79,8 +96,13 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                 finish();
                 break;
             case R.id.verification_code_res:
-                initEdit();
-                userStatePresenter.visitPwdUserState(this, 2, userPhone);
+                if (editTextPhoneRes.getText().length() == 11) {
+                    timer.start();
+                    initEdit();
+                    userStatePresenter.visitPwdUserState(this, 2, userPhone);
+                } else {
+                    AppUtils.showToast(getBaseContext(), "请输入正确的手机号码");
+                }
                 break;
             case R.id.button_res:
                 initEdit();
@@ -95,7 +117,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         if (string.equals("RES_SUCCESS")) {
             mHandler.sendEmptyMessage(0);
             intent = new Intent(this, PwdSettingActivity.class);
-            intent.putExtra("code",editTextVerificationCodeRes.getText().toString());
+            intent.putExtra("code", editTextVerificationCodeRes.getText().toString());
             intent.putExtra("username", editTextPhoneRes.getText().toString());
             startActivity(intent);
             finish();
@@ -108,7 +130,8 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         }
         if (string.equals("CODE_FAILURE")) {
             mHandler.sendEmptyMessage(3);
-        }if (string.equals("HAS")) {
+        }
+        if (string.equals("HAS")) {
             mHandler.sendEmptyMessage(5);
         }
 
@@ -129,10 +152,10 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
-            Log.v("tttttr1","--------------"+token);
+            Log.v("tttttr1", "--------------" + token);
 
         }
-        Log.v("tttttr2","--------------"+token);
+        Log.v("tttttr2", "--------------" + token);
     }
 
     private final MyHandler mHandler = new MyHandler(this);
@@ -175,5 +198,12 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
             }
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if (timer != null){
+            timer.cancel();
+        }
+    }
 }

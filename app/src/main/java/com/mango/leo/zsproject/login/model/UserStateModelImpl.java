@@ -79,6 +79,7 @@ public class UserStateModelImpl implements UserStateModel {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     listener.onFailure("CODE_FAILURE", e);
+                    listener.onSuccess("CODE_FAILURE");
                 }
 
                 @Override

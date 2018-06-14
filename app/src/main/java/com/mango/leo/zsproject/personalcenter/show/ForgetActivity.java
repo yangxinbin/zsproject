@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.personalcenter.show;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -45,7 +46,19 @@ public class ForgetActivity extends BaseActivity {
         setContentView(R.layout.activity_forget);
         ButterKnife.bind(this);
     }
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
+        @Override
+        public void onTick(long millisUntilFinished) {
+            verificationCode.setText("   "+millisUntilFinished/1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            verificationCode.setEnabled(true);
+            verificationCode.setText("发送验证码");
+        }
+    };
     @OnClick({R.id.imageView_forget_back, R.id.verification_code, R.id.button_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -54,7 +67,12 @@ public class ForgetActivity extends BaseActivity {
                 break;
             case R.id.verification_code:
                 //去获取验证码
-                getCode();
+                if (editTextPhone.getText().length() == 11) {
+                    timer.start();
+                    getCode();
+                } else {
+                    AppUtils.showToast(getBaseContext(), "请输入正确的手机号码");
+                }
                 break;
             case R.id.button_next:
                 //去请求 成功之后再跳转 相当于验证码登录

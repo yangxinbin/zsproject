@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.personalcenter.show;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -50,9 +51,25 @@ public class ChangeEmailActivity extends BaseActivity {
         setContentView(R.layout.activity_change_email);
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
-
+        verificationCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setEnabled(false);
+                timer.start();
+            }
+        });
     }
-
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            verificationCode.setText("   "+millisUntilFinished/1000 + "秒");
+        }
+        @Override
+        public void onFinish() {
+            verificationCode.setEnabled(true);
+            verificationCode.setText("发送验证码");
+        }
+    };
     @OnClick({R.id.imageView_changeemail_back, R.id.verification_code, R.id.button_changeemailok})
     public void onViewClicked(View view) {
         switch (view.getId()) {

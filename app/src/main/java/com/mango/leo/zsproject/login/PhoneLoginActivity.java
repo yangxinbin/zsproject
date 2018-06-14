@@ -2,7 +2,9 @@ package com.mango.leo.zsproject.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenterImpl;
+import com.mango.leo.zsproject.login.util.CountDownTextView;
 import com.mango.leo.zsproject.login.view.UserStateView;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.AppUtils;
@@ -59,6 +62,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         userStatePresenter = new UserStatePresenterImpl(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -69,11 +73,12 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
             startActivity(intent);
             finish();
         }
-        ButterKnife.bind(this);
     }
 
     private void initEdit() {
-        userPhone = new UserPhone(editTextPhone.getText().toString(), editTextVerificationCode.getText().toString());
+        userPhone = new UserPhone();
+        userPhone.setPhoneN(editTextPhone.getText().toString());
+        userPhone.setPhoneC(editTextVerificationCode.getText().toString());
         //通过editor对象写入数据
         editor.putString("userName", editTextPhone.getText().toString());
     }
@@ -87,8 +92,15 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         Intent intent;
         switch (view.getId()) {
             case R.id.verification_code:
-                initEdit();
-                userStatePresenter.visitPwdUserState(this, 2, userPhone);
+                Log.v("uuuuuuu", "!!!!!!" + editTextPhone.getText().length());
+                if (editTextPhone.getText().length() == 11) {
+                    timer.start();
+                    initEdit();
+                    Log.v("uuuuuuu", "!!!dsfs!!!" + userPhone.getPhoneN());
+                    userStatePresenter.visitPwdUserState(this, 2, userPhone);
+                } else {
+                    AppUtils.showToast(getBaseContext(), "请输入正确的手机号码");
+                }
                 break;
             case R.id.button_login:
                 initEdit();
@@ -163,7 +175,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
 
     private final PhoneLoginActivity.MyHandler mHandler = new PhoneLoginActivity.MyHandler(this);
 
-    private static class MyHandler extends Handler {
+    private class MyHandler extends Handler {
         private final WeakReference<PhoneLoginActivity> mActivity;
 
         public MyHandler(PhoneLoginActivity activity) {
@@ -185,6 +197,7 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 2:
                         AppUtils.showToast(activity, "验证码获取成功");
+
                         break;
                     case 3:
                         AppUtils.showToast(activity, "验证码获取失败");
@@ -199,6 +212,29 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                         break;
                 }
             }
+        }
+    }
+
+    CountDownTimer timer = new CountDownTimer(10000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            buttonVerificationCode.setText("   " + millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            buttonVerificationCode.setEnabled(true);
+            buttonVerificationCode.setText("发送验证码");
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if (timer != null){
+            timer.cancel();
         }
     }
 }

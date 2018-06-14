@@ -3,6 +3,7 @@ package com.mango.leo.zsproject.personalcenter.show;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -52,7 +53,19 @@ public class ChangePhoneActivity extends BaseActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
     }
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
+        @Override
+        public void onTick(long millisUntilFinished) {
+            verificationCode.setText("   "+millisUntilFinished/1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            verificationCode.setEnabled(true);
+            verificationCode.setText("发送验证码");
+        }
+    };
     @OnClick({R.id.imageView_changephone_back, R.id.verification_code, R.id.button_changephoneok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -61,7 +74,12 @@ public class ChangePhoneActivity extends BaseActivity {
                 break;
             case R.id.verification_code:
                 //获取验证码
-                getPhoneCode();
+                if (editTextPhone.getText().length() == 11) {
+                    timer.start();
+                    getPhoneCode();
+                } else {
+                    AppUtils.showToast(getBaseContext(), "请输入正确的手机号码");
+                }
                 break;
             case R.id.button_changephoneok:
                 //请求重新绑定

@@ -59,7 +59,9 @@ public class ProjectsJsonUtils {
     }
 
     public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res, Context context) {
-        ACache.get(context).put("changye", res,300);
+        ACache.get(context).put("changye", res);
+        ACache mCache = ACache.get(context);
+        Log.v("222224444","???===="+mCache.getAsString("changye"));
         ChanyLingyuBean chanyLingyuBean = new Gson().fromJson(res, ChanyLingyuBean.class);
         List<ChanyLingyuBean.ResponseListBean> c = chanyLingyuBean.getResponseList();
         return c;

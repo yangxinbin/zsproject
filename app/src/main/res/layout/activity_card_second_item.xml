@@ -153,8 +153,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/chanye"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chanye">
 
         <TextView
             android:id="@+id/textView19"
@@ -175,9 +176,9 @@
             android:layout_alignTop="@+id/imageView18"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
-            android:singleLine="true"
             android:layout_toLeftOf="@+id/imageView18"
             android:layout_toStartOf="@+id/imageView18"
+            android:singleLine="true"
             android:text="请选择对应的领域，可多选"
             android:textSize="@dimen/commom_tv_size_12" />
 
