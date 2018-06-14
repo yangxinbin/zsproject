@@ -188,6 +188,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         private void loadChanye(final String id) {
             new Thread(new Runnable() {
                 @Override
+
                 public void run() {
                     HttpUtils.doGet(Urls.HOST + "/business-service/project/project/industries?projectId=" + id, new Callback() {
                         @Override

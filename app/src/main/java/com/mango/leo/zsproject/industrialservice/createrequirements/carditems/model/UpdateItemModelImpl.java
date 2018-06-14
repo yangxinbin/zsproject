@@ -13,7 +13,6 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.listener.OnUpdateItemListener;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
 
@@ -21,13 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PipedReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -118,7 +114,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("industries", buildArray2Json(cardSecondItemBeans));
-                Log.v("22222222222", "---" + buildArray2Json(cardSecondItemBeans).toString());
+                Log.v("2222222222244", cardSecondItemBeans.size()+"---" + buildArray2Json(cardSecondItemBeans).toString());
             }
             final String finalUrl = url;
             new Thread(new Runnable() {
@@ -268,23 +264,31 @@ public class UpdateItemModelImpl implements UpdateItemModel {
     }
 
     public String buildArray2Json(List<CardSecondItemBean> cardSecondItemBeans) {
-        JSONArray json = new JSONArray();
+        List<JSONObject> list = new ArrayList<>();
+//        String[] strings = new String[cardSecondItemBeans.size()];
+//        JSONArray json = new JSONArray();
         try {
             for (int i = 0; i < cardSecondItemBeans.size(); i++) {
                 JSONObject jsonObj = null;
                 for (int j = 0; j < cardSecondItemBeans.get(i).getLingyuList().size(); j++) {
+                    Log.v("22222333333",cardSecondItemBeans.get(i).getLingyuList().get(j)+"----"+cardSecondItemBeans.get(i).getChanye());
                     jsonObj = new JSONObject();//一定要new对象
                     jsonObj.put("parent", cardSecondItemBeans.get(i).getChanye());
                     jsonObj.put("name", cardSecondItemBeans.get(i).getLingyuList().get(j).toString());
-                    json.put(j, jsonObj);
+//                    json.put(j+i+1, jsonObj);
+                    list.add(jsonObj);
+//                    strings[]
                 }
-                continue;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         //把每个数据当作一对象添加到数组里
-        return json.toString();
+//        for(JSONObject o : list){
+//            Log.v("22222222222",o.toString());
+//        }
+        Log.v("naison",list.toString() + "");
+        return list.toString();
     }
    /*public String buildStypeJson(CardNinthItemBean cardNinthItemBean) {
         JSONObject jsonObj = new JSONObject();//一定要new对象

@@ -135,12 +135,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                     ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
                     ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getStartTime(), "yyyy-MM-dd"));
-                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId() != null) {
-                        Log.v("yyy", Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
-                        Glide.with(context)
-                                .load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId())
-                                .apply(new RequestOptions().placeholder(R.drawable.gov))
-                                .into(((ItemViewHolder) holder).im);
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner() != null){
+                        if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId() != null) {
+                            Log.v("yyy", Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId());
+                            Glide.with(context)
+                                    .load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId())
+                                    .apply(new RequestOptions().placeholder(R.drawable.gov))
+                                    .into(((ItemViewHolder) holder).im);
+                        }
                     }
                 }
             }

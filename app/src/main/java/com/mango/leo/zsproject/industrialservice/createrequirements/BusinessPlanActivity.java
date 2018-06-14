@@ -238,6 +238,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         carfirst.setEnabled(false);
         //渲染card1布局
         View item1 = LayoutInflater.from(this).inflate(R.layout.carditem1, null);
+        Log.v("22222222222222",item1.toString()+"---item1---"+item1.getId());
         carfirst.addView(item1);
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
         what = (TextView) item1.findViewById(R.id.textView_what);
@@ -288,6 +289,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         carsecond.setEnabled(false);
         //渲染card1布局
         View item2 = LayoutInflater.from(this).inflate(R.layout.carditem2, null);
+        Log.v("22222222222222",item2.toString()+"---item2---"+item2.getId());
         if (bean.size() == 0) {
             carsecondContent.setVisibility(View.VISIBLE);
             item2.setVisibility(View.GONE);
@@ -347,10 +349,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         /*if (bean4 != null){
             bean4.clear();
         }*/
+        if (bean == null){
+            return;
+        }
         bean4 = bean;
         Log.v("4444444", type+"___________" + bean4.size());
         //渲染card4布局
         View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
+        Log.v("22222222222222",item4.toString()+"---item4---"+item4.getId());
+
         if (bean.size() == 0) {
             carfourthContent.setVisibility(View.VISIBLE);
             item4.setVisibility(View.GONE);
@@ -367,7 +374,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         recyclerView4.setLayoutManager(mLayoutManager);
         recyclerView4.setNestedScrollingEnabled(false);//禁止滑动
         RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
-        //recyclerView4.setAdapter(adapter4);
+       // recyclerView4.setAdapter(adapter4);
         imageView.setOnClickListener(this);
         if (type == 1 || type == 2) {
             imageView.setVisibility(View.INVISIBLE);

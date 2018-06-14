@@ -15,6 +15,7 @@ import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
@@ -78,7 +79,12 @@ public class ProjectsJsonUtils {
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
-
+    public static ChangYe readJsonCMessageBeans(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+        ChangYe bean = JsonUtils.deserialize(jsonObject, ChangYe.class);
+        return bean;
+    }
     public static UserMessageBean readJsonUserMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         JsonObject ob = jsonObject.getAsJsonObject("responseObject");
