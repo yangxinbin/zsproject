@@ -139,6 +139,7 @@ public class UserStateModelImpl implements UserStateModel {
                         listener.getSuccessUserMessage(bean);
                     } else {
                         if (String.valueOf(response.code()).startsWith("5")){
+                            Log.v("zzzzzzz",   "message!!!"+ response.message().toString());
                             listener.onSuccess("HAS");
                         }else{
                             Log.v("zzzzzzz", response.body().string() + "******" + response.code());
