@@ -89,6 +89,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private boolean flag = false;
     private ACache mCache;
     private boolean first;
+    private int type;
 
 
     //private List<Integer> currentPosition2 = new ArrayList<>();
@@ -108,8 +109,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         list2 = new ArrayList<>();
         position = getIntent().getIntExtra("position", 0);
         bl2 = new ArrayList<>();
-        mtype = 0;
-        getChan("", mtype);
+        getChan("", 0);
         flag = getIntent().getBooleanExtra("flag", false);
         EventBus.getDefault().register(this);
     }
@@ -117,7 +117,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card2EventBus(List<CardSecondItemBean> bean) {
         if (flag) {
-            //Log.v("44444444", position + "___card4EventBus___" + beans2.size());
             beans2 = bean;
             if (beans2.size() == position) {
                 return;
@@ -128,6 +127,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 stringBufferL.append(bean.get(position).getLingyuList().get(i)+" ");
             }
             textViewLingyu.setText(stringBufferL);
+           // getChan(beans2.get(position).getChanye(), 1);//接着请求
         /*editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
         editTextPosition.setText(bean.get(position).getPosition());
         editTextEmail.setText(bean.get(position).getEmail());*/
@@ -138,16 +138,15 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private void initDate() {
         cardSecondItemBean.setChanye(textViewChanye.getText().toString());
         cardSecondItemBean.setLingyuList(bl2);
-        Log.v("44444444", position + "____initDate____");
         if (beans2.size() == position) {
             beans2.add(position, cardSecondItemBean);//第几个修改第几个
-            Log.v("44444444", "____adddd____" + beans2.get(position).getChanye());
         } else {
             beans2.set(position, cardSecondItemBean);//第几个修改第几个
         }
     }
 
     private void getChan(String parm, final int type) {
+        this.type = type;
         if (type == 0) {
             parm = "";
         }
@@ -163,7 +162,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             @Override
             public void run() {
                 String url = Urls.HOST + "/business-service/tool//list/industries?parent=" + finalParm;
-                Log.v("2222222222uu", mtype + "----" + url);
                 HttpUtils.doGet(url, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -175,10 +173,10 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
                             List<ChanyLingyuBean.ResponseListBean> bean = null;
-                            if (mtype == 0) {
+                            if (type == 0) {
                                 bean = ProjectsJsonUtils.readJsonCBeans(response.body().string(), getBaseContext());//data是json字段获得data的值即对象数组
                             }
-                            if (mtype == 1) {
+                            if (type == 1) {
                                 bean = ProjectsJsonUtils.readJsonCBeans(response.body().string());//data是json字段获得data的值即对象数组
                             }
                             /*runOnUiThread(new Runnable() {
@@ -218,8 +216,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 adapter.setCheckItem(position);
                 textViewChanye.setText(date1);
                 dialog.dismiss();
-                mtype = 1;
-                getChan(textViewChanye.getText().toString(), mtype);//接着请求
+                getChan(textViewChanye.getText().toString(), 1);//接着请求
                 break;
             case 2:
                 if (first){
@@ -232,7 +229,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     view.setActivated(true);
                     gvChooseMap.put(position, true);
                 }
-                getChan(textViewChanye.getText().toString(), mtype);//接着请求
                 adapter2.setCheckItem(gvChooseMap);
                 break;
         }
@@ -256,15 +252,13 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                         list2.clear();
                         List<ChanyLingyuBean.ResponseListBean> bean2List = (List<ChanyLingyuBean.ResponseListBean>) msg.obj;
                         for (int i = 0; i < bean2List.size(); i++) {
-                            if (mtype == 0) {
-                                Log.v("uuuuuuu1", "" + mtype);
+                            if (type == 0) {
                                 list1.add(String.valueOf(bean2List.get(i).getName()));
                             }
-                            if (mtype == 1) {
+                            if (type == 1) {
                                 list2.add(String.valueOf(bean2List.get(i).getName()));
                             }
                         }
-                        Log.v("22222222222", list2.size() + "^^^^" + mtype);
                         // AppUtils.showToast(getActivity(), "获取招商信息失败");
                         break;
                     case 1:
@@ -337,7 +331,8 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("新四板");
                 list2.add("IPO上市");
                 list2.add("其它");*/
-                Log.v("2222222222", "liyu");
+                Log.v("2222222222222","!!!!!!"+textViewChanye.getText().toString());
+                getChan(textViewChanye.getText().toString(), 1);//接着请求
                 if (list2 != null) {
                     showPopupWindow(this, list2, 2);
                     adapter2.setCheckItem(gvChooseMap);
