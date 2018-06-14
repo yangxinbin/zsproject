@@ -167,4 +167,12 @@ public class ChangePhoneActivity extends BaseActivity {
             }
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if (timer != null){
+            timer.cancel();
+        }
+    }
 }

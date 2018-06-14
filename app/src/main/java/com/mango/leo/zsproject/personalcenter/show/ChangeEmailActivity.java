@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,13 +52,6 @@ public class ChangeEmailActivity extends BaseActivity {
         setContentView(R.layout.activity_change_email);
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
-        verificationCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.setEnabled(false);
-                timer.start();
-            }
-        });
     }
     CountDownTimer timer = new CountDownTimer(60000, 1000) {
         @Override
@@ -78,6 +72,7 @@ public class ChangeEmailActivity extends BaseActivity {
                 break;
             case R.id.verification_code:
                 //获取验证码
+                timer.start();
                 getEmailCode();
                 break;
             case R.id.button_changeemailok:
