@@ -118,7 +118,11 @@ public class EventRegistrationActivity extends AppCompatActivity {
             textViewWhere.setText(bean.getResponseObject().getContent().get(position).getLocation().getCity() + bean.getResponseObject().getContent().get(position).getLocation().getDistrict() + bean.getResponseObject().getContent().get(position).getLocation().getAddress());
             textViewTime.setText(DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getStartTime(), pattern)+"至"+DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getEndTime(), pattern));
             textViewZhubannf.setText(bean.getResponseObject().getContent().get(position).getOrganizer());
-            textViewXiuban.setText((CharSequence) bean.getResponseObject().getContent().get(position).getCoorganizers());
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0;i<bean.getResponseObject().getContent().get(position).getCoorganizers().size();i++){
+                stringBuffer.append(bean.getResponseObject().getContent().get(position).getCoorganizers().get(i)+" ");
+            }
+            textViewXiuban.setText(stringBuffer);
 
         }
     }
