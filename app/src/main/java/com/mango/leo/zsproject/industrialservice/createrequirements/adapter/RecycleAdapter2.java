@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout;
 
 import java.util.List;
 
@@ -44,6 +45,14 @@ public class RecycleAdapter2 extends RecyclerView.Adapter<RecycleAdapter2.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tv_name.setText(list.get(position).getChanye());
+        LayoutInflater mInflater = LayoutInflater.from(context);
+        for (int i = 0; i < list.get(position).getLingyuList().size(); i++)
+        {
+            TextView tv = (TextView) mInflater.inflate(R.layout.tv,
+                    holder.flowLayout, false);
+            tv.setText(list.get(position).getLingyuList().get(i));
+            holder.flowLayout.addView(tv);
+        }
  /*       holder.tv_phoneNum.setText(list.get(position).getPhoneNumber());
         holder.tv_company.setText(list.get(position).getCompany());
         holder.tv_position.setText(list.get(position).getPosition());
@@ -95,20 +104,17 @@ public class RecycleAdapter2 extends RecyclerView.Adapter<RecycleAdapter2.MyView
      */
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView_edit;
-        TextView tv_name, tv_company, tv_phoneNum, tv_position, tv_email;
+        TextView tv_name;
         RelativeLayout item2;
+        FlowLayout flowLayout;
 
         //因为删除有可能会删除中间条目，然后会造成角标越界，所以必须整体刷新一下！
         public MyViewHolder(View view) {
             super(view);
-            //imageView_delete = view.findViewById(R.id.imageView_remove);
             item2 = view.findViewById(R.id.item2);
             imageView_edit = view.findViewById(R.id.imageView_edit);
             tv_name = (TextView) view.findViewById(R.id.textView_chanye);
-/*            tv_company = (TextView) view.findViewById(R.id.textView_company);
-            tv_phoneNum = (TextView) view.findViewById(R.id.textView_phonenum);
-            tv_position = (TextView) view.findViewById(R.id.textView_position);
-            tv_email = (TextView) view.findViewById(R.id.textView_email);*/
+            flowLayout = view.findViewById(R.id.id_flowlayout);
             if (mtype == 1 || mtype == 2){
                 imageView_edit.setVisibility(View.INVISIBLE);
             }else {

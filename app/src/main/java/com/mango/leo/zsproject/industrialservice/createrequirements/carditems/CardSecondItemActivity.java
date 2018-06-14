@@ -290,7 +290,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     EventBus.getDefault().postSticky(beans2);
                     Log.v("2222222222111", "" + beans2.size());
                     EventBus.getDefault().unregister(this);
-                    /*intent = new Intent(this, BusinessPlanActivity.class);
+/*                    intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);*/
                     finish();
                 } else {

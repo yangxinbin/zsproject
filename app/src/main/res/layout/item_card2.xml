@@ -79,7 +79,7 @@
          android:layout_alignStart="@+id/textView_position"
          android:text="TextView" />-->
 
- <!--   <com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout
+    <com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout
         android:id="@+id/id_flowlayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -90,5 +90,5 @@
         android:background="#E5E5F5"
         android:padding="20dp">
 
-    </com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout>-->
+    </com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout>
 </RelativeLayout>
