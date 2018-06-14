@@ -88,6 +88,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private List<String> bl2;
     private boolean flag = false;
     private ACache mCache;
+    private boolean first;
 
 
     //private List<Integer> currentPosition2 = new ArrayList<>();
@@ -109,6 +110,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         bl2 = new ArrayList<>();
         mtype = 0;
         getChan("", mtype);
+        flag = getIntent().getBooleanExtra("flag", false);
         EventBus.getDefault().register(this);
     }
 
@@ -118,13 +120,12 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             //Log.v("44444444", position + "___card4EventBus___" + beans2.size());
             beans2 = bean;
             if (beans2.size() == position) {
-                Log.v("44444444", position + "___add___");
                 return;
             }
             textViewChanye.setText(bean.get(position).getChanye());
             StringBuffer stringBufferL = new StringBuffer();
-            for (int i = 0; i < bean.size(); i++) {
-                stringBufferL.append(i + " ");
+            for (int i = 0; i < bean.get(position).getLingyuList().size(); i++) {
+                stringBufferL.append(bean.get(position).getLingyuList().get(i)+" ");
             }
             textViewLingyu.setText(stringBufferL);
         /*editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
@@ -221,6 +222,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 getChan(textViewChanye.getText().toString(), mtype);//接着请求
                 break;
             case 2:
+                if (first){
+                    
+                }
                 if (view.isPressed()) {
                     view.setActivated(false);
                     gvChooseMap.put(position, false);
@@ -228,6 +232,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     view.setActivated(true);
                     gvChooseMap.put(position, true);
                 }
+                getChan(textViewChanye.getText().toString(), mtype);//接着请求
                 adapter2.setCheckItem(gvChooseMap);
                 break;
         }
@@ -290,8 +295,8 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     EventBus.getDefault().postSticky(beans2);
                     Log.v("2222222222111", "" + beans2.size());
                     EventBus.getDefault().unregister(this);
-/*                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);*/
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
                     finish();
                 } else {
                     AppUtils.showToast(this, "请添加产业领域");
@@ -467,11 +472,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 }
                 StringBuffer sb = new StringBuffer();
                 //遍历map
+                if(bl2 != null){
+                    bl2.clear();
+                }
                 for (Map.Entry<Integer, Boolean> entry : gvChooseMap.entrySet()) {
                     int strkey = entry.getKey();
                     boolean flag = entry.getValue();
                     if (flag == true) {
-                        sb.append(list2.get(strkey) + "  ");
+                        sb.append(list2.get(strkey) + "--");
                         bl2.add(list2.get(strkey));
                         Log.v("yyyyyy", strkey + "**********" + sb);
                     }

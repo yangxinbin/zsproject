@@ -283,7 +283,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         if (bean == null) {
             return;
         }
- /*       this.bean2 = bean;
+        this.bean2 = bean;
         carsecondContent.setVisibility(View.GONE);
         carsecond.setEnabled(false);
         //渲染card1布局
@@ -310,7 +310,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             imageView2.setVisibility(View.INVISIBLE);
         } else {
             adapter2.setOnItemnewsClickListener(this);
-        }*/
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -348,7 +348,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             bean4.clear();
         }*/
         bean4 = bean;
-        Log.v("4444444", "___________" + bean4.size());
+        Log.v("4444444", type+"___________" + bean4.size());
         //渲染card4布局
         View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
         if (bean.size() == 0) {
@@ -362,12 +362,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         }
         carfourth.addView(item4);
         ImageView imageView = item4.findViewById(R.id.img_add);
-        RecyclerView recyclerView = item4.findViewById(R.id.recycle_4);
+        RecyclerView recyclerView4 = item4.findViewById(R.id.recycle_4);
         mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setNestedScrollingEnabled(false);//禁止滑动
+        recyclerView4.setLayoutManager(mLayoutManager);
+        recyclerView4.setNestedScrollingEnabled(false);//禁止滑动
         RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
-        recyclerView.setAdapter(adapter4);
+        //recyclerView4.setAdapter(adapter4);
         imageView.setOnClickListener(this);
         if (type == 1 || type == 2) {
             imageView.setVisibility(View.INVISIBLE);
@@ -375,6 +375,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
             adapter4.setOnItemnewsClickListener(this);
         }
         //EventBus.getDefault().removeStickyEvent(bean);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -652,6 +653,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         EventBus.getDefault().postSticky(bean2);
         Intent intent = new Intent(this, CardSecondItemActivity.class);
         intent.putExtra("position", position);
+        intent.putExtra("flag", true);
         startActivity(intent);
         finish();
     }
