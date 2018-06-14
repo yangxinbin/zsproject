@@ -178,7 +178,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
-            loadChanye(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            //loadChanye(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
             startActivity(intent);
@@ -555,8 +555,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     });*/
                     break;
                 case 2:
-                    ChangYe changYe = (ChangYe) msg.obj;
-                    changYe.getResponseObject().get采矿业().size();
+                    /*ChangYe changYe = (ChangYe) msg.obj;
+                    changYe.getResponseObject().get采矿业().size();*/
                     break;
                 default:
                     break;

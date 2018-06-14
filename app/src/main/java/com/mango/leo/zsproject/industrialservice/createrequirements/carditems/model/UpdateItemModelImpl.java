@@ -8,7 +8,7 @@ import android.util.Log;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBeanObj;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.listener.OnUpdateItemListener;
@@ -108,7 +108,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
 
         }
         if (type == 2) {
-            final List<CardSecondItemBean> cardSecondItemBeans = (List<CardSecondItemBean>) o;
+            final List<CardSecondItemBeanObj.CardSecondItemBean> cardSecondItemBeans = (List<CardSecondItemBeanObj.CardSecondItemBean>) o;
             mapParams.clear();
             if (!TextUtils.isEmpty(sharedPreferences.getString("projectId", ""))) {
                 mapParams.put("token", sharedPreferences.getString("token", ""));
@@ -263,7 +263,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
         return json.toString();
     }
 
-    public String buildArray2Json(List<CardSecondItemBean> cardSecondItemBeans) {
+    public String buildArray2Json(List<CardSecondItemBeanObj.CardSecondItemBean> cardSecondItemBeans) {
         List<JSONObject> list = new ArrayList<>();
 //        String[] strings = new String[cardSecondItemBeans.size()];
 //        JSONArray json = new JSONArray();
@@ -271,9 +271,9 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             for (int i = 0; i < cardSecondItemBeans.size(); i++) {
                 JSONObject jsonObj = null;
                 for (int j = 0; j < cardSecondItemBeans.get(i).getLingyuList().size(); j++) {
-                    Log.v("22222333333",cardSecondItemBeans.get(i).getLingyuList().get(j)+"----"+cardSecondItemBeans.get(i).getChanye());
+                    Log.v("22222333333",cardSecondItemBeans.get(i).getLingyuList().get(j)+"----"+cardSecondItemBeans.get(i).getChangye());
                     jsonObj = new JSONObject();//一定要new对象
-                    jsonObj.put("parent", cardSecondItemBeans.get(i).getChanye());
+                    jsonObj.put("parent", cardSecondItemBeans.get(i).getChangye());
                     jsonObj.put("name", cardSecondItemBeans.get(i).getLingyuList().get(j).toString());
 //                    json.put(j+i+1, jsonObj);
                     list.add(jsonObj);

@@ -48,7 +48,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.Ca
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBeanObj;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
@@ -142,7 +142,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private ConstraintLayout card1;
     private RelativeLayout card3;
     private RelativeLayout card9;
-    private List<CardSecondItemBean> bean2;
+    private CardSecondItemBeanObj bean2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//
@@ -279,8 +279,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void card2EventBus(List<CardSecondItemBean> bean) {
-        Log.v("22222222333","____"+bean.size());
+    public void card2EventBus(CardSecondItemBeanObj bean) {
+        Log.v("22222222333","____"+bean.getContent().size());
         if (bean == null) {
             return;
         }
@@ -290,7 +290,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         //渲染card1布局
         View item2 = LayoutInflater.from(this).inflate(R.layout.carditem2, null);
         Log.v("22222222222222",item2.toString()+"---item2---"+item2.getId());
-        if (bean.size() == 0) {
+        if (bean.getContent().size() == 0) {
             carsecondContent.setVisibility(View.VISIBLE);
             item2.setVisibility(View.GONE);
             carsecond.setEnabled(true);
@@ -305,7 +305,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView2.setLayoutManager(mLayoutManager);
         recyclerView2.setNestedScrollingEnabled(false);//禁止滑动
-        RecycleAdapter2 adapter2 = new RecycleAdapter2(this, bean, type);
+        RecycleAdapter2 adapter2 = new RecycleAdapter2(this, bean.getContent(), type);
         recyclerView2.setAdapter(adapter2);
         imageView2.setOnClickListener(this);
         if (type == 1 || type == 2) {
@@ -374,7 +374,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         recyclerView4.setLayoutManager(mLayoutManager);
         recyclerView4.setNestedScrollingEnabled(false);//禁止滑动
         RecycleAdapter4 adapter4 = new RecycleAdapter4(this, bean, type);
-       // recyclerView4.setAdapter(adapter4);
+        recyclerView4.setAdapter(adapter4);
         imageView.setOnClickListener(this);
         if (type == 1 || type == 2) {
             imageView.setVisibility(View.INVISIBLE);
@@ -593,7 +593,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 EventBus.getDefault().postSticky(bean2);
                 intent = new Intent(this, CardSecondItemActivity.class);
                 intent.putExtra("flag", true);
-                intent.putExtra("position", bean2.size());
+                intent.putExtra("position", bean2.getContent().size());
                 startActivity(intent);
                 finish();
                 break;

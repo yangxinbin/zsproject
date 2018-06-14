@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBeanObj;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.FlowLayout;
 
 import java.util.List;
@@ -24,11 +24,11 @@ import java.util.List;
  */
 public class RecycleAdapter2 extends RecyclerView.Adapter<RecycleAdapter2.MyViewHolder> {
     private Context context;
-    private List<CardSecondItemBean> list;
+    private List<CardSecondItemBeanObj.CardSecondItemBean> list;
     private RecycleAdapter2.OnCard2ClickListener mOnCard2ClickListener;//自注册的接口给调用者用于点击逻辑
     private int mtype;
 
-    public RecycleAdapter2(Context context, List<CardSecondItemBean> list, int type) {
+    public RecycleAdapter2(Context context, List<CardSecondItemBeanObj.CardSecondItemBean> list, int type) {
         this.context = context;
         this.list = list;
         this.mtype = type;
@@ -44,7 +44,7 @@ public class RecycleAdapter2 extends RecyclerView.Adapter<RecycleAdapter2.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.tv_name.setText(list.get(position).getChanye());
+        holder.tv_name.setText(list.get(position).getChangye());
         LayoutInflater mInflater = LayoutInflater.from(context);
         for (int i = 0; i < list.get(position).getLingyuList().size(); i++)
         {

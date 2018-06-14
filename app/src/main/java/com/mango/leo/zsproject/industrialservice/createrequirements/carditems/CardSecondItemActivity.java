@@ -24,7 +24,7 @@ import com.mango.leo.zsproject.adapters.GirdDownAdapter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.basecard.BaseCardActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBeanObj;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.presenter.UpdateItemPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
@@ -72,7 +72,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     @Bind(R.id.textView_lingyu)
     TextView textViewLingyu;
     private UpdateItemPresenter updateItemPresenter;
-    private CardSecondItemBean cardSecondItemBean;
+    private CardSecondItemBeanObj.CardSecondItemBean cardSecondItemBean;
     private GirdDownAdapter adapter;
     private DuoXuanAdapter adapter2;
     private Dialog dialog;
@@ -83,14 +83,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private int currentPosition1 = -1;
     private String projectId;
     private int mtype = 0;
-    private List<CardSecondItemBean> beans2;
+    private List<CardSecondItemBeanObj.CardSecondItemBean> beans2;
     private int position;
     private List<String> bl2;
     private boolean flag = false;
     private ACache mCache;
     private boolean first;
     private int type;
-
+    private CardSecondItemBeanObj card2Bean;
 
     //private List<Integer> currentPosition2 = new ArrayList<>();
 
@@ -100,7 +100,8 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         setContentView(R.layout.activity_card_second_item);
         ButterKnife.bind(this);
         updateItemPresenter = new UpdateItemPresenterImpl(this);
-        cardSecondItemBean = new CardSecondItemBean();
+        cardSecondItemBean = new CardSecondItemBeanObj.CardSecondItemBean();
+        card2Bean = new CardSecondItemBeanObj();
         beans2 = new ArrayList<>();
         if (beans2 != null) {
             beans2.clear();
@@ -115,16 +116,16 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void card2EventBus(List<CardSecondItemBean> bean) {
+    public void card2EventBus(CardSecondItemBeanObj bean) {
         if (flag) {
-            beans2 = bean;
+            beans2 = bean.getContent();
             if (beans2.size() == position) {
                 return;
             }
-            textViewChanye.setText(bean.get(position).getChanye());
+            textViewChanye.setText(bean.getContent().get(position).getChangye());
             StringBuffer stringBufferL = new StringBuffer();
-            for (int i = 0; i < bean.get(position).getLingyuList().size(); i++) {
-                stringBufferL.append(bean.get(position).getLingyuList().get(i)+" ");
+            for (int i = 0; i < bean.getContent().get(position).getLingyuList().size(); i++) {
+                stringBufferL.append(bean.getContent().get(position).getLingyuList().get(i)+" ");
             }
             textViewLingyu.setText(stringBufferL);
            // getChan(beans2.get(position).getChanye(), 1);//接着请求
@@ -136,13 +137,14 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     }
 
     private void initDate() {
-        cardSecondItemBean.setChanye(textViewChanye.getText().toString());
+        cardSecondItemBean.setChangye(textViewChanye.getText().toString());
         cardSecondItemBean.setLingyuList(bl2);
         if (beans2.size() == position) {
             beans2.add(position, cardSecondItemBean);//第几个修改第几个
         } else {
             beans2.set(position, cardSecondItemBean);//第几个修改第几个
         }
+        card2Bean.setContent(beans2);
     }
 
     private void getChan(String parm, final int type) {
@@ -286,7 +288,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 if (!textViewChanye.getText().toString().startsWith("请") && !textViewLingyu.getText().toString().startsWith("请") && cardSecondItemBean != null) {
                     flag = false;
                     updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
-                    EventBus.getDefault().postSticky(beans2);
+                    EventBus.getDefault().postSticky(card2Bean);
                     Log.v("2222222222111", "" + beans2.size());
                     EventBus.getDefault().unregister(this);
                     intent = new Intent(this, BusinessPlanActivity.class);
