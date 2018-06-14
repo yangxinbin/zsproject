@@ -28,8 +28,10 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
@@ -176,10 +178,42 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
+            loadChanye(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
             startActivity(intent);
             //getActivity().finish();
+        }
+
+        private void loadChanye(final String id) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpUtils.doGet(Urls.HOST + "/business-service/project/project/industries?projectId=" + id, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.v("ppppppppppp","__IOException_--");
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            try {
+                                //  ChangYe changYe = ProjectsJsonUtils.readJsonNewsBeans(response.body().string());//data是json字段获得data的值即对象数组
+                                ChangYe changYe = ProjectsJsonUtils.readJsonCMessageBeans(response.body().string());
+                                Message message = mHandler.obtainMessage();
+                                message.obj = changYe;
+                                message.what = 2;
+                                mHandler.sendMessage(message);
+                                Log.v("ppppppppppp","___--"+changYe.getResponseList().toString());
+                            } catch (Exception e) {
+                                Log.v("ppppppppppp","__eee_--");
+
+                            }
+                        }
+                    });
+                }
+            }).start();
         }
 
         @Override
@@ -341,7 +375,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             } else {
                 cardNinthItemBean.setMoney("");
             }
-            if (max <= 1000 && 0<= max) {
+            if (max <= 1000 && 0 <= max) {
                 cardNinthItemBean.setMoney("1000万以下");
                 Log.v("xxxxx", "fdsf");
             }
@@ -518,6 +552,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                             refreshItems.setRefreshing(true);
                         }
                     });*/
+                    break;
+                case 2:
+                    ChangYe changYe = (ChangYe) msg.obj;
+                    changYe.getResponseObject().get采矿业().size();
                     break;
                 default:
                     break;
