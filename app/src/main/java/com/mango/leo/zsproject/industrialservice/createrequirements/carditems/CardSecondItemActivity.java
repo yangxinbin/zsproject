@@ -277,7 +277,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         }
     }
 
-    @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu})
+    @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu,R.id.textView_delete2})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -343,6 +343,16 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     adapter2.setCheckItem(gvChooseMap);
                 }
                 break;
+            case R.id.textView_delete2:
+                beans2.remove(position);
+                Log.v("44444444", position + "____ddd____" + beans2.size());
+                EventBus.getDefault().postSticky(beans2);
+                updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
+                intent = new Intent(this, BusinessPlanActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+
         }
     }
 
@@ -479,7 +489,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     int strkey = entry.getKey();
                     boolean flag = entry.getValue();
                     if (flag == true) {
-                        sb.append(list2.get(strkey) + "--");
+                        sb.append(list2.get(strkey) + " ");
                         bl2.add(list2.get(strkey));
                         Log.v("yyyyyy", strkey + "**********" + sb);
                     }
