@@ -97,7 +97,6 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
         cardFourthItemBean.setPhoneNumber(editTextPhoneNumber.getText().toString());
         cardFourthItemBean.setPosition(editTextPosition.getText().toString());
         cardFourthItemBean.setEmail(editTextEmail.getText().toString());
-        Log.v("44444444", position + "____initDate____" + cardFourthItemBean.getName());
         if (beans4.size() == position) {
             beans4.add(position, cardFourthItemBean);//第几个修改第几个
             Log.v("44444444", "____adddd____" + beans4.get(position).getName());

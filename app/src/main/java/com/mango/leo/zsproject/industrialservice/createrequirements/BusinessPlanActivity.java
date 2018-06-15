@@ -386,12 +386,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card9EventBus(CardNinthItemBean bean) {
+        Log.v("99999","---"+bean.getMoshi());
         this.bean9 = bean;
         //渲染card1布局
         stringBuffer1 = new StringBuffer();
         stringBuffer2 = new StringBuffer();
         View item9 = LayoutInflater.from(this).inflate(R.layout.carditem9, null);
-        if (bean != null) {
+        if (bean.getMoshi() != null) {
             item9.setVisibility(View.VISIBLE);
             carninthContent.setVisibility(View.GONE);
             carninth.setEnabled(false);

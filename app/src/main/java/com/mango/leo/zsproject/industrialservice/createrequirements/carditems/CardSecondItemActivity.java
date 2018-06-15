@@ -112,7 +112,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         bl2 = new ArrayList<>();
         if (flag) {
             getChan(textViewChanye.getText().toString(), 1);//接着请求
-        }else {
+        } else {
             getChan("", 0);
         }
 /*        if (!textViewChanye.getText().toString().startsWith("请")){
@@ -132,10 +132,10 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             textViewChanye.setText(bean.getContent().get(position).getChangye());
             StringBuffer stringBufferL = new StringBuffer();
             for (int i = 0; i < bean.getContent().get(position).getLingyuList().size(); i++) {
-                stringBufferL.append(bean.getContent().get(position).getLingyuList().get(i)+" ");
+                stringBufferL.append(bean.getContent().get(position).getLingyuList().get(i) + " ");
             }
             textViewLingyu.setText(stringBufferL);
-           // getChan(beans2.get(position).getChanye(), 1);//接着请求
+            // getChan(beans2.get(position).getChanye(), 1);//接着请求
         /*editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
         editTextPosition.setText(bean.get(position).getPosition());
         editTextEmail.setText(bean.get(position).getEmail());*/
@@ -228,7 +228,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 getChan(textViewChanye.getText().toString(), 1);//接着请求
                 break;
             case 2:
-                if (first){
+                if (first) {
 
                 }
                 if (view.isPressed()) {
@@ -280,7 +280,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         }
     }
 
-    @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu,R.id.textView_delete2})
+    @OnClick({R.id.imageView2_back, R.id.button2_save, R.id.chanye, R.id.lingyu, R.id.textView_delete2})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -340,7 +340,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("新四板");
                 list2.add("IPO上市");
                 list2.add("其它");*/
-                Log.v("2222222222222","!!!!!!"+textViewChanye.getText().toString());
+                Log.v("2222222222222", "!!!!!!" + textViewChanye.getText().toString());
                 getChan(textViewChanye.getText().toString(), 1);//接着请求
                 if (list2.size() != 0) {
                     showPopupWindow(this, list2, 2);
@@ -349,13 +349,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 break;
             case R.id.textView_delete2:
                 beans2.remove(position);
+                card2Bean.setContent(beans2);//重新设置
                 EventBus.getDefault().postSticky(card2Bean);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateItemPresenter.visitUpdateItem(getBaseContext(), TYPE2, beans2);//更新后台数据
-                    }
-                }).start();
+                updateItemPresenter.visitUpdateItem(getBaseContext(), TYPE2, beans2);//更新后台数据
                 intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();
@@ -490,7 +486,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 }
                 StringBuffer sb = new StringBuffer();
                 //遍历map
-                if(bl2 != null){
+                if (bl2 != null) {
                     bl2.clear();
                 }
                 for (Map.Entry<Integer, Boolean> entry : gvChooseMap.entrySet()) {
