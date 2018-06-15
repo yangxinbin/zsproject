@@ -450,6 +450,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     finish();
                 }
                 if (type == 0) {//草稿箱才能存草稿
+                    showDailog("一键招商", "恭喜你项目："+bean1.getItemName()+" 创建成功！");
+                }
+                if (type == -1){
                     showDailog("一键招商", "恭喜你项目创建成功！");
                 }
                 break;
@@ -530,14 +533,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核", "恭喜你提交审核成功！");
+                            showDailog("审核", "恭喜你项目："+bean1.getItemName()+"提交审核成功！");
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核", "提交审核失败！");
+                            showDailog("审核", bean1.getItemName()+"提交审核失败！");
                         }
                     });
                 }

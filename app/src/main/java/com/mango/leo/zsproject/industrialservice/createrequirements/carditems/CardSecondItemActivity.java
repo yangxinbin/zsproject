@@ -111,6 +111,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         position = getIntent().getIntExtra("position", 0);
         bl2 = new ArrayList<>();
         getChan("", 0);
+/*        if (!textViewChanye.getText().toString().startsWith("请")){
+            getChan(textViewChanye.getText().toString(), 1);//接着请求
+        }*/
         flag = getIntent().getBooleanExtra("flag", false);
         EventBus.getDefault().register(this);
     }
@@ -334,7 +337,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("IPO上市");
                 list2.add("其它");*/
                 Log.v("2222222222222","!!!!!!"+textViewChanye.getText().toString());
-                getChan(textViewChanye.getText().toString(), 1);//接着请求
                 if (list2 != null) {
                     showPopupWindow(this, list2, 2);
                     adapter2.setCheckItem(gvChooseMap);
