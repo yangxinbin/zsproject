@@ -27,10 +27,12 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProj
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFourthItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardNinthItemBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardSecondItemBeanObj;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardThirdItemBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenter;
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.JsonMap;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
@@ -178,7 +180,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             editor.putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position).getId()).commit();
             Log.v("yyyyyy", adapter.getItem(position).getResponseObject().getContent().get(position).getId() + "****position*******" + position);
             postStickyAll(position);
-            //loadChanye(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            loadChanye(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
             intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
             startActivity(intent);
@@ -186,30 +188,26 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }
 
         private void loadChanye(final String id) {
+            Log.v("ppppppppppp", "__--" + Urls.HOST + "/business-service/project/project/industries?projectId=" + id);
             new Thread(new Runnable() {
                 @Override
-
                 public void run() {
                     HttpUtils.doGet(Urls.HOST + "/business-service/project/project/industries?projectId=" + id, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            Log.v("ppppppppppp","__IOException_--");
-
+                            Log.v("ppppppppppp", "__IOException_--");
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
-                                //  ChangYe changYe = ProjectsJsonUtils.readJsonNewsBeans(response.body().string());//data是json字段获得data的值即对象数组
-                                ChangYe changYe = ProjectsJsonUtils.readJsonCMessageBeans(response.body().string());
+                                List<ChangYe> listC = JsonMap.getMap(response.body().string());
                                 Message message = mHandler.obtainMessage();
-                                message.obj = changYe;
+                                message.obj = listC;
                                 message.what = 2;
                                 mHandler.sendMessage(message);
-                                Log.v("ppppppppppp","___--"+changYe.getResponseList().toString());
                             } catch (Exception e) {
-                                Log.v("ppppppppppp","__eee_--");
-
+                                Log.v("ppppppppppp", "__eee_--" + response.body().string());
                             }
                         }
                     });
@@ -555,8 +553,14 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     });*/
                     break;
                 case 2:
-                    /*ChangYe changYe = (ChangYe) msg.obj;
-                    changYe.getResponseObject().get采矿业().size();*/
+                    List<ChangYe> changYe = (List<ChangYe>) msg.obj;
+                    CardSecondItemBeanObj cardSecondItemBeanObj = new CardSecondItemBeanObj();
+                    List<CardSecondItemBeanObj.CardSecondItemBean> cardSecondItemBeanList = new ArrayList<>();
+                    for (int i = 0; i < changYe.size(); i++) {
+                        cardSecondItemBeanList.add(new CardSecondItemBeanObj.CardSecondItemBean(changYe.get(i).getChanYe(),changYe.get(i).getLingYu()));
+                    }
+                    cardSecondItemBeanObj.setContent(cardSecondItemBeanList);
+                    EventBus.getDefault().postSticky(cardSecondItemBeanObj);
                     break;
                 default:
                     break;

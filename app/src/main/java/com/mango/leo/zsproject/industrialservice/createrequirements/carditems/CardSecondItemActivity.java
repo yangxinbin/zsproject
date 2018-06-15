@@ -225,7 +225,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 break;
             case 2:
                 if (first){
-                    
+
                 }
                 if (view.isPressed()) {
                     view.setActivated(false);
@@ -337,16 +337,21 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("IPO上市");
                 list2.add("其它");*/
                 Log.v("2222222222222","!!!!!!"+textViewChanye.getText().toString());
-                if (list2 != null) {
+                getChan(textViewChanye.getText().toString(), 1);//接着请求
+                if (list2.size() != 0) {
                     showPopupWindow(this, list2, 2);
                     adapter2.setCheckItem(gvChooseMap);
                 }
                 break;
             case R.id.textView_delete2:
                 beans2.remove(position);
-                Log.v("44444444", position + "____ddd____" + beans2.size());
-                EventBus.getDefault().postSticky(beans2);
-                updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
+                EventBus.getDefault().postSticky(card2Bean);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateItemPresenter.visitUpdateItem(getBaseContext(), TYPE2, beans2);//更新后台数据
+                    }
+                }).start();
                 intent = new Intent(this, BusinessPlanActivity.class);
                 startActivity(intent);
                 finish();

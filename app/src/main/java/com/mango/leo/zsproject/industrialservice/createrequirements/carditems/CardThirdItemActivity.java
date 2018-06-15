@@ -315,7 +315,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         public void onReceivePoi(BDLocation poiLocation) {
         }
     }*/
-    @OnClick({R.id.imageView3_back, R.id.button3_save})
+    @OnClick({R.id.imageView3_back, R.id.button3_save,R.id.textView_delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView3_back:
@@ -340,6 +340,15 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 } else {
                     AppUtils.showSnackar(buttonSave, "必填项不能为空！");
                 }
+                break;
+            case R.id.textView_delete:
+/*                if(flag){
+                    updateItemPresenter.visitUpdateItem(this, TYPE3,new CardThirdItemBean());//更新后台数据
+                    EventBus.getDefault().postSticky(new CardThirdItemBean());
+                    intent = new Intent(this, BusinessPlanActivity.class);
+                    startActivity(intent);
+                    finish();
+                }*/
                 break;
         }
     }

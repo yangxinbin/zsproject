@@ -8,69 +8,36 @@ import java.util.List;
 
 public class ChangYe {
 
-    /**
-     * responseObject : {"采矿业":["铜矿采选","褐煤开采洗选"]}
-     * responseList : null
-     * totalRecords : null
-     * currentPage : null
-     * totalPages : null
-     */
 
-    private ResponseObjectBean responseObject;
-    private Object responseList;
-    private Object totalRecords;
-    private Object currentPage;
-    private Object totalPages;
-
-    public ResponseObjectBean getResponseObject() {
-        return responseObject;
+    public ChangYe(String chanYe, List<String> lingYu) {
+        this.chanYe = chanYe;
+        this.lingYu = lingYu;
     }
 
-    public void setResponseObject(ResponseObjectBean responseObject) {
-        this.responseObject = responseObject;
+    private String chanYe;
+    private List<String> lingYu;
+
+    public String getChanYe() {
+        return chanYe;
     }
 
-    public Object getResponseList() {
-        return responseList;
+    public void setChanYe(String chanYe) {
+        this.chanYe = chanYe;
     }
 
-    public void setResponseList(Object responseList) {
-        this.responseList = responseList;
+    public List<String> getLingYu() {
+        return lingYu;
     }
 
-    public Object getTotalRecords() {
-        return totalRecords;
+    public void setLingYu(List<String> lingYu) {
+        this.lingYu = lingYu;
     }
 
-    public void setTotalRecords(Object totalRecords) {
-        this.totalRecords = totalRecords;
-    }
-
-    public Object getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Object currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    public Object getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Object totalPages) {
-        this.totalPages = totalPages;
-    }
-
-    public static class ResponseObjectBean {
-        private List<String> 采矿业;
-
-        public List<String> get采矿业() {
-            return 采矿业;
-        }
-
-        public void set采矿业(List<String> 采矿业) {
-            this.采矿业 = 采矿业;
-        }
+    @Override
+    public String toString() {
+        return "ChangYe{" +
+                "chanYe='" + chanYe + '\'' +
+                ", lingYu=" + lingYu +
+                '}';
     }
 }

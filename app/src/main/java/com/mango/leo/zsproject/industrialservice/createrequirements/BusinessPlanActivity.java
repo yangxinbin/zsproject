@@ -280,16 +280,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card2EventBus(CardSecondItemBeanObj bean) {
-        Log.v("22222222333","____"+bean.getContent().size());
         if (bean == null) {
             return;
         }
+        Log.v("22222222333","____"+bean.getContent().size());
         this.bean2 = bean;
         carsecondContent.setVisibility(View.GONE);
         carsecond.setEnabled(false);
         //渲染card1布局
         View item2 = LayoutInflater.from(this).inflate(R.layout.carditem2, null);
-        Log.v("22222222222222",item2.toString()+"---item2---"+item2.getId());
         if (bean.getContent().size() == 0) {
             carsecondContent.setVisibility(View.VISIBLE);
             item2.setVisibility(View.GONE);
@@ -450,10 +449,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     finish();
                 }
                 if (type == 0) {//草稿箱才能存草稿
-                    showDailog("一键招商", "恭喜你项目："+bean1.getItemName()+" 创建成功！");
+                    showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
                 }
                 if (type == -1){
-                    showDailog("一键招商", "恭喜你项目创建成功！");
+                    showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
                 }
                 break;
             case R.id.carfirst:
@@ -533,7 +532,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核", "恭喜你项目："+bean1.getItemName()+"提交审核成功！");
+                            showDailog("审核", "恭喜您项目："+bean1.getItemName()+"提交审核成功！");
                         }
                     });
                 } else {
@@ -616,8 +615,6 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            //  Toast.makeText(BusinessPlanActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
-            //          .show();
             return;
         }
         double latitude = geoCodeResult.getLocation().latitude;
@@ -633,9 +630,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-
     }
-
     private void showDailog(String s1, String s2) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.icon)//设置标题的图片

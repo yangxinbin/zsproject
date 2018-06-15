@@ -21,6 +21,23 @@ public class CardSecondItemBeanObj {
         private String changye;
         private List<String> lingyuList;
 
+        @Override
+        public String toString() {
+            return "CardSecondItemBean{" +
+                    "changye='" + changye + '\'' +
+                    ", lingyuList=" + lingyuList +
+                    '}';
+        }
+
+        public CardSecondItemBean(String str, List<String> listStr) {
+            this.changye = str;
+            this.lingyuList = listStr;
+        }
+
+        public CardSecondItemBean() {
+
+        }
+
         public String getChangye() {
             return changye;
         }
