@@ -110,7 +110,11 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         list2 = new ArrayList<>();
         position = getIntent().getIntExtra("position", 0);
         bl2 = new ArrayList<>();
-        getChan("", 0);
+        if (flag) {
+            getChan(textViewChanye.getText().toString(), 1);//接着请求
+        }else {
+            getChan("", 0);
+        }
 /*        if (!textViewChanye.getText().toString().startsWith("请")){
             getChan(textViewChanye.getText().toString(), 1);//接着请求
         }*/
