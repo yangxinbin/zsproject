@@ -301,7 +301,13 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         carsecond.addView(item2);
         ImageView imageView2 = item2.findViewById(R.id.img_2add);
         RecyclerView recyclerView2 = item2.findViewById(R.id.recycle_2);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                // 直接禁止垂直滑动
+                return false;
+            }
+        };
         recyclerView2.setLayoutManager(mLayoutManager);
         recyclerView2.setNestedScrollingEnabled(false);//禁止滑动
         RecycleAdapter2 adapter2 = new RecycleAdapter2(this, bean.getContent(), type);

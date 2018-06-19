@@ -86,7 +86,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private List<CardSecondItemBeanObj.CardSecondItemBean> beans2;
     private int position;
     private List<String> bl2;
-    private boolean flag = false;
+   // private boolean flag = false;
     private ACache mCache;
     private boolean first;
     private int type;
@@ -110,21 +110,21 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         list2 = new ArrayList<>();
         position = getIntent().getIntExtra("position", 0);
         bl2 = new ArrayList<>();
-        if (flag) {
-            getChan(textViewChanye.getText().toString(), 1);//接着请求
-        } else {
+        //if (flag) {
+        //    getChan(textViewChanye.getText().toString(), 1);//接着请求
+       // } else {
             getChan("", 0);
-        }
+       // }
 /*        if (!textViewChanye.getText().toString().startsWith("请")){
             getChan(textViewChanye.getText().toString(), 1);//接着请求
         }*/
-        flag = getIntent().getBooleanExtra("flag", false);
+       // flag = getIntent().getBooleanExtra("flag", false);
         EventBus.getDefault().register(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card2EventBus(CardSecondItemBeanObj bean) {
-        if (flag) {
+        //if (flag) {
             beans2 = bean.getContent();
             if (beans2.size() == position) {
                 return;
@@ -140,7 +140,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         editTextPosition.setText(bean.get(position).getPosition());
         editTextEmail.setText(bean.get(position).getEmail());*/
             // cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
-        }
+       // }
     }
 
     private void initDate() {
@@ -293,7 +293,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 initDate();
                 Log.v("222222222222", textViewChanye.getText().length() + "--initDate--" + beans2.toString());
                 if (!textViewChanye.getText().toString().startsWith("请") && !textViewLingyu.getText().toString().startsWith("请") && cardSecondItemBean != null) {
-                    flag = false;
+                   // flag = false;
                     updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
                     EventBus.getDefault().postSticky(card2Bean);
                     Log.v("2222222222111", "" + beans2.size());
