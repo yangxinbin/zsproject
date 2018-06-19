@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
@@ -474,10 +475,12 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     finish();
                 }
                 if (type == 0) {//草稿箱才能存草稿
-                    showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
+                   // showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
+                    delayDialog();
                 }
                 if (type == -1){
-                    showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
+                    //showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
+                    delayDialog();
                 }
                 break;
             case R.id.carfirst:
@@ -530,6 +533,20 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 publishProject();
                 break;
         }
+    }
+
+    private void delayDialog() {
+        final AlertDialog alert = new AlertDialog.Builder(BusinessPlanActivity.this)
+                .create();
+        alert.setTitle("项目:"+bean1.getItemName());
+        alert.setMessage("恭喜您保存成功！");
+        alert.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                alert.dismiss();
+            }
+        }, 2000);
     }
 
     private void publishProject() {
