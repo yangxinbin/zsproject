@@ -204,7 +204,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         refresh_cam.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh_cam.postDelayed(new Runnable() {
+                        refresh_cam.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         refresh_cam.setRefreshing(false);
@@ -274,7 +274,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 }
                 if (position == 3) {
                 }
-                eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+               // eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                 timeAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(times[position]);
                 dropdownmenu.closeMenu();
