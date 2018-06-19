@@ -151,18 +151,18 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         xiugai = getIntent().getStringExtra("xiugai");
         type = getIntent().getIntExtra("type", -1);
-        whereFrom();
+        Log.v("xxxxxxxxxx", "_type__" +type);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
         //initFirstItem();
         EventBus.getDefault().register(this);//放最后
+        whereFrom();
     }
 
     private void whereFrom() {
         Log.v("xxxxxxxxxx", "___" + getIntent().getStringExtra("xiugai"));
         if ("xiugai".equals(xiugai)) {
-            Log.v("xxxxxxxxx", "_xxxxx_");
             save.setVisibility(View.INVISIBLE);
             textView5.setText("修改招商计划");
         }
@@ -176,11 +176,21 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     save.setVisibility(View.INVISIBLE);
                     textView5.setText("招商信息");
                     textView.setText("审核中，请耐心等待！");
+                    carfirstContent.setClickable(false);
+                    carsecondContent.setClickable(false);
+                    carthirdContent.setClickable(false);
+                    carfourthContent.setClickable(false);
+                    carninthContent.setClickable(false);
                     break;
                 case 2:
                     save.setText("申请修改");
                     textView5.setText("招商信息");
                     textView.setText("已完成审核");
+                    carfirstContent.setClickable(false);
+                    carsecondContent.setClickable(false);
+                    carthirdContent.setClickable(false);
+                    carfourthContent.setClickable(false);
+                    carninthContent.setClickable(false);
                     break;
             }
             textView.setTextSize(18);
@@ -248,13 +258,15 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         card1 = (ConstraintLayout) item1.findViewById(R.id.card1);
         if (type == 1 || type == 2) {
             im_1.setVisibility(View.INVISIBLE);
+            carfirst.setEnabled(false);
+        }else {
+            card1.setOnClickListener(this);
         }
         title.setText(bean.getItemName());
         what.setText(bean.getDepartmentName());
         time.setText(bean.getTime());
         content.setText(bean.getItemContent());
         //im_1.setOnClickListener(this);
-        card1.setOnClickListener(this);
 /*        if (bean.getItemImagePath().size() != 0) {
             Log.v("yyyyy", "__________");
             slider.setVisibility(View.VISIBLE);
@@ -315,6 +327,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         imageView2.setOnClickListener(this);
         if (type == 1 || type == 2) {
             imageView2.setVisibility(View.INVISIBLE);
+            carsecond.setEnabled(false);
         } else {
             adapter2.setOnItemnewsClickListener(this);
         }
@@ -340,12 +353,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
         if (type == 1 || type == 2) {
             im_3.setVisibility(View.INVISIBLE);
+            carthird.setEnabled(false);
+        }else {
+            card3.setOnClickListener(this);
         }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
         Log.v("33333333", "" + sharedPreferences.getString("where", "广东省深圳市南山区"));
         p2.setText(bean.getAddress());
         //im_3.setOnClickListener(this);
-        card3.setOnClickListener(this);
         initLocation();
     }
 
@@ -383,6 +398,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         imageView.setOnClickListener(this);
         if (type == 1 || type == 2) {
             imageView.setVisibility(View.INVISIBLE);
+            carfourth.setEnabled(false);
         } else {
             adapter4.setOnItemnewsClickListener(this);
         }
@@ -419,9 +435,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         tv9_2.setText(bean.getMoney());
         if (type == 1 || type == 2) {
             im_9.setVisibility(View.INVISIBLE);
+            carninth.setEnabled(false);
+        }else {
+            card9.setOnClickListener(this);
         }
         //im_9.setOnClickListener(this);
-        card9.setOnClickListener(this);
         if (bean.getWhy() != null) {
             for (int i = 0; i < bean.getWhy().size(); i++) {
                 stringBuffer1.append(bean.getWhy().get(i) + " ");

@@ -319,7 +319,7 @@ public class AllProjectsBean {
             private String name;
             private String summary;
             private String organizerDepartment;
-            private int totalInvestmentRequired;
+            private String totalInvestmentRequired;
             private Object phase1InvestmentRequired;
             private Object numOfInvestmentPhases;
             private LocationBean location;
@@ -374,11 +374,11 @@ public class AllProjectsBean {
                 this.organizerDepartment = organizerDepartment;
             }
 
-            public int getTotalInvestmentRequired() {
+            public String getTotalInvestmentRequired() {
                 return totalInvestmentRequired;
             }
 
-            public void setTotalInvestmentRequired(int totalInvestmentRequired) {
+            public void setTotalInvestmentRequired(String totalInvestmentRequired) {
                 this.totalInvestmentRequired = totalInvestmentRequired;
             }
 
