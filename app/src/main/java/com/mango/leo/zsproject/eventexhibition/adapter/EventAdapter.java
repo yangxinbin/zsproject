@@ -131,7 +131,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             //           }
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
-                if (mData.get(pos).getResponseObject().getContent().get(pos % 20) != null) {
+                if (mData.get(pos).getResponseObject().getContent() != null && mData.get(pos).getResponseObject().getContent().get(pos % 20) != null) {
                     ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                     ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
                     ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getStartTime(), "yyyy-MM-dd"));
@@ -143,6 +143,11 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                     .apply(new RequestOptions().placeholder(R.drawable.gov))
                                     .into(((ItemViewHolder) holder).im);
                         }
+                    }
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).isPopular()){
+                        ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
+                    }else {
+                        ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
                 }
             }
@@ -208,7 +213,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView e_title, e_place, e_time;
+        public TextView e_title, e_place, e_time,tv_state;
         public ImageView im;
 
         public ItemViewHolder(View v) {
@@ -218,6 +223,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             e_title = (TextView) v.findViewById(R.id.tv_event);
             e_place = (TextView) v.findViewById(R.id.textView_p);
             e_time = (TextView) v.findViewById(R.id.textView_time);
+            tv_state = (TextView) v.findViewById(R.id.tv_state);
             im = (ImageView) v.findViewById(R.id.im_pic);
             v.setOnClickListener(this);
         }

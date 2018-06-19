@@ -24,18 +24,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            card_view:srcCompat="@drawable/aboutauthor" />
+            card_view:srcCompat="@drawable/gov" />
 
         <TextView
             android:id="@+id/tv_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/im_pic"
-            android:layout_toRightOf="@+id/im_pic"
+            android:layout_alignTop="@+id/tv_state"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/tv_state"
+            android:layout_toRightOf="@+id/tv_state"
+            android:ellipsize="end"
+            android:lines="2"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="@dimen/title" />
@@ -44,10 +44,11 @@
             android:id="@+id/imageView54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_event"
-            android:layout_alignStart="@+id/tv_event"
-            android:layout_below="@+id/tv_event"
-            android:layout_marginTop="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/im_pic"
+            android:layout_toRightOf="@+id/im_pic"
             card_view:srcCompat="@drawable/activity_detail_icon_address" />
 
         <TextView
@@ -55,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView54"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_toEndOf="@+id/imageView54"
             android:layout_toRightOf="@+id/imageView54"
             android:text="TextView" />
@@ -80,5 +81,23 @@
             android:layout_toEndOf="@+id/imageView55"
             android:layout_toRightOf="@+id/imageView55"
             android:text="TextView" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_toEndOf="@+id/im_pic"
+            android:layout_toRightOf="@+id/im_pic"
+            android:background="@color/red"
+            android:text="HOT"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

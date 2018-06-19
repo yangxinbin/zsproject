@@ -72,30 +72,33 @@ public class ShouCang3Fragment extends Fragment {
         return view;
     }
 
-    private void vivistEvent(int page) {
+    private void vivistEvent(final int page) {
         Log.v("vvvvvv", "__" + Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""));
-        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""), new Callback() {
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                mHandler.sendEmptyMessage(0);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
-                    Message msg = mHandler.obtainMessage();
-                    msg.obj = beanList;
-                    msg.what = 2;
-                    msg.sendToTarget();
-                } catch (Exception e) {
+            public void run() {
+                HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""), new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                           // Log.v("ssssssssssssss",""+response.body().string());
+                            List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            Message msg = mHandler.obtainMessage();
+                            msg.obj = beanList;
+                            msg.what = 2;
+                            msg.sendToTarget();
+                        } catch (Exception e) {
+                            mHandler.sendEmptyMessage(0);
 //                    Log.e("eeeee", response.body().string()+"Exception = " + e);
-                }
-
+                        }
+                    }
+                });
             }
-
-        });
+        }).start();
     }
 
     private MyHandler mHandler = new MyHandler();
@@ -110,6 +113,7 @@ public class ShouCang3Fragment extends Fragment {
                     break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
+                    Log.v("sssssssssss","----"+beanList.size());
                     /*if (beanList.size() == 0){
                         noMoreMsg();
                     }else {
@@ -218,7 +222,8 @@ public class ShouCang3Fragment extends Fragment {
             }
             Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("position", position);
             startActivity(intent);
         }
 

@@ -13,12 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.Urls;
 
 import java.util.ArrayList;
@@ -137,8 +140,16 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                     ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getLocation().getCity().toString());
                 }
 //                ((ItemViewHolder) holder).e_time.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getCreatedOn().toString());
-                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner()!= null) {
-                    Glide.with(context).load(Urls.HOST+"/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().get_id()).apply(new RequestOptions().placeholder(R.drawable.gov)).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity() != null) {
+                    ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getStartTime(), "yyyy-MM-dd"));
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner() != null) {
+                        Glide.with(context).load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().get_id()).apply(new RequestOptions().placeholder(R.drawable.gov)).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
+                    }
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().isPopular()){
+                        ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
+                    }else {
+                        ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
+                    }
                 }
             }
         } else {
@@ -205,9 +216,10 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView e_title, e_place, e_time;
+        public TextView e_title, e_place, e_time,tv_state;
         public ImageView im;
         private Button del;
+        private RelativeLayout all;
         public int flag = 0;
 
         public ItemViewHolder(View v) {
@@ -219,8 +231,10 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             e_time = (TextView) v.findViewById(R.id.textView_time);
             im = (ImageView) v.findViewById(R.id.im_pic);
             del = (Button) v.findViewById(R.id.canceling_shoucang);
+            all = (RelativeLayout) v.findViewById(R.id.all);
+            tv_state = (TextView) v.findViewById(R.id.tv_state_s);
             del.setText("取消收藏");
-            v.setOnClickListener(this);
+            all.setOnClickListener(this);
             del.setOnClickListener(this);
         }
 
@@ -228,7 +242,7 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
         public void onClick(View view) {
             if (mOnEventnewsClickListener != null) {
                 switch (view.getId()) {
-                    case R.id.stateButton:
+                    case R.id.all:
                         mOnEventnewsClickListener.onItemClick(view, this.getLayoutPosition());
                         break;
                     case R.id.canceling_shoucang:

@@ -22,25 +22,29 @@ import okhttp3.Response;
 public class EventModelImpl implements EventModel {
 
     @Override
-    public void visitEventItem(Context context, int type, String url, final OnEventListener listener) {
+    public void visitEventItem(Context context, int type, final String url, final OnEventListener listener) {
         Log.v("eeeee", "======url======" + url);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpUtils.doGet(url, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        listener.onFailure("FAILURE", e);
+                    }
 
-        HttpUtils.doGet(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                listener.onFailure("FAILURE", e);
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    List<EventBean> beanList = ProjectsJsonUtils.readJsonEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
-                    listener.onSuccess(beanList);
-                } catch (Exception e) {
-                    listener.onFailure("FAILURE", e);
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            List<EventBean> beanList = ProjectsJsonUtils.readJsonEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            listener.onSuccess(beanList);
+                        } catch (Exception e) {
+                            listener.onFailure("FAILURE", e);
 //                    Log.e("eeeee", response.body().string()+"Exception = " + e);
-                }
+                        }
+                    }
+                });
             }
-        });
-
+        }).start();
     }
 }

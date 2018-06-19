@@ -67,30 +67,36 @@ public class BaoMingActivity extends BaseActivity {
         vivistEvent(page);
     }
 
-    private void vivistEvent(int page) {
-        Log.v("vvvvvv", "__" + Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""));
-        HttpUtils.doGet(Urls.HOST_FAVOURITE_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""), new Callback() {
+    private void vivistEvent(final int page) {
+        Log.v("vvvvvv", "__" + Urls.HOST_BAOMING_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""));
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                mHandler.sendEmptyMessage(0);
-            }
+            public void run() {
+                HttpUtils.doGet(Urls.HOST_BAOMING_LIST + "?page=" + page + "&token=" + sharedPreferences.getString("token", ""), new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        mHandler.sendEmptyMessage(0);
+                    }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
-                    Message msg = mHandler.obtainMessage();
-                    msg.obj = beanList;
-                    msg.what = 2;
-                    msg.sendToTarget();
-                } catch (Exception e) {
-                    mHandler.sendEmptyMessage(0);
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            Message msg = mHandler.obtainMessage();
+                            msg.obj = beanList;
+                            msg.what = 2;
+                            msg.sendToTarget();
+                        } catch (Exception e) {
+                            mHandler.sendEmptyMessage(0);
 //                    Log.e("eeeee", response.body().string()+"Exception = " + e);
-                }
+                        }
 
+                    }
+
+                });
             }
+        }).start();
 
-        });
     }
 
     private BaoMingActivity.MyHandler mHandler = new BaoMingActivity.MyHandler();
@@ -125,6 +131,7 @@ public class BaoMingActivity extends BaseActivity {
             }
         }
     }
+
     private void initView() {
         recycleBaoming.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(this);
@@ -155,8 +162,9 @@ public class BaoMingActivity extends BaseActivity {
             intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             startActivity(intent);
         }
-        
+
     };
+
     public void addEventsView(List<EventBean> eventBeans) {
         if (eventBeans == null) {
             Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
@@ -210,6 +218,7 @@ public class BaoMingActivity extends BaseActivity {
             });
         }
     }
+
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -269,14 +278,17 @@ public class BaoMingActivity extends BaseActivity {
         h.setLayoutParams(layoutParam);
         adapter.setHeaderView(h);
     }
+
     private int dp2px(float v) {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
+
     @OnClick(R.id.imageView_baomingback)
     public void onViewClicked() {
         finish();
     }
+
     public void noMoreMsg() {
         adapter.isShowFooter(false);
         AppUtils.showToast(this, getResources().getString(R.string.no_more_s));

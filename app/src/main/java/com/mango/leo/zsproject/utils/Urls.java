@@ -22,6 +22,7 @@ public class Urls {
     public static final String PROFILE = "/user-service/user/profile";
     public static final String RETRIEVE = "/user-service/user/retrieve/password";
     public static final String FAVOURITE_LIST = "/event-service/event/list/favorites";
+    public static final String BAOMING_LIST = "/event-service/event /list/myEvents";
     public static final String BUYEVENT = "/event-service/event/buyTicket";
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String CITY = "/business-service/project/city/tour";
@@ -48,6 +49,7 @@ public class Urls {
     public static final String HOST_CITY = HOST + CITY;
     public static final String HOST_CITY_MES = HOST + CITY_MES;
     public static final String HOST_PUBLISH = HOST + PUBLISH;
+    public static final String HOST_BAOMING_LIST = HOST + BAOMING_LIST;
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息
     public static final String UPDATE2 = "/industries";
