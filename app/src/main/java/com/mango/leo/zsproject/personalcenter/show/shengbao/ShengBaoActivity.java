@@ -56,7 +56,6 @@ public class ShengBaoActivity extends FragmentActivity {
         tabLayoutShengbao.setupWithViewPager(viewPagerShengbao);
         mfragments.add(new TouziFragment());
         mfragments.add(new XiangMuFragment());
-
         viewPagerShengbao.setAdapter(vp);
         viewPagerShengbao.setCurrentItem(0);
     }
