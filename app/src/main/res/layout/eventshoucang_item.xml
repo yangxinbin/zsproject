@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imageView54"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:layout_toEndOf="@+id/imageView54"
                 android:layout_toRightOf="@+id/imageView54"
                 android:text="TextView" />
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textView_p"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 android:layout_toEndOf="@+id/imageView55"
                 android:layout_toRightOf="@+id/imageView55"
                 android:text="TextView" />
@@ -105,7 +105,7 @@
                 android:visibility="gone"
                 android:text="HOT"
                 android:textColor="@color/white"
-                android:textSize="@dimen/title" />
+                android:textSize="@dimen/small_textSize" />
         </RelativeLayout>
     </RelativeLayout>
 
