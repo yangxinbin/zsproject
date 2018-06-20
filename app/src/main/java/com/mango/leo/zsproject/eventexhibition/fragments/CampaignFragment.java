@@ -192,9 +192,9 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 return;
             }
             EventBus.getDefault().postSticky(mDataAll.get(position));
-            Log.v("yxbb", "_____" + mDataAll.get(position).getResponseObject().getContent().get(position));
+            Log.v("yxbb", "_____" + mDataAll.get(position).getResponseObject().getContent().get(position%20));
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
             intent.putExtra("position", position);
             startActivity(intent);
         }

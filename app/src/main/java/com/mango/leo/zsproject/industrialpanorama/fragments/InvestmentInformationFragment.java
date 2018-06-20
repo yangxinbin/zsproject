@@ -257,7 +257,7 @@ public class InvestmentInformationFragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "没有更多招商信息，请您稍后刷新！");
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
                 }
             });
         }
@@ -296,7 +296,7 @@ public class InvestmentInformationFragment extends Fragment {
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                             if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                              //  noMoreMsg();
+                                noMoreMsg();
                                 return;
                             }
                         }
@@ -307,7 +307,7 @@ public class InvestmentInformationFragment extends Fragment {
         adapter.isShowFooter(true);
     }
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
+        //adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }
