@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +70,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardFirstItemBean = new CardFirstItemBean();
         EventBus.getDefault().register(this);
+        Log.v("ffffffff","----1"+getIntent().getBooleanExtra("DemandManagementFragment", false));
     }
     private void editeNum() {
         itemContent.addTextChangedListener(new TextWatcher() {
@@ -217,9 +220,11 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         Intent intent = null;
         switch (view.getId()) {
             case R.id.imageView1_back:
+                Log.v("ffffffff","-o"+getIntent().getBooleanExtra("DemandManagementFragment", false));
                 if (getIntent().getBooleanExtra("DemandManagementFragment", false)) {
                     finish();
                 } else {
+                    Log.v("ffffffff","----1");
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
                 }
@@ -296,5 +301,29 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+    }
+    /**
+     * 监听Back键按下事件,方法2:
+     * 注意:
+     * 返回值表示:是否能完全处理该事件
+     * 在此处返回false,所以会继续传播该事件.
+     * 在具体项目中此处的返回值视情况而定.
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if (getIntent().getBooleanExtra("DemandManagementFragment", false)) {
+                //finish();
+            } else {
+                Log.v("ffffffff","----1");
+                Intent intent = new Intent(this, BusinessPlanActivity.class);
+                startActivity(intent);
+            }
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+
     }
 }

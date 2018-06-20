@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="1dp"
-        android:background="@color/common_gray"
+        android:background="@color/white"
         android:id="@+id/relativeLayout13">
 
         <TextView
@@ -49,6 +49,7 @@
 
     <android.support.design.widget.TabLayout
         android:background="@color/white"
+        android:layout_marginTop="1dp"
         android:id="@+id/tabLayout2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
