@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card1"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="项目基础描述"
@@ -73,6 +73,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="@dimen/textSize"
+        android:textColor="@color/secondblack"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_card1Name" />
@@ -84,6 +85,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/secondblack"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toEndOf="@+id/textView_what"
         app:layout_constraintTop_toBottomOf="@+id/textView_card1Name" />
@@ -121,6 +123,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text=""
+        android:textColor="@color/secondblack"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toEndOf="@+id/textView109"
         app:layout_constraintTop_toBottomOf="@+id/textView_time" />

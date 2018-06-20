@@ -165,7 +165,7 @@
 
         <TextView
             android:id="@+id/textView_lingyu"
-            android:layout_width="200dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView18"
             android:layout_marginEnd="12dp"
@@ -174,7 +174,7 @@
             android:layout_toStartOf="@+id/imageView18"
             android:ellipsize="end"
             android:gravity="right"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="请选择对应的领域，可多选"
             android:textSize="@dimen/sencond_textSize" />
 
