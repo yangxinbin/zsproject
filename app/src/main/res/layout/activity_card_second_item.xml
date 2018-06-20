@@ -47,20 +47,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/textView16" />
 
         <TextView
             android:id="@+id/textView_delete2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView2_back"
+            android:layout_alignBaseline="@+id/textView16"
+            android:layout_alignBottom="@+id/textView16"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="22dp"
-            android:layout_marginRight="22dp"
-            android:textSize="@dimen/textSize"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:text="@string/delete"
             android:textColor="@color/red"
-            android:text="@string/delete" />
+            android:textSize="@dimen/textSize" />
 
     </RelativeLayout>
 

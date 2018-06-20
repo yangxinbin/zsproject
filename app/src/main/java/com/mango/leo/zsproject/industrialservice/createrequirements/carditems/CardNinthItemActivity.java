@@ -289,9 +289,10 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 }
                 break;
             case R.id.textView_delete9:
+                updateItemPresenter.visitUpdateItem(this, TYPE9, new CardNinthItemBean());//更新后台数据
+                AppUtils.showToast(getBaseContext(), "删除成功");
                 break;
             case R.id.down_1:
-
                 showPopupWindow(this, list1, 1);
                 adapter.setCheckItem(currentPosition1);
                 break;

@@ -45,6 +45,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/textView12"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
         app:srcCompat="@drawable/ri" />
 
     <TextView
