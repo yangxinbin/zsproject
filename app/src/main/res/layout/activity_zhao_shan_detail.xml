@@ -23,15 +23,15 @@
             app:srcCompat="@drawable/common_nav_icon_back" />
 
         <TextView
-            android:textSize="@dimen/title"
-            android:textColor="@color/black"
-            android:textStyle="bold"
             android:id="@+id/textView79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageView_zhaoshan_back"
             android:layout_centerHorizontal="true"
-            android:text="招商信息" />
+            android:layout_centerVertical="true"
+            android:text="招商信息"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView_zhaoshan_share"
