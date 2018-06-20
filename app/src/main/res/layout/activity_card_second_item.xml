@@ -83,26 +83,15 @@
         android:layout_marginRight="24dp"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="@dimen/small_textSize"
-        android:text="可添加多个产业及领域"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="16dp" />
-
     <RelativeLayout
         android:id="@+id/chanye"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <TextView
             android:id="@+id/textView17"
@@ -113,6 +102,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
+            android:textSize="@dimen/textSize"
             android:text="产业1："
             android:textColor="@color/black" />
 
@@ -136,7 +126,7 @@
             android:layout_toLeftOf="@+id/imageView17"
             android:layout_toStartOf="@+id/imageView17"
             android:text="请选择产业"
-            android:textSize="@dimen/commom_tv_size_12" />
+            android:textSize="@dimen/sencond_textSize" />
 
         <ImageView
             android:id="@+id/imageView17"
@@ -152,7 +142,7 @@
     <RelativeLayout
         android:id="@+id/lingyu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -165,15 +155,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:textSize="@dimen/textSize"
             android:text="领域："
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/textView_lingyu"
             android:layout_width="200dp"
-            android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView18"
             android:layout_marginEnd="12dp"
@@ -181,9 +171,10 @@
             android:layout_toLeftOf="@+id/imageView18"
             android:layout_toStartOf="@+id/imageView18"
             android:ellipsize="end"
+            android:gravity="right"
             android:maxLines="2"
             android:text="请选择对应的领域，可多选"
-            android:textSize="@dimen/commom_tv_size_12" />
+            android:textSize="@dimen/sencond_textSize" />
 
         <ImageView
             android:id="@+id/imageView18"

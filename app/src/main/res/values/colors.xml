@@ -12,6 +12,7 @@
     <color name="secondblack">#2d2d2d</color>
     <color name="grayBlack">#4b4b4b</color>
     <color name="grayText">#7b7b7b</color>
+    <color name="gray_b">#666666</color>
     <color name="buttonBg">#f7f7f7</color>
     <color name="underlinegray">#e1e1e1</color>
     <color name="divideregray">#dcdcdc</color>

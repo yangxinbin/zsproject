@@ -65,21 +65,10 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="请编辑联系方式"
-        android:textSize="@dimen/small_textSize"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <RelativeLayout
+        <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +88,7 @@
             android:layout_toEndOf="@+id/imageView48"
             android:layout_toRightOf="@+id/imageView48"
             android:text="联系人姓名："
+            android:textSize="@dimen/textSize"
             android:textColor="@color/black" />
 
         <EditText
@@ -131,7 +121,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,6 +139,7 @@
             android:layout_toRightOf="@+id/imageView49"
             android:layout_marginLeft="5dp"
             android:text="联系人所在单位："
+            android:textSize="@dimen/textSize"
             android:textColor="@color/black" />
 
         <EditText
@@ -181,7 +172,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -200,6 +191,7 @@
             android:layout_toEndOf="@+id/imageView50"
             android:layout_toRightOf="@+id/imageView50"
             android:text="联系人联系方式："
+            android:textSize="@dimen/textSize"
             android:textColor="@color/black" />
 
         <EditText
@@ -232,7 +224,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout5"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -251,6 +243,7 @@
             android:layout_toEndOf="@+id/imageView51"
             android:layout_toRightOf="@+id/imageView51"
             android:text="联系人职位："
+            android:textSize="@dimen/textSize"
             android:textColor="@color/black" />
 
         <EditText
@@ -282,7 +275,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -301,6 +294,7 @@
             android:layout_toEndOf="@+id/imageView52"
             android:layout_toRightOf="@+id/imageView52"
             android:text="Email："
+            android:textSize="@dimen/textSize"
             android:textColor="@color/black" />
 
         <EditText
