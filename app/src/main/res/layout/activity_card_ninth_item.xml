@@ -57,10 +57,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="20dp"
-            android:textSize="@dimen/textSize"
-            android:textColor="@color/red"
             android:layout_marginRight="20dp"
-            android:text="@string/delete" />
+            android:text="清空"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textSize" />
 
     </RelativeLayout>
     <Button

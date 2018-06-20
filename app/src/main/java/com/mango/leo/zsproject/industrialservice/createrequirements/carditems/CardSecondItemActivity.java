@@ -224,6 +224,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 currentPosition1 = position;
                 adapter.setCheckItem(position);
                 textViewChanye.setText(date1);
+                textViewChanye.setTextColor(getResources().getColor(R.color.secondblack));
                 dialog.dismiss();
                 getChan(textViewChanye.getText().toString(), 1);//接着请求
                 break;
@@ -505,6 +506,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                     return;
                 }
                 textViewLingyu.setText(sb);
+                textViewLingyu.setTextColor(getResources().getColor(R.color.secondblack));
                 dialog.dismiss();
                 break;
         }

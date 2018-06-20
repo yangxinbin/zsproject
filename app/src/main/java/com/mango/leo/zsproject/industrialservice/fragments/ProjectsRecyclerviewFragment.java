@@ -307,21 +307,21 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     public void postStickyAll(int position) {
         CardFirstItemBean cardFirstItemBean = new CardFirstItemBean();
-        if (adapter.getItem(position).getResponseObject().getContent().get(position).getName() != null) {
-            cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position).getName());
-            cardFirstItemBean.setDepartmentName(adapter.getItem(position).getResponseObject().getContent().get(position).getOrganizerDepartment());
+        if (adapter.getItem(position).getResponseObject().getContent().get(position%20).getName() != null) {
+            cardFirstItemBean.setItemName(adapter.getItem(position).getResponseObject().getContent().get(position%20).getName());
+            cardFirstItemBean.setDepartmentName(adapter.getItem(position).getResponseObject().getContent().get(position%20).getOrganizerDepartment());
             long time;
-            if ("0".equals(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn()))) {
-                time = adapter.getItem(position).getResponseObject().getContent().get(position).getCreatedOn();
+            if ("0".equals(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getUpdatedOn()))) {
+                time = adapter.getItem(position).getResponseObject().getContent().get(position%20).getCreatedOn();
             } else {
-                time = adapter.getItem(position).getResponseObject().getContent().get(position).getUpdatedOn();
+                time = adapter.getItem(position).getResponseObject().getContent().get(position%20).getUpdatedOn();
             }
-            if (adapter.getItem(position).getResponseObject().getContent().get(position) != null) {
-                cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired()));
+            if (adapter.getItem(position).getResponseObject().getContent().get(position%20) != null) {
+                cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getTotalInvestmentRequired()));
             }
             cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
-            cardFirstItemBean.setMoney(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired());
-            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getSummary());
+            cardFirstItemBean.setMoney(adapter.getItem(position).getResponseObject().getContent().get(position%20).getTotalInvestmentRequired());
+            cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position%20).getSummary());
             //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             EventBus.getDefault().postSticky(cardFirstItemBean);
@@ -329,12 +329,13 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             EventBus.getDefault().postSticky(cardFirstItemBean);
         }
         CardThirdItemBean cardThirdItemBean = new CardThirdItemBean();
-        if (adapter.getItem(position).getResponseObject().getContent().get(position).getLocation() != null) {
+        if (adapter.getItem(position).getResponseObject().getContent().get(position%20).getLocation() != null) {
             cardThirdItemBean.setProvince(nowProvince);
             cardThirdItemBean.setCity(nowCity);
             cardThirdItemBean.setDistrict(nowDistrict);
-            cardThirdItemBean.setLon(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLon()));
-            cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getLocation().getLat()));
+            cardThirdItemBean.setAddress(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getLocation().getAddress()));
+            cardThirdItemBean.setLon(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getLocation().getLon()));
+            cardThirdItemBean.setLat(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getLocation().getLat()));
             Log.v("33333", "______!= null_____");
             EventBus.getDefault().postSticky(cardThirdItemBean);
         } else {
@@ -346,14 +347,14 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             beans4.clear();//清空刷新
         }
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getContacts() != null) {
-            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size() + "****position*******");
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().size() + "****position*******");
             for (int i = 0; i < adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().size(); i++) {
                 CardFourthItemBean cardFourthItemBean = new CardFourthItemBean();
-                cardFourthItemBean.setName(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getName()));
-                cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getDepartment());
-                cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPhone());
-                cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getPosition());
-                cardFourthItemBean.setEmail(adapter.getItem(position).getResponseObject().getContent().get(position).getContacts().get(i).getEmail());
+                cardFourthItemBean.setName(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().get(i).getName()));
+                cardFourthItemBean.setCompany(adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().get(i).getDepartment());
+                cardFourthItemBean.setPhoneNumber(adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().get(i).getPhone());
+                cardFourthItemBean.setPosition(adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().get(i).getPosition());
+                cardFourthItemBean.setEmail(adapter.getItem(position).getResponseObject().getContent().get(position%20).getContacts().get(i).getEmail());
                 beans4.add(cardFourthItemBean);
             }
             EventBus.getDefault().postSticky(beans4);
@@ -364,13 +365,13 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         }
         CardNinthItemBean cardNinthItemBean = new CardNinthItemBean();
         if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr() != null) {
-            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel() + "****position*****xxxx**");
-            cardNinthItemBean.setMoshi(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationModel());
+            Log.v("xxxxx", adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getCooperationModel() + "****position*****xxxx**");
+            cardNinthItemBean.setMoshi(adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getCooperationModel());
             int min = -1;
             int max = -1;
-            if (adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize() != null) {
-                min = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMin();
-                max = adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentSize().getMax();
+            if (adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getInvestmentSize() != null) {
+                min = adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getInvestmentSize().getMin();
+                max = adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getInvestmentSize().getMax();
                 Log.v("xxxxx", min + "!!!!!!!" + max);
             } else {
                 cardNinthItemBean.setMoney("");
@@ -408,9 +409,9 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 cardNinthItemBean.setMoney("（含）1000亿以上");
             }
             //Log.v("999999",adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles()+"***"+max+"===="+min+"*****"+cardNinthItemBean.getMoney());
-            cardNinthItemBean.setWhy(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getCooperationStyles());
-            cardNinthItemBean.setType(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getInvestmentType());
-            cardNinthItemBean.setQita(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getIcr().getOther()));
+            cardNinthItemBean.setWhy(adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getCooperationStyles());
+            cardNinthItemBean.setType(adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getInvestmentType());
+            cardNinthItemBean.setQita(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position%20).getIcr().getOther()));
             EventBus.getDefault().postSticky(cardNinthItemBean);
         } else {
             EventBus.getDefault().postSticky(cardNinthItemBean);

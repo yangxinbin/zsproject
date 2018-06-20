@@ -50,7 +50,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardThirdItemActivity extends BaseCardActivity /*implements SensorEventListener*/ implements OnGetGeoCoderResultListener, TextWatcher,UpdateItemView {
+public class CardThirdItemActivity extends BaseCardActivity /*implements SensorEventListener*/ implements OnGetGeoCoderResultListener, TextWatcher, UpdateItemView {
     public static final int TYPE3 = 3;
     @Bind(R.id.imageView3_back)
     ImageView imageView3Back;
@@ -91,7 +91,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
             .fromResource(R.drawable.icon_gcoding);
     private CardThirdItemBean cardThirdItemBean;
     private UpdateItemPresenter updateItemPresenter;
-    private String nowProvince,nowCity,nowDistrict;
+    private String nowProvince, nowCity, nowDistrict;
     private SharedPreferences sharedPreferences;
     private boolean flag;
 
@@ -108,8 +108,8 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         //mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         // 地图初始化
-        textViewPlace.setText(sharedPreferences.getString("where","广东省深圳市南山区"));
-        Log.v("33333333",""+sharedPreferences.getString("where","广东省深圳市南山区"));
+        textViewPlace.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
+        Log.v("33333333", "" + sharedPreferences.getString("where", "广东省深圳市南山区"));
         //textViewPlace.setText("广东省深圳市南山区");
         mBaiduMap = mMapView.getMap();
         editTextWhere.addTextChangedListener(this);
@@ -122,6 +122,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         }
         initListener();
     }
+
     private void initDate() {
         cardThirdItemBean.setAddress(editTextWhere.getText().toString());//确保数据完整性
     }
@@ -315,7 +316,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
         public void onReceivePoi(BDLocation poiLocation) {
         }
     }*/
-    @OnClick({R.id.imageView3_back, R.id.button3_save,R.id.textView_delete})
+    @OnClick({R.id.imageView3_back, R.id.button3_save, R.id.textView_delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView3_back:
@@ -326,14 +327,14 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
             case R.id.button3_save:
                 initDate();
                 if (!TextUtils.isEmpty(editTextWhere.getText().toString()) && cardThirdItemBean != null) {
-                    Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^"+cardThirdItemBean.toString());
-                    if(flag){
-                        updateItemPresenter.visitUpdateItem(this, TYPE3,cardThirdItemBean);//更新后台数据
+                    Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^" + cardThirdItemBean.toString());
+                    if (flag) {
+                        updateItemPresenter.visitUpdateItem(this, TYPE3, cardThirdItemBean);//更新后台数据
                         EventBus.getDefault().postSticky(cardThirdItemBean);
                         intent = new Intent(this, BusinessPlanActivity.class);
                         startActivity(intent);
                         finish();
-                    }else {
+                    } else {
                         Toast.makeText(CardThirdItemActivity.this, "请重新输入地址！", Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -342,13 +343,14 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                 }
                 break;
             case R.id.textView_delete:
-/*                if(flag){
-                    updateItemPresenter.visitUpdateItem(this, TYPE3,new CardThirdItemBean());//更新后台数据
-                    EventBus.getDefault().postSticky(new CardThirdItemBean());
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
-                }*/
+                cardThirdItemBean.setAddress("");
+                cardThirdItemBean.setLon("");
+                cardThirdItemBean.setLat("");
+                updateItemPresenter.visitUpdateItem(this, TYPE3, cardThirdItemBean);//更新后台数据
+                EventBus.getDefault().postSticky(cardThirdItemBean);
+                intent = new Intent(this, BusinessPlanActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -423,7 +425,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString()+String.valueOf(charSequence)));
+        mSearch.geocode(new GeoCodeOption().city(textViewPlace.getText().toString()).address(String.valueOf(charSequence)));
         mSearch.setOnGetGeoCodeResultListener(this);
         //mBaiduMap.clear();
     }
@@ -481,6 +483,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
             }
         });
     }
+
     @Override
     public void showUpdateStateView(final String string) {
         runOnUiThread(new Runnable() {

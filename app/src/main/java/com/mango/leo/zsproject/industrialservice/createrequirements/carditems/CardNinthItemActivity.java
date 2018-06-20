@@ -289,8 +289,11 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 }
                 break;
             case R.id.textView_delete9:
-                updateItemPresenter.visitUpdateItem(this, TYPE9, new CardNinthItemBean());//更新后台数据
-                AppUtils.showToast(getBaseContext(), "删除成功");
+                text1.setText("");
+                text2.setText("");
+                text3.setText("");
+                text4.setText("");
+                editTextOther.setText("");
                 break;
             case R.id.down_1:
                 showPopupWindow(this, list1, 1);
@@ -381,12 +384,14 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
             case 1:
                 currentPosition1 = position;
                 text1.setText(list1.get(position));
+                text1.setTextColor(getResources().getColor(R.color.secondblack));
                 cardNinthItemBean.setMoshi(list1.get(position));
                 dialog.dismiss();
                 break;
             case 2:
                 currentPosition2 = position;
                 text2.setText(list2.get(position));
+                text2.setTextColor(getResources().getColor(R.color.secondblack));
                 cardNinthItemBean.setMoney(list2.get(position));
                 switch (position) {
                     case 0:
@@ -493,6 +498,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                     return;
                 }
                 text3.setText(sb3);
+                text3.setTextColor(getResources().getColor(R.color.secondblack));
                 dialog.dismiss();
                 break;
             case R.id.imageView_delete4:
@@ -524,6 +530,7 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                     return;
                 }
                 text4.setText(sb4);
+                text4.setTextColor(getResources().getColor(R.color.secondblack));
                 dialog.dismiss();
                 break;
         }

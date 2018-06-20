@@ -38,6 +38,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter2;
 import com.mango.leo.zsproject.industrialservice.createrequirements.adapter.RecycleAdapter4;
@@ -121,7 +122,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     LinearLayout zhaoshang;
     @Bind(R.id.co)
     TextView co;
-    private TextView title, what, time, content,money, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
+    private TextView title, what, time, content, money, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
     private ImageView im_1, im_3, im_9;
@@ -152,7 +153,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         xiugai = getIntent().getStringExtra("xiugai");
         type = getIntent().getIntExtra("type", -1);
-        Log.v("xxxxxxxxxx", "_type__" +type);
+        Log.v("xxxxxxxxxx", "_type__" + type);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         bean1 = new CardFirstItemBean();
         bean9 = new CardNinthItemBean();
@@ -249,7 +250,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         carfirst.setEnabled(false);
         //渲染card1布局
         View item1 = LayoutInflater.from(this).inflate(R.layout.carditem1, null);
-        Log.v("22222222222222",item1.toString()+"---item1---"+item1.getId());
+        Log.v("22222222222222", item1.toString() + "---item1---" + item1.getId());
         carfirst.addView(item1);
         title = (TextView) item1.findViewById(R.id.textView_card1Name);
         what = (TextView) item1.findViewById(R.id.textView_what);
@@ -261,7 +262,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         if (type == 1 || type == 2) {
             im_1.setVisibility(View.INVISIBLE);
             carfirst.setEnabled(false);
-        }else {
+        } else {
             card1.setOnClickListener(this);
         }
         title.setText(bean.getItemName());
@@ -298,7 +299,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         if (bean == null) {
             return;
         }
-        Log.v("22222222333","____"+bean.getContent().size());
+        Log.v("22222222333", "____" + bean.getContent().size());
         this.bean2 = bean;
         carsecondContent.setVisibility(View.GONE);
         carsecond.setEnabled(false);
@@ -357,7 +358,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         if (type == 1 || type == 2) {
             im_3.setVisibility(View.INVISIBLE);
             carthird.setEnabled(false);
-        }else {
+        } else {
             card3.setOnClickListener(this);
         }
         p1.setText(sharedPreferences.getString("where", "广东省深圳市南山区"));
@@ -372,14 +373,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         /*if (bean4 != null){
             bean4.clear();
         }*/
-        if (bean == null){
+        if (bean == null) {
             return;
         }
         bean4 = bean;
-        Log.v("4444444", type+"___________" + bean4.size());
+        Log.v("4444444", type + "___________" + bean4.size());
         //渲染card4布局
         View item4 = LayoutInflater.from(this).inflate(R.layout.carditem4, null);
-        Log.v("22222222222222",item4.toString()+"---item4---"+item4.getId());
+        Log.v("22222222222222", item4.toString() + "---item4---" + item4.getId());
 
         if (bean.size() == 0) {
             carfourthContent.setVisibility(View.VISIBLE);
@@ -411,7 +412,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card9EventBus(CardNinthItemBean bean) {
-        Log.v("99999","---"+bean.getMoshi());
+        Log.v("99999", "---" + bean.getMoshi());
         this.bean9 = bean;
         //渲染card1布局
         stringBuffer1 = new StringBuffer();
@@ -439,7 +440,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         if (type == 1 || type == 2) {
             im_9.setVisibility(View.INVISIBLE);
             carninth.setEnabled(false);
-        }else {
+        } else {
             card9.setOnClickListener(this);
         }
         //im_9.setOnClickListener(this);
@@ -477,10 +478,10 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     finish();
                 }
                 if (type == 0) {//草稿箱才能存草稿
-                   // showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
+                    // showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
                     delayDialog();
                 }
-                if (type == -1){
+                if (type == -1) {
                     //showDailog("一键招商", "恭喜您项目："+bean1.getItemName()+" 创建成功！");
                     delayDialog();
                 }
@@ -532,7 +533,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.send:
-                publishProject();
+                if (bean1 != null && bean2 != null && bean3 != null && bean4.size() != 0 && bean9 != null){
+                    publishProject();
+                }else {
+                    showDailog("审核", "招商信息未填写完整！");
+                }
                 break;
         }
     }
@@ -540,7 +545,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     private void delayDialog() {
         final AlertDialog alert = new AlertDialog.Builder(BusinessPlanActivity.this)
                 .create();
-        alert.setTitle("项目:"+bean1.getItemName());
+        alert.setTitle("项目:" + bean1.getItemName());
         alert.setMessage("恭喜您保存成功！");
         alert.show();
         new Handler().postDelayed(new Runnable() {
@@ -576,14 +581,14 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核", "恭喜您项目："+bean1.getItemName()+"提交审核成功！");
+                            showDailog("项目：" + bean1.getItemName(), "恭喜您提交审核成功！");
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showDailog("审核", bean1.getItemName()+"提交审核失败！");
+                            showDailog("项目：" + bean1.getItemName(), "提交审核失败！");
                         }
                     });
                 }
@@ -675,7 +680,8 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
     }
-    private void showDailog(String s1, String s2) {
+
+    private void showDailog(String s1, final String s2) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.icon)//设置标题的图片
                 .setTitle(s1)//设置对话框的标题
@@ -690,7 +696,9 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        if (!s2.startsWith("招")){
+                            closeB();
+                        }
                         dialog.dismiss();
                     }
                 }).create();
@@ -703,6 +711,11 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         Intent intent = new Intent(this, CardSecondItemActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("flag", true);
+        startActivity(intent);
+        finish();
+    }
+    public void closeB(){
+        Intent intent = new Intent(this, ZsActivity.class);
         startActivity(intent);
         finish();
     }
