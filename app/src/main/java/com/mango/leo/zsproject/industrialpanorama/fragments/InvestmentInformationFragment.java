@@ -307,7 +307,7 @@ public class InvestmentInformationFragment extends Fragment {
         adapter.isShowFooter(true);
     }
     public void noMoreMsg() {
-        //adapter.isShowFooter(false);
+        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }

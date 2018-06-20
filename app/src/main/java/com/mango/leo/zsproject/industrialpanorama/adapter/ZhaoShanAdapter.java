@@ -105,7 +105,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
-        //this.notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     public boolean isShowFooter() {
@@ -135,7 +135,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ((ItemViewHolder) holder).im.setVisibility(View.GONE);
                 }
             }
-        }else {
+        }/*else {
             //if (mData.size() > 0) {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
@@ -151,9 +151,9 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
-            }, 1000);
+            }, 5000);
             //}
-        }
+        }*/
     }
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
