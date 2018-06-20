@@ -127,7 +127,7 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
                         AppUtils.showToast(activity, "密码设置失败");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "令牌保存成功");
+                        //AppUtils.showToast(activity, "令牌保存成功");
                         Log.v("ttttt","--------------"+token);
                         break;
                     default:

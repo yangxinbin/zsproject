@@ -1,5 +1,7 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -117,10 +119,6 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
                 initDate();
                 if (!TextUtils.isEmpty(editTextName.getText().toString()) && !TextUtils.isEmpty(editTextCompany.getText().toString()) && !TextUtils.isEmpty(editTextPhoneNumber.getText().toString()) && !TextUtils.isEmpty(editTextPosition.getText().toString()) && !TextUtils.isEmpty(editTextEmail.getText().toString()) && cardFourthItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE4, beans4);//更新后台数据
-                    EventBus.getDefault().postSticky(beans4);
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     AppUtils.showSnackar(buttonSave, "必填项不能为空！");
                 }
@@ -146,20 +144,50 @@ public class CardFourthItemActivity extends BaseCardActivity implements UpdateIt
 
     @Override
     public void showUpdateStateView(final String string) {
-        runOnUiThread(new Runnable() {
+        if (string == "SAVE SUCCESS"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveOk();
+                }
+            });
+        }
+        if (string == "SAVE FAILURE"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveErrorDialog();
+                }
+            });
+        }
+    }
+    public void saveOk(){
+        EventBus.getDefault().postSticky(beans4);
+        Intent intent = new Intent(this, BusinessPlanActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private void saveErrorDialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(CardFourthItemActivity.this);
+        alert.setTitle("联系方式");
+        alert.setMessage("保存失败，请检查网络是否连接？");
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
+        alert.create().show();
     }
-
     @Override
     public void showUpdateFailMsg(final String string) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 AppUtils.showToast(getApplicationContext(), string);
+                saveErrorDialog();
             }
         });
     }

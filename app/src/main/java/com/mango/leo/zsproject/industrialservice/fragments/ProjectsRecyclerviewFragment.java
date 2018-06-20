@@ -149,12 +149,14 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            Log.v("yyyy", "***???****"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"=="+(adapter.getItemCount()==lastVisibleItem + 1)+"=="+adapter.isShowFooter());
+
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
                 allProjectsPresenter.visitProjects(getActivity(), mType, page);
-                Log.v("yyyy", "***onScrollStateChanged******");
+                Log.v("yyyy", "***onScrollStateChanged******"+adapter.getItemCount());
             }
         }
     };
@@ -282,7 +284,8 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 }
             }
         });
-        refreshItems.setOnRefreshListener(this);
+        onRefresh();
+        /*refreshItems.setOnRefreshListener(this);
         refreshItems.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -301,7 +304,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
                 }
             }
-        }, 2000);
+        }, 2000);*/
         //getActivity().onRefresh();
     }
 
@@ -484,6 +487,12 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 });
             }
         }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.isShowFooter(true);
+            }
+        });
     }
 
     @Override

@@ -81,6 +81,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 });
             } else {
                 Log.v("11111", "____2___");
+                url = Urls.HOST_PROJECT+Urls.UPDATE1;
                 mapParams.put("projectId", sharedPreferences.getString("projectId", ""));
                 mapParams.put("name", cardFirstItemBean.getItemName());
                 mapParams.put("organizerDepartment", cardFirstItemBean.getDepartmentName());
@@ -225,17 +226,17 @@ public class UpdateItemModelImpl implements UpdateItemModel {
             HttpUtils.doPut(url, mapParams, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    listener.onFailure("SAVE_FAILURE", e);
+                    listener.onFailure("SAVE FAILURE", e);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (String.valueOf(response.code()).startsWith("2")) {
                         Log.v("xxxxx", "" + response.body().string());
-                        listener.onSuccess("SAVE_SUCCESS");//异步请求
+                        listener.onSuccess("SAVE SUCCESS");//异步请求
                     } else {
                         Log.v("xxxxx", "" + response.body().string());
-                        listener.onSuccess("SAVE_FAILURE");
+                        listener.onSuccess("SAVE FAILURE");
                     }
                 }
             });

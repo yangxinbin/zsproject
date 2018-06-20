@@ -1,7 +1,9 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -294,14 +296,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 initDate();
                 Log.v("222222222222", textViewChanye.getText().length() + "--initDate--" + beans2.toString());
                 if (!textViewChanye.getText().toString().startsWith("请") && !textViewLingyu.getText().toString().startsWith("请") && cardSecondItemBean != null) {
-                   // flag = false;
                     updateItemPresenter.visitUpdateItem(this, TYPE2, beans2);//更新后台数据
-                    EventBus.getDefault().postSticky(card2Bean);
-                    Log.v("2222222222111", "" + beans2.size());
-                    EventBus.getDefault().unregister(this);
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     AppUtils.showToast(this, "请添加产业领域");
                 }
@@ -363,25 +358,51 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
     @Override
     public void showUpdateStateView(final String string) {
-/*        Intent intent = new Intent(this, BusinessPlanActivity.class);
+        if (string == "SAVE SUCCESS"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveOk();
+                }
+            });
+        }
+        if (string == "SAVE FAILURE"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveErrorDialog();
+                }
+            });
+        }
+    }
+    public void saveOk(){
+        EventBus.getDefault().postSticky(card2Bean);
+        EventBus.getDefault().unregister(this);
+        Intent intent = new Intent(this, BusinessPlanActivity.class);
         startActivity(intent);
-        finish();*/
-        runOnUiThread(new Runnable() {
+        finish();
+    }
+    private void saveErrorDialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(CardSecondItemActivity.this);
+        alert.setTitle("产业领域");
+        alert.setMessage("保存失败，请检查网络是否连接？");
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
-                // finish();
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
-
+        alert.create().show();
     }
-
     @Override
     public void showUpdateFailMsg(final String string) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 AppUtils.showToast(getApplicationContext(), string);
+                saveErrorDialog();
             }
         });
     }

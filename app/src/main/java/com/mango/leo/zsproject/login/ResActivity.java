@@ -186,7 +186,7 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                         AppUtils.showToast(activity, "验证码获取失败");
                         break;
                     case 4:
-                        AppUtils.showToast(activity, "令牌保存成功");
+                        //AppUtils.showToast(activity, "令牌保存成功");
                         editor.putString("token", token)
                                 .commit();
                         Log.v("zzzzzz", "--------------" + token);

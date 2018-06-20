@@ -1,7 +1,9 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -280,10 +282,6 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                 if (!"请选择".equals(text1.getText().toString()) && !"请选择".equals(text2.getText().toString()) && !"请选择".equals(text3.getText().toString()) && !"请选择".equals(text4.getText().toString()) && cardNinthItemBean != null) {
                     updateItemPresenter.visitUpdateItem(this, TYPE9, cardNinthItemBean);//更新后台数据
                     flag = false;
-                    EventBus.getDefault().postSticky(cardNinthItemBean);
-                    intent = new Intent(this, BusinessPlanActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     AppUtils.showSnackar(button9Save, "必填项不能为空！");
                 }
@@ -538,31 +536,52 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
     }
 
     @Override
-    public void showUpdateStateView(String string) {
-        if (string.equals("SAVE_SUCCESS")) {
+    public void showUpdateStateView(final String string) {
+        if (string == "SAVE SUCCESS"){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), "投资信息上传成功");
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveOk();
                 }
             });
-        } else {
+        }
+        if (string == "SAVE FAILURE"){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), "投资信息上传失败");
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveErrorDialog();
                 }
             });
         }
 
     }
-
+    public void saveOk(){
+        EventBus.getDefault().postSticky(cardNinthItemBean);
+        Intent intent = new Intent(this, BusinessPlanActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private void saveErrorDialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(CardNinthItemActivity.this);
+        alert.setTitle("招商引资");
+        alert.setMessage("保存失败，请检查网络是否连接？");
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.create().show();
+    }
     @Override
-    public void showUpdateFailMsg(String string) {
+    public void showUpdateFailMsg(final String string) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getBaseContext(), "投资信息上传失败");
+                AppUtils.showToast(getBaseContext(), string);
+                saveErrorDialog();
             }
         });
     }

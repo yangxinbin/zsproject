@@ -1,6 +1,8 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -330,10 +332,6 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
                     Log.v("doPutWithJson", "^^^^cardThirdItemBean^^^^^^" + cardThirdItemBean.toString());
                     if (flag) {
                         updateItemPresenter.visitUpdateItem(this, TYPE3, cardThirdItemBean);//更新后台数据
-                        EventBus.getDefault().postSticky(cardThirdItemBean);
-                        intent = new Intent(this, BusinessPlanActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         Toast.makeText(CardThirdItemActivity.this, "请重新输入地址！", Toast.LENGTH_LONG)
                                 .show();
@@ -486,20 +484,50 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
 
     @Override
     public void showUpdateStateView(final String string) {
-        runOnUiThread(new Runnable() {
+        if (string == "SAVE SUCCESS"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveOk();
+                }
+            });
+        }
+        if (string == "SAVE FAILURE"){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getApplicationContext(), string);
+                    saveErrorDialog();
+                }
+            });
+        }
+    }
+    public void saveOk(){
+        EventBus.getDefault().postSticky(cardThirdItemBean);
+        Intent intent = new Intent(this, BusinessPlanActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private void saveErrorDialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(CardThirdItemActivity.this);
+        alert.setTitle("地理区位");
+        alert.setMessage("保存失败，请检查网络是否连接？");
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AppUtils.showToast(getApplicationContext(), string);
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
+        alert.create().show();
     }
-
     @Override
     public void showUpdateFailMsg(final String string) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 AppUtils.showToast(getApplicationContext(), string);
+                saveErrorDialog();
             }
         });
     }

@@ -203,7 +203,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                         AppUtils.showToast(activity, "登录失败");
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "令牌保存成功");
+                        //AppUtils.showToast(activity, "令牌保存成功");
                         editor.putString("token", token)
                                 .commit();
                         Log.v("zzzzzz", "--------------" + token);
