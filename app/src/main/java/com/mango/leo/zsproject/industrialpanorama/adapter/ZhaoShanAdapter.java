@@ -183,6 +183,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public ZhaoShangBean getItem(int position) {
+        Log.v("oooooooooo","--oo--"+mData.get(position).getResponseObject().getContent().get(position%20).getName());
         return mData == null ? null : mData.get(position);
     }
     public interface OnZhaoShanClickListener {
@@ -205,6 +206,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void onClick(View view) {
             if (mOnZhaoShanClickListener != null) {
                 mOnZhaoShanClickListener.onItemClick(view, this.getLayoutPosition());
+                Log.v("oooooooo","---onb---"+this.getLayoutPosition());
             }
         }
     }

@@ -154,12 +154,12 @@ public class InvestmentInformationFragment extends Fragment {
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
+            Log.v("oooooooo",adapter.getItem(position)+"---true---"+position);
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
             Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
             startActivity(intent);
         }
     };
