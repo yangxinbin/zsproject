@@ -121,7 +121,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
     LinearLayout zhaoshang;
     @Bind(R.id.co)
     TextView co;
-    private TextView title, what, time, content, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
+    private TextView title, what, time, content,money, p1, p2, tv9_1, tv9_2, tv9_3, tv9_4, tv9_5;
     CardFirstItemBean bean1;
     CardThirdItemBean bean3;
     private ImageView im_1, im_3, im_9;
@@ -255,6 +255,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         what = (TextView) item1.findViewById(R.id.textView_what);
         time = (TextView) item1.findViewById(R.id.textView_time);
         content = (TextView) item1.findViewById(R.id.textView_card1Content);
+        money = (TextView) item1.findViewById(R.id.textView_mo);
         im_1 = (ImageView) item1.findViewById(R.id.imageView_1);
         card1 = (ConstraintLayout) item1.findViewById(R.id.card1);
         if (type == 1 || type == 2) {
@@ -266,6 +267,7 @@ public class BusinessPlanActivity extends BaseActivity implements View.OnClickLi
         title.setText(bean.getItemName());
         what.setText(bean.getDepartmentName());
         time.setText(bean.getTime());
+        money.setText(bean.getMoney());
         content.setText(bean.getItemContent());
         //im_1.setOnClickListener(this);
 /*        if (bean.getItemImagePath().size() != 0) {

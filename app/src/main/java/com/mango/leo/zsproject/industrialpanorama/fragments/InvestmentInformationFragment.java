@@ -100,7 +100,7 @@ public class InvestmentInformationFragment extends Fragment {
     }
 
     private void loadZhaoShanMes(final int page) {
-        Log.v("zzzzzzzzz","__0_"+Urls.HOST_CITY_MES + "?city=" +beanM+"&page="+page);
+        Log.v("zzzzzzzzz","-----0--------"+Urls.HOST_CITY_MES + "?city=" +beanM+"&page="+page);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -113,6 +113,7 @@ public class InvestmentInformationFragment extends Fragment {
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
                             final List<ZhaoShangBean> beanList = ProjectsJsonUtils.readJsonZhaoShangBeans(response.body().string(),"content");//data是json字段获得data的值即对象数组
+                            Log.v("zzzzzzzzz","-----1--------"+beanList.size());
                             if (beanList.size() == 0){
                                 mHandler.sendEmptyMessage(2);
                             }else {
@@ -173,12 +174,13 @@ public class InvestmentInformationFragment extends Fragment {
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            Log.v("zzzzzzzzz",(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
             super.onScrollStateChanged(recyclerView, newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                Log.v("zzzzzzzzz","__2_"+page);
+                Log.v("zzzzzzzzz","-------2-------"+page);
                 loadZhaoShanMes(page);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
@@ -196,7 +198,8 @@ public class InvestmentInformationFragment extends Fragment {
                             mData.clear();
                         }
                         refreshMes.setRefreshing(false);
-                        loadZhaoShanMes(0);//请求刷新
+                        page = 0;
+                        loadZhaoShanMes(page);//请求刷新
                     }
                 }, 2000);
             }
@@ -249,9 +252,7 @@ public class InvestmentInformationFragment extends Fragment {
     }
 
     private void addZhaoShang(List<ZhaoShangBean> zhaoShangBeans,int page) {
-
-        Log.v("zzzzzzzzz",page+"__1_"+zhaoShangBeans.size());
-
+        Log.v("zzzzzzzzz",page+"-------3------"+zhaoShangBeans.size());
         if (zhaoShangBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -272,7 +273,7 @@ public class InvestmentInformationFragment extends Fragment {
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            Log.v("zzzzzzzzz","_4__"+mData.size());
+            Log.v("zzzzzzzzz","----4---------"+mData.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -295,7 +296,7 @@ public class InvestmentInformationFragment extends Fragment {
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                             if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
+                              //  noMoreMsg();
                                 return;
                             }
                         }
@@ -303,6 +304,7 @@ public class InvestmentInformationFragment extends Fragment {
                 }
             });
         }
+        adapter.isShowFooter(true);
     }
     public void noMoreMsg() {
         adapter.isShowFooter(false);

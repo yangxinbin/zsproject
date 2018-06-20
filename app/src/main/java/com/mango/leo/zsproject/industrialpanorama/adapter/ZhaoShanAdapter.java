@@ -135,7 +135,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ((ItemViewHolder) holder).im.setVisibility(View.GONE);
                 }
             }
-        }else {
+        }/*else {
             //if (mData.size() > 0) {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
@@ -145,7 +145,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void run() {
                     // 隐藏提示条
-                    ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.INVISIBLE);
                     // 将fadeTips设置true
                     fadeTips = true;
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
@@ -153,7 +153,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }, 1000);
             //}
-        }
+        }*/
     }
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();

@@ -423,7 +423,7 @@ public class CardThirdItemActivity extends BaseCardActivity /*implements SensorE
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        mSearch.geocode(new GeoCodeOption().city(textViewPlace.getText().toString()).address(String.valueOf(charSequence)));
+        mSearch.geocode(new GeoCodeOption().city("").address(textViewPlace.getText().toString()+String.valueOf(charSequence)));
         mSearch.setOnGetGeoCodeResultListener(this);
         //mBaiduMap.clear();
     }

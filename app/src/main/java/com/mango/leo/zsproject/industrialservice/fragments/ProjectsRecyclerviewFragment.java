@@ -320,6 +320,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                 cardFirstItemBean.setMoney(String.valueOf(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired()));
             }
             cardFirstItemBean.setTime(DateUtil.getDateToString(time, "yyyy-MM-dd"));
+            cardFirstItemBean.setMoney(adapter.getItem(position).getResponseObject().getContent().get(position).getTotalInvestmentRequired());
             cardFirstItemBean.setItemContent(adapter.getItem(position).getResponseObject().getContent().get(position).getSummary());
             //cardFirstItemBean.setItemImagePath((List<LocalMedia>) adapter.getItem(position).getResponseObject().getContent().get(position).getPhotos());
             //cardFirstItemBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position).getId());

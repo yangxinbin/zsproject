@@ -2,11 +2,14 @@ package com.mango.leo.zsproject.industrialservice.createrequirements.carditems;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
@@ -17,7 +20,6 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.pr
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.view.UpdateItemView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
-import com.mango.leo.zsproject.viewutil.LinedEditText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +36,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     @Bind(R.id.item_title)
     EditText itemTitle;
     @Bind(R.id.item_content)
-    LinedEditText itemContent;
+    EditText itemContent;
     /*    @Bind(R.id.recycler)
         RecyclerView recyclerView;*/
     @Bind(R.id.button1_save)
@@ -43,6 +45,8 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     EditText itemDanweiName;
     @Bind(R.id.item_money)
     EditText itemMoney;
+    @Bind(R.id.textView_num)
+    TextView textViewNum;
     /*    private int themeId;
         GridImageAdapter adapter;
         private List<LocalMedia> selectList = new ArrayList<>();*/
@@ -51,6 +55,7 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
     private UpdateItemPresenter updateItemPresenter;
     public static final int TYPE1 = 1;
     private CardFirstItemBean bean1;
+    private int num = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +64,42 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
         ButterKnife.bind(this);
         //themeId = R.style.picture_default_style;
         //initAddImage();
+        editeNum();
         updateItemPresenter = new UpdateItemPresenterImpl(this);
         cardFirstItemBean = new CardFirstItemBean();
         EventBus.getDefault().register(this);
     }
+    private void editeNum() {
+        itemContent.addTextChangedListener(new TextWatcher() {
+            private CharSequence temp;
+            private int selectionStart;
+            private int selectionEnd;
 
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                temp = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int number = num - editable.length();
+                textViewNum.setText("剩余" + number + "字");
+                selectionStart = itemContent.getSelectionStart();
+                selectionEnd = itemContent.getSelectionEnd();
+                if (temp.length() > num) {
+                    editable.delete(selectionStart - 1, selectionEnd);
+                    int tempSelection = selectionEnd;
+                    itemContent.setText(editable);
+                    itemContent.setSelection(tempSelection);//设置光标在最后
+                }
+            }
+        });
+    }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CardFirstItemBean bean) {
         bean1 = bean;
@@ -176,14 +212,14 @@ public class CardFirstItemActivity extends BaseCardActivity implements UpdateIte
 
     };*/
 
-    @OnClick({R.id.imageView1_back,R.id.textView_delete1, R.id.button1_save})
+    @OnClick({R.id.imageView1_back, R.id.textView_delete1, R.id.button1_save})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.imageView1_back:
-                if (getIntent().getBooleanExtra("DemandManagementFragment",false)){
+                if (getIntent().getBooleanExtra("DemandManagementFragment", false)) {
                     finish();
-                }else {
+                } else {
                     intent = new Intent(this, BusinessPlanActivity.class);
                     startActivity(intent);
                 }
