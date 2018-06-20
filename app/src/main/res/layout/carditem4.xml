@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout8"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
