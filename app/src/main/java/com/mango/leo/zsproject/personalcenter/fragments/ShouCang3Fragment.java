@@ -222,7 +222,7 @@ public class ShouCang3Fragment extends Fragment {
             }
             Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getName());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getId());
             intent.putExtra("position", position);
             startActivity(intent);
         }
