@@ -13,8 +13,10 @@ import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
+import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ResponseListBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
@@ -129,6 +131,21 @@ public class ProjectsJsonUtils {
             JsonArray jsonArray = ob.getAsJsonArray(va);
             for (int i = 0; i < jsonArray.size(); i++) {
                 ZhaoShangBean event = JsonUtils.deserialize(jsonObject, ZhaoShangBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+
+    public static List<DemandManagementBean> readJsonTenantListBeans(String res, String va) {
+        List<DemandManagementBean> beans = new ArrayList<DemandManagementBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                DemandManagementBean event = JsonUtils.deserialize(jsonObject, DemandManagementBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象
             }
         } catch (Exception e) {

@@ -172,14 +172,14 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-/*        int isFooter = mShowFooter ? 1 : 0;
+        int isFooter = mShowFooter ? 1 : 0;
         int isHeader = mShowHeader ? 1 : 0;
 
         if (mData == null) {
             return isFooter + isHeader;
         }
-        return mData.size() + isFooter + isHeader;*/
-        return 6;
+        return mData.size() + isFooter + isHeader;
+        //return 6;
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {

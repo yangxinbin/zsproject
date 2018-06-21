@@ -10,6 +10,8 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -20,37 +22,44 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
+import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.BusinessPlanActivity;
-import com.mango.leo.zsproject.industrialservice.createrequirements.CreatedStyleActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.login.bean.UserMessageBean;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
+import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
+import com.mango.leo.zsproject.utils.Urls;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -69,20 +78,24 @@ public class DemandManagementFragment extends Fragment {//
     //private Button createButton;
     private ConstraintLayout h;
     private LinearLayout allPlanLayout, addPlanLayout;
-    private Banner banner,banner2;
+    private Banner banner, banner2;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
+    private ArrayList<DemandManagementBean> mData,mDataAll;
+    private String nowCity,nowDistrict;
+    private int lastVisibleItem;
+    private int page = 0;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.demandmanagement, container, false);
         ButterKnife.bind(this, view);
-        sharedPreferences = getActivity().getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        Log.v("sssss","-sharedPreferences.getString(\"type\",\"\")--"+sharedPreferences.getString("type",""));
-        if (sharedPreferences.getString("type","").equals("no")){
-            Log.v("sssss","-sharedPreferences.getSt");
+        Log.v("sssss", "-sharedPreferences.getString(\"type\",\"\")--" + sharedPreferences.getString("type", ""));
+        if (sharedPreferences.getString("type", "").equals("no")) {
+            Log.v("sssss", "-sharedPreferences.getSt");
             recycleView11.setVisibility(View.GONE);
             View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.header2, container, false);
             ImageView imageVie = view1.findViewById(R.id.imageVie);
@@ -122,10 +135,169 @@ public class DemandManagementFragment extends Fragment {//
         adapter = new DemandManagementAdapter(getActivity().getApplicationContext());
         adapter.setOnItemnewsClickListener(mOnItemClickListener);
         recycleView11.removeAllViews();
+        loadTenantMes(page);
+        EventBus.getDefault().register(this);//在initHeader()之前
         initHeader();
         initAllPlanButton();
         recycleView11.setAdapter(adapter);
+        recycleView11.addOnScrollListener(mOnScrollListener);
         return view;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void userMessageEventBus(UserMessageBean bean) {
+        //nowProvince = String.valueOf(bean.getResponseObject().getLocation().getProvince());
+        nowCity = String.valueOf(bean.getResponseObject().getLocation().getCity());
+        nowDistrict = String.valueOf(bean.getResponseObject().getLocation().getDistrict());
+    }
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItem + 1 == adapter.getItemCount()
+                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                page++;
+                loadTenantMes(page);
+                Log.v("yyyy", "***onScrollStateChanged******");
+            }
+        }
+    };
+
+    private void loadTenantMes(final int page) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("zzzzzzzzz", "----url-------" + Urls.HOST + "/business-service/project/list/project/by/tenant" +"?tenant="+"1528798005945"+"&page=" + page);
+                HttpUtils.doGet(Urls.HOST + "/business-service/project/list/project/by/tenant" +"?tenant="+"1528798005945"+"&page=" + page, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        mHandler.sendEmptyMessage(0);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            final List<DemandManagementBean> beanList = ProjectsJsonUtils.readJsonTenantListBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            Log.v("zzzzzzzzz", "-----1--------" + beanList.size());
+                            if (beanList.size() == 0) {
+                                mHandler.sendEmptyMessage(2);
+                            } else {
+                                mHandler.sendEmptyMessage(1);
+                            }
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addTenant(beanList, page);
+                                }
+                            });
+                    /*ResponseListBeanList.clear();
+                    ResponseListBeanList.addAll(beanList);*/
+                        } catch (Exception e) {
+                            mHandler.sendEmptyMessage(0);
+//                    Log.e("eeeee", response.body().string()+"Exception = " + e);
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void addTenant(List<DemandManagementBean> beanList, int page) {
+        Log.v("zzzzzzzzz",page+"-------3------"+beanList.size());
+        if (beanList == null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                }
+            });
+        }
+        if (mData == null && mDataAll == null) {
+            mData = new ArrayList<DemandManagementBean>();
+            mDataAll = new ArrayList<DemandManagementBean>();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        mDataAll.addAll(beanList);
+        if (page == 0) {
+            for (int i = 0; i < mDataAll.size(); i++) {//
+                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+            }
+            Log.v("zzzzzzzzz","----4---------"+mData.size());
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mData != null) {
+                        adapter.setmDate(mData);
+                    }
+                }
+            });
+        } else {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDataAll != null) {
+                        //加载更多
+                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                        int i;
+                        for (i = 0; i < mDataAll.size(); i++) {
+                            if (mDataAll == null) {
+                                return;//一开始断网报空指针的情况
+                            }
+                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                noMoreMsg();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        adapter.isShowFooter(true);
+    }
+
+    private final DemandManagementFragment.MyHandler mHandler = new DemandManagementFragment.MyHandler(this);
+
+    private class MyHandler extends Handler {
+        private final WeakReference<DemandManagementFragment> mActivity;
+
+        public MyHandler(DemandManagementFragment activity) {
+            mActivity = new WeakReference<DemandManagementFragment>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            DemandManagementFragment activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case 0:
+                        AppUtils.showToast(getActivity(), "获取匹配信息失败");
+                        break;
+                    case 1:
+                        AppUtils.showToast(getActivity(), "获取匹配信息成功");
+                        /*List<IntroductionBean> list = new ArrayList<>();
+                        for (int i=0;i<cityBean.getResponseObject().getIntroduction().size();i++){
+                            list.add(cityBean.getResponseObject().getIntroduction().get(i));
+                        }*/
+                        //addZhaoShang();
+                        break;
+                    case 2:
+                        AppUtils.showToast(getActivity(), "没有更多匹配信息");
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     private void initAllPlanButton() {
@@ -153,8 +325,8 @@ public class DemandManagementFragment extends Fragment {//
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CardFirstItemActivity.class);
-                editor.putString("projectId","").commit();
-                intent.putExtra("DemandManagementFragment",true);
+                editor.putString("projectId", "").commit();
+                intent.putExtra("DemandManagementFragment", true);
                 EventBus.getDefault().removeAllStickyEvents();
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
@@ -172,7 +344,13 @@ public class DemandManagementFragment extends Fragment {//
                 refresh11.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if (mData != null && mDataAll != null) {
+                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                            mData.clear();
+                        }
                         refresh11.setRefreshing(false);
+                        page = 0;
+                        loadTenantMes(page);//请求刷新
                     }
                 }, 2000);
             }
@@ -190,6 +368,8 @@ public class DemandManagementFragment extends Fragment {//
         addPlanLayout = (LinearLayout) header.findViewById(R.id.r1);
         allPlanLayout = (LinearLayout) header.findViewById(R.id.r2);
         banner = (Banner) header.findViewById(R.id.imageView);
+        TextView t_mes = (TextView) header.findViewById(R.id.textView_city_zhaoshang);
+        t_mes.setText(nowCity+nowDistrict+"招商信息");
         List<String> pathsImage = new ArrayList<>();
         List<String> pathsTitle = new ArrayList<>();
         pathsImage.add(getResourcesUri(R.drawable.wechat));
@@ -256,7 +436,7 @@ public class DemandManagementFragment extends Fragment {//
 
         @Override
         public void onCancelingMatchClick(View view, int position) {
-            Log.v("aaaaa","clock__1");
+            Log.v("aaaaa", "clock__1");
             Log.v("oooooooooo", "****onCancelingMatchClick***点击第" + position);
         }
 
@@ -270,7 +450,9 @@ public class DemandManagementFragment extends Fragment {//
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
+
     private void callPhone() {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setIcon(R.drawable.icon)//设置标题的图片
@@ -292,15 +474,21 @@ public class DemandManagementFragment extends Fragment {//
                 }).create();
         dialog.show();
     }
+
     /**
      * 拨打电话（直接拨打电话）
+     *
      * @param phoneNum 电话号码
      */
-    public void callPhone(String phoneNum){
+    public void callPhone(String phoneNum) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri data = Uri.parse("tel:" + phoneNum);
         intent.setData(data);
         startActivity(intent);
+    }
+    public void noMoreMsg() {
+        adapter.isShowFooter(false);
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }
