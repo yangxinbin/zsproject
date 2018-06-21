@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.industrialpanorama.show;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -9,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.utils.Urls;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,11 +85,12 @@ public class ZhaoShanDetailActivity extends AppCompatActivity {
         // titleUrl QQ和QQ空间跳转链接
         //oks.setTitleUrl(newsurl);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("活动详情");
+        oks.setText("招商信息");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
+        oks.setImageUrl(Urls.HOST+"/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://47.106.184.121/jetc/#/iosdeclareDetail/:"+id);
+        Log.v("sssssssssss","===="+"http://47.106.184.121/jetc/#/iosdeclareDetailnobtn/:" +getIntent().getStringExtra("FavouriteId"));
+        oks.setUrl("http://47.106.184.121/jetc/#/iosdeclareDetailnobtn/:" +getIntent().getStringExtra("FavouriteId"));
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI

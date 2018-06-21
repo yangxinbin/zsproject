@@ -30,6 +30,7 @@ import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
 import com.mango.leo.zsproject.industrialpanorama.fragments.CityIntroductionFragment;
 import com.mango.leo.zsproject.industrialpanorama.fragments.InvestmentInformationFragment;
 import com.mango.leo.zsproject.utils.AppUtils;
+import com.mango.leo.zsproject.utils.Urls;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,6 +70,7 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.industrialpanorama, container, false);
         ButterKnife.bind(this, view);
+        cityString = "深圳";
         //申明对象
         mPicker = new CityPickerView();
         mPicker.init(getActivity());
@@ -146,6 +148,7 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
                     cityString = String.valueOf(city);
                     CityS cityS = new CityS();
                     cityS.setCity(cityString.substring(0,cityString.length()-1));
+                    cityString = cityString.substring(0,cityString.length()-1);
                     EventBus.getDefault().postSticky(cityS);
                    /* editor.putString("position", cityString)
                             .commit();*/
@@ -167,7 +170,7 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         mPicker.showCityPicker();
     }
 
-    private void newShare() {
+    private void newShare(String cityString) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -179,9 +182,9 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         // text是分享文本，所有平台都需要这个字段
         oks.setText("城市介绍");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl("http:\\/\\/04.imgmini.eastday.com\\/mobile\\/20180610\\/20180610002454_6ab3e88e0c01455e287a65eda6bf7b1a_8_mwpm_03200403.jpg");//确保SDcard下面存在此张图片
+        oks.setImageUrl(Urls.HOST+"/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://192.168.1.166:8080/jetc/#/iosactivityDetail/:"+cityString);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:"+cityString);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI
@@ -192,7 +195,7 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_msg2:
-                newShare();
+                newShare(cityString);
                 break;
             case R.id.city:
                 showSeleteCity();
