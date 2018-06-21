@@ -210,6 +210,7 @@ public class UpdateItemModelImpl implements UpdateItemModel {
                 mapParams.put("cooperationModel", cardNinthItemBeans.getMoshi());
                 mapParams.put("min", sharedPreferences.getString("min", "0"));
                 mapParams.put("max", sharedPreferences.getString("max", "0"));
+                mapParams.put("caption", sharedPreferences.getString("caption", ""));
                 StringBuffer wht = new StringBuffer();
                 for (int i = 0; i < cardNinthItemBeans.getWhy().size(); i++) {
                     wht.append(cardNinthItemBeans.getWhy().get(i) + ",");

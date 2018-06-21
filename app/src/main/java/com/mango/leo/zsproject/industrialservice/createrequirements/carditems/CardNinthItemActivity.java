@@ -395,46 +395,55 @@ public class CardNinthItemActivity extends BaseCardActivity implements AdapterVi
                     case 0:
                         editor.putString("min", "");
                         editor.putString("max", "1000");
+                        editor.putString("caption", list2.get(0));
                         editor.commit();
                         break;
                     case 1:
                         editor.putString("min", "1000");
                         editor.putString("max", "5000");
+                        editor.putString("caption", list2.get(1));
                         editor.commit();
                         break;
                     case 2:
                         editor.putString("min", "5000");
                         editor.putString("max", "10000");
+                        editor.putString("caption", list2.get(2));
                         editor.commit();
                         break;
                     case 3:
                         editor.putString("min", "10000");
                         editor.putString("max", "100000");
+                        editor.putString("caption", list2.get(3));
                         editor.commit();
                         break;
                     case 4:
                         editor.putString("min", "100000");
                         editor.putString("max", "500000");
+                        editor.putString("caption", list2.get(4));
                         editor.commit();
                         break;
                     case 5:
                         editor.putString("min", "500000");
                         editor.putString("max", "1000000");
+                        editor.putString("caption", list2.get(5));
                         editor.commit();
                         break;
                     case 6:
                         editor.putString("min", "1000000");
                         editor.putString("max", "5000000");
+                        editor.putString("caption", list2.get(6));
                         editor.commit();
                         break;
                     case 7:
                         editor.putString("min", "5000000");
                         editor.putString("max", "10000000");
+                        editor.putString("caption", list2.get(7));
                         editor.commit();
                         break;
                     case 8:
                         editor.putString("min", "10000000");
                         editor.putString("max", "");
+                        editor.putString("caption", list2.get(8));
                         editor.commit();
                         break;
                 }
