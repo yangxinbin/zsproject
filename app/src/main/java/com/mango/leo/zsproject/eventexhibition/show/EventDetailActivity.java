@@ -71,7 +71,7 @@ public class EventDetailActivity extends BaseActivity {
                 return true;
             }
         });
-      webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetailnobtn/:"+id);
+      webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:"+id);
     }
 
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
