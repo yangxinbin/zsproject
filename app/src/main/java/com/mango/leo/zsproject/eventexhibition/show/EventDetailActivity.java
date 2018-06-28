@@ -5,14 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
@@ -45,6 +47,10 @@ public class EventDetailActivity extends BaseActivity {
     WebView webview;
     @Bind(R.id.sign_up)
     Button signUp;
+    @Bind(R.id.loading)
+    ProgressBar loading;
+    @Bind(R.id.tv_load)
+    TextView textView23;
     private SharedPreferences sharedPreferences;
     private String id;
     private int position;
@@ -54,15 +60,16 @@ public class EventDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
-        sharedPreferences = getSharedPreferences("CIFIT",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         id = getIntent().getStringExtra("id");
-        position = getIntent().getIntExtra("position",-1);
-        Log.v("ssss",""+"http://47.106.184.121/jetc/#/iosactivityDetailnobtn/:"+id);
+        position = getIntent().getIntExtra("position", -1);
+        Log.v("ssss", "" + "http://47.106.184.121/jetc/#/iosactivityDetailnobtn/:" + id);
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         //webview.loadUrl("http://www.baidu.com");
-        webview.setWebViewClient(new WebViewClient(){
+        webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:" + id);
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub
@@ -71,7 +78,22 @@ public class EventDetailActivity extends BaseActivity {
                 return true;
             }
         });
-      webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:"+id);
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    loading.setVisibility(View.GONE);
+                    textView23.setVisibility(View.GONE);
+                    signUp.setVisibility(View.VISIBLE);
+                } else {
+                    loading.setVisibility(View.VISIBLE);
+                    textView23.setVisibility(View.VISIBLE);
+                    signUp.setVisibility(View.GONE);
+                    loading.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+        });
     }
 
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
@@ -82,7 +104,7 @@ public class EventDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.imageView_share:
-                Log.v("yxbbbbb","---------");
+                Log.v("yxbbbbb", "---------");
                 newShare();
                 break;
             case R.id.imageView_love:
@@ -90,12 +112,13 @@ public class EventDetailActivity extends BaseActivity {
                 break;
             case R.id.sign_up:
                 intent = new Intent(this, EventRegistrationActivity.class);
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
                 startActivity(intent);
                 finish();
                 break;
         }
     }
+
     private void newShare() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -108,9 +131,9 @@ public class EventDetailActivity extends BaseActivity {
         // text是分享文本，所有平台都需要这个字段
         oks.setText("活动详情");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl(Urls.HOST+"/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
+        oks.setImageUrl(Urls.HOST + "/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:"+id);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:" + id);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI
@@ -118,24 +141,25 @@ public class EventDetailActivity extends BaseActivity {
     }
 
     private void loadLove() {
-        Log.v("FFFFFF",sharedPreferences.getString("token","")+"******");
+        Log.v("FFFFFF", sharedPreferences.getString("token", "") + "******");
         Map<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
-        mapParams.put("eventId",id);
+        mapParams.put("eventId", id);
         //mapParams.put("createdBy",sharedPreferences.getString("userName",""));
-       // mapParams.put("type","EVENT");
-        mapParams.put("token",sharedPreferences.getString("token",""));
+        // mapParams.put("type","EVENT");
+        mapParams.put("token", sharedPreferences.getString("token", ""));
         HttpUtils.doPost(Urls.HOST_FAVOURITE, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(0);
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (String.valueOf(response.code()).startsWith("2")){
+                if (String.valueOf(response.code()).startsWith("2")) {
                     mHandler.sendEmptyMessage(1);
-                }else {
-                    Log.v("FFFFFF",response.body().string()+"******"+response.code());
+                } else {
+                    Log.v("FFFFFF", response.body().string() + "******" + response.code());
                     mHandler.sendEmptyMessage(0);
 
                 }
@@ -143,7 +167,7 @@ public class EventDetailActivity extends BaseActivity {
         });
     }
 
-    private final EventDetailActivity.MyHandler mHandler = new EventDetailActivity.MyHandler(this);
+    private final MyHandler mHandler = new MyHandler(this);
 
     private static class MyHandler extends Handler {
         private final WeakReference<EventDetailActivity> mActivity;

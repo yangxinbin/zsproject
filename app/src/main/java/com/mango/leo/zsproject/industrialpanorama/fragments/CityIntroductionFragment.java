@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,6 +42,10 @@ public class CityIntroductionFragment extends Fragment {
     WebView webview;
     @Bind(R.id.imageView_noNet)
     ImageView imageViewNoNet;
+    @Bind(R.id.loading)
+    ProgressBar loading;
+    @Bind(R.id.tv_load)
+    TextView tvLoad;
     /*@Bind(R.id.recycle_city)
         RecyclerView recycleCity;
         @Bind(R.id.refresh_city)
@@ -89,6 +95,7 @@ public class CityIntroductionFragment extends Fragment {
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -98,7 +105,20 @@ public class CityIntroductionFragment extends Fragment {
                 return true;
             }
         });
-        webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    loading.setVisibility(View.GONE);
+                    tvLoad.setVisibility(View.GONE);
+                } else {
+                    loading.setVisibility(View.VISIBLE);
+                    tvLoad.setVisibility(View.VISIBLE);
+                    loading.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+        });
     }
 
     private void loadCityMes() {
