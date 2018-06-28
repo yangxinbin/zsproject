@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lljjcoder.Interface.OnCityItemClickListener;
@@ -45,7 +47,7 @@ import butterknife.OnClick;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
-public class FragmentOfIndustrialPanorama extends Fragment implements AdapterView.OnItemClickListener {
+public class FragmentOfIndustrialPanorama extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
     @Bind(R.id.tabLayout2)
     TabLayout tabLayout2;
     @Bind(R.id.image_msg2)
@@ -71,14 +73,15 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.industrialpanorama, container, false);
         ButterKnife.bind(this, view);
         cityString = "深圳";
-        //申明对象
-        mPicker = new CityPickerView();
-        mPicker.init(getActivity());
         initDatas();
         init();
+        initCity();
         return view;
     }
 
+    private void initCity() {
+
+    }
 
     private void initDatas() {
         mDatas = new ArrayList<String>(Arrays.asList("       城市介绍       ", "       招商信息       "/*, "招商计划", "定制需求"*/));
@@ -102,22 +105,33 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         ButterKnife.unbind(this);
     }
 
-
-    private void showPopupWindow(Context context, List<String> listDate) {
+    private void showPopupWindow(Context context) {
         //设置要显示的view
-        View view = LayoutInflater.from(context).inflate(R.layout.listview_default_down, null);
-        //此处可按需求为各控件设置属性
-        ListView listView = view.findViewById(R.id.lv);
-        adapter = new ListAndGirdDownAdapter(context, listDate);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        View view = LayoutInflater.from(context).inflate(R.layout.city_choose, null);
+        Button button_city_re = view.findViewById(R.id.button_city_re);
+        Button button_city_ok = view.findViewById(R.id.button_city_ok);
+        ImageView imageView_delete_city = view.findViewById(R.id.imageView_delete_city);
+
+        Spinner spinner_all = view.findViewById(R.id.spinner_all);
+        Spinner spinner_p = view.findViewById(R.id.spinner_p);
+        Spinner spinner_c = view.findViewById(R.id.spinner_c);
+        Spinner spinner_s = view.findViewById(R.id.spinner_s);
+
+        spinner_p.setOnItemSelectedListener(this);
+        spinner_c.setOnItemSelectedListener(this);
+        spinner_s.setOnItemSelectedListener(this);
+
+        imageView_delete_city.setOnClickListener(this);
+        button_city_re.setOnClickListener(this);
+        button_city_ok.setOnClickListener(this);
+
         dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(view);
         Window window = dialog.getWindow();
         //设置弹出窗口大小
         window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         //设置显示位置
-        window.setGravity(Gravity.BOTTOM);
+        window.setGravity(Gravity.TOP);
         //设置动画效果
         window.setWindowAnimations(R.style.AnimBottom);
         dialog.setCanceledOnTouchOutside(true);
@@ -128,46 +142,6 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         city_t.setText(listDate.get(position));
         dialog.dismiss();
-    }
-
-    private void showSeleteCity() {
-        //添加默认的配置，不需要自己定义
-        CityConfig cityConfig = new CityConfig.Builder().build();
-        mPicker.setConfig(cityConfig);
-        //监听选择点击事件及返回结果
-        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
-
-            @Override
-            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
-                //省份
-                if (province != null) {
-                    provinceString = String.valueOf(province);
-                }
-                //城市
-                if (city != null) {
-                    cityString = String.valueOf(city);
-                    CityS cityS = new CityS();
-                    cityS.setCity(cityString.substring(0,cityString.length()-1));
-                    cityString = cityString.substring(0,cityString.length()-1);
-                    EventBus.getDefault().postSticky(cityS);
-                   /* editor.putString("position", cityString)
-                            .commit();*/
-                }
-                //地区
-                if (district != null) {
-                    districtString = String.valueOf(district);
-                }
-                city_t.setText("" + city + district);
-            }
-
-            @Override
-            public void onCancel() {
-                AppUtils.showToast(getContext(), "城市选择已取消");
-            }
-        });
-
-        //显示
-        mPicker.showCityPicker();
     }
 
     private void newShare(String cityString) {
@@ -182,9 +156,9 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
         // text是分享文本，所有平台都需要这个字段
         oks.setText("城市介绍");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl(Urls.HOST+"/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
+        oks.setImageUrl(Urls.HOST + "/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:"+cityString);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + cityString);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI
@@ -198,8 +172,47 @@ public class FragmentOfIndustrialPanorama extends Fragment implements AdapterVie
                 newShare(cityString);
                 break;
             case R.id.city:
-                showSeleteCity();
+                showPopupWindow(getActivity());
+                break;
+            default:
                 break;
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imageView_delete_city:
+                dialog.dismiss();
+                break;
+            case R.id.button_city_re:
+                break;
+            case R.id.button_city_ok:
+
+                dialog.dismiss();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        switch (view.getId()) {
+            case R.id.spinner_p:
+                break;
+            case R.id.spinner_c:
+                break;
+            case R.id.spinner_s:
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="choose_city">地区选择</string>
+    <string name="please_choose_contry_type">请选择国家</string>
+</resources>

@@ -85,6 +85,10 @@
     <string name="mes_centry">信息中心</string>
     <string name="kefu">我的客服</string>
     <string name="clear">清空</string>
+    <string name="choose_city">地区选择</string>
+    <string-array name="s_1">
+        <item>中国</item>
+    </string-array>
 </resources>
 
 

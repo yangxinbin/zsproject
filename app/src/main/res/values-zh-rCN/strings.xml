@@ -92,4 +92,6 @@
     <string name="mes_centry">信息中心</string>
     <string name="kefu">我的客服</string>
     <string name="clear">清空</string>
+    <string name="choose_city">地区选择</string>
+    <string name="please_choose_contry_type">请选择国家</string>
 </resources>

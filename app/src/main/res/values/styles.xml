@@ -17,6 +17,11 @@
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/grayBlack</item>
     </style>
+    <!-- spinner -->
+    <style name="spinner_style" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/spinner_selector</item>
+        <item name="android:paddingLeft">10dip</item>
+    </style>
     <!--默认样式 注意* 样式只可修改，不能删除任何一项 否则报错-->
     <!--<style name="picture.default.style" parent="Theme.AppCompat.Light.DarkActionBar">
         &lt;!&ndash; Customize your theme here. &ndash;&gt;
