@@ -88,7 +88,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
     private List<CardSecondItemBeanObj.CardSecondItemBean> beans2;
     private int position;
     private List<String> bl2;
-   // private boolean flag = false;
+    // private boolean flag = false;
     private ACache mCache;
     private boolean first;
     private int type;
@@ -114,35 +114,35 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         bl2 = new ArrayList<>();
         //if (flag) {
         //    getChan(textViewChanye.getText().toString(), 1);//接着请求
-       // } else {
-            getChan("", 0);
-       // }
+        // } else {
+        getChan("", 0);
+        // }
 /*        if (!textViewChanye.getText().toString().startsWith("请")){
             getChan(textViewChanye.getText().toString(), 1);//接着请求
         }*/
-       // flag = getIntent().getBooleanExtra("flag", false);
+        // flag = getIntent().getBooleanExtra("flag", false);
         EventBus.getDefault().register(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card2EventBus(CardSecondItemBeanObj bean) {
         //if (flag) {
-            beans2 = bean.getContent();
-            if (beans2.size() == position) {
-                return;
-            }
-            textViewChanye.setText(bean.getContent().get(position).getChangye());
-            StringBuffer stringBufferL = new StringBuffer();
-            for (int i = 0; i < bean.getContent().get(position).getLingyuList().size(); i++) {
-                stringBufferL.append(bean.getContent().get(position).getLingyuList().get(i) + " ");
-            }
-            textViewLingyu.setText(stringBufferL);
-            // getChan(beans2.get(position).getChanye(), 1);//接着请求
+        beans2 = bean.getContent();
+        if (beans2.size() == position) {
+            return;
+        }
+        textViewChanye.setText(bean.getContent().get(position).getChangye());
+        StringBuffer stringBufferL = new StringBuffer();
+        for (int i = 0; i < bean.getContent().get(position).getLingyuList().size(); i++) {
+            stringBufferL.append(bean.getContent().get(position).getLingyuList().get(i) + " ");
+        }
+        textViewLingyu.setText(stringBufferL);
+        // getChan(beans2.get(position).getChanye(), 1);//接着请求
         /*editTextPhoneNumber.setText(bean.get(position).getPhoneNumber());
         editTextPosition.setText(bean.get(position).getPosition());
         editTextEmail.setText(bean.get(position).getEmail());*/
-            // cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
-       // }
+        // cardFourthItemBean.setProjectId(bean.get(position).getProjectId());
+        // }
     }
 
     private void initDate() {
@@ -336,7 +336,9 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 list2.add("新四板");
                 list2.add("IPO上市");
                 list2.add("其它");*/
-                Log.v("2222222222222", "!!!!!!" + textViewChanye.getText().toString());
+                if (textViewChanye.getText().toString().startsWith("请")) {
+                    AppUtils.showToast(this,"请先选择产业");
+                }
                 getChan(textViewChanye.getText().toString(), 1);//接着请求
                 if (list2.size() != 0) {
                     showPopupWindow(this, list2, 2);
@@ -358,7 +360,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
 
     @Override
     public void showUpdateStateView(final String string) {
-        if (string == "SAVE SUCCESS"){
+        if (string == "SAVE SUCCESS") {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -367,7 +369,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 }
             });
         }
-        if (string == "SAVE FAILURE"){
+        if (string == "SAVE FAILURE") {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -377,13 +379,15 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             });
         }
     }
-    public void saveOk(){
+
+    public void saveOk() {
         EventBus.getDefault().postSticky(card2Bean);
         EventBus.getDefault().unregister(this);
         Intent intent = new Intent(this, BusinessPlanActivity.class);
         startActivity(intent);
         finish();
     }
+
     private void saveErrorDialog() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(CardSecondItemActivity.this);
         alert.setTitle("产业领域");
@@ -396,6 +400,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
         });
         alert.create().show();
     }
+
     @Override
     public void showUpdateFailMsg(final String string) {
         runOnUiThread(new Runnable() {
