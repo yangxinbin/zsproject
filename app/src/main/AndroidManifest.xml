@@ -2,16 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mango.leo.zsproject"> <!--  -->
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android..READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.pepermissionrmission.INTERNET" />
     <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
@@ -35,13 +39,13 @@
 
     <application
         android:name=".CIFITApplication"
-        tools:replace="android:name"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="BC3eSL3OvRrK2pK6RU33mgb5hmKCSgUl" />
@@ -61,9 +65,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ZsActivity">
-
-        </activity>
+        <activity android:name=".ZsActivity"></activity>
         <activity android:name=".industrialservice.createrequirements.AllAndCreatedPlanActivity" />
         <activity android:name=".industrialservice.createrequirements.CreatedStyleActivity" />
         <activity android:name=".industrialservice.createrequirements.BusinessPlanActivity" />
@@ -82,14 +84,13 @@
         <activity android:name=".login.PhoneLoginActivity" />
         <activity android:name=".login.PwdSettingActivity" />
         <activity android:name=".login.PwdLoginActivity" />
-        <activity android:name=".login.StartActivity" >
+        <activity android:name=".login.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".login.ResActivity" />
         <activity android:name=".login.UserActivity" />
         <activity android:name=".personalcenter.show.UserChangeActivity" />
@@ -104,10 +105,8 @@
         <activity android:name=".personalcenter.show.userchange.NameActivity" />
         <activity android:name=".personalcenter.show.userchange.CompanyActivity" />
         <activity android:name=".personalcenter.show.userchange.DepartmentActivity" />
-        <activity android:name=".eventexhibition.show.EventDetailActivity">
-    </activity>
+        <activity android:name=".eventexhibition.show.EventDetailActivity"></activity>
         <activity android:name=".eventexhibition.show.EventRegistrationActivity" />
-
         <activity android:name=".personalcenter.show.ShouCangActivity" />
         <activity android:name=".personalcenter.show.AboutActivity" />
         <activity android:name=".login.UserBackActivity" />
@@ -117,33 +116,34 @@
         <activity android:name=".personalcenter.show.kefu.PhActivity" />
         <activity android:name=".personalcenter.show.kefu.QueActivity" />
         <activity android:name=".personalcenter.show.shengbao.ShengBaoActivity" />
-        <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity">
-        </activity>
-        <activity android:name=".personalcenter.show.baoming.BaoMingActivity"></activity>
-        <activity android:name=".industrialpanorama.show.ZhaoShanDetailActivity">
-        </activity>
+        <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity"></activity>
+        <activity android:name=".personalcenter.show.baoming.BaoMingActivity" />
+        <activity android:name=".industrialpanorama.show.ZhaoShanDetailActivity"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent1104646053" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--微信分享回调 -->
+        <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
-
-
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".industrialpanorama.show.ChooseActivity"
+            android:theme="@style/TipDialog"
+            ></activity>
     </application>
 
 </manifest>

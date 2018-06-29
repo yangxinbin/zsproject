@@ -22,6 +22,11 @@
         <item name="android:background">@drawable/spinner_selector</item>
         <item name="android:paddingLeft">10dip</item>
     </style>
+
+    <style name="TipDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
     <!--默认样式 注意* 样式只可修改，不能删除任何一项 否则报错-->
     <!--<style name="picture.default.style" parent="Theme.AppCompat.Light.DarkActionBar">
         &lt;!&ndash; Customize your theme here. &ndash;&gt;

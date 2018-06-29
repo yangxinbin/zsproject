@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical"><!---->
     <LinearLayout
@@ -27,39 +27,14 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/title" />
 
-            <ImageView
-                android:id="@+id/imageView_delete_city"
-                android:layout_width="@dimen/img_size"
-                android:layout_height="@dimen/img_size"
-                android:layout_alignBottom="@+id/textView45"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                app:srcCompat="@drawable/delete" />
         </RelativeLayout>
 
-        <LinearLayout
+        <com.mango.leo.zsproject.industrialpanorama.address.AddressSelector
+            android:id="@+id/address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="当前选择："
-                android:textSize="@dimen/title" />
-
-            <TextView
-                android:id="@+id/tv_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="省市区"
-                android:textSize="@dimen/title" />
-        </LinearLayout>
-        <Spinner
+            android:layout_height="400dp">
+        </com.mango.leo.zsproject.industrialpanorama.address.AddressSelector>
+<!--        <Spinner
             style="@style/spinner_style"
             android:id="@+id/spinner_all"
             android:entries="@array/s_1"
@@ -95,7 +70,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"/>-->
     </LinearLayout>
 
     <LinearLayout
@@ -115,7 +90,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rec_red_background"
-            android:text="重置"
+            android:text="@string/cancel"
             android:textColor="@color/white"
             android:textSize="@dimen/title"
             android:textStyle="bold" />

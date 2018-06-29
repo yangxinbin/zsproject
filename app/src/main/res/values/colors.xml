@@ -34,5 +34,7 @@
     <color name="bg">#f2f2f2</color>
     <color name="transparent_bg">#b9b9b9</color>
     <color name="hint">#cecece</color>
-
+    <color name="green_11B57C">#11B57C</color>
+    <color name="black_333333">#333333</color>
+    <color name="line_DDDDDD">#DDDDDD</color>
 </resources>

@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
@@ -63,8 +64,6 @@ public class ProjectsJsonUtils {
 
     public static List<ChanyLingyuBean.ResponseListBean> readJsonCBeans(String res, Context context) {
         ACache.get(context).put("changye", res);
-        ACache mCache = ACache.get(context);
-        Log.v("222224444","???===="+mCache.getAsString("changye"));
         ChanyLingyuBean chanyLingyuBean = new Gson().fromJson(res, ChanyLingyuBean.class);
         List<ChanyLingyuBean.ResponseListBean> c = chanyLingyuBean.getResponseList();
         return c;
@@ -166,5 +165,10 @@ public class ProjectsJsonUtils {
         } catch (Exception e) {
         }
         return beans;
+    }
+    public static List<ChooseBean.ResponseListBean> readChooseBeans(String res) {
+        ChooseBean chooseBean = new Gson().fromJson(res, ChooseBean.class);
+        List<ChooseBean.ResponseListBean> c = chooseBean.getResponseList();
+        return c;
     }
 }
