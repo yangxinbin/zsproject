@@ -215,9 +215,6 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
             }
         }).start();
     }
-
-    private final CardSecondItemActivity.MyHandler mHandler = new CardSecondItemActivity.MyHandler(this);
-
     @Override
     public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
         switch (parent.getId()) {
@@ -245,6 +242,7 @@ public class CardSecondItemActivity extends BaseCardActivity implements UpdateIt
                 break;
         }
     }
+    private final CardSecondItemActivity.MyHandler mHandler = new CardSecondItemActivity.MyHandler(this);
 
     private class MyHandler extends Handler {
         private final WeakReference<CardSecondItemActivity> mActivity;
