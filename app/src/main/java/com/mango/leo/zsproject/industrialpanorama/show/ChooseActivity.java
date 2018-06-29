@@ -90,12 +90,18 @@ public class ChooseActivity extends Activity {
                 switch (tab.getIndex()){
                     case 0:
                         addressSelector.setCities(c1);
+                        c2.clear();
+                        c3.clear();
+                        c4.clear();
                         break;
                     case 1:
                         addressSelector.setCities(c2);
+                        c3.clear();
+                        c4.clear();
                         break;
                     case 2:
                         addressSelector.setCities(c3);
+                        c4.clear();
                         break;
                     case 4:
                         addressSelector.setCities(c4);
@@ -154,9 +160,6 @@ public class ChooseActivity extends Activity {
                 switch (msg.what) {
                     case 0:
                         //AppUtils.showToast(getBaseContext(), "地区加载成功");
-                        c2.clear();
-                        c3.clear();
-                        c4.clear();
                         List<ChooseBean.ResponseListBean> chooseList = (List<ChooseBean.ResponseListBean>) msg.obj;
                         for(int i =0;i<chooseList.size();i++){
                             if (chooseList.get(0).getType().toString().equals("country")){
@@ -178,12 +181,15 @@ public class ChooseActivity extends Activity {
                         }
                         if (chooseList.get(0).getType().equals("province")){
                             address.setCities(c2);
+                            //c2.clear();
                         }
                         if (chooseList.get(0).getType().equals("city")){
                             address.setCities(c3);
+                            //c3.clear();
                         }
                         if (chooseList.get(0).getType().equals("district")){
                             address.setCities(c4);
+                            //c4.clear();
                         }
                         break;
                     case 1:
