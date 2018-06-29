@@ -23,6 +23,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.utils.ACache;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
 import org.json.JSONArray;

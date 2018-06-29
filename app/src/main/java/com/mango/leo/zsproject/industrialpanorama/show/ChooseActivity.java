@@ -51,30 +51,35 @@ public class ChooseActivity extends Activity {
         setContentView(R.layout.city_choose);
         ButterKnife.bind(this);
         initCity("");
-        //initChoose();
+        initChoose();
     }
 
     private void initChoose() {
         address.setTabAmount(4);
-        address.setCities(c1);
+        //address.setCities(c1);
         address.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClick(AddressSelector addressSelector, CityInterface city, int tabPosition) {
                 switch (tabPosition){
                     case 0:
-                        addressSelector.setCities(c2);
-                        AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
+                        Log.v("ccccccccc"," == "+city.getCityName());
+                        initCity(city.getCityName());
+                        //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 1:
-                        addressSelector.setCities(c3);
-                        AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
+                        Log.v("ccccccccc"," == "+city.getCityName());
+                        initCity(city.getCityName());
+                        //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 2:
-                        addressSelector.setCities(c4);
-                        AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
+                        Log.v("ccccccccc"," == "+city.getCityName());
+                        initCity(city.getCityName());
+                        //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 3:
-                        AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
+                        Log.v("ccccccccc"," == "+city.getCityName());
+                        //initCity(city.getCityName());
+                        //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                 }
             }
@@ -91,6 +96,9 @@ public class ChooseActivity extends Activity {
                         break;
                     case 2:
                         addressSelector.setCities(c3);
+                        break;
+                    case 4:
+                        addressSelector.setCities(c4);
                         break;
                 }
             }
@@ -116,6 +124,7 @@ public class ChooseActivity extends Activity {
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
                             List<ChooseBean.ResponseListBean> beanList = ProjectsJsonUtils.readChooseBeans(response.body().string());//data是json字段获得data的值即对象数组
+                            Log.v("ccccccccc"," !! "+beanList.get(0).getName());
                             Message m = mHandler.obtainMessage();
                             m.obj = beanList;
                             m.what = 0;
@@ -144,14 +153,38 @@ public class ChooseActivity extends Activity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(getBaseContext(), "地区加载成功");
+                        //AppUtils.showToast(getBaseContext(), "地区加载成功");
+                        c2.clear();
+                        c3.clear();
+                        c4.clear();
                         List<ChooseBean.ResponseListBean> chooseList = (List<ChooseBean.ResponseListBean>) msg.obj;
                         for(int i =0;i<chooseList.size();i++){
-                            Log.v("ccccccccc","  "+chooseList.get(i).getName());
-                            c1.add(chooseList.get(i));
-                            //c1.add("中国");
+                            if (chooseList.get(0).getType().toString().equals("country")){
+                                c1.add(chooseList.get(i));
+                            }
+                            if (chooseList.get(0).getType().toString().equals("province")){
+                                c2.add(chooseList.get(i));
+                            }
+                            if (chooseList.get(0).getType().toString().equals("city")){
+                                c3.add(chooseList.get(i));
+                            }
+                            if (chooseList.get(0).getType().toString().equals("district")){
+                                c4.add(chooseList.get(i));
+                            }
                         }
-                        initChoose();
+                        if (chooseList.get(0).getType().equals("country")){
+                            //initChoose();
+                            address.setCities(c1);
+                        }
+                        if (chooseList.get(0).getType().equals("province")){
+                            address.setCities(c2);
+                        }
+                        if (chooseList.get(0).getType().equals("city")){
+                            address.setCities(c3);
+                        }
+                        if (chooseList.get(0).getType().equals("district")){
+                            address.setCities(c4);
+                        }
                         break;
                     case 1:
                         AppUtils.showToast(activity, "地区加载失败");
