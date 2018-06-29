@@ -55,7 +55,7 @@
                 android:background="@color/white">
 
                 <TextView
-                    android:id="@+id/textView61"
+                    android:id="@+id/textView_eN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -64,7 +64,7 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="15dp"
-                    android:text="TextView"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/title"
                     android:textStyle="bold" />
@@ -73,9 +73,9 @@
                     android:id="@+id/imageView53"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView61"
-                    android:layout_alignStart="@+id/textView61"
-                    android:layout_below="@+id/textView61"
+                    android:layout_alignLeft="@+id/textView_eN"
+                    android:layout_alignStart="@+id/textView_eN"
+                    android:layout_below="@+id/textView_eN"
                     android:layout_marginTop="16dp"
                     app:srcCompat="@drawable/activity_detail_icon_address" />
 
@@ -88,7 +88,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_toEndOf="@+id/imageView53"
                     android:layout_toRightOf="@+id/imageView53"
-                    android:text="TextView" />
+                    android:text="" />
 
                 <ImageView
                     android:id="@+id/imageView62"
@@ -107,7 +107,7 @@
                     android:layout_alignBottom="@+id/imageView62"
                     android:layout_alignLeft="@+id/textView_where"
                     android:layout_alignStart="@+id/textView_where"
-                    android:text="TextView" />
+                    android:text="" />
 
                 <ImageView
                     android:id="@+id/imageView67"
@@ -136,7 +136,7 @@
                     android:layout_alignBottom="@+id/textView65"
                     android:layout_toEndOf="@+id/textView65"
                     android:layout_toRightOf="@+id/textView65"
-                    android:text="TextView" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView68"
@@ -157,7 +157,7 @@
                     android:layout_alignBottom="@+id/textView68"
                     android:layout_alignLeft="@+id/textView_zhubannf"
                     android:layout_alignStart="@+id/textView_zhubannf"
-                    android:text="TextView" />
+                    android:text="" />
             </RelativeLayout>
 
 
@@ -433,27 +433,28 @@
                             android:id="@+id/tv_signle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignEnd="@+id/button2"
-                            android:layout_alignRight="@+id/button2"
-                            android:layout_below="@+id/button2"
-                            android:layout_marginEnd="23dp"
-                            android:layout_marginRight="23dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_alignLeft="@+id/storage"
+                            android:layout_alignStart="@+id/storage"
+                            android:layout_below="@+id/storage"
+                            android:layout_marginLeft="37dp"
+                            android:layout_marginStart="37dp"
+                            android:layout_marginTop="20dp"
                             android:text="20元"
                             android:textColor="@color/red"
                             android:textSize="@dimen/textSize" />
 
-                        <Button
-                            android:id="@+id/button2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+<!--                        <com.mango.leo.zsproject.eventexhibition.util.NumberAddSubView
+                            android:id="@+id/storage"
+                            android:layout_alignTop="@+id/img_piao"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Button" />
+                            android:layout_marginTop="18dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:value="3"
+                            app:minValue="3"
+                            app:maxValue="10"/>-->
                     </RelativeLayout>
                 </FrameLayout>
                 <TextView

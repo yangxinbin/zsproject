@@ -63,10 +63,6 @@ public class EventRegistrationActivity extends AppCompatActivity {
     EditText editText4;
     @Bind(R.id.editText5)
     EditText editText5;
-    @Bind(R.id.tv_signle)
-    TextView tvSignle;
-    @Bind(R.id.tv_all)
-    TextView tvAll;
     @Bind(R.id.event_nofree)
     RelativeLayout eventNofree;
     @Bind(R.id.img_piao1)
@@ -77,8 +73,14 @@ public class EventRegistrationActivity extends AppCompatActivity {
     RelativeLayout howtoplay;
     @Bind(R.id.sign_up)
     Button signUp;
-    @Bind(R.id.textView61)
-    TextView textView61;
+    @Bind(R.id.textView_eN)
+    TextView textView_eN;
+    @Bind(R.id.tv_signle)
+    TextView tvSignle;
+    @Bind(R.id.tv_all)
+    TextView tvAll;
+/*    @Bind(R.id.storage)
+    NumberAddSubView storage;*/
     private int position;
     String pattern = "yyyy-MM-dd HH:mm:ss";
     private EventBean.ResponseObjectBean.ContentBean bean1;
@@ -93,6 +95,21 @@ public class EventRegistrationActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        initAmountView();
+    }
+
+    private void initAmountView() {
+        /*storage.setOnButtonClickListenter(new NumberAddSubView.OnButtonClickListenter() {
+            @Override
+            public void onButtonAddClick(View view, int value) {
+                AppUtils.showToast(getApplicationContext(), "AddClick Vaule==" + value);
+            }
+
+            @Override
+            public void onButtonSubClick(View view, int value) {
+                AppUtils.showToast(getApplicationContext(), "SubClick Vaule==" + value);
+            }
+        });*/
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -112,16 +129,17 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 howtoplay.setVisibility(View.VISIBLE);
             }
             Log.v("yxbb", bean.getPrice() + "__y___" + bean.getName());
-            textView61.setText(bean.getName());
+            textView_eN.setText(bean.getName());
             textViewWhere.setText(bean.getLocation().getCity() + bean.getLocation().getDistrict() + bean.getLocation().getAddress());
-            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern)+"至"+DateUtil.getDateToString(bean.getEndTime(), pattern));
+            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern) + "至" + DateUtil.getDateToString(bean.getEndTime(), pattern));
             textViewZhubannf.setText(bean.getOrganizer());
             StringBuffer stringBuffer = new StringBuffer();
-            for (int i = 0;i<bean.getCoorganizers().size();i++){
-                stringBuffer.append(bean.getCoorganizers().get(i)+" ");
+            for (int i = 0; i < bean.getCoorganizers().size(); i++) {
+                stringBuffer.append(bean.getCoorganizers().get(i) + " ");
             }
             textViewXiuban.setText(stringBuffer);
             price = bean.getPrice();
+            tvSignle.setText(String.valueOf(price));
         }
     }
 
@@ -134,9 +152,9 @@ public class EventRegistrationActivity extends AppCompatActivity {
             case R.id.howtoplay:
                 break;
             case R.id.sign_up:
-                if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString())&& !TextUtils.isEmpty(editText4.getText().toString())&& !TextUtils.isEmpty(editText5.getText().toString()) ){
+                if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString()) && !TextUtils.isEmpty(editText4.getText().toString()) && !TextUtils.isEmpty(editText5.getText().toString())) {
                     registration();//报名
-                }else {
+                } else {
                     AppUtils.showSnackar(signUp, "报名信息不能为空！");
                 }
                 break;
@@ -191,7 +209,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         ButterKnife.unbind(this);
     }
 
-    private final EventRegistrationActivity.MyHandler mHandler = new EventRegistrationActivity.MyHandler(this);
+    private final MyHandler mHandler = new MyHandler(this);
 
     private class MyHandler extends Handler {
         private final WeakReference<EventRegistrationActivity> mActivity;
@@ -222,6 +240,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
             }
         }
     }
+
     private void showSuccess(Activity activity) {
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setIcon(R.drawable.icon)//设置标题的图片
@@ -238,7 +257,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EventBus.getDefault().postSticky(bean1);
-                        Intent intent = new Intent(getApplicationContext(),EventDetailActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
                         intent.putExtra("id", bean1.getId());
                         startActivity(intent);
                         dialog.dismiss();
