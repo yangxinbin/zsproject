@@ -14,3 +14,5 @@ https://blog.csdn.net/u013802160/article/details/51860541
 https://github.com/fornana/swipeitemlayout  左滑 拖拽 
 
 多选：https://blog.csdn.net/bangyiqing/article/details/45720481
+
+https://github.com/Blincheng/AddressSelector.git 城市选择
