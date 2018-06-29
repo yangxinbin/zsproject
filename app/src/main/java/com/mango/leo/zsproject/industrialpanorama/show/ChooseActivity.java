@@ -117,8 +117,7 @@ public class ChooseActivity extends Activity {
         });
     }
 
-    private void initCity(final String s,int i) {
-        what = i;
+    private void initCity(final String s,final int i) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -140,6 +139,7 @@ public class ChooseActivity extends Activity {
                             m.sendToTarget();
                         } catch (Exception e) {
                             Log.v("ccccccccc"," 2!! "+response.code());
+                            what = i;
                             mHandler.sendEmptyMessage(1);
                         }
                     }
@@ -188,14 +188,14 @@ public class ChooseActivity extends Activity {
                         if (chooseList.get(0).getType().equals("city")){
                             address.setCities(c3);
                         }
-                        if (chooseList.get(0).getType().equals("district") && what == 2){
-                            address.setCities(c4);
+                        if (chooseList.get(0).getType().equals("district")){
+                                address.setCities(c4);
                         }
                         break;
                     case 1:
                         AppUtils.showToast(activity, "地区加载失败");
                         Log.v("wwwww"," what  "+what);
-                        switch (what){
+/*                        switch (what){
                             case 0:
                                 c2.clear();
                                 address.setCities(c2);
@@ -208,7 +208,7 @@ public class ChooseActivity extends Activity {
                                 c4.clear();
                                 address.setCities(c4);
                                 break;
-                        }
+                        }*/
                         break;
                     case 2:
                         break;
