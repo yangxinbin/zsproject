@@ -311,7 +311,7 @@ public class AddressSelector extends LinearLayout implements View.OnClickListene
      * 横线控件
      * */
     private class Line extends LinearLayout {
-        private int sum = 3;
+        private int sum = 4;
         private int oldIndex = 0;
         private int nowIndex = 0;
         private View indicator;

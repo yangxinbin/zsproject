@@ -44,13 +44,14 @@ public class ChooseActivity extends Activity {
     private ArrayList<ChooseBean.ResponseListBean> c2 = new ArrayList<>();
     private ArrayList<ChooseBean.ResponseListBean> c3 = new ArrayList<>();
     private ArrayList<ChooseBean.ResponseListBean> c4 = new ArrayList<>();
+    private int what = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_choose);
         ButterKnife.bind(this);
-        initCity("");
+        initCity("",-1);
         initChoose();
     }
 
@@ -63,17 +64,17 @@ public class ChooseActivity extends Activity {
                 switch (tabPosition){
                     case 0:
                         Log.v("ccccccccc"," == "+city.getCityName());
-                        initCity(city.getCityName());
+                        initCity(city.getCityName(),0);//加载省
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 1:
                         Log.v("ccccccccc"," == "+city.getCityName());
-                        initCity(city.getCityName());
+                        initCity(city.getCityName(),1);//加载市
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 2:
                         Log.v("ccccccccc"," == "+city.getCityName());
-                        initCity(city.getCityName());
+                        initCity(city.getCityName(),2);//加载区
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 3:
@@ -116,7 +117,8 @@ public class ChooseActivity extends Activity {
         });
     }
 
-    private void initCity(final String s) {
+    private void initCity(final String s,int i) {
+        what = i;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -124,18 +126,20 @@ public class ChooseActivity extends Activity {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(1);
+                        Log.v("ccccccccc"," 1!! ");
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(Call call, Response response) {
                         try {
                             List<ChooseBean.ResponseListBean> beanList = ProjectsJsonUtils.readChooseBeans(response.body().string());//data是json字段获得data的值即对象数组
-                            Log.v("ccccccccc"," !! "+beanList.get(0).getName());
+                            beanList.get(0).getName();//异常判断  至少要一个值
                             Message m = mHandler.obtainMessage();
                             m.obj = beanList;
                             m.what = 0;
                             m.sendToTarget();
                         } catch (Exception e) {
+                            Log.v("ccccccccc"," 2!! "+response.code());
                             mHandler.sendEmptyMessage(1);
                         }
                     }
@@ -176,24 +180,35 @@ public class ChooseActivity extends Activity {
                             }
                         }
                         if (chooseList.get(0).getType().equals("country")){
-                            //initChoose();
                             address.setCities(c1);
                         }
                         if (chooseList.get(0).getType().equals("province")){
                             address.setCities(c2);
-                            //c2.clear();
                         }
                         if (chooseList.get(0).getType().equals("city")){
                             address.setCities(c3);
-                            //c3.clear();
                         }
-                        if (chooseList.get(0).getType().equals("district")){
+                        if (chooseList.get(0).getType().equals("district") && what == 2){
                             address.setCities(c4);
-                            //c4.clear();
                         }
                         break;
                     case 1:
                         AppUtils.showToast(activity, "地区加载失败");
+                        Log.v("wwwww"," what  "+what);
+                        switch (what){
+                            case 0:
+                                c2.clear();
+                                address.setCities(c2);
+                                break;
+                            case 1:
+                                c3.clear();
+                                address.setCities(c3);
+                                break;
+                            case 2:
+                                c4.clear();
+                                address.setCities(c4);
+                                break;
+                        }
                         break;
                     case 2:
                         break;
