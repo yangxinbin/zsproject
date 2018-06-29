@@ -77,7 +77,7 @@ public class FragmentOfIndustrialPanorama extends Fragment{
     @Bind(R.id.city)
     TextView city_t;
     private List<String> mDatas;
-    private ListAndGirdDownAdapter adapter;
+/*    private ListAndGirdDownAdapter adapter;
     private Dialog dialog;
     private List<String> listDate;
     private CityPickerView mPicker;
@@ -85,8 +85,8 @@ public class FragmentOfIndustrialPanorama extends Fragment{
     private ArrayList<String> c1 = new ArrayList<>();
     private ArrayList<String> c2 = new ArrayList<>();
     private ArrayList<String> c3 = new ArrayList<>();
-    private ArrayList<String> c4 = new ArrayList<>();
-
+    private ArrayList<String> c4 = new ArrayList<>();*/
+    private String cityString;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

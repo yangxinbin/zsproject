@@ -8,7 +8,7 @@ import java.util.List;
  * Created by admin on 2018/6/29.
  */
 
-public class ChooseBean implements CityInterface {
+public class ChooseBean{
 
 
     /**
@@ -24,11 +24,6 @@ public class ChooseBean implements CityInterface {
     private Object currentPage;
     private Object totalPages;
     private List<ResponseListBean> responseList;
-
-    @Override
-    public String getCityName() {
-        return null;
-    }
 
     public Object getResponseObject() {
         return responseObject;
@@ -70,7 +65,7 @@ public class ChooseBean implements CityInterface {
         this.responseList = responseList;
     }
 
-    public static class ResponseListBean {
+    public static class ResponseListBean  implements CityInterface{
         /**
          * id : 5b1f9f2796dde1139825b70d
          * name : 广东省
@@ -113,6 +108,11 @@ public class ChooseBean implements CityInterface {
 
         public void setParent(String parent) {
             this.parent = parent;
+        }
+
+        @Override
+        public String getCityName() {
+            return name;
         }
     }
 }

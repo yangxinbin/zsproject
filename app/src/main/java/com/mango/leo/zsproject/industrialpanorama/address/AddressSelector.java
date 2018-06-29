@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -148,6 +149,7 @@ public class AddressSelector extends LinearLayout implements View.OnClickListene
         if(cities == null||cities.size() <= 0)
             return;
         if(cities.get(0) instanceof CityInterface){
+            Log.v("ccccccccc"," ___ ");
             this.cities = cities;
             if(addressAdapter == null){
                 addressAdapter = new AddressAdapter();
