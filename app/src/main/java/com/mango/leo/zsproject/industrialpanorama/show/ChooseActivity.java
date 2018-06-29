@@ -14,9 +14,12 @@ import com.mango.leo.zsproject.industrialpanorama.address.AddressSelector;
 import com.mango.leo.zsproject.industrialpanorama.address.CityInterface;
 import com.mango.leo.zsproject.industrialpanorama.address.OnItemClickListener;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
+import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -45,6 +48,7 @@ public class ChooseActivity extends Activity {
     private ArrayList<ChooseBean.ResponseListBean> c3 = new ArrayList<>();
     private ArrayList<ChooseBean.ResponseListBean> c4 = new ArrayList<>();
     private int what = -1;
+    private CityS cityS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class ChooseActivity extends Activity {
         ButterKnife.bind(this);
         initCity("",-1);
         initChoose();
+        cityS = new CityS();
     }
 
     private void initChoose() {
@@ -63,22 +68,20 @@ public class ChooseActivity extends Activity {
             public void itemClick(AddressSelector addressSelector, CityInterface city, int tabPosition) {
                 switch (tabPosition){
                     case 0:
-                        Log.v("ccccccccc"," == "+city.getCityName());
                         initCity(city.getCityName(),0);//加载省
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 1:
-                        Log.v("ccccccccc"," == "+city.getCityName());
                         initCity(city.getCityName(),1);//加载市
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 2:
-                        Log.v("ccccccccc"," == "+city.getCityName());
+                        cityS.setCity(city.getCityName());
                         initCity(city.getCityName(),2);//加载区
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
                     case 3:
-                        Log.v("ccccccccc"," == "+city.getCityName());
+                        cityS.setDistrict(city.getCityName());
                         //initCity(city.getCityName());
                         //AppUtils.showToast(getBaseContext(),"tabPosition ："+tabPosition+" "+city.getCityName());
                         break;
@@ -225,7 +228,12 @@ public class ChooseActivity extends Activity {
                 finish();
                 break;
             case R.id.button_city_ok:
-                finish();
+                if (cityS.getCity() != null && cityS.getDistrict() != null){
+                    EventBus.getDefault().postSticky(cityS);
+                    finish();
+                }else {
+                    AppUtils.showToast(this,"请选择城市和地区");
+                }
                 break;
         }
     }

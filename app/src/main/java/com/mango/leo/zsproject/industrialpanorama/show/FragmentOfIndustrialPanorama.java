@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,8 @@ import com.mango.leo.zsproject.utils.Urls;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -64,7 +67,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class FragmentOfIndustrialPanorama extends Fragment{
+public class FragmentOfIndustrialPanorama extends Fragment {
     @Bind(R.id.tabLayout2)
     TabLayout tabLayout2;
     @Bind(R.id.image_msg2)
@@ -77,22 +80,25 @@ public class FragmentOfIndustrialPanorama extends Fragment{
     @Bind(R.id.city)
     TextView city_t;
     private List<String> mDatas;
-/*    private ListAndGirdDownAdapter adapter;
-    private Dialog dialog;
-    private List<String> listDate;
-    private CityPickerView mPicker;
-    private String provinceString, cityString, districtString;
-    private ArrayList<String> c1 = new ArrayList<>();
-    private ArrayList<String> c2 = new ArrayList<>();
-    private ArrayList<String> c3 = new ArrayList<>();
-    private ArrayList<String> c4 = new ArrayList<>();*/
+    /*    private ListAndGirdDownAdapter adapter;
+        private Dialog dialog;
+        private List<String> listDate;
+        private CityPickerView mPicker;
+        private String provinceString, cityString, districtString;
+        private ArrayList<String> c1 = new ArrayList<>();
+        private ArrayList<String> c2 = new ArrayList<>();
+        private ArrayList<String> c3 = new ArrayList<>();
+        private ArrayList<String> c4 = new ArrayList<>();*/
     private String cityString;
+    private CityS cityBean;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.industrialpanorama, container, false);
         ButterKnife.bind(this, view);
         cityString = "深圳";
+        EventBus.getDefault().register(this);
         initDatas();
         init();
 //        initCity("");
@@ -183,6 +189,14 @@ public class FragmentOfIndustrialPanorama extends Fragment{
         ButterKnife.unbind(this);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void card1EventBus(CityS bean) {
+        if (bean == null){
+            return;
+        }
+        cityString = bean.getCity();
+        city_t.setText(bean.getCity()+bean.getDistrict());
+    }
 /*    private void showPopupWindow(Context context) {
         //设置要显示的view
         View view = LayoutInflater.from(context).inflate(R.layout.city_choose, null);

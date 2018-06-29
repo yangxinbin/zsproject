@@ -62,12 +62,8 @@ public class CityIntroductionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.city_introduction, container, false);
         ButterKnife.bind(this, view);
+        Log.v("yyyyyyyyyy", "------?----");
         EventBus.getDefault().register(this);
-/*        loadCityMes();
-        initSwipeRefreshLayout();
-        initRecycle();*/
-        TextView c = getActivity().findViewById(R.id.city);
-        Log.v("yyyyyyyyyy", "----------" + c.getText());
         if (NetUtil.isNetConnect(getActivity())) {
             initW("深圳");
             webview.setVisibility(View.VISIBLE);
@@ -83,18 +79,31 @@ public class CityIntroductionFragment extends Fragment {
     public void card1EventBus(CityS bean) {
         Log.v("yyyyyyyyyy", "------szD----" + bean.getCity());
         initW(bean.getCity());
+        initW(bean.getCity());//为什么 无法理解
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     private void initW(final String sp) {
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+
+/*        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        webSettings.setUserAgentString("User-Agent:Android");
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // 不加载缓存
+        webSettings.setDomStorageEnabled(true);//设置适应HTML5的一些方法
+        webSettings.setAppCachePath(getContext().getCacheDir().getAbsolutePath());
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);*/
+
+
+        Log.v("yyyyyyyyyywww", "" + "http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
         webview.loadUrl("http://47.106.184.121/jetc/#/iosCityIntroduction/:" + sp);
         webview.setWebViewClient(new WebViewClient() {
             @Override
