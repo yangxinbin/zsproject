@@ -81,7 +81,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
     TextView textView61;
     private int position;
     String pattern = "yyyy-MM-dd HH:mm:ss";
-    private EventBean bean1;
+    private EventBean.ResponseObjectBean.ContentBean bean1;
     private SharedPreferences sharedPreferences;
     private int tickNum;
     private int price = 0;
@@ -96,13 +96,10 @@ public class EventRegistrationActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void eventRegistrationEventBus(EventBean bean) {
+    public void eventRegistrationEventBus(EventBean.ResponseObjectBean.ContentBean bean) {
         bean1 = bean;
-        position = getIntent().getIntExtra("position", -1);
-        Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "!!!!!" + bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
         if (bean != null) {
-            if (bean.getResponseObject().getContent().get(position).getPrice() == 0) {//免费
-                Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "!!???!" + bean.getResponseObject().getContent().get(position).getName() + "__position__" + position);
+            if (bean.getPrice() == 0) {//免费
                 tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
@@ -114,17 +111,17 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 eventNofree.setVisibility(View.VISIBLE);
                 howtoplay.setVisibility(View.VISIBLE);
             }
-            Log.v("yxbb", bean.getResponseObject().getContent().get(position).getPrice() + "__y___" + bean.getResponseObject().getContent().get(position).getName());
-            textView61.setText(bean.getResponseObject().getContent().get(position).getName());
-            textViewWhere.setText(bean.getResponseObject().getContent().get(position).getLocation().getCity() + bean.getResponseObject().getContent().get(position).getLocation().getDistrict() + bean.getResponseObject().getContent().get(position).getLocation().getAddress());
-            textViewTime.setText(DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getStartTime(), pattern)+"至"+DateUtil.getDateToString(bean.getResponseObject().getContent().get(position).getEndTime(), pattern));
-            textViewZhubannf.setText(bean.getResponseObject().getContent().get(position).getOrganizer());
+            Log.v("yxbb", bean.getPrice() + "__y___" + bean.getName());
+            textView61.setText(bean.getName());
+            textViewWhere.setText(bean.getLocation().getCity() + bean.getLocation().getDistrict() + bean.getLocation().getAddress());
+            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern)+"至"+DateUtil.getDateToString(bean.getEndTime(), pattern));
+            textViewZhubannf.setText(bean.getOrganizer());
             StringBuffer stringBuffer = new StringBuffer();
-            for (int i = 0;i<bean.getResponseObject().getContent().get(position).getCoorganizers().size();i++){
-                stringBuffer.append(bean.getResponseObject().getContent().get(position).getCoorganizers().get(i)+" ");
+            for (int i = 0;i<bean.getCoorganizers().size();i++){
+                stringBuffer.append(bean.getCoorganizers().get(i)+" ");
             }
             textViewXiuban.setText(stringBuffer);
-            price = bean.getResponseObject().getContent().get(position).getPrice();
+            price = bean.getPrice();
         }
     }
 
@@ -151,7 +148,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
-        mapParams.put("eventId", /*eventStr*/ bean1.getResponseObject().getContent().get(position).getId());
+        mapParams.put("eventId", /*eventStr*/ bean1.getId());
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
 
@@ -162,7 +159,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         mapParams.put("department", editText4.getText().toString());
         mapParams.put("email", editText5.getText().toString());
         mapParams.put("paymentDateTime", DateUtil.getCurDate(pattern));
-        mapParams.put("feePaid", String.valueOf(bean1.getResponseObject().getContent().get(position).getPrice()));
+        mapParams.put("feePaid", String.valueOf(bean1.getPrice()));
 
         mapParams.put("numberOfTickets", String.valueOf(tickNum));
         mapParams.put("token", sharedPreferences.getString("token", ""));
@@ -242,7 +239,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         EventBus.getDefault().postSticky(bean1);
                         Intent intent = new Intent(getApplicationContext(),EventDetailActivity.class);
-                        intent.putExtra("id", bean1.getResponseObject().getContent().get(position).getId());
+                        intent.putExtra("id", bean1.getId());
                         startActivity(intent);
                         dialog.dismiss();
                     }

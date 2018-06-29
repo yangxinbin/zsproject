@@ -112,7 +112,6 @@ public class EventDetailActivity extends BaseActivity {
                 break;
             case R.id.sign_up:
                 intent = new Intent(this, EventRegistrationActivity.class);
-                intent.putExtra("position", position);
                 startActivity(intent);
                 finish();
                 break;
