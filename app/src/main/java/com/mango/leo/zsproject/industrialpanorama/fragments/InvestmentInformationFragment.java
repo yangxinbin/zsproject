@@ -78,7 +78,12 @@ public class InvestmentInformationFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CityS bean) {
         Log.v("yyyyyyyyyy","------111---"+bean.getCity());
+        if (mDataAll != null && mData != null) {
+            mDataAll.clear();
+            mData.clear();
+        }
         beanM = bean.getCity();
+        loadZhaoShanMes(0);
     }
     private void initHeader() {
         //渲染header布局
@@ -104,7 +109,7 @@ public class InvestmentInformationFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + "深圳"+"&page="+page, new Callback() {
+                HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + beanM+"&page="+page, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
