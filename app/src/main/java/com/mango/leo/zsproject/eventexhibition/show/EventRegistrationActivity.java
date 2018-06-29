@@ -84,6 +84,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
     private EventBean bean1;
     private SharedPreferences sharedPreferences;
     private int tickNum;
+    private int price = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 stringBuffer.append(bean.getResponseObject().getContent().get(position).getCoorganizers().get(i)+" ");
             }
             textViewXiuban.setText(stringBuffer);
-
+            price = bean.getResponseObject().getContent().get(position).getPrice();
         }
     }
 

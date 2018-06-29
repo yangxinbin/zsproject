@@ -419,7 +419,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:layout_marginLeft="8dp"
                             android:id="@+id/img_piao"
+                            android:scaleType="fitXY"
                             android:layout_width="match_parent"
                             android:layout_height="110dp"
                             android:layout_alignParentLeft="true"
@@ -448,9 +450,9 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
-                            android:layout_marginEnd="37dp"
-                            android:layout_marginRight="37dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
                             android:text="Button" />
                     </RelativeLayout>
                 </FrameLayout>

@@ -191,7 +191,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(mDataAll.get(position));
+            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject());
             Log.v("yxbb", "_____" + mDataAll.get(position).getResponseObject().getContent().get(position%20));
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
