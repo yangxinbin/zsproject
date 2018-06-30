@@ -433,17 +433,17 @@
                             android:id="@+id/tv_signle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/storage"
-                            android:layout_alignStart="@+id/storage"
+                            android:layout_alignEnd="@+id/storage"
+                            android:layout_alignRight="@+id/storage"
                             android:layout_below="@+id/storage"
-                            android:layout_marginLeft="37dp"
-                            android:layout_marginStart="37dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
                             android:layout_marginTop="20dp"
                             android:text="20元"
                             android:textColor="@color/red"
                             android:textSize="@dimen/textSize" />
 
-<!--                        <com.mango.leo.zsproject.eventexhibition.util.NumberAddSubView
+                        <com.mango.leo.zsproject.eventexhibition.util.adderView
                             android:id="@+id/storage"
                             android:layout_alignTop="@+id/img_piao"
                             android:layout_alignParentEnd="true"
@@ -451,10 +451,7 @@
                             android:layout_marginTop="18dp"
                             android:layout_marginRight="18dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:value="3"
-                            app:minValue="3"
-                            app:maxValue="10"/>-->
+                            android:layout_height="wrap_content" />
                     </RelativeLayout>
                 </FrameLayout>
                 <TextView
@@ -480,7 +477,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="28dp"
                     android:layout_marginRight="28dp"
-                    android:text="40元"
+                    android:text=""
                     android:textColor="@color/red"
                     android:textSize="@dimen/textSize" />
 

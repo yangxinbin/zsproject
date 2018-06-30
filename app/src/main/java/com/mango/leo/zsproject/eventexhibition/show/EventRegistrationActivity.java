@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.util.adderView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -79,8 +80,8 @@ public class EventRegistrationActivity extends AppCompatActivity {
     TextView tvSignle;
     @Bind(R.id.tv_all)
     TextView tvAll;
-/*    @Bind(R.id.storage)
-    NumberAddSubView storage;*/
+    @Bind(R.id.storage)
+    adderView storage;
     private int position;
     String pattern = "yyyy-MM-dd HH:mm:ss";
     private EventBean.ResponseObjectBean.ContentBean bean1;
@@ -99,17 +100,12 @@ public class EventRegistrationActivity extends AppCompatActivity {
     }
 
     private void initAmountView() {
-        /*storage.setOnButtonClickListenter(new NumberAddSubView.OnButtonClickListenter() {
+        storage.setOnValueChangeListene(new adderView.OnValueChangeListener() {
             @Override
-            public void onButtonAddClick(View view, int value) {
-                AppUtils.showToast(getApplicationContext(), "AddClick Vaule==" + value);
+            public void onValueChange(int value) {
+                tvAll.setText(price*value+"元");
             }
-
-            @Override
-            public void onButtonSubClick(View view, int value) {
-                AppUtils.showToast(getApplicationContext(), "SubClick Vaule==" + value);
-            }
-        });*/
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -139,7 +135,8 @@ public class EventRegistrationActivity extends AppCompatActivity {
             }
             textViewXiuban.setText(stringBuffer);
             price = bean.getPrice();
-            tvSignle.setText(String.valueOf(price));
+            tvSignle.setText(String.valueOf(price) + "元");
+            tvAll.setText(String.valueOf(price) + "元");
         }
     }
 

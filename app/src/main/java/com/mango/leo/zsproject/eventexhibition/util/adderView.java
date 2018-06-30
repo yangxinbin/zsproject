@@ -20,7 +20,7 @@ public class adderView extends LinearLayout implements View.OnClickListener {
 
     private int value = 1;
     private int minValue = 1;
-    private int maxValue = 10;
+    private int maxValue = 100;
     private final TextView tvCount;
 
     public adderView(Context context, AttributeSet attrs) {
