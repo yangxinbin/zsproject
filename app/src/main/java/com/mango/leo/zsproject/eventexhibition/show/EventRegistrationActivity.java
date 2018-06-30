@@ -2,6 +2,8 @@ package com.mango.leo.zsproject.eventexhibition.show;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +13,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,8 +26,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
+import com.mango.leo.zsproject.adapters.GirdDownAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -34,6 +43,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +52,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class EventRegistrationActivity extends AppCompatActivity {
+public class EventRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.imageView_back)
     ImageView imageViewBack;
@@ -88,6 +98,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private int tickNum;
     private int price = 0;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +114,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
         storage.setOnValueChangeListene(new adderView.OnValueChangeListener() {
             @Override
             public void onValueChange(int value) {
-                tvAll.setText(price*value+"元");
+                tvAll.setText(price * value + "元");
             }
         });
     }
@@ -147,6 +158,7 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.howtoplay:
+                showPopupWindow(this);
                 break;
             case R.id.sign_up:
                 if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString()) && !TextUtils.isEmpty(editText4.getText().toString()) && !TextUtils.isEmpty(editText5.getText().toString())) {
@@ -156,6 +168,25 @@ public class EventRegistrationActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    private void showPopupWindow(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.pay_down, null);
+        RelativeLayout wechat_pay = view.findViewById(R.id.wechat_pay);
+        RelativeLayout alipay_pay = view.findViewById(R.id.alipay_pay);
+        wechat_pay.setOnClickListener(this);
+        alipay_pay.setOnClickListener(this);
+        dialog = new Dialog(context);
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        //设置弹出窗口大小
+        window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        //设置显示位置
+        window.setGravity(Gravity.BOTTOM);
+        //设置动画效果
+        window.setWindowAnimations(R.style.AnimBottom);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     private void registration() {
@@ -207,6 +238,16 @@ public class EventRegistrationActivity extends AppCompatActivity {
     }
 
     private final MyHandler mHandler = new MyHandler(this);
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.wechat_pay:
+                break;
+            case R.id.alipay_pay:
+                break;
+        }
+    }
 
     private class MyHandler extends Handler {
         private final WeakReference<EventRegistrationActivity> mActivity;
