@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InvestorFragment extends Fragment implements ZsActivity.FragmentBackListener, AdapterView.OnItemClickListener {
+public class InvestorFragment extends Fragment implements AdapterView.OnItemClickListener {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"行业", "资金类型", "投资金额", "合作方式"};
@@ -187,30 +188,6 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ZsActivity) {
-            ((ZsActivity) context).setBackListener(this);
-            ((ZsActivity) context).setInterception(true);
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (getActivity() instanceof ZsActivity) {
-            ((ZsActivity) getActivity()).setBackListener(null);
-            ((ZsActivity) getActivity()).setInterception(false);
-        }
-    }
-
-    @Override
-    public void onbackForward() {
-        // 处理fragment的返回事件
-        dropdownmenu.closeMenu();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()) {
             case 0://行业
@@ -226,5 +203,24 @@ public class InvestorFragment extends Fragment implements ZsActivity.FragmentBac
                 dropdownmenu.closeMenu();
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    // handle back button
+                    // 处理fragment的返回事件
+                    dropdownmenu.closeMenu();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

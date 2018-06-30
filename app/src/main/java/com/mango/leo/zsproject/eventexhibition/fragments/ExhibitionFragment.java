@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class ExhibitionFragment extends Fragment implements ZsActivity.FragmentBackListener {
+public class ExhibitionFragment extends Fragment{
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"时间", "地区", "类型"};
@@ -77,28 +77,5 @@ public class ExhibitionFragment extends Fragment implements ZsActivity.FragmentB
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ZsActivity) {
-            ((ZsActivity) context).setBackListener(this);
-            ((ZsActivity) context).setInterception(true);
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (getActivity() instanceof ZsActivity) {
-            ((ZsActivity) getActivity()).setBackListener(null);
-            ((ZsActivity) getActivity()).setInterception(false);
-        }
-    }
-
-    @Override
-    public void onbackForward() {
-        // 处理fragment的返回事件
-        dropdownmenu.closeMenu();
     }
 }

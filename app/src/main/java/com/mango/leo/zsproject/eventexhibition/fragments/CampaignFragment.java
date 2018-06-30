@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class CampaignFragment extends Fragment implements AdapterView.OnItemClickListener, ZsActivity.FragmentBackListener, EventView {
+public class CampaignFragment extends Fragment implements AdapterView.OnItemClickListener, EventView {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     @Bind(R.id.id)
@@ -310,31 +311,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         Log.v("zzzzzyyybb", "----" + shaiXuanEvent.toString());
         eventPresenter.visitEvent(getActivity(), EVENT1, 0, shaiXuanEvent);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ZsActivity) {
-            ((ZsActivity) context).setBackListener(this);
-            ((ZsActivity) context).setInterception(true);
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (getActivity() instanceof ZsActivity) {
-            ((ZsActivity) getActivity()).setBackListener(null);
-            ((ZsActivity) getActivity()).setInterception(false);
-        }
-    }
-
-    @Override
-    public void onbackForward() {
-        // 处理fragment的返回事件
-        dropdownmenu.closeMenu();
-    }
-
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
 
@@ -405,4 +381,24 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    // handle back button
+                    // 处理fragment的返回事件
+                    dropdownmenu.closeMenu();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
 }
