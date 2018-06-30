@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;

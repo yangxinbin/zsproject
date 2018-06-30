@@ -24,13 +24,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.adapters.DuoXuanAdapter;
-import com.mango.leo.zsproject.adapters.GirdDownAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
-import com.mango.leo.zsproject.industrialservice.createrequirements.util.StaggeredGridView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -43,7 +39,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -92,6 +87,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     TextView tvAll;
     @Bind(R.id.storage)
     adderView storage;
+    @Bind(R.id.textView_pay)
+    TextView textViewPay;
     private int position;
     String pattern = "yyyy-MM-dd HH:mm:ss";
     private EventBean.ResponseObjectBean.ContentBean bean1;
@@ -236,10 +233,14 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.wechat_pay:
+                textViewPay.setText("微信支付");
+                dialog.dismiss();
                 break;
             case R.id.alipay_pay:
+                textViewPay.setText("支付宝支付");
+                dialog.dismiss();
                 break;
         }
     }

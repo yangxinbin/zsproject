@@ -120,8 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
-                        android:layout_marginStart="14dp"
-                        android:text="ttttttt" />
+                        android:layout_marginStart="14dp" />
 
                 </LinearLayout>
 
@@ -572,7 +571,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/textView89"
+                    android:id="@+id/textView_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

@@ -11,8 +11,6 @@
     card_view:cardCornerRadius="1dp"
     card_view:cardElevation="1dp"
     card_view:contentPadding="8dp">
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,7 +28,6 @@
             android:id="@+id/tv_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/imageView55"
             android:layout_toEndOf="@+id/tv_state"
             android:layout_toRightOf="@+id/tv_state"
             android:ellipsize="end"
@@ -40,47 +37,42 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title" />
 
-        <ImageView
-            android:id="@+id/imageView54"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="11dp"
+        <LinearLayout
+            android:layout_below="@id/tv_event"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/im_pic"
             android:layout_toRightOf="@+id/im_pic"
-            card_view:srcCompat="@drawable/activity_detail_icon_address" />
-
-        <TextView
-            android:id="@+id/textView_p"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView54"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/imageView54"
-            android:layout_toRightOf="@+id/imageView54"
-            android:text="TextView" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView54"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                card_view:srcCompat="@drawable/activity_detail_icon_address" />
 
-        <ImageView
-            android:id="@+id/imageView55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView_p"
-            android:layout_marginLeft="28dp"
-            android:layout_marginStart="28dp"
-            android:layout_toEndOf="@+id/textView_p"
-            android:layout_toRightOf="@+id/textView_p"
-            card_view:srcCompat="@drawable/activity_detail_icon_date" />
+            <TextView
+                android:id="@+id/textView_p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="TextView" />
 
-        <TextView
-            android:id="@+id/textView_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView_p"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/imageView55"
-            android:layout_toRightOf="@+id/imageView55"
-            android:text="TextView" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:id="@+id/imageView55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                card_view:srcCompat="@drawable/activity_detail_icon_date" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/textView_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
 
         <TextView
             android:visibility="gone"
