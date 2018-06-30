@@ -22,7 +22,7 @@ public class Urls {
     public static final String PROFILE = "/user-service/user/profile";
     public static final String RETRIEVE = "/user-service/user/retrieve/password";
     public static final String FAVOURITE_LIST = "/event-service/event/list/favorites";
-    public static final String BAOMING_LIST = "/event-service/event /list/myEvents";
+    public static final String BAOMING_LIST = "/event-service/event/list/myEvents";
     public static final String BUYEVENT = "/event-service/event/buy/free/ticket";
     public static final String BUYEVENTPAY = "/event-service/event/buy/charge/ticket";
 
