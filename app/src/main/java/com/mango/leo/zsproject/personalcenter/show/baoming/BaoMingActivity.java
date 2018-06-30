@@ -19,11 +19,10 @@ import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
-import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
-import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.adapter.SingedUpEventAdapter;
+import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
@@ -49,9 +48,9 @@ public class BaoMingActivity extends BaseActivity {
     RecyclerView recycleBaoming;
     @Bind(R.id.refresh_baoming)
     SwipeRefreshLayout refreshBaoming;
-    private EventAdapter adapter;
+    private SingedUpEventAdapter adapter;
     private int page = 0;
-    private List<EventBean> mData, mDataAll;
+    private List<SingUpBean> mData, mDataAll;
     private SharedPreferences sharedPreferences;
     private LinearLayoutManager mLayoutManager;
 
@@ -64,7 +63,7 @@ public class BaoMingActivity extends BaseActivity {
         sharedPreferences = this.getSharedPreferences("CIFIT", MODE_PRIVATE);
         initView();
         initHeader();
-        //vivistEvent(page);
+        vivistEvent(page);
     }
 
     private void vivistEvent(final int page) {
@@ -81,10 +80,10 @@ public class BaoMingActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
-                            List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            List<SingUpBean> beanList = ProjectsJsonUtils.readJsonSingUpBean(response.body().string(), "content");//data是json字段获得data的值即对象数组
                             Message msg = mHandler.obtainMessage();
                             msg.obj = beanList;
-                            msg.what = 2;
+                            msg.what = 1;
                             msg.sendToTarget();
                         } catch (Exception e) {
                             mHandler.sendEmptyMessage(0);
@@ -109,8 +108,8 @@ public class BaoMingActivity extends BaseActivity {
                 case 0:
                     AppUtils.showToast(getBaseContext(), "访问失败");
                     break;
-                case 2:
-                    List<EventBean> beanList = (List<EventBean>) msg.obj;
+                case 1:
+                    List<SingUpBean> beanList = (List<SingUpBean>) msg.obj;
                     /*if (beanList.size() == 0){
                         noMoreMsg();
                     }else {
@@ -137,7 +136,7 @@ public class BaoMingActivity extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(this);
         recycleBaoming.setLayoutManager(mLayoutManager);
         recycleBaoming.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        adapter = new EventAdapter(this);
+        adapter = new SingedUpEventAdapter(this);
         recycleBaoming.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycleBaoming.removeAllViews();
@@ -150,14 +149,14 @@ public class BaoMingActivity extends BaseActivity {
         }
     }
 
-    private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
+    private SingedUpEventAdapter.OnEventnewsClickListener mOnItemClickListener = new SingedUpEventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getName());
+            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEvent().getName());
             Intent intent = new Intent(getBaseContext(), EventDetailActivity.class);
             intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
             startActivity(intent);
@@ -165,9 +164,9 @@ public class BaoMingActivity extends BaseActivity {
 
     };
 
-    public void addEventsView(List<EventBean> eventBeans) {
+    public void addEventsView(List<SingUpBean> eventBeans) {
         if (eventBeans == null) {
-            Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
+            Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getEvent().getName() + "======eventBeans======" + eventBeans.size());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -176,8 +175,8 @@ public class BaoMingActivity extends BaseActivity {
             });
         }
         if (mData == null && mDataAll == null) {
-            mData = new ArrayList<EventBean>();
-            mDataAll = new ArrayList<EventBean>();
+            mData = new ArrayList<SingUpBean>();
+            mDataAll = new ArrayList<SingUpBean>();
         }
         if (mDataAll != null) {
             mDataAll.clear();
@@ -250,6 +249,7 @@ public class BaoMingActivity extends BaseActivity {
                     public void run() {
                         refreshBaoming.setRefreshing(false);
                         if (mData != null && mDataAll != null) {
+                            Log.v("mmmmmmm","1");
                             mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
                             mData.clear();
                         }

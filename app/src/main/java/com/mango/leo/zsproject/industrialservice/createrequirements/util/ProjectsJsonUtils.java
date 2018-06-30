@@ -18,6 +18,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
@@ -153,6 +154,22 @@ public class ProjectsJsonUtils {
         }
         return beans;
     }
+
+    public static List<SingUpBean> readJsonSingUpBean(String res, String va) {
+        List<SingUpBean> beans = new ArrayList<SingUpBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                SingUpBean event = JsonUtils.deserialize(jsonObject, SingUpBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+
     public static List<ChooseBean.ResponseListBean> readChooseBeans(String res) {
         ChooseBean chooseBean = new Gson().fromJson(res, ChooseBean.class);
         List<ChooseBean.ResponseListBean> c = chooseBean.getResponseList();

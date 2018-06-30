@@ -222,11 +222,9 @@ public class ShouCang3Fragment extends Fragment {
             if (mData.size() <= 0) {
                 return;
             }
-
             EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position%20).getEntity());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getId());
-
             startActivity(intent);
         }
 
@@ -294,6 +292,7 @@ public class ShouCang3Fragment extends Fragment {
                     public void run() {
                         refresh_cam.setRefreshing(false);
                         if (mData != null && mDataAll != null) {
+                            Log.v("mmmmmmm","2");
                             mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
                             mData.clear();
                         }
