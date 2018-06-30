@@ -69,97 +69,129 @@
                     android:textSize="@dimen/title"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imageView53"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayout12"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView_eN"
-                    android:layout_alignStart="@+id/textView_eN"
                     android:layout_below="@+id/textView_eN"
-                    android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/activity_detail_icon_address" />
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView_where"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/imageView53"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginStart="14dp"
-                    android:layout_toEndOf="@+id/imageView53"
-                    android:layout_toRightOf="@+id/imageView53"
-                    android:text="" />
+                    <ImageView
+                        android:id="@+id/imageView53"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:srcCompat="@drawable/activity_detail_icon_address" />
 
-                <ImageView
-                    android:id="@+id/imageView62"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView53"
-                    android:layout_alignStart="@+id/imageView53"
-                    android:layout_below="@+id/imageView53"
-                    android:layout_marginTop="11dp"
-                    app:srcCompat="@drawable/activity_detail_icon_date" />
+                    <TextView
+                        android:id="@+id/textView_where"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imageView53"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_toEndOf="@+id/imageView53"
+                        android:layout_toRightOf="@+id/imageView53"
+                        android:text="" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageView62"
-                    android:layout_alignLeft="@+id/textView_where"
-                    android:layout_alignStart="@+id/textView_where"
-                    android:text="" />
 
-                <ImageView
-                    android:id="@+id/imageView67"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayout13"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView62"
-                    android:layout_alignStart="@+id/imageView62"
-                    android:layout_below="@+id/imageView62"
-                    android:layout_marginTop="12dp"
-                    app:srcCompat="@drawable/activity_detail_icon_introduction" />
-
-                <TextView
-                    android:id="@+id/textView65"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView_time"
-                    android:layout_alignStart="@+id/textView_time"
-                    android:layout_alignTop="@+id/imageView67"
-                    android:text="主办方：" />
-
-                <TextView
-                    android:id="@+id/textView_zhubannf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView65"
-                    android:layout_alignBottom="@+id/textView65"
-                    android:layout_toEndOf="@+id/textView65"
-                    android:layout_toRightOf="@+id/textView65"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/textView68"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView65"
-                    android:layout_alignStart="@+id/textView65"
-                    android:layout_below="@+id/textView65"
-                    android:layout_marginBottom="8dp"
+                    android:layout_below="@+id/linearLayout12"
+                    android:layout_marginLeft="18dp"
                     android:layout_marginTop="10dp"
-                    android:text="协办方：" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView_xiuban"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/imageView62"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/activity_detail_icon_date" />
+
+                    <TextView
+                        android:id="@+id/textView_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginStart="14dp"
+                        android:text="ttttttt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout14"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView68"
-                    android:layout_alignBottom="@+id/textView68"
-                    android:layout_alignLeft="@+id/textView_zhubannf"
-                    android:layout_alignStart="@+id/textView_zhubannf"
-                    android:text="" />
-            </RelativeLayout>
+                    android:layout_below="@+id/linearLayout13"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:id="@+id/imageView67"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/activity_detail_icon_introduction" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView65"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="14dp"
+                                android:layout_marginStart="14dp"
+                                android:text="主办方：" />
+
+                            <TextView
+                                android:id="@+id/textView_zhubannf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/linearLayout14"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView68"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="协办方：" />
+
+                            <TextView
+                                android:id="@+id/textView_xiuban"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/textView68"
+                                android:text="" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -387,7 +419,8 @@
 
             </RelativeLayout>
 
-            <RelativeLayout android:id="@+id/event_nofree"
+            <RelativeLayout
+                android:id="@+id/event_nofree"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
                 android:layout_marginTop="1dp"
@@ -408,25 +441,27 @@
 
                 <FrameLayout
                     android:id="@+id/f"
-                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="8dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <ImageView
-                            android:layout_marginLeft="8dp"
                             android:id="@+id/img_piao"
-                            android:scaleType="fitXY"
                             android:layout_width="match_parent"
                             android:layout_height="110dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="8dp"
+                            android:scaleType="fitXY"
                             app:srcCompat="@drawable/piao" />
 
                         <TextView
@@ -445,15 +480,16 @@
 
                         <com.mango.leo.zsproject.eventexhibition.util.adderView
                             android:id="@+id/storage"
-                            android:layout_alignTop="@+id/img_piao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_marginTop="18dp"
+                            android:layout_alignTop="@+id/img_piao"
                             android:layout_marginRight="18dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_marginTop="18dp" />
                     </RelativeLayout>
                 </FrameLayout>
+
                 <TextView
                     android:id="@+id/textView83"
                     android:layout_width="wrap_content"
@@ -484,11 +520,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/event_free"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView788"
