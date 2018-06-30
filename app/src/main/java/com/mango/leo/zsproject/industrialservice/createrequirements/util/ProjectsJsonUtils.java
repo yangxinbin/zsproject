@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.LovedEventBean;
 import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
@@ -171,6 +172,11 @@ public class ProjectsJsonUtils {
     public static SingedEventBean readJsonSingedEventBean(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         SingedEventBean bean = JsonUtils.deserialize(jsonObject, SingedEventBean.class);
+        return bean;
+    }
+    public static LovedEventBean readJsonLovedEventBean(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        LovedEventBean bean = JsonUtils.deserialize(jsonObject, LovedEventBean.class);
         return bean;
     }
 }

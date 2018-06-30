@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.eventexhibition.bean.LovedEventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
@@ -158,9 +161,12 @@ public class EventDetailActivity extends BaseActivity {
                 if (String.valueOf(response.code()).startsWith("2")) {
                     mHandler.sendEmptyMessage(1);
                 } else {
-                    Log.v("FFFFFF", response.body().string() + "******" + response.code());
-                    mHandler.sendEmptyMessage(0);
-
+                    Log.v("FFFFFF", "******" + response.code());
+                    LovedEventBean singedEventBean = ProjectsJsonUtils.readJsonLovedEventBean(response.body().string());//data是json字段获得data的值即对象数组
+                    Message message = mHandler.obtainMessage();
+                    message.obj = singedEventBean;
+                    message.what = 0;
+                    message.sendToTarget();
                 }
             }
         });
@@ -182,7 +188,8 @@ public class EventDetailActivity extends BaseActivity {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "收藏失败");
+                        LovedEventBean lovedEventBean = (LovedEventBean) msg.obj;
+                        AppUtils.showToast(activity, lovedEventBean.getMessage());
                         break;
                     case 1:
                         AppUtils.showToast(activity, "收藏成功");

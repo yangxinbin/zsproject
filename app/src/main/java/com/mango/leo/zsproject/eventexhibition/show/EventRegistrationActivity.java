@@ -308,7 +308,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        Log.v("doPostAll", "^^else^^^onFailure^^^^^500");
                         SingedEventBean singedEventBean = (SingedEventBean) msg.obj;
                         AppUtils.showToast(activity, singedEventBean.getMessage());
                         break;
