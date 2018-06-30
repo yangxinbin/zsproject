@@ -30,6 +30,7 @@ import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardThirdItemActivity;
 import com.mango.leo.zsproject.login.bean.BeForeUserMesBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
@@ -408,7 +409,17 @@ public class UserActivity extends BaseActivity implements /*AddressPickerView.On
             EventBus.getDefault().postSticky(bean);
         }//Token在前一步注册时保存了
     }
-
+    @Override
+    public void responeErrorUserMessage(final ErrorBean bean) {
+        if (bean != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), bean.getMessage());
+                }
+            });
+        }
+    }
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(final BDLocation location) {

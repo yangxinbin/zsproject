@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.presenter.UserStatePresenter;
@@ -131,9 +132,6 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
         if (string.equals("CODE_FAILURE")) {
             mHandler.sendEmptyMessage(3);
         }
-        if (string.equals("HAS")) {
-            mHandler.sendEmptyMessage(5);
-        }
 
     }
 
@@ -153,9 +151,19 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
             Log.v("tttttr1", "--------------" + token);
-
         }
-        Log.v("tttttr2", "--------------" + token);
+    }
+
+    @Override
+    public void responeErrorUserMessage(final ErrorBean bean) {
+        if (bean != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), bean.getMessage());
+                }
+            });
+        }
     }
 
     private final MyHandler mHandler = new MyHandler(this);
@@ -191,18 +199,18 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                                 .commit();
                         Log.v("zzzzzz", "--------------" + token);
                         break;
-                    case 5:
-                        AppUtils.showToast(activity, "手机号码已经注册，请登录。");
+                    default:
                         break;
                 }
             }
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if (timer != null){
+        if (timer != null) {
             timer.cancel();
         }
     }

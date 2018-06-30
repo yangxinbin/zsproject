@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
@@ -170,6 +171,18 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
             token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
+        }
+    }
+
+    @Override
+    public void responeErrorUserMessage(final ErrorBean bean) {
+        if (bean != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), bean.getMessage());
+                }
+            });
         }
     }
 

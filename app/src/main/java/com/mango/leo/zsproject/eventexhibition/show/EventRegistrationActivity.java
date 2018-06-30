@@ -25,8 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
-import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
@@ -42,7 +42,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -260,7 +259,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                     mHandler.sendEmptyMessage(1);
                 } else {
                     Log.v("doPostAll", "^^else^^^onFailure^^^^^" + response.code());
-                    SingedEventBean singedEventBean = ProjectsJsonUtils.readJsonSingedEventBean(response.body().string());//data是json字段获得data的值即对象数组
+                    ErrorBean singedEventBean = ProjectsJsonUtils.readJsonErrorBean(response.body().string());//data是json字段获得data的值即对象数组
                     Message message = mHandler.obtainMessage();
                     message.obj = singedEventBean;
                     message.what = 0;
@@ -308,7 +307,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        SingedEventBean singedEventBean = (SingedEventBean) msg.obj;
+                        ErrorBean singedEventBean = (ErrorBean) msg.obj;
                         AppUtils.showToast(activity, singedEventBean.getMessage());
                         break;
                     case 1:

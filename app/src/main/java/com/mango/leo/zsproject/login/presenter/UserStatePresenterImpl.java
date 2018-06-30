@@ -2,8 +2,8 @@ package com.mango.leo.zsproject.login.presenter;
 
 import android.content.Context;
 
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
-import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
 import com.mango.leo.zsproject.login.model.UserStateModel;
 import com.mango.leo.zsproject.login.model.UserStateModelImpl;
@@ -42,6 +42,11 @@ public class UserStatePresenterImpl implements UserStatePresenter, OnUserStateLi
     @Override
     public void getSuccessUserMessage(UserMessageBean bean) {
         userStateView.responeUserMessage(bean);
+    }
+
+    @Override
+    public void getErrorUserMessage(ErrorBean bean) {
+        userStateView.responeErrorUserMessage(bean);
     }
 
     private String getUrl(int type) {

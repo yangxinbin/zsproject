@@ -1,17 +1,17 @@
-package com.mango.leo.zsproject.eventexhibition.bean;
+package com.mango.leo.zsproject.bean;
 
 /**
  * Created by admin on 2018/6/30.
  */
 
-public class SingedEventBean {
+public class ErrorBean {
 
     /**
-     * timestamp : 1530343863064
+     * timestamp : 1530345714682
      * status : 500
      * error : Internal Server Error
-     * message : you hava already signed up for this event
-     * path : /event/buy/free/ticket
+     * message : this event already exist
+     * path : /event/favorite
      */
 
     private long timestamp;

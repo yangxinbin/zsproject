@@ -1,36 +1,25 @@
 package com.mango.leo.zsproject.industrialservice.createrequirements.util;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
-import com.mango.leo.zsproject.eventexhibition.bean.LovedEventBean;
-import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
-import com.mango.leo.zsproject.industrialservice.bean.AllItemBean;
 import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ResponseListBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ProjectBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.utils.ACache;
-import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.JsonUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,14 +158,9 @@ public class ProjectsJsonUtils {
         List<ChooseBean.ResponseListBean> c = chooseBean.getResponseList();
         return c;
     }
-    public static SingedEventBean readJsonSingedEventBean(String res) {
+    public static ErrorBean readJsonErrorBean(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        SingedEventBean bean = JsonUtils.deserialize(jsonObject, SingedEventBean.class);
-        return bean;
-    }
-    public static LovedEventBean readJsonLovedEventBean(String res) {
-        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        LovedEventBean bean = JsonUtils.deserialize(jsonObject, LovedEventBean.class);
+        ErrorBean bean = JsonUtils.deserialize(jsonObject, ErrorBean.class);
         return bean;
     }
 }

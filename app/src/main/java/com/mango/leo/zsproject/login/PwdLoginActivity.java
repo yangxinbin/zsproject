@@ -20,6 +20,7 @@ import android.widget.ToggleButton;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
@@ -179,7 +180,17 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             mHandler.sendEmptyMessage(2);
         }
     }
-
+    @Override
+    public void responeErrorUserMessage(final ErrorBean bean) {
+        if (bean != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), bean.getMessage());
+                }
+            });
+        }
+    }
     private final MyHandler mHandler = new MyHandler(this);
 
     private static class MyHandler extends Handler {

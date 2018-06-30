@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
 import com.mango.leo.zsproject.login.bean.UserPhone;
@@ -154,6 +155,17 @@ public class PwdSettingActivity extends BaseActivity implements UserStateView {
             editor.putString("type", "no").commit();
         }else {
             editor.putString("type", "yes").commit();
+        }
+    }
+    @Override
+    public void responeErrorUserMessage(final ErrorBean bean) {
+        if (bean != null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), bean.getMessage());
+                }
+            });
         }
     }
 }

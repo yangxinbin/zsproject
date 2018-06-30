@@ -4,22 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
-import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.CardFirstItemBean;
+import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.login.bean.BeForeUserMesBean;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.User;
-import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.login.bean.UserPhone;
 import com.mango.leo.zsproject.login.listener.OnUserStateListener;
-import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.HttpUtils;
-import com.mango.leo.zsproject.utils.OkHttpUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -65,7 +60,6 @@ public class UserStateModelImpl implements UserStateModel {
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string(), context);//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     } else {
-                        Log.v("zzzzzzz", response.body().string() + "******" + response.code());
                         listener.onSuccess("FAILURE");
                     }
                 }
@@ -138,18 +132,14 @@ public class UserStateModelImpl implements UserStateModel {
                         UserMessageBean bean = ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string());//data是json字段获得data的值即对象
                         listener.getSuccessUserMessage(bean);
                     } else {
-                        if (String.valueOf(response.code()).startsWith("5")){
-                            Log.v("zzzzzzz",   "message!!!"+ response.message().toString());
-                            listener.onSuccess("HAS");
-                        }else{
-                            Log.v("zzzzzzz", response.body().string() + "******" + response.code());
-                            listener.onSuccess("RES_FAILURE");
-                        }
+                        Log.v("eeeeeeee", "******!!!" + url);
+                        ErrorBean bean = ProjectsJsonUtils.readJsonErrorBean(response.body().string());
+                        listener.getErrorUserMessage(bean);
                     }
                 }
             });
         }
-        if (type == 5) {//设置密码合并到上面 作废
+        if (type == 5) {
             UserPhone user = (UserPhone) o;
             mapParams.put("username", user.getPhoneN());
             mapParams.put("password", user.getPhonePwd());
