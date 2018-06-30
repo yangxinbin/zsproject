@@ -87,6 +87,8 @@
     <string name="clear">清空</string>
     <string name="choose_city">地区选择</string>
     <string name="cancel">取消</string>
+    <string name="singuped">已报名活动</string>
+    <string name="singUp_successful">报名成功</string>
     <string-array name="s_1">
         <item>中国</item>
     </string-array>

@@ -156,9 +156,7 @@ public class BaoMingActivity extends BaseActivity {
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEvent().getName());
-            Intent intent = new Intent(getBaseContext(), EventDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            Intent intent = new Intent(getBaseContext(), SingUpedDetailActivity.class);
             startActivity(intent);
         }
 
