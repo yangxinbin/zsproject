@@ -23,7 +23,9 @@ public class Urls {
     public static final String RETRIEVE = "/user-service/user/retrieve/password";
     public static final String FAVOURITE_LIST = "/event-service/event/list/favorites";
     public static final String BAOMING_LIST = "/event-service/event /list/myEvents";
-    public static final String BUYEVENT = "/event-service/event/buyTicket";
+    public static final String BUYEVENT = "/event-service/event/buy/free/ticket";
+    public static final String BUYEVENTPAY = "/event-service/event/buy/charge/ticket";
+
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String CITY = "/business-service/project/city/tour";
     public static final String CITY_MES = "/business-service/project/list";

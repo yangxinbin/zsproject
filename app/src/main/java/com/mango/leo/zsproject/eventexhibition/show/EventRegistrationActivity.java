@@ -115,6 +115,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
             @Override
             public void onValueChange(int value) {
                 tvAll.setText(price * value + "元");
+                tickNum = value;
             }
         });
     }
@@ -190,26 +191,20 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     }
 
     private void registration() {
-        Gson gs = new Gson();
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
         mapParams.put("eventId", /*eventStr*/ bean1.getId());
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
-
         mapParams.put("username", editText1.getText().toString());
         mapParams.put("mobile", editText2.getText().toString());
         mapParams.put("phone", editText2.getText().toString());
         mapParams.put("position", editText3.getText().toString());
         mapParams.put("department", editText4.getText().toString());
         mapParams.put("email", editText5.getText().toString());
-        mapParams.put("paymentDateTime", DateUtil.getCurDate(pattern));
-        mapParams.put("feePaid", String.valueOf(bean1.getPrice()));
-
-        mapParams.put("numberOfTickets", String.valueOf(tickNum));
+        mapParams.put("feePaid", "0");
         mapParams.put("token", sharedPreferences.getString("token", ""));
-
 
         HttpUtils.doPost(Urls.HOST_BUYEVENT, mapParams, new Callback() {
             @Override
@@ -298,6 +293,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                         Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
                         intent.putExtra("id", bean1.getId());
                         startActivity(intent);
+                        finish();
                         dialog.dismiss();
                     }
                 }).create();
