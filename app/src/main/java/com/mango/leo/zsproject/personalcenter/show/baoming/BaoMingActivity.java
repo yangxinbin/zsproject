@@ -64,7 +64,7 @@ public class BaoMingActivity extends BaseActivity {
         sharedPreferences = this.getSharedPreferences("CIFIT", MODE_PRIVATE);
         initView();
         initHeader();
-        vivistEvent(page);
+        //vivistEvent(page);
     }
 
     private void vivistEvent(final int page) {

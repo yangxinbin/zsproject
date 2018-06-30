@@ -30,6 +30,8 @@ import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,10 +222,11 @@ public class ShouCang3Fragment extends Fragment {
             if (mData.size() <= 0) {
                 return;
             }
-            Log.v("yxbb", "_____" + adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getName());
+
+            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position%20).getEntity());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getId());
-            intent.putExtra("position", position);
+
             startActivity(intent);
         }
 

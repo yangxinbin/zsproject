@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
@@ -77,33 +78,28 @@ public class ProjectsJsonUtils {
     public static UserMessageBean readJsonUserMessageBeans(String res, Context context) {
         ACache.get(context).put("message", res);
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
     public static ChangYe readJsonCMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         ChangYe bean = JsonUtils.deserialize(jsonObject, ChangYe.class);
         return bean;
     }
     public static UserMessageBean readJsonUserMessageBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         UserMessageBean bean = JsonUtils.deserialize(jsonObject, UserMessageBean.class);
         return bean;
     }
 
     public static ProjectBean readJsonProjectBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         ProjectBean bean = JsonUtils.deserialize(jsonObject, ProjectBean.class);
         return bean;
     }
 
     public static CityBean readJsonCityBeans(String res) {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        JsonObject ob = jsonObject.getAsJsonObject("responseObject");
         CityBean bean = JsonUtils.deserialize(jsonObject, CityBean.class);
         return bean;
     }
@@ -171,5 +167,10 @@ public class ProjectsJsonUtils {
         ChooseBean chooseBean = new Gson().fromJson(res, ChooseBean.class);
         List<ChooseBean.ResponseListBean> c = chooseBean.getResponseList();
         return c;
+    }
+    public static SingedEventBean readJsonSingedEventBean(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        SingedEventBean bean = JsonUtils.deserialize(jsonObject, SingedEventBean.class);
+        return bean;
     }
 }

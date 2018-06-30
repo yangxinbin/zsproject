@@ -26,7 +26,10 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.SingedEventBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -39,6 +42,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -96,6 +100,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     private int tickNum;
     private int price = 0;
     private Dialog dialog;
+    private MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +125,38 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void eventRegistrationEventBus(EventBean.ResponseObjectBean.ContentBean bean) {
         bean1 = bean;
+        if (bean != null) {
+            if (bean.getPrice() == 0) {//免费
+                tickNum = 1;
+                signUp.setEnabled(true);//使能按钮
+                eventNofree.setVisibility(View.GONE);
+                howtoplay.setVisibility(View.GONE);
+                eventFree.setVisibility(View.VISIBLE);
+            } else {
+                //signUp.setEnabled(false);
+                eventFree.setVisibility(View.GONE);
+                eventNofree.setVisibility(View.VISIBLE);
+                howtoplay.setVisibility(View.VISIBLE);
+            }
+            Log.v("yxbb", bean.getPrice() + "__y___" + bean.getName());
+            textView_eN.setText(bean.getName());
+            textViewWhere.setText(bean.getLocation().getCity() + bean.getLocation().getDistrict() + bean.getLocation().getAddress());
+            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern) + "至" + DateUtil.getDateToString(bean.getEndTime(), pattern));
+            textViewZhubannf.setText(bean.getOrganizer());
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < bean.getCoorganizers().size(); i++) {
+                stringBuffer.append(bean.getCoorganizers().get(i) + " ");
+            }
+            textViewXiuban.setText(stringBuffer);
+            price = bean.getPrice();
+            tvSignle.setText(String.valueOf(price) + "元");
+            tvAll.setText(String.valueOf(price) + "元");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void eventRegistrationEventBus(MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean) {//收藏列表值
+        bean2 = bean;
         if (bean != null) {
             if (bean.getPrice() == 0) {//免费
                 tickNum = 1;
@@ -191,7 +228,14 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
-        mapParams.put("eventId", /*eventStr*/ bean1.getId());
+        if (bean1 != null) {
+            Log.v("llll", "--1");
+            mapParams.put("eventId",  bean1.getId());
+        }else {
+            Log.v("llll", "--2");
+            mapParams.put("eventId",  bean2.getId());
+        }
+       // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
         mapParams.put("username", editText1.getText().toString());
@@ -215,8 +259,13 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 if (String.valueOf(response.code()).startsWith("2")) {
                     mHandler.sendEmptyMessage(1);
                 } else {
-                    Log.v("doPostAll", response.body().string() + "^^else^^^onFailure^^^^^" + response.code());
-                    mHandler.sendEmptyMessage(0);
+                    Log.v("doPostAll", "^^else^^^onFailure^^^^^" + response.code());
+                    SingedEventBean singedEventBean = ProjectsJsonUtils.readJsonSingedEventBean(response.body().string());//data是json字段获得data的值即对象数组
+                    Message message = mHandler.obtainMessage();
+                    message.obj = singedEventBean;
+                    message.what = 0;
+                    message.sendToTarget();
+                    //mHandler.sendEmptyMessage(0);
                 }
             }
         });
@@ -259,14 +308,16 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(activity, "报名失败");
+                        Log.v("doPostAll", "^^else^^^onFailure^^^^^500");
+                        SingedEventBean singedEventBean = (SingedEventBean) msg.obj;
+                        AppUtils.showToast(activity, singedEventBean.getMessage());
                         break;
                     case 1:
-                        AppUtils.showToast(activity, "报名成功");
+                        //AppUtils.showToast(activity, "报名成功");
                         showSuccess(activity);
                         break;
                     case 2:
-                        AppUtils.showToast(activity, "令牌保存成功");
+                        //AppUtils.showToast(activity, "令牌保存成功");
                         break;
                     default:
                         break;
@@ -290,9 +341,13 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EventBus.getDefault().postSticky(bean1);
+                        //EventBus.getDefault().postSticky(bean1);
                         Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
-                        intent.putExtra("id", bean1.getId());
+                        if (bean1 != null) {//这个id一样
+                            intent.putExtra("id", bean1.getId());
+                        } else {
+                            intent.putExtra("id", bean2.getId());
+                        }
                         startActivity(intent);
                         finish();
                         dialog.dismiss();
