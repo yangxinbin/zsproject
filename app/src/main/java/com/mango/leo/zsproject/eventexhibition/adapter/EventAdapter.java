@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.adapter.SingedUpEventAdapter;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.Urls;
 
@@ -142,7 +143,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                     .load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner().getId())
                                     .apply(new RequestOptions().placeholder(R.drawable.gov))
                                     .into(((ItemViewHolder) holder).im);
+                        }else {
+                            ((ItemViewHolder) holder).im.setImageResource(R.drawable.gov);
                         }
+
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).isPopular()){
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
