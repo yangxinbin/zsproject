@@ -34,18 +34,25 @@
             android:src="@drawable/common_nav_icon_back" />
 
     </RelativeLayout>
-    <android.support.design.widget.TabLayout
-        android:layout_gravity="center"
-        android:id="@+id/tabLayout_shengbao"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        app:tabGravity="center"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabTextOther"
-        app:tabMode="scrollable"
-        app:tabIndicatorColor="@color/red"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="5dp" />
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TabLayout
+            android:layout_gravity="center"
+            android:id="@+id/tabLayout_shengbao"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:tabGravity="center"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/TabTextOther"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/red"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_marginTop="2dp"
         android:background="@color/white"
