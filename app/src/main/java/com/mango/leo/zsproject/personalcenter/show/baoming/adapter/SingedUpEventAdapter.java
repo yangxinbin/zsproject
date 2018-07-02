@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.Urls;
@@ -151,6 +152,11 @@ public class SingedUpEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     } else {
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
+                    }
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEvent().getEndTime() < System.currentTimeMillis()){
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setText("已过期");
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setTextColor(context.getResources().getColor(R.color.gray_b));
                     }
                 }
             }

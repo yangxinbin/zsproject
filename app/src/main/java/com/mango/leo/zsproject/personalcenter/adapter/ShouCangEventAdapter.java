@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.adapter.SingedUpEventAdapter;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.Urls;
 
@@ -143,11 +145,18 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                     ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getStartTime(), "yyyy-MM-dd"));
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner() != null) {
                         Glide.with(context).load(Urls.HOST + "/user-service/user/get/file?fileId=" + mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getBanner().getId()).apply(new RequestOptions().placeholder(R.drawable.gov)).into(((ShouCangEventAdapter.ItemViewHolder) holder).im);
+                    }else {
+                        ((ShouCangEventAdapter.ItemViewHolder) holder).im.setImageResource(R.drawable.gov);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().isPopular()){
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     }else {
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
+                    }
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getEndTime() < System.currentTimeMillis()){
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setText("已过期");
+                        ((EventAdapter.ItemViewHolder) holder).tv_state.setTextColor(context.getResources().getColor(R.color.gray_b));
                     }
                 }
             }
