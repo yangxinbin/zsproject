@@ -25,6 +25,7 @@ public class Urls {
     public static final String BAOMING_LIST = "/event-service/event/list/myEvents";
     public static final String BUYEVENT = "/event-service/event/buy/free/ticket";
     public static final String BUYEVENTPAY = "/event-service/event/buy/charge/ticket";
+    public static final String REQUEST = "/business-service/project/list/request";
 
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String CITY = "/business-service/project/city/tour";
@@ -52,6 +53,7 @@ public class Urls {
     public static final String HOST_CITY_MES = HOST + CITY_MES;
     public static final String HOST_PUBLISH = HOST + PUBLISH;
     public static final String HOST_BAOMING_LIST = HOST + BAOMING_LIST;
+    public static final String HOST_REQUEST = HOST + REQUEST;
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息
     public static final String UPDATE2 = "/industries";

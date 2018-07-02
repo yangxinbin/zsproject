@@ -90,6 +90,7 @@
     <string name="singuped">已报名活动</string>
     <string name="singUp_successful">报名成功</string>
     <string name="investor">投资机构</string>
+    <string name="shenbao">没有更多申报信息，请您稍后刷新！</string>
     <string-array name="s_1">
         <item>中国</item>
     </string-array>

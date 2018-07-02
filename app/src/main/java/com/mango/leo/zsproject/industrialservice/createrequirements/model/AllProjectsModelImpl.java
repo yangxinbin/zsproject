@@ -23,7 +23,7 @@ import okhttp3.Response;
 public class AllProjectsModelImpl implements AllProjectsModel {
     @Override
     public void visitProjects(final Context context, final int type, String url, final OnAllProjectsListener listener) {
-        //Log.v("yyyyyyyyy","*****AllProjectsModelImpl******"+url);
+        //Log.v("yyyyyyyyy","*****ShenBaoModelImpl******"+url);
 
 /*        final OkHttpUtils.ResultCallback<String> loadNewsCallback = new OkHttpUtils.ResultCallback<String>() {
             @Override

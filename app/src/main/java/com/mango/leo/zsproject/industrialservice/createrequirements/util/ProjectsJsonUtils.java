@@ -19,6 +19,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.be
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.ShenBaoBean;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.JsonUtils;
 
@@ -179,5 +180,19 @@ public class ProjectsJsonUtils {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         ErrorBean bean = JsonUtils.deserialize(jsonObject, ErrorBean.class);
         return bean;
+    }
+    public static List<ShenBaoBean> readJsonShenBaoBean(String res, String va) {
+        List<ShenBaoBean> beans = new ArrayList<ShenBaoBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                ShenBaoBean event = JsonUtils.deserialize(jsonObject, ShenBaoBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
     }
 }

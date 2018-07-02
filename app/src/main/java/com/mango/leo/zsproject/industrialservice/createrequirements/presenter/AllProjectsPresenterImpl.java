@@ -25,21 +25,24 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
     private AllProjectsView allProjectsView;
     private AllProjectsModel allProjectsModel;
     private SharedPreferences sharedPreferences;
+
     public AllProjectsPresenterImpl(AllProjectsView u) {
         this.allProjectsView = u;
         this.allProjectsModel = new AllProjectsModelImpl();
     }
 
     @Override
-    public void visitProjects(Context context, int type,int page) {
-        sharedPreferences = context.getSharedPreferences("CIFIT",MODE_PRIVATE);
-        String url;
-        if (type == 0){
-            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+1+"&page="+page;
-        }else {
-            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage="+0+"&page="+page;
+    public void visitProjects(Context context, int type, int page) {
+        sharedPreferences = context.getSharedPreferences("CIFIT", MODE_PRIVATE);
+        String url = null;
+        if (type == 0) {
+            url = getUrl(type, context) + "?token=" + sharedPreferences.getString("token", "") + "&stage=" + 1 + "&page=" + page;
+        } else if (type == 1) {
+            url = getUrl(type, context) + "?token=" + sharedPreferences.getString("token", "") + "&stage=" + 0 + "&page=" + page;
+        } else if (type == 2) {
+            url = getUrl(type, context) + "?token=" + sharedPreferences.getString("token", "") + "&stage=" + 2 + "&page=" + page;
         }
-        Log.v("pppppppppppp",""+url);
+        Log.v("pppppppppppp", "" + url);
         allProjectsModel.visitProjects(context, type, url, this);
     }
 
@@ -53,7 +56,7 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
         allProjectsView.addProjectsFail(msg);
     }
 
-    private String getUrl(int type,Context context) {
+    private String getUrl(int type, Context context) {
         StringBuffer sburl = new StringBuffer();
         switch (type) {
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_DRAFTBOX:
@@ -61,6 +64,9 @@ public class AllProjectsPresenterImpl implements AllProjectsPresenter, OnAllProj
                 break;
             case AllAndCreatedPlanActivity.PROJECTS_TYPE_BUSSINESS:
                 sburl.append(Urls.HOST_PROJECT_BUSSINESSLIST);
+                break;
+            case 2:
+                sburl.append(Urls.HOST_PROJECT_BUSSINESSLIST);//已审核
                 break;
         }
         return sburl.toString();

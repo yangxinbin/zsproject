@@ -115,8 +115,8 @@
         <activity android:name=".personalcenter.show.kefu.WeActivity" />
         <activity android:name=".personalcenter.show.kefu.PhActivity" />
         <activity android:name=".personalcenter.show.kefu.QueActivity" />
-        <activity android:name=".personalcenter.show.shengbao.ShengBaoActivity" />
-        <activity android:name=".personalcenter.show.shengbao.ShenBaoDetailActivity" />
+        <activity android:name=".personalcenter.show.shenbao.ShenBaoActivity" />
+        <activity android:name=".personalcenter.show.shenbao.ShenBaoDetailActivity" />
         <activity android:name=".personalcenter.show.baoming.BaoMingActivity" />
         <activity android:name=".industrialpanorama.show.ZhaoShanDetailActivity" />
         <activity

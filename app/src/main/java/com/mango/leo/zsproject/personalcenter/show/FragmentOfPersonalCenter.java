@@ -23,7 +23,7 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.util.Project
 import com.mango.leo.zsproject.login.UserActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.personalcenter.show.baoming.BaoMingActivity;
-import com.mango.leo.zsproject.personalcenter.show.shengbao.ShengBaoActivity;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.ShenBaoActivity;
 import com.mango.leo.zsproject.personalcenter.show.userchange.MesActivity;
 import com.mango.leo.zsproject.utils.ACache;
 import com.mango.leo.zsproject.utils.Urls;
@@ -202,7 +202,7 @@ private HandlerUI handlerUI = new HandlerUI();
                 startActivity(intent);
                 break;
             case R.id.shengbao:
-                intent = new Intent(getActivity(), ShengBaoActivity.class);//
+                intent = new Intent(getActivity(), ShenBaoActivity.class);//
                 startActivity(intent);
                 break;
             case R.id.shouc:

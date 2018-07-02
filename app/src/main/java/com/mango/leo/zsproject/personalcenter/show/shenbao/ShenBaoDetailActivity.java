@@ -1,7 +1,6 @@
-package com.mango.leo.zsproject.personalcenter.show.shengbao;
+package com.mango.leo.zsproject.personalcenter.show.shenbao;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
