@@ -64,4 +64,9 @@ public class ShouCangActivity extends BaseActivity {
     public void onViewClicked() {
         finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

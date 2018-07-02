@@ -13,13 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
-import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.show.baoming.adapter.SingedUpEventAdapter;
 import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
@@ -28,6 +28,8 @@ import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,8 +158,11 @@ public class BaoMingActivity extends BaseActivity {
             if (mData.size() <= 0) {
                 return;
             }
-            Intent intent = new Intent(getBaseContext(), SingUpedDetailActivity.class);
+            Log.v("eeeeeeeeeee","e-----"+adapter.getItemCount());
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20));
+            Intent intent = new Intent(getApplicationContext(), SingUpedDetailActivity.class);
             startActivity(intent);
+            finish();
         }
 
     };
@@ -247,7 +252,7 @@ public class BaoMingActivity extends BaseActivity {
                     public void run() {
                         refreshBaoming.setRefreshing(false);
                         if (mData != null && mDataAll != null) {
-                            Log.v("mmmmmmm","1");
+                            Log.v("mmmmmmm", "1");
                             mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
                             mData.clear();
                         }
@@ -290,5 +295,19 @@ public class BaoMingActivity extends BaseActivity {
     public void noMoreMsg() {
         adapter.isShowFooter(false);
         AppUtils.showToast(this, getResources().getString(R.string.no_more_s));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -30,6 +30,7 @@ import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
+import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -97,9 +98,10 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     private EventBean.ResponseObjectBean.ContentBean bean1;
     private SharedPreferences sharedPreferences;
     private int tickNum;
-    private int price = 0;
+    private Double price = 0.0;
     private Dialog dialog;
     private MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean2;
+    private SingUpBean.ResponseObjectBean.ContentBean.EventBean bean3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +124,42 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void eventRegistrationEventBus(EventBean.ResponseObjectBean.ContentBean bean) {
+    public void eventRegistrationEventBus_for1(EventBean.ResponseObjectBean.ContentBean bean) {//活动列表来源
         bean1 = bean;
+        if (bean != null) {
+            if (bean.getPrice() == 0) {//免费
+                tickNum = 1;
+                signUp.setEnabled(true);//使能按钮
+                eventNofree.setVisibility(View.GONE);
+                howtoplay.setVisibility(View.GONE);
+                eventFree.setVisibility(View.VISIBLE);
+            } else {
+                //signUp.setEnabled(false);
+                eventFree.setVisibility(View.GONE);
+                eventNofree.setVisibility(View.VISIBLE);
+                howtoplay.setVisibility(View.VISIBLE);
+            }
+            Log.v("yxbb", bean.getPrice() + "__y___" + bean.getName());
+            textView_eN.setText(bean.getName());
+            if (bean.getLocation() != null) {
+                textViewWhere.setText(bean.getLocation().getCity() + bean.getLocation().getDistrict() + bean.getLocation().getAddress());
+            }
+            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern) + "至" + DateUtil.getDateToString(bean.getEndTime(), pattern));
+            textViewZhubannf.setText(bean.getOrganizer());
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < bean.getCoorganizers().size(); i++) {
+                stringBuffer.append(bean.getCoorganizers().get(i) + " ");
+            }
+            textViewXiuban.setText(stringBuffer);
+            price = bean.getPrice();
+            tvSignle.setText(String.valueOf(price) + "元");
+            tvAll.setText(String.valueOf(price) + "元");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void eventRegistrationEventBus_for2(MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean) {//收藏列表值
+        bean2 = bean;
         if (bean != null) {
             if (bean.getPrice() == 0) {//免费
                 tickNum = 1;
@@ -154,8 +190,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void eventRegistrationEventBus(MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean) {//收藏列表值
-        bean2 = bean;
+    public void eventRegistrationEventBus_for3(SingUpBean.ResponseObjectBean.ContentBean.EventBean bean) {//已报名列表值
+        bean3 = bean;
         if (bean != null) {
             if (bean.getPrice() == 0) {//免费
                 tickNum = 1;
@@ -228,24 +264,25 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         mapParams.clear();
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
         if (bean1 != null) {
-            Log.v("llll", "--1");
-            mapParams.put("eventId",  bean1.getId());
-        }else {
-            Log.v("llll", "--2");
-            mapParams.put("eventId",  bean2.getId());
+            mapParams.put("eventId", bean1.getId());
+        } else if (bean2 != null){
+            mapParams.put("eventId", bean2.getId());
+        }else if (bean3 != null){
+            mapParams.put("eventId", bean3.getId());
         }
-       // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
+        // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
         mapParams.put("status", "");
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
-        mapParams.put("username", editText1.getText().toString());
+        mapParams.put("name", editText1.getText().toString());
         mapParams.put("mobile", editText2.getText().toString());
         mapParams.put("phone", editText2.getText().toString());
         mapParams.put("position", editText3.getText().toString());
         mapParams.put("department", editText4.getText().toString());
         mapParams.put("email", editText5.getText().toString());
         mapParams.put("feePaid", "0");
+        mapParams.put("email", editText5.getText().toString());
         mapParams.put("token", sharedPreferences.getString("token", ""));
-
+        mapParams.put("numberOfTickets", "1");
         HttpUtils.doPost(Urls.HOST_BUYEVENT, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -343,8 +380,12 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                         Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
                         if (bean1 != null) {//这个id一样
                             intent.putExtra("id", bean1.getId());
-                        } else {
+                        }
+                        else if (bean2 != null) {
                             intent.putExtra("id", bean2.getId());
+                        }
+                        else if (bean3 != null) {
+                            intent.putExtra("id", bean3.getId());
                         }
                         startActivity(intent);
                         finish();

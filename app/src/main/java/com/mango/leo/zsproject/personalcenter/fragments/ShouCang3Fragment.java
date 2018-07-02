@@ -222,7 +222,7 @@ public class ShouCang3Fragment extends Fragment {
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position%20).getEntity());
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20).getEntity());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getId());
             startActivity(intent);

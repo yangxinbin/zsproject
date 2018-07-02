@@ -82,4 +82,9 @@ public class KefuActivity extends BaseActivity {
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:text="fsdfsdfs"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/title"
                         android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:gravity="right"
-                        app:srcCompat="@drawable/addplan" />
+                        app:srcCompat="@drawable/ri" />
                 </LinearLayout>
 
                 <ImageView
@@ -215,7 +215,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/event_nofree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -241,7 +240,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="40dp"
                     android:layout_marginTop="8dp">
 
                     <RelativeLayout
@@ -282,7 +280,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginBottom="20dp"
                             android:textColor="@color/red"
-                            android:textSize="@dimen/textSize"
+                            android:textSize="@dimen/title"
                             android:layout_marginEnd="40dp"
                             android:layout_marginRight="40dp"
                             android:text="1" />
@@ -396,6 +394,7 @@
                     android:layout_marginTop="15dp"
                     android:textSize="@dimen/textSize"
                     android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
                     android:text="职位：" />
 
                 <TextView
@@ -408,7 +407,92 @@
                     android:textSize="@dimen/textSize"
                     android:text="" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="票务信息"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title" />
+
+                <ImageView
+                    android:id="@+id/imageView100"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView24"
+                    android:layout_margin="10dp"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/imageView100"
+                    android:layout_alignStart="@+id/imageView100"
+                    android:layout_below="@+id/imageView100"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize"
+                    android:text="订单号：" />
+
+                <TextView
+                    android:id="@+id/t_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView63"
+                    android:layout_toEndOf="@+id/textView63"
+                    android:layout_toRightOf="@+id/textView63"
+                    android:textSize="@dimen/textSize"
+                    android:layout_marginLeft="20dp"
+                    android:text="fwef" />
+
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView63"
+                    android:layout_alignStart="@+id/textView63"
+                    android:layout_below="@+id/textView63"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/textSize"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:text="报名时间：" />
+
+                <TextView
+                    android:id="@+id/t_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView82"
+                    android:layout_alignBottom="@+id/textView82"
+                    android:layout_alignLeft="@+id/t_num"
+                    android:layout_alignStart="@+id/t_num"
+                    android:text="fewf"
+                    android:textSize="@dimen/textSize" />
+
+                <TextView
+                    android:id="@+id/t_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/t_num"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ly"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="复制" />
+            </RelativeLayout>
             <Button
                 android:id="@+id/sign_up"
                 android:layout_width="match_parent"

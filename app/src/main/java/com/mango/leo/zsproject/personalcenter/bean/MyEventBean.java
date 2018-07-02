@@ -344,7 +344,7 @@ public class MyEventBean {
                 private String id;
                 private String name;
                 private LocationBean location;
-                private int price;
+                private Double price;
                 private long startTime;
                 private long endTime;
                 private boolean popular;
@@ -383,11 +383,11 @@ public class MyEventBean {
                     this.location = location;
                 }
 
-                public int getPrice() {
+                public Double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(Double price) {
                     this.price = price;
                 }
 

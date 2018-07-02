@@ -9,7 +9,7 @@ import java.util.List;
 public class SingUpBean {
 
     /**
-     * responseObject : {"content":[{"id":"5b374a87b0aeba14407e146a","event":{"id":"5b29d27df8aa4119909b38b9","name":"jetc","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null},"price":0,"startTime":1529467440000,"endTime":1535092200000,"popular":false,"organizer":"科苑路东方科技大厦","banner":{"id":"5b29d265f8aa4119909b38b7","alias":"1527564707525.png","fileName":"15294674932316664.png","contentType":"image/png","size":12947,"createdOn":1529467493231},"coorganizers":["jrtc"],"industries":[{"id":"5b1f31c881c6d52b14c953c4","name":"饲料批发","parent":"批发和零售业","level":"two"},{"id":"5b1f31c881c6d52b14c953c5","name":"棉、麻批发","parent":"批发和零售业","level":"two"}],"detail":"","createdBy":"5b1cff92c119361dec0fa533","createdOn":null,"published":null,"tenant":"@super","favorite":false},"contact":{"id":null,"name":null,"department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"},"feePaid":0,"paymentMethod":null,"paymentOn":1530350215588,"purchasedBy":"5b2265c81233c546a8bead0e","wechatOpenId":null,"status":1,"numberOfTickets":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true},"last":true,"totalPages":1,"totalElements":6,"size":20,"number":0,"sort":{"sorted":false,"unsorted":true},"numberOfElements":6,"first":true}
+     * responseObject : {"content":[{"id":"5b374a87b0aeba14407e146a","event":{"id":"5b29d27df8aa4119909b38b9","name":"jetc","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null},"price":0,"startTime":1529467440000,"endTime":1535092200000,"popular":false,"organizer":"科苑路东方科技大厦","banner":{"id":"5b29d265f8aa4119909b38b7","alias":"1527564707525.png","fileName":"15294674932316664.png","contentType":"image/png","size":12947,"createdOn":1529467493231},"coorganizers":["jrtc"],"industries":[{"id":"5b1f31c881c6d52b14c953c4","name":"饲料批发","parent":"批发和零售业","level":"two"},{"id":"5b1f31c881c6d52b14c953c5","name":"棉、麻批发","parent":"批发和零售业","level":"two"}],"detail":"","createdBy":"5b1cff92c119361dec0fa533","createdOn":null,"published":null,"tenant":"@super","favorite":false},"contact":{"id":null,"name":"yy","department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"},"feePaid":0,"paymentMethod":null,"paymentOn":1530350215588,"purchasedBy":"5b2265c81233c546a8bead0e","wechatOpenId":null,"status":1,"numberOfTickets":1}],"pageable":{"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true},"last":true,"totalPages":1,"totalElements":6,"size":20,"number":0,"sort":{"sorted":false,"unsorted":true},"numberOfElements":6,"first":true}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,7 +64,7 @@ public class SingUpBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5b374a87b0aeba14407e146a","event":{"id":"5b29d27df8aa4119909b38b9","name":"jetc","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null},"price":0,"startTime":1529467440000,"endTime":1535092200000,"popular":false,"organizer":"科苑路东方科技大厦","banner":{"id":"5b29d265f8aa4119909b38b7","alias":"1527564707525.png","fileName":"15294674932316664.png","contentType":"image/png","size":12947,"createdOn":1529467493231},"coorganizers":["jrtc"],"industries":[{"id":"5b1f31c881c6d52b14c953c4","name":"饲料批发","parent":"批发和零售业","level":"two"},{"id":"5b1f31c881c6d52b14c953c5","name":"棉、麻批发","parent":"批发和零售业","level":"two"}],"detail":"","createdBy":"5b1cff92c119361dec0fa533","createdOn":null,"published":null,"tenant":"@super","favorite":false},"contact":{"id":null,"name":null,"department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"},"feePaid":0,"paymentMethod":null,"paymentOn":1530350215588,"purchasedBy":"5b2265c81233c546a8bead0e","wechatOpenId":null,"status":1,"numberOfTickets":null}]
+         * content : [{"id":"5b374a87b0aeba14407e146a","event":{"id":"5b29d27df8aa4119909b38b9","name":"jetc","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null},"price":0,"startTime":1529467440000,"endTime":1535092200000,"popular":false,"organizer":"科苑路东方科技大厦","banner":{"id":"5b29d265f8aa4119909b38b7","alias":"1527564707525.png","fileName":"15294674932316664.png","contentType":"image/png","size":12947,"createdOn":1529467493231},"coorganizers":["jrtc"],"industries":[{"id":"5b1f31c881c6d52b14c953c4","name":"饲料批发","parent":"批发和零售业","level":"two"},{"id":"5b1f31c881c6d52b14c953c5","name":"棉、麻批发","parent":"批发和零售业","level":"two"}],"detail":"","createdBy":"5b1cff92c119361dec0fa533","createdOn":null,"published":null,"tenant":"@super","favorite":false},"contact":{"id":null,"name":"yy","department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"},"feePaid":0,"paymentMethod":null,"paymentOn":1530350215588,"purchasedBy":"5b2265c81233c546a8bead0e","wechatOpenId":null,"status":1,"numberOfTickets":1}]
          * pageable : {"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true}
          * last : true
          * totalPages : 1
@@ -289,14 +289,14 @@ public class SingUpBean {
             /**
              * id : 5b374a87b0aeba14407e146a
              * event : {"id":"5b29d27df8aa4119909b38b9","name":"jetc","location":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null},"price":0,"startTime":1529467440000,"endTime":1535092200000,"popular":false,"organizer":"科苑路东方科技大厦","banner":{"id":"5b29d265f8aa4119909b38b7","alias":"1527564707525.png","fileName":"15294674932316664.png","contentType":"image/png","size":12947,"createdOn":1529467493231},"coorganizers":["jrtc"],"industries":[{"id":"5b1f31c881c6d52b14c953c4","name":"饲料批发","parent":"批发和零售业","level":"two"},{"id":"5b1f31c881c6d52b14c953c5","name":"棉、麻批发","parent":"批发和零售业","level":"two"}],"detail":"","createdBy":"5b1cff92c119361dec0fa533","createdOn":null,"published":null,"tenant":"@super","favorite":false}
-             * contact : {"id":null,"name":null,"department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"}
+             * contact : {"id":null,"name":"yy","department":"yy","position":"y","mobile":"18318836309","phone":"18318836309","email":"yy"}
              * feePaid : 0
              * paymentMethod : null
              * paymentOn : 1530350215588
              * purchasedBy : 5b2265c81233c546a8bead0e
              * wechatOpenId : null
              * status : 1
-             * numberOfTickets : null
+             * numberOfTickets : 1
              */
 
             private String id;
@@ -308,7 +308,7 @@ public class SingUpBean {
             private String purchasedBy;
             private Object wechatOpenId;
             private int status;
-            private Object numberOfTickets;
+            private int numberOfTickets;
 
             public String getId() {
                 return id;
@@ -382,11 +382,11 @@ public class SingUpBean {
                 this.status = status;
             }
 
-            public Object getNumberOfTickets() {
+            public int getNumberOfTickets() {
                 return numberOfTickets;
             }
 
-            public void setNumberOfTickets(Object numberOfTickets) {
+            public void setNumberOfTickets(int numberOfTickets) {
                 this.numberOfTickets = numberOfTickets;
             }
 
@@ -395,7 +395,7 @@ public class SingUpBean {
                  * id : 5b29d27df8aa4119909b38b9
                  * name : jetc
                  * location : {"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":"","lon":null,"lat":null}
-                 * price : 0
+                 * price : 0.0
                  * startTime : 1529467440000
                  * endTime : 1535092200000
                  * popular : false
@@ -414,7 +414,7 @@ public class SingUpBean {
                 private String id;
                 private String name;
                 private LocationBean location;
-                private int price;
+                private double price;
                 private long startTime;
                 private long endTime;
                 private boolean popular;
@@ -453,11 +453,11 @@ public class SingUpBean {
                     this.location = location;
                 }
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
 
@@ -757,7 +757,7 @@ public class SingUpBean {
             public static class ContactBean {
                 /**
                  * id : null
-                 * name : null
+                 * name : yy
                  * department : yy
                  * position : y
                  * mobile : 18318836309
@@ -766,7 +766,7 @@ public class SingUpBean {
                  */
 
                 private Object id;
-                private Object name;
+                private String name;
                 private String department;
                 private String position;
                 private String mobile;
@@ -781,11 +781,11 @@ public class SingUpBean {
                     this.id = id;
                 }
 
-                public Object getName() {
+                public String getName() {
                     return name;
                 }
 
-                public void setName(Object name) {
+                public void setName(String name) {
                     this.name = name;
                 }
 
