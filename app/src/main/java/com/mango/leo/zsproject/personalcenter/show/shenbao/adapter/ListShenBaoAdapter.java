@@ -43,10 +43,9 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
-/*    public ListShenBaoAdapter(Context applicationContext, int mType ) {
-        this.context = applicationContext;
-        this.type = mType;
-    }*/
+    public ListShenBaoAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setmDate(List<AllProjectsBean> data) {
         this.mData = data;
@@ -89,10 +88,6 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.notifyItemRemoved(position);
         }
         this.notifyDataSetChanged();
-    }
-
-    public ListShenBaoAdapter(Context context) {
-        this.context = context;
     }
 
     @Override
