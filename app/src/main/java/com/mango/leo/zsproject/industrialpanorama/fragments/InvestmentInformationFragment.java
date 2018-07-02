@@ -263,6 +263,7 @@ public class InvestmentInformationFragment extends Fragment {
                 @Override
                 public void run() {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                    return;
                 }
             });
         }
