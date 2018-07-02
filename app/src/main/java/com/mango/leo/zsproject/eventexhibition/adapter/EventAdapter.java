@@ -149,6 +149,11 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }else {
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
+                    if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEndTime() < System.currentTimeMillis()){
+                        ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
+                        ((ItemViewHolder) holder).tv_state.setText("已过期");
+                        ((ItemViewHolder) holder).tv_state.setTextColor(context.getResources().getColor(R.color.gray_b));
+                    }
                 }
             }
         } else {
