@@ -91,7 +91,7 @@ public class EventDetailActivity extends BaseActivity {
                     loading.setVisibility(View.VISIBLE);
                     textView23.setVisibility(View.VISIBLE);
                     signUp.setVisibility(View.GONE);
-                    loading.setProgress(newProgress);
+                    //loading.setProgress(newProgress);
                 }
                 super.onProgressChanged(view, newProgress);
             }

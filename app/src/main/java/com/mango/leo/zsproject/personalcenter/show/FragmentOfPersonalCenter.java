@@ -130,7 +130,6 @@ private HandlerUI handlerUI = new HandlerUI();
         if (bean == null){
             return;
         }
-        Log.v("ppppppp",  "__rrrr__"+bean);
         bean1 = bean;
         //身份
         textViewGov.setText(bean.getResponseObject().getDepartment());
@@ -143,7 +142,6 @@ private HandlerUI handlerUI = new HandlerUI();
             textViewUserName.setText(bean.getResponseObject().getUsername());
             textViewUserNameNomes.setText(bean.getResponseObject().getUsername());
         } else {
-            Log.v("uuuuu", "_pp_rrrr__");
             textViewUserName.setText(bean.getResponseObject().getName());
         }
         if (bean.getResponseObject().getTenant() != null) {//认证
@@ -191,7 +189,7 @@ private HandlerUI handlerUI = new HandlerUI();
         Intent intent;
         switch (view.getId()) {
             case R.id.image_msg5:
-                intent = new Intent(getActivity(), MesActivity.class);//商务厅介绍
+                intent = new Intent(getActivity(), MesActivity.class);//信息中心
                 startActivity(intent);
                 break;
             case R.id.constraintLayouthead1:
@@ -200,6 +198,7 @@ private HandlerUI handlerUI = new HandlerUI();
                 break;
             case R.id.constraintLayouthead2:
                 intent = new Intent(getActivity(), GovActivity.class);//商务厅介绍
+                intent.putExtra("name",bean1.getResponseObject().getDepartment());
                 startActivity(intent);
                 break;
             case R.id.shengbao:
