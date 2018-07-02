@@ -45,6 +45,7 @@ public class GovActivity extends BaseActivity {
         if (!stringName.equals("")){
             tGovName.setText(stringName);
         }else {
+            stringName = getResources().getString(R.string.investor);
             tGovName.setText(R.string.investor);
         }
         initWeb();
