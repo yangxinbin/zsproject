@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.datacenter.show;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.datacenter.fragments.InvestorFragment;
 import com.mango.leo.zsproject.datacenter.fragments.ProjectFragment;
+import com.mango.leo.zsproject.login.PhoneLoginActivity;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
 
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class FragmentOfDateCenter extends Fragment {
 
     @OnClick(R.id.image_search)
     public void onViewClicked() {
-
+        Intent intent = new Intent(getActivity(), SearchDataActivity.class);
+        startActivity(intent);
     }
 }
