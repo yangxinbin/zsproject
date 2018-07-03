@@ -1,10 +1,12 @@
 package com.mango.leo.zsproject.datacenter.show;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.datacenter.fragments.InvestorFragment;
 import com.mango.leo.zsproject.datacenter.fragments.InvestorWithoutSelectFragment;
 import com.mango.leo.zsproject.datacenter.fragments.ProjectFragment;
@@ -27,7 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchDataActivity extends AppCompatActivity {
+public class SearchDataActivity extends BaseActivity {
 
     @Bind(R.id.diary_et_search)
     EditText diaryEtSearch;
@@ -82,5 +85,12 @@ public class SearchDataActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
