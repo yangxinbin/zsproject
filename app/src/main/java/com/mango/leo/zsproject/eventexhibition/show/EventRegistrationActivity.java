@@ -102,6 +102,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     private Dialog dialog;
     private MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean2;
     private SingUpBean.ResponseObjectBean.ContentBean.EventBean bean3;
+    private int payType = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     public void eventRegistrationEventBus_for1(EventBean.ResponseObjectBean.ContentBean bean) {//活动列表来源
         bean1 = bean;
         if (bean != null) {
-            if (bean.getPrice() == 0) {//免费
+            price = bean.getPrice();
+            if (String.valueOf(price).startsWith("0.0") || String.valueOf(price).startsWith("0")) {//免费
                 tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
@@ -151,7 +153,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 stringBuffer.append(bean.getCoorganizers().get(i) + " ");
             }
             textViewXiuban.setText(stringBuffer);
-            price = bean.getPrice();
             tvSignle.setText(String.valueOf(price) + "元");
             tvAll.setText(String.valueOf(price) + "元");
         }
@@ -161,7 +162,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     public void eventRegistrationEventBus_for2(MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean) {//收藏列表值
         bean2 = bean;
         if (bean != null) {
-            if (bean.getPrice() == 0) {//免费
+            price = bean.getPrice();
+            if (String.valueOf(price).startsWith("0.0") || String.valueOf(price).startsWith("0")) {//免费
                 tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
@@ -183,7 +185,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 stringBuffer.append(bean.getCoorganizers().get(i) + " ");
             }
             textViewXiuban.setText(stringBuffer);
-            price = bean.getPrice();
             tvSignle.setText(String.valueOf(price) + "元");
             tvAll.setText(String.valueOf(price) + "元");
         }
@@ -193,7 +194,8 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     public void eventRegistrationEventBus_for3(SingUpBean.ResponseObjectBean.ContentBean.EventBean bean) {//已报名列表值
         bean3 = bean;
         if (bean != null) {
-            if (bean.getPrice() == 0) {//免费
+            price = bean.getPrice();
+            if (String.valueOf(price).startsWith("0.0") || String.valueOf(price).startsWith("0")) {//免费
                 tickNum = 1;
                 signUp.setEnabled(true);//使能按钮
                 eventNofree.setVisibility(View.GONE);
@@ -215,7 +217,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 stringBuffer.append(bean.getCoorganizers().get(i) + " ");
             }
             textViewXiuban.setText(stringBuffer);
-            price = bean.getPrice();
             tvSignle.setText(String.valueOf(price) + "元");
             tvAll.setText(String.valueOf(price) + "元");
         }
@@ -232,7 +233,13 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 break;
             case R.id.sign_up:
                 if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString()) && !TextUtils.isEmpty(editText4.getText().toString()) && !TextUtils.isEmpty(editText5.getText().toString())) {
-                    registration();//报名
+                    if (payType == 1) {
+
+                    } else if (payType == 0) {
+
+                    } else if (payType == -1) {
+                        registration();//报名
+                    }
                 } else {
                     AppUtils.showSnackar(signUp, "报名信息不能为空！");
                 }
@@ -265,9 +272,9 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
         if (bean1 != null) {
             mapParams.put("eventId", bean1.getId());
-        } else if (bean2 != null){
+        } else if (bean2 != null) {
             mapParams.put("eventId", bean2.getId());
-        }else if (bean3 != null){
+        } else if (bean3 != null) {
             mapParams.put("eventId", bean3.getId());
         }
         // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
@@ -321,10 +328,12 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         switch (view.getId()) {
             case R.id.wechat_pay:
                 textViewPay.setText("微信支付");
+                payType = 1;
                 dialog.dismiss();
                 break;
             case R.id.alipay_pay:
                 textViewPay.setText("支付宝支付");
+                payType = 0;
                 dialog.dismiss();
                 break;
         }
@@ -380,11 +389,9 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                         Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
                         if (bean1 != null) {//这个id一样
                             intent.putExtra("id", bean1.getId());
-                        }
-                        else if (bean2 != null) {
+                        } else if (bean2 != null) {
                             intent.putExtra("id", bean2.getId());
-                        }
-                        else if (bean3 != null) {
+                        } else if (bean3 != null) {
                             intent.putExtra("id", bean3.getId());
                         }
                         startActivity(intent);
