@@ -48,6 +48,7 @@ public class Urls {
     public static final String HOST_RETRIEVE = HOST + RETRIEVE;
     public static final String HOST_FAVOURITE_LIST = HOST + FAVOURITE_LIST;
     public static final String HOST_BUYEVENT = HOST + BUYEVENT;
+    public static final String HOST_BUYEVENTPAY = HOST + BUYEVENTPAY;
     public static final String HOST_PROJECT_BUSSINESSLIST = HOST + PROJECT + BUSSINESSLIST;
     public static final String HOST_CITY = HOST + CITY;
     public static final String HOST_CITY_MES = HOST + CITY_MES;

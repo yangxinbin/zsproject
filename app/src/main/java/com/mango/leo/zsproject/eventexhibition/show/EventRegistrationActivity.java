@@ -23,10 +23,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.WechatPayBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
@@ -35,6 +37,9 @@ import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -97,18 +102,21 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     String pattern = "yyyy-MM-dd HH:mm:ss";
     private EventBean.ResponseObjectBean.ContentBean bean1;
     private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
     private int tickNum;
     private Double price = 0.0;
     private Dialog dialog;
     private MyEventBean.ResponseObjectBean.ContentBean.EntityBean bean2;
     private SingUpBean.ResponseObjectBean.ContentBean.EventBean bean3;
     private int payType = -1;
+    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_registration);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         initAmountView();
@@ -233,11 +241,15 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                 break;
             case R.id.sign_up:
                 if (!TextUtils.isEmpty(editText1.getText().toString()) && !TextUtils.isEmpty(editText2.getText().toString()) && !TextUtils.isEmpty(editText3.getText().toString()) && !TextUtils.isEmpty(editText4.getText().toString()) && !TextUtils.isEmpty(editText5.getText().toString())) {
-                    if (payType == 1) {
+                    if (!String.valueOf(price).startsWith("0.0") || !String.valueOf(price).startsWith("0")) {
+                        if (payType == 1) {//微信支付
+                            registrationWechatPay();
+                        } else if (payType == 0) {//支付宝支付
 
-                    } else if (payType == 0) {
-
-                    } else if (payType == -1) {
+                        } else {
+                            AppUtils.showSnackar(signUp, "请选择支付方式！");
+                        }
+                    } else {
                         registration();//报名
                     }
                 } else {
@@ -266,16 +278,79 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         dialog.show();
     }
 
+    private void registrationWechatPay() {
+        final HashMap<String, String> mapParams = new HashMap<String, String>();
+        mapParams.clear();
+        mapParams.put("token", sharedPreferences.getString("token", ""));
+        if (bean1 != null) {
+            mapParams.put("eventId", bean1.getId());
+            editor.putString("eventId", bean1.getId())
+                    .commit();
+        } else if (bean2 != null) {
+            mapParams.put("eventId", bean2.getId());
+            editor.putString("eventId", bean2.getId())
+                    .commit();
+        } else if (bean3 != null) {
+            mapParams.put("eventId", bean3.getId());
+            editor.putString("eventId", bean3.getId())
+                    .commit();
+        }
+        mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
+        mapParams.put("name", editText1.getText().toString());
+        mapParams.put("mobile", editText2.getText().toString());
+        mapParams.put("phone", editText2.getText().toString());
+        mapParams.put("position", editText3.getText().toString());
+        mapParams.put("department", editText4.getText().toString());
+        mapParams.put("email", editText5.getText().toString());
+        mapParams.put("numberOfTickets", String.valueOf(tickNum));
+        mapParams.put("feePaid", String.valueOf(price * tickNum));
+        mapParams.put("isApp", "true");
+        HttpUtils.doPost(Urls.HOST_BUYEVENTPAY, mapParams, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.v("doPostAll", "^^^^^onFailure^^^^^");
+                mHandler.sendEmptyMessage(2);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (String.valueOf(response.code()).startsWith("2")) {
+                    //Log.v("wwwwwww", "" + response.body().string());
+                    WechatPayBean wechatPayBean = ProjectsJsonUtils.readJsonWechatPayBean(response.body().string());//data是json字段获得data的值即对象数组
+                    Message message = mHandler.obtainMessage();
+                    message.obj = wechatPayBean;
+                    message.what = 3;
+                    message.sendToTarget();
+                } else {
+                    Log.v("doPostAll", "^^else^^^onFailure^^^^^" + response.code());
+                    ErrorBean singedEventBean = ProjectsJsonUtils.readJsonErrorBean(response.body().string());//data是json字段获得data的值即对象数组
+                    Message message = mHandler.obtainMessage();
+                    message.obj = singedEventBean;
+                    message.what = 2;
+                    message.sendToTarget();
+                    //mHandler.sendEmptyMessage(0);
+                }
+            }
+        });
+    }
+
+
     private void registration() {
         final HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.clear();
         //String eventStr = gs.toJson(bean1.getResponseObject().getContent().get(position));
         if (bean1 != null) {
             mapParams.put("eventId", bean1.getId());
+            editor.putString("eventId", bean1.getId())
+                    .commit();
         } else if (bean2 != null) {
             mapParams.put("eventId", bean2.getId());
+            editor.putString("eventId", bean2.getId())
+                    .commit();
         } else if (bean3 != null) {
             mapParams.put("eventId", bean3.getId());
+            editor.putString("eventId", bean3.getId())
+                    .commit();
         }
         // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
         mapParams.put("status", "");
@@ -287,7 +362,6 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         mapParams.put("department", editText4.getText().toString());
         mapParams.put("email", editText5.getText().toString());
         mapParams.put("feePaid", "0");
-        mapParams.put("email", editText5.getText().toString());
         mapParams.put("token", sharedPreferences.getString("token", ""));
         mapParams.put("numberOfTickets", "1");
         HttpUtils.doPost(Urls.HOST_BUYEVENT, mapParams, new Callback() {
@@ -350,10 +424,11 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             EventRegistrationActivity activity = mActivity.get();
+            ErrorBean singedEventBean;
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        ErrorBean singedEventBean = (ErrorBean) msg.obj;
+                        singedEventBean = (ErrorBean) msg.obj;
                         AppUtils.showToast(activity, singedEventBean.getMessage());
                         break;
                     case 1:
@@ -361,13 +436,40 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                         showSuccess(activity);
                         break;
                     case 2:
-                        //AppUtils.showToast(activity, "令牌保存成功");
+                        singedEventBean = (ErrorBean) msg.obj;
+                        AppUtils.showToast(activity, singedEventBean.getMessage());
+                        break;
+                    case 3:
+                        WechatPayBean wechatPayBean = (WechatPayBean) msg.obj;
+                        Log.v("wwwwwwwwwww",""+wechatPayBean.getResponseObject().toString());
+                        wechatPay(wechatPayBean);
                         break;
                     default:
                         break;
                 }
             }
         }
+    }
+
+    private void wechatPay(WechatPayBean wechatPayBean) {
+        api = WXAPIFactory.createWXAPI(this, "wxdb0ddd21496fccc3");
+        if (wechatPayBean == null || wechatPayBean.getResponseObject() == null) {
+            AppUtils.showToast(this, "服务器请求错误");
+            return;
+        }
+        PayReq req = new PayReq();
+        //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
+        req.appId			= wechatPayBean.getResponseObject().getAppid();//json.getString("appid");
+        req.partnerId		= wechatPayBean.getResponseObject().getPartnerid();//json.getString("partnerid");
+        req.prepayId		= wechatPayBean.getResponseObject().getPrepayid();//json.getString("prepayid");
+        req.nonceStr		= wechatPayBean.getResponseObject().getNoncestr();//json.getString("noncestr");
+        req.timeStamp		= wechatPayBean.getResponseObject().getTimestamp();//json.getString("timestamp");
+        req.packageValue	= wechatPayBean.getResponseObject().getPackageX();//json.getString("package");
+        req.sign			= wechatPayBean.getResponseObject().getSign();//json.getString("sign");
+        req.extData			= "app data"; // optional
+        AppUtils.showToast(this, "正在支付中...");
+        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+        api.sendReq(req);
     }
 
     private void showSuccess(Activity activity) {
@@ -387,13 +489,14 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                     public void onClick(DialogInterface dialog, int which) {
                         //EventBus.getDefault().postSticky(bean1);
                         Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
-                        if (bean1 != null) {//这个id一样
+/*                        if (bean1 != null) {//这个id一样
                             intent.putExtra("id", bean1.getId());
                         } else if (bean2 != null) {
                             intent.putExtra("id", bean2.getId());
                         } else if (bean3 != null) {
                             intent.putExtra("id", bean3.getId());
-                        }
+                        }*/
+                        intent.putExtra("id", sharedPreferences.getString("eventId", ""));
                         startActivity(intent);
                         finish();
                         dialog.dismiss();

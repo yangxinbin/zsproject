@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.WechatPayBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
@@ -194,5 +195,10 @@ public class ProjectsJsonUtils {
         } catch (Exception e) {
         }
         return beans;
+    }
+    public static WechatPayBean readJsonWechatPayBean(String res) {
+        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        WechatPayBean bean = JsonUtils.deserialize(jsonObject, WechatPayBean.class);
+        return bean;
     }
 }

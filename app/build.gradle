@@ -83,5 +83,6 @@ dependencies {
     compile 'id.zelory:compressor:2.0.0'
     compile 'liji.library.dev:citypickerview:3.1.7'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     testCompile 'junit:junit:4.12'
 }
