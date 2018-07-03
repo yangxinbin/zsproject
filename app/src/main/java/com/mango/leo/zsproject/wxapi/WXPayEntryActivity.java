@@ -61,12 +61,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     .setTitle("报名成功")//设置对话框的标题
                     .setMessage("恭喜您报名成功！")//设置对话框的内容
                     //设置对话框的按钮
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+/*                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                    })
+                    })*/
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
