@@ -15,9 +15,12 @@ import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
+import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.Urls;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -122,8 +125,7 @@ public class ChangePhoneActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (String.valueOf(response.code()).startsWith("2")){
                     mHandler.sendEmptyMessage(3);
-                    Log.v("changePhone","___");
-
+                    EventBus.getDefault().postSticky(ProjectsJsonUtils.readJsonUserMessageBeans(response.body().string()));
                 }else {
                     Log.v("changePhone",response.body().string()+"___");
                     mHandler.sendEmptyMessage(2);
