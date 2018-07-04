@@ -60,7 +60,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.xiangmu, container, false);
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
         ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+       // EventBus.getDefault().register(this);
         initSwipeRefreshLayout();
         initRecycle();
         initHeader();

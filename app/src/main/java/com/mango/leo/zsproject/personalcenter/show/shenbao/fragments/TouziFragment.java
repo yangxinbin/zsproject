@@ -190,6 +190,9 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         if (mDataAll != null) {
             mDataAll.clear();
         }
+        if (mData != null) {
+            mData.clear();
+        }
         mDataAll.addAll(shengBaoBeans);
         if (page == 0) {
             for (int i = 0; i < mDataAll.size(); i++) {//

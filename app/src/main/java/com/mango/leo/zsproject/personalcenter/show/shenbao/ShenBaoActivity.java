@@ -317,8 +317,9 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
     @Override
     public void onClick(View view) {//选择全部
         textViewProject.setText("全部");
-        idBean.setProjectId("");
-        EventBus.getDefault().postSticky(idBean);
+        IdBean idBeanAll = new IdBean();
+        idBeanAll.setProjectId("");
+        EventBus.getDefault().postSticky(idBeanAll);
         dialog.dismiss();
     }
 }
