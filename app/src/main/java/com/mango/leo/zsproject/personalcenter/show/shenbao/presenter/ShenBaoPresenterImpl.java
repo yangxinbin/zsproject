@@ -33,9 +33,9 @@ public class ShenBaoPresenterImpl implements ShenBaoPresenter, OnShenBaoListener
         sharedPreferences = context.getSharedPreferences("CIFIT",MODE_PRIVATE);
         String url;
         if (type == 0){
-            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage=investor"+"&projectId="+projectId+"&page="+page;
+            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&type=investor"+"&projectId="+projectId+"&page="+page;
         }else {
-            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&stage=venture"+"&projectId="+projectId+"&page="+page;
+            url = getUrl(type,context)+"?token="+sharedPreferences.getString("token", "")+"&type=venture"+"&projectId="+projectId+"&page="+page;
         }
         Log.v("pppppppppppp",""+url);
         allProjectsModel.visitProjects(context, type, url, this);

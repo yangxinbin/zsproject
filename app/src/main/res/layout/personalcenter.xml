@@ -147,7 +147,6 @@
                             android:id="@+id/imageVie_pic"
                             android:layout_width="65dp"
                             android:layout_height="65dp"
-                            android:src="@drawable/aboutauthor"
                             card_view:layout_constraintStart_toStartOf="parent"
                             card_view:layout_constraintTop_toTopOf="parent"
                             tools:layout_editor_absoluteX="13dp" />

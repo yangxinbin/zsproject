@@ -58,11 +58,11 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
-        LoadShengbao("");
+        LoadShengbao("",0);
         return view;
     }
 
-    private void LoadShengbao(String projectId) {
+    private void LoadShengbao(String projectId,int page) {
         shenBaoPresenter.visitProjects(getActivity(), type,projectId, page);
     }
 
