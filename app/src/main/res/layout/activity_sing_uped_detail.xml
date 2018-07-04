@@ -58,7 +58,7 @@
                     android:id="@+id/l_N"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -68,8 +68,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:lines="2"
-                        android:text=""
+                        android:lines="1"
+                        android:text="fwefwefwe"
                         android:textColor="@color/black"
                         android:textSize="@dimen/title"
                         android:textStyle="bold" />
