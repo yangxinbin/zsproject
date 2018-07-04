@@ -49,7 +49,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="47dp"
         android:ems="10"
-        android:hint="请输入手机号吗"
+        android:hint="请输入手机号码"
         android:inputType="phone" />
     <ImageView
         android:layout_margin="8dp"
