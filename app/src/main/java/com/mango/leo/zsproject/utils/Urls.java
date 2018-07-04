@@ -31,6 +31,9 @@ public class Urls {
     public static final String CITY = "/business-service/project/city/tour";
     public static final String CITY_MES = "/business-service/project/list";
     public static final String PUBLISH = "/business-service/project/publish";
+    public static final String INVESTOR_FILTER = "/business-service/project/list/investor/filter";
+    public static final String PROJECT_FILTER = "/business-service/project/list/project/filter";
+
 
     public static final String HOST_AUTH = HOST + AUTH;
     public static final String HOST_REGIST = HOST + REGIST;// 1.拿到手机号 2.设置密码
@@ -55,6 +58,9 @@ public class Urls {
     public static final String HOST_PUBLISH = HOST + PUBLISH;
     public static final String HOST_BAOMING_LIST = HOST + BAOMING_LIST;
     public static final String HOST_REQUEST = HOST + REQUEST;
+    public static final String HOST_INVESTOR_FILTER = HOST + INVESTOR_FILTER;
+    public static final String HOST_PROJECT_FILTER = HOST + PROJECT_FILTER;
+
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息
     public static final String UPDATE2 = "/industries";
