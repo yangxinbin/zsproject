@@ -117,7 +117,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz",page+"-------3------"+shengBaoBeans.size());
+        Log.v("zzzzzzzzz",page+"----?---3------"+shengBaoBeans.size());
         if (shengBaoBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

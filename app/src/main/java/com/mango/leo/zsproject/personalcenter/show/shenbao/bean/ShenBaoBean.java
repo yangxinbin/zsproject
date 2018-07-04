@@ -9,7 +9,7 @@ import java.util.List;
 public class ShenBaoBean {
 
     /**
-     * responseObject : {"content":[{"id":"5b39e955b0aeba145495bb37","project":{"id":"5b39e7d0b0aeba145495bb36","name":"vvnnvcc","summary":"让法国百年","organizerDepartment":"效果很好吧","totalInvestmentRequired":"大概哈哈过","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b20ca4af8aa41149858e8f1","createdOn":1530521552153,"updatedBy":"5b20ca4af8aa41149858e8f1","updatedOn":1530521552153,"recommended":null,"tenant":null},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":"ceo","department":"m","position":"ceo","mobile":null,"phone":"18318836309","email":"609758690@qq.com"},"requestedBy":"ceo","timestamp":null},{"id":"5b39ee83b0aeba145495bb38","project":{"id":"5b1fdda3dae69c0b58790925","name":"硅藻土产业园区基础设施建设项目","summary":"","organizerDepartment":"白山市浑江区商务局","totalInvestmentRequired":"30000.0","phase1InvestmentRequired":null,"numOfInvestmentPhases":1,"location":{"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":[],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":[],"investmentType":[],"investmentSize":null,"other":""},"utilityFee":{"waterFeeInfo":"","electricityFeeInfo":"","gasFeeInfo":"","landFeeInfo":""},"resourceFeeInfo":[],"advantages":[],"detail":"","photos":[],"relatedFiles":[],"stage":2,"createdBy":null,"createdOn":null,"updatedBy":null,"updatedOn":null,"recommended":false,"tenant":"1528809880444"},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":null,"department":"ou","position":"oui","mobile":null,"phone":"18318836309","email":"653265982@qq.com"},"requestedBy":null,"timestamp":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true},"totalPages":1,"last":true,"totalElements":2,"size":20,"number":0,"sort":{"sorted":false,"unsorted":true},"first":true,"numberOfElements":2}
+     * responseObject : {"content":[{"id":"5b3c9c9bb0aeba06643705fd","project":{"id":"5b29d389f8aa41068479a369","name":"体育","summary":"法国还会过分","organizerDepartment":"任天堂与if","totalInvestmentRequired":"6666888","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":"白山市第一中学","lon":126.43246711783735,"lat":41.94246235788125},"contacts":[{"id":null,"name":"该好好","department":"uuu","position":"由于各个规划","mobile":"6666551","phone":"6666551","email":"fgyy.com"}],"cooperationStyles":null,"industries":[{"id":null,"name":"风力发电","parent":"电力、热力、燃气及水生产和供应业","level":null},{"id":null,"name":"核力发电","parent":"电力、热力、燃气及水生产和供应业","level":null}],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["合作","独资"],"investmentType":["商业银行","投资公司"],"investmentSize":{"caption":null,"min":1000,"max":5000},"other":"痕迹UI解决吧"},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":2,"createdBy":"5b2265c81233c546a8bead0e","createdOn":1529467785370,"updatedBy":"5b2265c81233c546a8bead0e","updatedOn":1529468250718,"recommended":null,"tenant":null},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":"uuu","department":"mm","position":"mm","mobile":null,"phone":"18456686960","email":"658987852@qq.com"},"requestedBy":null,"timestamp":null}],"pageable":{"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true},"totalElements":4,"totalPages":1,"last":true,"size":20,"number":0,"sort":{"sorted":false,"unsorted":true},"numberOfElements":4,"first":true}
      * responseList : null
      * totalRecords : null
      * currentPage : null
@@ -64,27 +64,27 @@ public class ShenBaoBean {
 
     public static class ResponseObjectBean {
         /**
-         * content : [{"id":"5b39e955b0aeba145495bb37","project":{"id":"5b39e7d0b0aeba145495bb36","name":"vvnnvcc","summary":"让法国百年","organizerDepartment":"效果很好吧","totalInvestmentRequired":"大概哈哈过","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b20ca4af8aa41149858e8f1","createdOn":1530521552153,"updatedBy":"5b20ca4af8aa41149858e8f1","updatedOn":1530521552153,"recommended":null,"tenant":null},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":"ceo","department":"m","position":"ceo","mobile":null,"phone":"18318836309","email":"609758690@qq.com"},"requestedBy":"ceo","timestamp":null},{"id":"5b39ee83b0aeba145495bb38","project":{"id":"5b1fdda3dae69c0b58790925","name":"硅藻土产业园区基础设施建设项目","summary":"","organizerDepartment":"白山市浑江区商务局","totalInvestmentRequired":"30000.0","phase1InvestmentRequired":null,"numOfInvestmentPhases":1,"location":{"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":[],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"","cooperationStyles":[],"investmentType":[],"investmentSize":null,"other":""},"utilityFee":{"waterFeeInfo":"","electricityFeeInfo":"","gasFeeInfo":"","landFeeInfo":""},"resourceFeeInfo":[],"advantages":[],"detail":"","photos":[],"relatedFiles":[],"stage":2,"createdBy":null,"createdOn":null,"updatedBy":null,"updatedOn":null,"recommended":false,"tenant":"1528809880444"},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":null,"department":"ou","position":"oui","mobile":null,"phone":"18318836309","email":"653265982@qq.com"},"requestedBy":null,"timestamp":null}]
+         * content : [{"id":"5b3c9c9bb0aeba06643705fd","project":{"id":"5b29d389f8aa41068479a369","name":"体育","summary":"法国还会过分","organizerDepartment":"任天堂与if","totalInvestmentRequired":"6666888","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":"白山市第一中学","lon":126.43246711783735,"lat":41.94246235788125},"contacts":[{"id":null,"name":"该好好","department":"uuu","position":"由于各个规划","mobile":"6666551","phone":"6666551","email":"fgyy.com"}],"cooperationStyles":null,"industries":[{"id":null,"name":"风力发电","parent":"电力、热力、燃气及水生产和供应业","level":null},{"id":null,"name":"核力发电","parent":"电力、热力、燃气及水生产和供应业","level":null}],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["合作","独资"],"investmentType":["商业银行","投资公司"],"investmentSize":{"caption":null,"min":1000,"max":5000},"other":"痕迹UI解决吧"},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":2,"createdBy":"5b2265c81233c546a8bead0e","createdOn":1529467785370,"updatedBy":"5b2265c81233c546a8bead0e","updatedOn":1529468250718,"recommended":null,"tenant":null},"description":null,"requesterType":"investor","contactInfo":{"id":null,"name":"uuu","department":"mm","position":"mm","mobile":null,"phone":"18456686960","email":"658987852@qq.com"},"requestedBy":null,"timestamp":null}]
          * pageable : {"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true}
+         * totalElements : 4
          * totalPages : 1
          * last : true
-         * totalElements : 2
          * size : 20
          * number : 0
          * sort : {"sorted":false,"unsorted":true}
+         * numberOfElements : 4
          * first : true
-         * numberOfElements : 2
          */
 
         private PageableBean pageable;
+        private int totalElements;
         private int totalPages;
         private boolean last;
-        private int totalElements;
         private int size;
         private int number;
         private SortBeanX sort;
-        private boolean first;
         private int numberOfElements;
+        private boolean first;
         private List<ContentBean> content;
 
         public PageableBean getPageable() {
@@ -93,6 +93,14 @@ public class ShenBaoBean {
 
         public void setPageable(PageableBean pageable) {
             this.pageable = pageable;
+        }
+
+        public int getTotalElements() {
+            return totalElements;
+        }
+
+        public void setTotalElements(int totalElements) {
+            this.totalElements = totalElements;
         }
 
         public int getTotalPages() {
@@ -109,14 +117,6 @@ public class ShenBaoBean {
 
         public void setLast(boolean last) {
             this.last = last;
-        }
-
-        public int getTotalElements() {
-            return totalElements;
-        }
-
-        public void setTotalElements(int totalElements) {
-            this.totalElements = totalElements;
         }
 
         public int getSize() {
@@ -143,20 +143,20 @@ public class ShenBaoBean {
             this.sort = sort;
         }
 
-        public boolean isFirst() {
-            return first;
-        }
-
-        public void setFirst(boolean first) {
-            this.first = first;
-        }
-
         public int getNumberOfElements() {
             return numberOfElements;
         }
 
         public void setNumberOfElements(int numberOfElements) {
             this.numberOfElements = numberOfElements;
+        }
+
+        public boolean isFirst() {
+            return first;
+        }
+
+        public void setFirst(boolean first) {
+            this.first = first;
         }
 
         public List<ContentBean> getContent() {
@@ -287,12 +287,12 @@ public class ShenBaoBean {
 
         public static class ContentBean {
             /**
-             * id : 5b39e955b0aeba145495bb37
-             * project : {"id":"5b39e7d0b0aeba145495bb36","name":"vvnnvcc","summary":"让法国百年","organizerDepartment":"效果很好吧","totalInvestmentRequired":"大概哈哈过","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":"5b20ca4af8aa41149858e8f1","createdOn":1530521552153,"updatedBy":"5b20ca4af8aa41149858e8f1","updatedOn":1530521552153,"recommended":null,"tenant":null}
+             * id : 5b3c9c9bb0aeba06643705fd
+             * project : {"id":"5b29d389f8aa41068479a369","name":"体育","summary":"法国还会过分","organizerDepartment":"任天堂与if","totalInvestmentRequired":"6666888","phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":"白山市第一中学","lon":126.43246711783735,"lat":41.94246235788125},"contacts":[{"id":null,"name":"该好好","department":"uuu","position":"由于各个规划","mobile":"6666551","phone":"6666551","email":"fgyy.com"}],"cooperationStyles":null,"industries":[{"id":null,"name":"风力发电","parent":"电力、热力、燃气及水生产和供应业","level":null},{"id":null,"name":"核力发电","parent":"电力、热力、燃气及水生产和供应业","level":null}],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["合作","独资"],"investmentType":["商业银行","投资公司"],"investmentSize":{"caption":null,"min":1000,"max":5000},"other":"痕迹UI解决吧"},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":2,"createdBy":"5b2265c81233c546a8bead0e","createdOn":1529467785370,"updatedBy":"5b2265c81233c546a8bead0e","updatedOn":1529468250718,"recommended":null,"tenant":null}
              * description : null
              * requesterType : investor
-             * contactInfo : {"id":null,"name":"ceo","department":"m","position":"ceo","mobile":null,"phone":"18318836309","email":"609758690@qq.com"}
-             * requestedBy : ceo
+             * contactInfo : {"id":null,"name":"uuu","department":"mm","position":"mm","mobile":null,"phone":"18456686960","email":"658987852@qq.com"}
+             * requestedBy : null
              * timestamp : null
              */
 
@@ -301,7 +301,7 @@ public class ShenBaoBean {
             private Object description;
             private String requesterType;
             private ContactInfoBean contactInfo;
-            private String requestedBy;
+            private Object requestedBy;
             private Object timestamp;
 
             public String getId() {
@@ -344,11 +344,11 @@ public class ShenBaoBean {
                 this.contactInfo = contactInfo;
             }
 
-            public String getRequestedBy() {
+            public Object getRequestedBy() {
                 return requestedBy;
             }
 
-            public void setRequestedBy(String requestedBy) {
+            public void setRequestedBy(Object requestedBy) {
                 this.requestedBy = requestedBy;
             }
 
@@ -362,30 +362,30 @@ public class ShenBaoBean {
 
             public static class ProjectBean {
                 /**
-                 * id : 5b39e7d0b0aeba145495bb36
-                 * name : vvnnvcc
-                 * summary : 让法国百年
-                 * organizerDepartment : 效果很好吧
-                 * totalInvestmentRequired : 大概哈哈过
+                 * id : 5b29d389f8aa41068479a369
+                 * name : 体育
+                 * summary : 法国还会过分
+                 * organizerDepartment : 任天堂与if
+                 * totalInvestmentRequired : 6666888
                  * phase1InvestmentRequired : null
                  * numOfInvestmentPhases : null
-                 * location : {"country":"中国","province":"广东省","city":"深圳","district":"","address":"","lon":null,"lat":null}
-                 * contacts : []
+                 * location : {"country":null,"province":null,"city":null,"district":null,"address":"白山市第一中学","lon":126.43246711783735,"lat":41.94246235788125}
+                 * contacts : [{"id":null,"name":"该好好","department":"uuu","position":"由于各个规划","mobile":"6666551","phone":"6666551","email":"fgyy.com"}]
                  * cooperationStyles : null
-                 * industries : []
+                 * industries : [{"id":null,"name":"风力发电","parent":"电力、热力、燃气及水生产和供应业","level":null},{"id":null,"name":"核力发电","parent":"电力、热力、燃气及水生产和供应业","level":null}]
                  * typesOfAvailableDox : null
-                 * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null}
+                 * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["合作","独资"],"investmentType":["商业银行","投资公司"],"investmentSize":{"caption":null,"min":1000,"max":5000},"other":"痕迹UI解决吧"}
                  * utilityFee : {"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null}
                  * resourceFeeInfo : []
                  * advantages : []
                  * detail : null
                  * photos : []
                  * relatedFiles : []
-                 * stage : 0
-                 * createdBy : 5b20ca4af8aa41149858e8f1
-                 * createdOn : 1530521552153
-                 * updatedBy : 5b20ca4af8aa41149858e8f1
-                 * updatedOn : 1530521552153
+                 * stage : 2
+                 * createdBy : 5b2265c81233c546a8bead0e
+                 * createdOn : 1529467785370
+                 * updatedBy : 5b2265c81233c546a8bead0e
+                 * updatedOn : 1529468250718
                  * recommended : null
                  * tenant : null
                  */
@@ -410,8 +410,8 @@ public class ShenBaoBean {
                 private long updatedOn;
                 private Object recommended;
                 private Object tenant;
-                private List<?> contacts;
-                private List<?> industries;
+                private List<ContactsBean> contacts;
+                private List<IndustriesBean> industries;
                 private List<?> resourceFeeInfo;
                 private List<?> advantages;
                 private List<?> photos;
@@ -577,19 +577,19 @@ public class ShenBaoBean {
                     this.tenant = tenant;
                 }
 
-                public List<?> getContacts() {
+                public List<ContactsBean> getContacts() {
                     return contacts;
                 }
 
-                public void setContacts(List<?> contacts) {
+                public void setContacts(List<ContactsBean> contacts) {
                     this.contacts = contacts;
                 }
 
-                public List<?> getIndustries() {
+                public List<IndustriesBean> getIndustries() {
                     return industries;
                 }
 
-                public void setIndustries(List<?> industries) {
+                public void setIndustries(List<IndustriesBean> industries) {
                     this.industries = industries;
                 }
 
@@ -627,52 +627,52 @@ public class ShenBaoBean {
 
                 public static class LocationBean {
                     /**
-                     * country : 中国
-                     * province : 广东省
-                     * city : 深圳
-                     * district :
-                     * address :
-                     * lon : null
-                     * lat : null
+                     * country : null
+                     * province : null
+                     * city : null
+                     * district : null
+                     * address : 白山市第一中学
+                     * lon : 126.43246711783735
+                     * lat : 41.94246235788125
                      */
 
-                    private String country;
-                    private String province;
-                    private String city;
-                    private String district;
+                    private Object country;
+                    private Object province;
+                    private Object city;
+                    private Object district;
                     private String address;
-                    private Object lon;
-                    private Object lat;
+                    private double lon;
+                    private double lat;
 
-                    public String getCountry() {
+                    public Object getCountry() {
                         return country;
                     }
 
-                    public void setCountry(String country) {
+                    public void setCountry(Object country) {
                         this.country = country;
                     }
 
-                    public String getProvince() {
+                    public Object getProvince() {
                         return province;
                     }
 
-                    public void setProvince(String province) {
+                    public void setProvince(Object province) {
                         this.province = province;
                     }
 
-                    public String getCity() {
+                    public Object getCity() {
                         return city;
                     }
 
-                    public void setCity(String city) {
+                    public void setCity(Object city) {
                         this.city = city;
                     }
 
-                    public String getDistrict() {
+                    public Object getDistrict() {
                         return district;
                     }
 
-                    public void setDistrict(String district) {
+                    public void setDistrict(Object district) {
                         this.district = district;
                     }
 
@@ -684,19 +684,19 @@ public class ShenBaoBean {
                         this.address = address;
                     }
 
-                    public Object getLon() {
+                    public double getLon() {
                         return lon;
                     }
 
-                    public void setLon(Object lon) {
+                    public void setLon(double lon) {
                         this.lon = lon;
                     }
 
-                    public Object getLat() {
+                    public double getLat() {
                         return lat;
                     }
 
-                    public void setLat(Object lat) {
+                    public void setLat(double lat) {
                         this.lat = lat;
                     }
                 }
@@ -706,21 +706,21 @@ public class ShenBaoBean {
                      * totalInvestmentRequired : null
                      * phase1InvestmentRequired : null
                      * numOfInvestmentPhases : null
-                     * cooperationModel : null
-                     * cooperationStyles : null
-                     * investmentType : null
-                     * investmentSize : null
-                     * other : null
+                     * cooperationModel : 引资
+                     * cooperationStyles : ["合作","独资"]
+                     * investmentType : ["商业银行","投资公司"]
+                     * investmentSize : {"caption":null,"min":1000,"max":5000}
+                     * other : 痕迹UI解决吧
                      */
 
                     private Object totalInvestmentRequired;
                     private Object phase1InvestmentRequired;
                     private Object numOfInvestmentPhases;
-                    private Object cooperationModel;
-                    private Object cooperationStyles;
-                    private Object investmentType;
-                    private Object investmentSize;
-                    private Object other;
+                    private String cooperationModel;
+                    private InvestmentSizeBean investmentSize;
+                    private String other;
+                    private List<String> cooperationStyles;
+                    private List<String> investmentType;
 
                     public Object getTotalInvestmentRequired() {
                         return totalInvestmentRequired;
@@ -746,44 +746,80 @@ public class ShenBaoBean {
                         this.numOfInvestmentPhases = numOfInvestmentPhases;
                     }
 
-                    public Object getCooperationModel() {
+                    public String getCooperationModel() {
                         return cooperationModel;
                     }
 
-                    public void setCooperationModel(Object cooperationModel) {
+                    public void setCooperationModel(String cooperationModel) {
                         this.cooperationModel = cooperationModel;
                     }
 
-                    public Object getCooperationStyles() {
-                        return cooperationStyles;
-                    }
-
-                    public void setCooperationStyles(Object cooperationStyles) {
-                        this.cooperationStyles = cooperationStyles;
-                    }
-
-                    public Object getInvestmentType() {
-                        return investmentType;
-                    }
-
-                    public void setInvestmentType(Object investmentType) {
-                        this.investmentType = investmentType;
-                    }
-
-                    public Object getInvestmentSize() {
+                    public InvestmentSizeBean getInvestmentSize() {
                         return investmentSize;
                     }
 
-                    public void setInvestmentSize(Object investmentSize) {
+                    public void setInvestmentSize(InvestmentSizeBean investmentSize) {
                         this.investmentSize = investmentSize;
                     }
 
-                    public Object getOther() {
+                    public String getOther() {
                         return other;
                     }
 
-                    public void setOther(Object other) {
+                    public void setOther(String other) {
                         this.other = other;
+                    }
+
+                    public List<String> getCooperationStyles() {
+                        return cooperationStyles;
+                    }
+
+                    public void setCooperationStyles(List<String> cooperationStyles) {
+                        this.cooperationStyles = cooperationStyles;
+                    }
+
+                    public List<String> getInvestmentType() {
+                        return investmentType;
+                    }
+
+                    public void setInvestmentType(List<String> investmentType) {
+                        this.investmentType = investmentType;
+                    }
+
+                    public static class InvestmentSizeBean {
+                        /**
+                         * caption : null
+                         * min : 1000
+                         * max : 5000
+                         */
+
+                        private Object caption;
+                        private int min;
+                        private int max;
+
+                        public Object getCaption() {
+                            return caption;
+                        }
+
+                        public void setCaption(Object caption) {
+                            this.caption = caption;
+                        }
+
+                        public int getMin() {
+                            return min;
+                        }
+
+                        public void setMin(int min) {
+                            this.min = min;
+                        }
+
+                        public int getMax() {
+                            return max;
+                        }
+
+                        public void setMax(int max) {
+                            this.max = max;
+                        }
                     }
                 }
 
@@ -832,17 +868,139 @@ public class ShenBaoBean {
                         this.landFeeInfo = landFeeInfo;
                     }
                 }
+
+                public static class ContactsBean {
+                    /**
+                     * id : null
+                     * name : 该好好
+                     * department : uuu
+                     * position : 由于各个规划
+                     * mobile : 6666551
+                     * phone : 6666551
+                     * email : fgyy.com
+                     */
+
+                    private Object id;
+                    private String name;
+                    private String department;
+                    private String position;
+                    private String mobile;
+                    private String phone;
+                    private String email;
+
+                    public Object getId() {
+                        return id;
+                    }
+
+                    public void setId(Object id) {
+                        this.id = id;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getDepartment() {
+                        return department;
+                    }
+
+                    public void setDepartment(String department) {
+                        this.department = department;
+                    }
+
+                    public String getPosition() {
+                        return position;
+                    }
+
+                    public void setPosition(String position) {
+                        this.position = position;
+                    }
+
+                    public String getMobile() {
+                        return mobile;
+                    }
+
+                    public void setMobile(String mobile) {
+                        this.mobile = mobile;
+                    }
+
+                    public String getPhone() {
+                        return phone;
+                    }
+
+                    public void setPhone(String phone) {
+                        this.phone = phone;
+                    }
+
+                    public String getEmail() {
+                        return email;
+                    }
+
+                    public void setEmail(String email) {
+                        this.email = email;
+                    }
+                }
+
+                public static class IndustriesBean {
+                    /**
+                     * id : null
+                     * name : 风力发电
+                     * parent : 电力、热力、燃气及水生产和供应业
+                     * level : null
+                     */
+
+                    private Object id;
+                    private String name;
+                    private String parent;
+                    private Object level;
+
+                    public Object getId() {
+                        return id;
+                    }
+
+                    public void setId(Object id) {
+                        this.id = id;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getParent() {
+                        return parent;
+                    }
+
+                    public void setParent(String parent) {
+                        this.parent = parent;
+                    }
+
+                    public Object getLevel() {
+                        return level;
+                    }
+
+                    public void setLevel(Object level) {
+                        this.level = level;
+                    }
+                }
             }
 
             public static class ContactInfoBean {
                 /**
                  * id : null
-                 * name : ceo
-                 * department : m
-                 * position : ceo
+                 * name : uuu
+                 * department : mm
+                 * position : mm
                  * mobile : null
-                 * phone : 18318836309
-                 * email : 609758690@qq.com
+                 * phone : 18456686960
+                 * email : 658987852@qq.com
                  */
 
                 private Object id;

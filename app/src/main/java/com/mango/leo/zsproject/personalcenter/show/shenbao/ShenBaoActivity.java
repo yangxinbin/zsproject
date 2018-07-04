@@ -32,12 +32,15 @@ import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.Al
 import com.mango.leo.zsproject.industrialservice.createrequirements.presenter.AllProjectsPresenterImpl;
 import com.mango.leo.zsproject.industrialservice.createrequirements.view.AllProjectsView;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.adapter.ListShenBaoAdapter;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.IdBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.fragments.TouziFragment;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.fragments.XiangMuFragment;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.ViewPageAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +73,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
+    private IdBean idBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         allProjectsPresenter = new AllProjectsPresenterImpl(this);
         setContentView(R.layout.activity_sheng_bao);
         ButterKnife.bind(this);
+        idBean = new IdBean();
         initDatas();
         init();
     }
@@ -215,10 +220,9 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
                 return;
             }
             textViewProject.setText(adapter.getItem(position).getResponseObject().getContent().get(position%20).getName());
+            idBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
+            EventBus.getDefault().postSticky(idBean);
             dialog.dismiss();
-           /* Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
-            intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
-            startActivity(intent);*/
         }
     };
 
@@ -315,6 +319,8 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
     @Override
     public void onClick(View view) {//选择全部
         textViewProject.setText("全部");
+        idBean.setProjectId("");
+        EventBus.getDefault().postSticky(idBean);
         dialog.dismiss();
     }
 }
