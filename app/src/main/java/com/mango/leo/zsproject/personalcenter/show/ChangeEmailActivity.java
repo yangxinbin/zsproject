@@ -152,6 +152,7 @@ public class ChangeEmailActivity extends BaseActivity {
                         AppUtils.showToast(activity, "成功绑定新邮箱");
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     default:
                         break;

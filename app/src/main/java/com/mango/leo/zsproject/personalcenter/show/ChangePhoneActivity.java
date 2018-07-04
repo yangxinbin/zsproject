@@ -161,6 +161,7 @@ public class ChangePhoneActivity extends BaseActivity {
                     case 3:
                         Intent intent = new Intent(activity, AccountSecurityActivity.class);
                         startActivity(intent);
+                        finish();
                         AppUtils.showToast(activity, "成功绑定新号码");
                         break;
                     default:
