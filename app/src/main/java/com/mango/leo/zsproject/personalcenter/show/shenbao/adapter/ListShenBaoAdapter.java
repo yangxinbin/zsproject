@@ -74,22 +74,6 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.notifyDataSetChanged();
     }
 
-    public void deleteItem(int position) {
-        Log.v("gggggg", mData.size() + "--" + position + "   " + mData.get(0).getResponseObject().getContent().get(0).getName());
-        isShowFooter(false);
-        if (mData != null) {
-            //mData.remove(position);
-            /*for (int i = 0; i < mData.size(); i++) {
-                if (i == position) {
-                    mData.remove(i);
-                    i--;
-                }
-            }*/
-            this.notifyItemRemoved(position);
-        }
-        this.notifyDataSetChanged();
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
@@ -97,7 +81,7 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.all_item, parent, false);
+                    .inflate(R.layout.all_item_name, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -144,14 +128,9 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
-//            AllItemBean dm = mData.get(pos);//add header
-//            if (dm == null) {
-            //               return;
-            //           }
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
                 ((ItemViewHolder) holder).allItemName.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
-                ((ItemViewHolder) holder).allItemContent.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getSummary());
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
@@ -238,20 +217,14 @@ public class ListShenBaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView allItemName, allItemContent,stage;
-        public Button edit, delete;
+        public TextView allItemName;
         RelativeLayout itV;
-        public int flag = 0;
 
         public ItemViewHolder(View v) {
             super(v);
             if (v == mHeaderView)
                 return;
             allItemName = (TextView) v.findViewById(R.id.allitemName);
-            allItemContent = (TextView) v.findViewById(R.id.allitemContent);
-            stage = (TextView) v.findViewById(R.id.stage);
-            edit = (Button) v.findViewById(R.id.edit);
-            delete = (Button) v.findViewById(R.id.delete);
             itV = (RelativeLayout) v.findViewById(R.id.item_content);
             itV.setOnClickListener(this);
         }
