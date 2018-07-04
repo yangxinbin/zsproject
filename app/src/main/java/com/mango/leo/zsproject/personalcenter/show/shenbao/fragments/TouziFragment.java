@@ -25,6 +25,7 @@ import com.mango.leo.zsproject.personalcenter.show.shenbao.view.ShenbaoProjectsV
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -50,7 +51,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     private ShenBaoPresenter shenBaoPresenter;
     private int page = 0;
     private ArrayList<ShenBaoBean> mData,mDataAll;
-    private String projectId;
+    private String projectId = "";
 
     @Nullable
     @Override
@@ -58,6 +59,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.touzi, container, false);
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
@@ -69,6 +71,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         if (bean == null){
             return;
         }
+        Log.v("iiiiiiiii","---"+bean.getProjectId());
         projectId = bean.getProjectId();
         LoadShengbao(projectId,0);
     }
@@ -104,13 +107,12 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                //LoadShengbao(projectId,page);
+                LoadShengbao(projectId,page);
                 Log.v("yyyy", "***onScrollStateChanged******"+adapter.getItemCount());
             }
         }
     };
     private ShenBaoAdapter.OnClickListener mOnItemClickListener = new ShenBaoAdapter.OnClickListener() {
-        private int state;
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
@@ -165,12 +167,14 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(getActivity());
+
     }
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz",page+"-------3------"+shengBaoBeans.size());
-        if (shengBaoBeans == null || shengBaoBeans.size() == 0) {
+        Log.v("zzzzzzzzz",page+"----1---3------"+shengBaoBeans.size());
+        if (shengBaoBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

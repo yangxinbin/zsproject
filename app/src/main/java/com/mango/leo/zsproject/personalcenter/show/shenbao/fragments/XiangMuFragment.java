@@ -18,12 +18,17 @@ import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.adapter.ShenBaoAdapter;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.IdBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.ShenBaoBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.presenter.ShenBaoPresenter;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.presenter.ShenBaoPresenterImpl;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.view.ShenbaoProjectsView;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +52,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
     private ShenBaoPresenter shenBaoPresenter;
     private int page = 0;
     private ArrayList<ShenBaoBean> mData,mDataAll;
+    private String projectId = "";
 
     @Nullable
     @Override
@@ -54,18 +60,26 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.xiangmu, container, false);
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         initSwipeRefreshLayout();
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
-        LoadShengbao("");
+        LoadShengbao("",page);
         return view;
     }
-
-    private void LoadShengbao(String projectId) {
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void IdEventBus(IdBean bean) {
+        if (bean == null){
+            return;
+        }
+        Log.v("iiiiiiiii","---"+bean.getProjectId());
+        projectId = bean.getProjectId();
+        LoadShengbao(projectId,0);
+    }
+    private void LoadShengbao(String projectId,int page) {
         shenBaoPresenter.visitProjects(getActivity(), type,projectId, page);
     }
-
 
     private void initRecycle() {
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -98,7 +112,14 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
                     @Override
                     public void run() {
                         refreshXiangmu.setRefreshing(false);
-                        //     mNewsPresenter.visitProjects(getActivity(), mType, page);//请求刷新
+                        if (mData != null){
+                            mData.clear();
+                        }
+                        if (mDataAll != null){
+                            mDataAll.clear();
+                        }
+                        page = 0;
+                        LoadShengbao("",page);;//请求刷新
                     }
                 }, 2000);
             }
@@ -117,7 +138,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz",page+"----?---3------"+shengBaoBeans.size());
+        Log.v("zzzzzzzzz",page+"----2---3------"+shengBaoBeans.size());
         if (shengBaoBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

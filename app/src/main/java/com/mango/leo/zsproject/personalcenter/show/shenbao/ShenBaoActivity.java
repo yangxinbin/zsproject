@@ -210,9 +210,6 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
     }
 
     private ListShenBaoAdapter.OnItemnewsClickListener mOnItemClickListener = new ListShenBaoAdapter.OnItemnewsClickListener() {
-
-        private int state;
-
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
@@ -220,6 +217,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
                 return;
             }
             textViewProject.setText(adapter.getItem(position).getResponseObject().getContent().get(position%20).getName());
+            /*Log.v("sssssssssssss","---"+adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());*/
             idBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
             EventBus.getDefault().postSticky(idBean);
             dialog.dismiss();
