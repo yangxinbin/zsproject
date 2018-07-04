@@ -74,7 +74,6 @@
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardCornerRadius="8dp"
-                card_view:cardElevation="3dp"
                 card_view:contentPadding="8dp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
