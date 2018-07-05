@@ -136,7 +136,6 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
             //           }
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
-                ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getName());
                 if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getLocation() != null) {
                     ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getLocation().getCity().toString());
                 }
@@ -149,8 +148,10 @@ public class ShouCangEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                         ((ShouCangEventAdapter.ItemViewHolder) holder).im.setImageResource(R.drawable.gov);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().isPopular()){
+                        ((ItemViewHolder) holder).e_title.setText("         "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     }else {
+                        ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEntity().getEndTime() < System.currentTimeMillis()){

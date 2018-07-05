@@ -133,7 +133,6 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
                 Log.v("yyyyy", "====pos======" + pos % 20);//
                 if (mData.get(pos).getResponseObject().getContent() != null && mData.get(pos).getResponseObject().getContent().get(pos % 20) != null) {
-                    ((ItemViewHolder) holder).e_title.setText("         "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                     ((ItemViewHolder) holder).e_place.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getLocation().getCity().toString());
                     ((ItemViewHolder) holder).e_time.setText(DateUtil.getDateToString(mData.get(pos).getResponseObject().getContent().get(pos % 20).getStartTime(), "yyyy-MM-dd"));
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getBanner() != null){
@@ -149,8 +148,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).isPopular()){
+                        ((ItemViewHolder) holder).e_title.setText("         "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     }else {
+                        ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEndTime() < System.currentTimeMillis()){

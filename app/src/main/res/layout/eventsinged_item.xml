@@ -27,20 +27,43 @@
             android:layout_marginLeft="5dp"
             card_view:srcCompat="@drawable/gov" />
 
-        <TextView
-            android:id="@+id/tv_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/tv_state_s"
-            android:layout_toRightOf="@+id/tv_state_s"
-            android:ellipsize="end"
-            android:lines="2"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="@dimen/title" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/c"
+            android:layout_toRightOf="@id/im_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tv_state"
+                android:layout_toRightOf="@+id/tv_state"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title"
+                card_view:layout_constraintStart_toStartOf="@+id/tv_state"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_state_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@color/red"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="HOT"
+                android:textColor="@color/white"
+                android:textSize="@dimen/commom_tv_size_12"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imageView54"
@@ -84,21 +107,5 @@
             android:layout_toRightOf="@+id/imageView55"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/tv_state_s"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_event"
-            android:layout_alignBottom="@+id/tv_event"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/im_pic"
-            android:layout_toRightOf="@+id/im_pic"
-            android:background="@color/red"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="HOT"
-            android:textColor="@color/white"
-            android:textSize="@dimen/small_textSize"
-            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>
