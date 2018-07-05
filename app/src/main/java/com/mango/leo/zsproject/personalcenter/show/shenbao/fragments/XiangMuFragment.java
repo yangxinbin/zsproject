@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.personalcenter.show.shenbao.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.ShenBaoDetailActivity;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.adapter.ShenBaoAdapter;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.IdBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.ShenBaoBean;
@@ -60,20 +62,25 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.xiangmu, container, false);
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
         ButterKnife.bind(this, view);
-       // EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         initSwipeRefreshLayout();
         initRecycle();
         initHeader();
-        initSwipeRefreshLayout();
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        if (mData != null) {
+            mData.clear();
+        }
         LoadShengbao(projectId,page);
         return view;
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void IdEventBus(IdBean bean) {
-        if (bean == null){
+        if (bean == null) {
             return;
         }
-        Log.v("iiiiiiiii","---"+bean.getProjectId());
+        Log.v("zzzzzzzzz", "--z-" + bean.getProjectId());
         projectId = bean.getProjectId();
         if (mData != null) {
             mData.clear();
@@ -92,11 +99,46 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleXiangmu.setLayoutManager(mLayoutManager);
         recycleXiangmu.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        recycleXiangmu.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         adapter = new ShenBaoAdapter(getActivity().getApplicationContext());
-        recycleXiangmu.removeAllViews();
+        adapter.setOnClickListener(mOnItemClickListener);
+        recycleXiangmu.setAdapter(adapter);
+        recycleXiangmu.addOnScrollListener(mOnScrollListener);
     }
+    private int lastVisibleItem;
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            Log.v("yyyy", "***???****" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "==" + (adapter.getItemCount() == lastVisibleItem + 1) + "==" + adapter.isShowFooter());
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItem + 1 == adapter.getItemCount()
+                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                page++;
+                LoadShengbao(projectId, page);
+                Log.v("yyyy", "***onScrollStateChanged******" + adapter.getItemCount());
+            }
+        }
+    };
+    private ShenBaoAdapter.OnClickListener mOnItemClickListener = new ShenBaoAdapter.OnClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), ShenBaoDetailActivity.class);
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20));
+            startActivity(intent);
+            //getActivity().finish();
+        }
+    };
     private void initHeader() {
         //渲染header布局
         ConstraintLayout h = new ConstraintLayout(getActivity());
@@ -126,7 +168,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
                             mDataAll.clear();
                         }
                         page = 0;
-                        LoadShengbao("",page);;//请求刷新
+                        LoadShengbao(projectId, page);//请求刷新
                     }
                 }, 2000);
             }
@@ -146,12 +188,12 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        //Log.v("zzzzzzzzz",page+"----2---3------"+shengBaoBeans.size());
-        if (shengBaoBeans == null) {
+        Log.v("zzzzzzzzz", page + "---z------" + shengBaoBeans.size());
+        if (shengBaoBeans == null || shengBaoBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.shenbao));
                     return;
                 }
             });
@@ -163,12 +205,15 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         if (mDataAll != null) {
             mDataAll.clear();
         }
+/*        if (mData != null) {
+            mData.clear();
+        }*/
         mDataAll.addAll(shengBaoBeans);
         if (page == 0) {
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-           // Log.v("zzzzzzzzz","--1--4---------"+mData.size());
+            Log.v("zzzzzzzzz", "--z--------" + mData.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

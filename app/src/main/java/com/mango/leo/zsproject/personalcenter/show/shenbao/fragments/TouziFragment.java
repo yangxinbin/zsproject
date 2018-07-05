@@ -80,7 +80,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         if (bean == null) {
             return;
         }
-        Log.v("zzzzzzzzz", "---" + bean.getProjectId());
+        Log.v("zzzzzzzzz222", "--t-" + bean.getProjectId());
         projectId = bean.getProjectId();
         if (mData != null) {
             mData.clear();
@@ -101,7 +101,6 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleTouzi.setLayoutManager(mLayoutManager);
         recycleTouzi.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        recycleTouzi.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         adapter = new ShenBaoAdapter(getActivity().getApplicationContext());
         adapter.setOnClickListener(mOnItemClickListener);
         recycleTouzi.setAdapter(adapter);
@@ -198,7 +197,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz", page + "----1---3------" + shengBaoBeans.size());
+        Log.v("zzzzzzzzz", page + "----t-----" + shengBaoBeans.size());
         if (shengBaoBeans == null || shengBaoBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -223,7 +222,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            Log.v("zzzzzzzzz", "--1--4---------" + mData.size());
+            Log.v("zzzzzzzzz", "--t--------" + mData.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

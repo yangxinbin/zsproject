@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         mfragments.add(new XiangMuFragment());
         viewPagerShengbao.setAdapter(vp);
         viewPagerShengbao.setCurrentItem(0);
-        viewPagerShengbao.setOffscreenPageLimit(0);
+        viewPagerShengbao.setOffscreenPageLimit(1);
     }
 
     @OnClick({R.id.imageView_shengbaoback, R.id.selete})
@@ -348,4 +349,14 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         startActivity(intent);
         finish();
     }
+/*    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.v("mmmmmmm","back");
+            Intent intent = new Intent(this, ShenBaoActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }*/
 }
