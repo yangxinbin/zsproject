@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.personalcenter.show.shenbao.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -38,6 +39,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by admin on 2018/6/9.
  */
@@ -55,12 +58,14 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
     private int page = 0;
     private ArrayList<ShenBaoBean> mData,mDataAll;
     private String projectId = "";
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.xiangmu, container, false);
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
+        sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         initSwipeRefreshLayout();
@@ -72,7 +77,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         if (mData != null) {
             mData.clear();
         }
-        LoadShengbao(projectId,page);
+        LoadShengbao(sharedPreferences.getString("projectId",""), page);
         return view;
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)

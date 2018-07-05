@@ -2,6 +2,7 @@ package com.mango.leo.zsproject.personalcenter.show.shenbao;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShenBaoActivity extends FragmentActivity implements AllProjectsView,View.OnClickListener {
+public class ShenBaoActivity extends FragmentActivity implements AllProjectsView, View.OnClickListener {
 
     @Bind(R.id.imageView_shengbaoback)
     ImageView imageViewShengbaoback;
@@ -88,8 +89,8 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_sheng_bao);
         ButterKnife.bind(this);
-        if (!sharedPreferences.getString("projectName","").equals("")){
-            textViewProject.setText(sharedPreferences.getString("projectName",""));
+        if (!sharedPreferences.getString("projectName", "").equals("")) {
+            textViewProject.setText(sharedPreferences.getString("projectName", ""));
         }
         idBean = new IdBean();
         initDatas();
@@ -144,6 +145,17 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         listView.setOnItemClickListener(this);*/
 
         dialog = new Dialog(context, R.style.dialog);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_SEARCH || keyCode == KeyEvent.KEYCODE_BACK) {
+                    closeDialog();
+                    return true;
+                } else {
+                    return false; // 默认返回 false
+                }
+            }
+        });
         dialog.setContentView(view);
         Window window = dialog.getWindow();
         //设置弹出窗口大小
@@ -152,7 +164,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         window.setGravity(Gravity.BOTTOM);
         //设置动画效果
         //window.setWindowAnimations(R.style.AnimBottom);
-        dialog.setCanceledOnTouchOutside(true);
+        //dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
 
@@ -182,7 +194,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            Log.v("zzzzzzzzz",adapter.getItemCount()+"---"+(lastVisibleItem + 1)+"---"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
+            Log.v("zzzzzzzzz", adapter.getItemCount() + "---" + (lastVisibleItem + 1) + "---" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "===" + (lastVisibleItem + 1 == adapter.getItemCount()) + "-------?-----" + adapter.isShowFooter());
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
@@ -221,7 +233,9 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
             /*Log.v("sssssssssssss","---"+adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());*/
             idBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId());
             EventBus.getDefault().postSticky(idBean);
-            editor.putString("projectName", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getName()).commit();
+            editor.putString("projectName", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getName())
+                    .putString("projectId", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId())
+                    .commit();
             closeDialog();
         }
     };
@@ -303,6 +317,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         adapter.isShowFooter(false);
         AppUtils.showToast(this, getResources().getString(R.string.no_more));
     }
+
     public void initSwipeRefreshLayout() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -312,7 +327,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
                     public void run() {
                         refreshLayout.setRefreshing(false);
                         if (mData != null && mDataAll != null) {
-                            Log.v("mmmmmmm","2");
+                            Log.v("mmmmmmm", "2");
                             mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
                             mData.clear();
                         }
@@ -332,6 +347,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
+
     @Override
     public void onClick(View view) {//选择全部
         textViewProject.setText("全部");
@@ -339,6 +355,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         idBeanAll.setProjectId("");
         EventBus.getDefault().postSticky(idBeanAll);
         editor.putString("projectName", "全部")
+                .putString("projectId", "")
                 .commit();
         closeDialog();
     }
