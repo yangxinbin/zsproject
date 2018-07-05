@@ -52,7 +52,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShenBaoActivity extends FragmentActivity implements AllProjectsView, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class ShenBaoActivity extends FragmentActivity implements AllProjectsView,View.OnClickListener {
 
     @Bind(R.id.imageView_shengbaoback)
     ImageView imageViewShengbaoback;
@@ -136,6 +136,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         allProjectsPresenter.visitProjects(this, 2, 0);
         initRecyclerView();
         init();
+        initSwipeRefreshLayout();
 /*
         adapter = new ListShenBaoAdapter(context, listDate);
         listView.setAdapter(adapter);
@@ -293,28 +294,35 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         adapter.isShowFooter(false);
         AppUtils.showToast(this, getResources().getString(R.string.no_more));
     }
-
-    @Override
-    public void onRefresh() {
-        refreshLayout.postDelayed(new Runnable() {
+    public void initSwipeRefreshLayout() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void run() {
-                refreshLayout.setRefreshing(false);
-                if (mData != null && mDataAll != null) {
-                    mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                    mData.clear();
-                }
-                if (NetUtil.isNetConnect(ShenBaoActivity.this)) {
-                    adapter.isShowFooter(true);
-                    page = 0;
-                    allProjectsPresenter.visitProjects(ShenBaoActivity.this, 2, page);
-                } else {
-                    // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
-                }
+            public void onRefresh() {
+                refreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.setRefreshing(false);
+                        if (mData != null && mDataAll != null) {
+                            Log.v("mmmmmmm","2");
+                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                            mData.clear();
+                        }
+                        if (NetUtil.isNetConnect(ShenBaoActivity.this)) {
+                            adapter.isShowFooter(true);
+                            page = 0;
+                            allProjectsPresenter.visitProjects(ShenBaoActivity.this, 2, page);
+                        } else {
+                            // allProjectsPresenter.visitProjects(getActivity(),mType);//缓存
+                        }
+                    }
+                }, 2000);
             }
-        }, 2000);
+        });
+        refreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
-
     @Override
     public void onClick(View view) {//选择全部
         textViewProject.setText("全部");
