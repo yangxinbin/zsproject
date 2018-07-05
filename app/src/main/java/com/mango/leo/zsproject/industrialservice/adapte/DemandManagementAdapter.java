@@ -37,9 +37,8 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
-    private boolean hasMore;
-    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
+    private boolean hasMore;
 
     public void setmDate(List<DemandManagementBean> data) {
         this.mData = data;
@@ -61,7 +60,6 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     public void addItem(DemandManagementBean bean) {
         mData.add(bean);
-        hasMore = true;
         this.notifyDataSetChanged();
     }
 
@@ -122,44 +120,49 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
-//            DemandManagementBean dm = mData.get(pos);//add header
-//            if (dm == null) {
-            //               return;
-            //           }
             if (((ItemViewHolder) holder) != null) {
-                ((ItemViewHolder) holder).itemName.setText("昆明市招商计划");
-                ((ItemViewHolder) holder).numCompany.setText("50");
-                ((ItemViewHolder) holder).numInvestmentInstitution.setText("120");
-                ((ItemViewHolder) holder).numInvestmentActivities.setText("200");
+                if (mData.get(pos).getContent().get(pos % 20).getProject() != null) {
+                    ((ItemViewHolder) holder).itemName.setText(mData.get(pos).getContent().get(pos % 20).getProject().getName());
+                }
+                if (mData.get(pos).getContent().get(pos % 20).getEvents() != null)
+                    ((ItemViewHolder) holder).numCompany.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getEvents().size()));
+                if (mData.get(pos).getContent().get(pos % 20).getInvestmentPlan() != null)
+                    ((ItemViewHolder) holder).numInvestmentInstitution.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getInvestmentPlan().size()));
+                if (mData.get(pos).getContent().get(pos % 20).getBusinessPlan() != null)
+                    ((ItemViewHolder) holder).numInvestmentActivities.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getBusinessPlan().size()));
                 ((ItemViewHolder) holder).canceling_match.setVisibility(View.GONE);//先屏蔽
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
             ((FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
             if (hasMore == true) {
+                ((FooterViewHolder) holder).footTv.setText("正在加载...");
                 // 不隐藏footView提示
-                fadeTips = false;
                 //if (mData.size() > 0) {
-                    // 如果查询数据发现增加之后，就显示正在加载更多
-                    ((FooterViewHolder) holder).footTv.setText("正在加载...");
-               // }
-            }else {
+                // 如果查询数据发现增加之后，就显示正在加载更多
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    }
+                },1000);
+                // }
+            } else {
                 //if (mData.size() > 0) {
-                    // 如果查询数据发现并没有增加时，就显示没有更多数据了
-                    ((FooterViewHolder) holder).footTv.setText("没有更多数据了");
+                // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                ((FooterViewHolder) holder).footTv.setText("没有更多数据了");
 
-                    // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 隐藏提示条
-                            ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                            // 将fadeTips设置true
-                            fadeTips = true;
-                            // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                            hasMore = true;
-                        }
-                    }, 1000);
+                // 然后通过延时加载模拟网络请求的时间，在500ms后执行
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 隐藏提示条
+                        ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                        // 将fadeTips设置true
+                        // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
+                        hasMore = true;
+                    }
+                }, 1000);
                 //}
             }
         }

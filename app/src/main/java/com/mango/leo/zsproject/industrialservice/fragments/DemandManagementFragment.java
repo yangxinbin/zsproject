@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.industrialpanorama.show.ZhaoShanDetailActivity;
 import com.mango.leo.zsproject.industrialservice.adapte.DemandManagementAdapter;
 import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
@@ -175,8 +176,8 @@ public class DemandManagementFragment extends Fragment {//
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.v("zzzzzzzzz", "----url-------" + Urls.HOST + "/business-service/project/list/project/by/tenant" +"?tenant="+"1528798005945"+"&page=" + page);
-                HttpUtils.doGet(Urls.HOST + "/business-service/project/list/project/by/tenant" +"?tenant="+"1528798005945"+"&page=" + page, new Callback() {
+                Log.v("zzzzzzzzz", "----url-------" + Urls.HOST + "/business-service/tool/list/matching/indexes"+"?token="+sharedPreferences.getString("token", "")+"&page="+page);
+                HttpUtils.doGet(Urls.HOST + "/business-service/tool/list/matching/indexes"+"?token="+sharedPreferences.getString("token", "")+"&page="+page, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
@@ -417,22 +418,23 @@ public class DemandManagementFragment extends Fragment {//
 
         @Override
         public void onItemClick1(View view, int position) {
-            Log.v("oooooooooo", "****onItemClick1***点击第" + position);
-/*
-            String newsurl = adapter.getItem(opsition).getResult().getData().get(position).getUrl();
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra("newsurl", newsurl);//传输内容
-            View transitionView = view.findViewById(R.id.item_news_img);
-            ActivityOptionsCompat options =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                            transitionView, getString(R.string.transition_news_img));
-            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+            position = position - 1; //配对headerView
+            Log.v("oooooooooo", adapter.getItem(position).getContent().get(position%20).getId()+"****onItemClick1***点击第" + position);
+            if (mData.size() <= 0) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
+            intent.putExtra("FavouriteId", adapter.getItem(position).getContent().get(position%20).getProject().getId());
+            startActivity(intent);
         }
 
         @Override
         public void onItemClick2(View view, int position) {
             Log.v("oooooooooo", "****onItemClick2***点击第" + position);
-
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
         }
 
         @Override

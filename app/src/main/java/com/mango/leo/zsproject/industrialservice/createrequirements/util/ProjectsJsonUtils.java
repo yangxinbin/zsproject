@@ -131,8 +131,8 @@ public class ProjectsJsonUtils {
         List<DemandManagementBean> beans = new ArrayList<DemandManagementBean>();
         try {
             JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
-            JsonArray jsonArray = ob.getAsJsonArray(va);
+            //JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = jsonObject.getAsJsonArray(va);
             for (int i = 0; i < jsonArray.size(); i++) {
                 DemandManagementBean event = JsonUtils.deserialize(jsonObject, DemandManagementBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象

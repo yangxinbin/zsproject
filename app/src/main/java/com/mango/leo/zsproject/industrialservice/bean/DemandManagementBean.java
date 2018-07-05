@@ -7,274 +7,183 @@ import java.util.List;
  */
 
 public class DemandManagementBean{
-
     /**
-     * responseObject : {"content":[{"id":"5b1fdda3dae69c0b5879092c","name":"生态养生养老综合示范区建设项目","summary":"","organizerDepartment":"江源区人民政府","totalInvestmentRequired":"20000.0","phase1InvestmentRequired":null,"numOfInvestmentPhases":1,"location":{"country":"中国","province":"吉林省","city":"白山","district":"","address":"","lon":null,"lat":null},"contacts":[{"id":null,"name":"吃过家家","department":"风格化很","position":"富家女","mobile":"156636558","phone":"156636558","email":"tghjjh@qq.co\u2006m"},{"id":null,"name":"吃过家家呢吧","department":"非公经济呢","position":"复活节纠结","mobile":"55666452","phone":"55666452","email":"efhj@qq.co\u2006m"}],"cooperationStyles":null,"industries":[{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铜矿采选","parent":"采矿业","level":null},{"id":null,"name":"铁矿采选","parent":"采矿业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null}],"typesOfAvailableDox":[],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["典当公司"],"investmentType":["独资","合作"],"investmentSize":{"caption":null,"min":5000,"max":10000},"other":"许不能买"},"utilityFee":{"waterFeeInfo":"","electricityFeeInfo":"","gasFeeInfo":"","landFeeInfo":""},"resourceFeeInfo":[],"advantages":[],"detail":"","photos":[],"relatedFiles":[],"stage":2,"createdBy":"5b1f9b361233c53ddc1ea1fd","createdOn":null,"updatedBy":"5b1f9b361233c53ddc1ea1fd","updatedOn":1529033451833,"recommended":false,"tenant":"1528798005945"}],"pageable":{"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true},"totalElements":1,"totalPages":1,"last":true,"size":20,"number":0,"sort":{"sorted":false,"unsorted":true},"first":true,"numberOfElements":1}
-     * responseList : null
-     * totalRecords : null
-     * currentPage : null
-     * totalPages : null
+     * content : [{"id":"5b3d944ddae5c52e48678a37","matchingIndex":null,"project":{"id":"5b231348f8aa411a1cafa4f6","name":"刚刚","summary":null,"organizerDepartment":null,"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":null,"createdOn":null,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null},"tenant":"1528798005945","events":["5b225b06f8aa411990e1e01f","5b22599d1233c52010ad1725"],"investmentPlan":["5b20c6581233c5226c392c57","5b223908f8aa411990e70d25"],"businessPlan":["5b28714ff8aa411a1cafa52b","5b2884d5f8aa411a1cafa532"],"timestamp":null}]
+     * pageable : {"sort":{"unsorted":true,"sorted":false},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true}
+     * totalElements : 1
+     * totalPages : 1
+     * last : true
+     * size : 20
+     * number : 0
+     * sort : {"unsorted":true,"sorted":false}
+     * first : true
+     * numberOfElements : 1
      */
 
-    private ResponseObjectBean responseObject;
-    private Object responseList;
-    private Object totalRecords;
-    private Object currentPage;
-    private Object totalPages;
+    private PageableBean pageable;
+    private int totalElements;
+    private int totalPages;
+    private boolean last;
+    private int size;
+    private int number;
+    private SortBeanX sort;
+    private boolean first;
+    private int numberOfElements;
+    private List<ContentBean> content;
 
-    public ResponseObjectBean getResponseObject() {
-        return responseObject;
+    public PageableBean getPageable() {
+        return pageable;
     }
 
-    public void setResponseObject(ResponseObjectBean responseObject) {
-        this.responseObject = responseObject;
+    public void setPageable(PageableBean pageable) {
+        this.pageable = pageable;
     }
 
-    public Object getResponseList() {
-        return responseList;
+    public int getTotalElements() {
+        return totalElements;
     }
 
-    public void setResponseList(Object responseList) {
-        this.responseList = responseList;
+    public void setTotalElements(int totalElements) {
+        this.totalElements = totalElements;
     }
 
-    public Object getTotalRecords() {
-        return totalRecords;
-    }
-
-    public void setTotalRecords(Object totalRecords) {
-        this.totalRecords = totalRecords;
-    }
-
-    public Object getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Object currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    public Object getTotalPages() {
+    public int getTotalPages() {
         return totalPages;
     }
 
-    public void setTotalPages(Object totalPages) {
+    public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
-    public static class ResponseObjectBean {
+    public boolean isLast() {
+        return last;
+    }
+
+    public void setLast(boolean last) {
+        this.last = last;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public SortBeanX getSort() {
+        return sort;
+    }
+
+    public void setSort(SortBeanX sort) {
+        this.sort = sort;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
+
+    public int getNumberOfElements() {
+        return numberOfElements;
+    }
+
+    public void setNumberOfElements(int numberOfElements) {
+        this.numberOfElements = numberOfElements;
+    }
+
+    public List<ContentBean> getContent() {
+        return content;
+    }
+
+    public void setContent(List<ContentBean> content) {
+        this.content = content;
+    }
+
+    public static class PageableBean {
         /**
-         * content : [{"id":"5b1fdda3dae69c0b5879092c","name":"生态养生养老综合示范区建设项目","summary":"","organizerDepartment":"江源区人民政府","totalInvestmentRequired":"20000.0","phase1InvestmentRequired":null,"numOfInvestmentPhases":1,"location":{"country":"中国","province":"吉林省","city":"白山","district":"","address":"","lon":null,"lat":null},"contacts":[{"id":null,"name":"吃过家家","department":"风格化很","position":"富家女","mobile":"156636558","phone":"156636558","email":"tghjjh@qq.co\u2006m"},{"id":null,"name":"吃过家家呢吧","department":"非公经济呢","position":"复活节纠结","mobile":"55666452","phone":"55666452","email":"efhj@qq.co\u2006m"}],"cooperationStyles":null,"industries":[{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铜矿采选","parent":"采矿业","level":null},{"id":null,"name":"铁矿采选","parent":"采矿业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null}],"typesOfAvailableDox":[],"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["典当公司"],"investmentType":["独资","合作"],"investmentSize":{"caption":null,"min":5000,"max":10000},"other":"许不能买"},"utilityFee":{"waterFeeInfo":"","electricityFeeInfo":"","gasFeeInfo":"","landFeeInfo":""},"resourceFeeInfo":[],"advantages":[],"detail":"","photos":[],"relatedFiles":[],"stage":2,"createdBy":"5b1f9b361233c53ddc1ea1fd","createdOn":null,"updatedBy":"5b1f9b361233c53ddc1ea1fd","updatedOn":1529033451833,"recommended":false,"tenant":"1528798005945"}]
-         * pageable : {"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"unpaged":false,"paged":true}
-         * totalElements : 1
-         * totalPages : 1
-         * last : true
-         * size : 20
-         * number : 0
-         * sort : {"sorted":false,"unsorted":true}
-         * first : true
-         * numberOfElements : 1
+         * sort : {"unsorted":true,"sorted":false}
+         * offset : 0
+         * pageSize : 20
+         * pageNumber : 0
+         * unpaged : false
+         * paged : true
          */
 
-        private PageableBean pageable;
-        private int totalElements;
-        private int totalPages;
-        private boolean last;
-        private int size;
-        private int number;
-        private SortBeanX sort;
-        private boolean first;
-        private int numberOfElements;
-        private List<ContentBean> content;
+        private SortBean sort;
+        private int offset;
+        private int pageSize;
+        private int pageNumber;
+        private boolean unpaged;
+        private boolean paged;
 
-        public PageableBean getPageable() {
-            return pageable;
-        }
-
-        public void setPageable(PageableBean pageable) {
-            this.pageable = pageable;
-        }
-
-        public int getTotalElements() {
-            return totalElements;
-        }
-
-        public void setTotalElements(int totalElements) {
-            this.totalElements = totalElements;
-        }
-
-        public int getTotalPages() {
-            return totalPages;
-        }
-
-        public void setTotalPages(int totalPages) {
-            this.totalPages = totalPages;
-        }
-
-        public boolean isLast() {
-            return last;
-        }
-
-        public void setLast(boolean last) {
-            this.last = last;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public SortBeanX getSort() {
+        public SortBean getSort() {
             return sort;
         }
 
-        public void setSort(SortBeanX sort) {
+        public void setSort(SortBean sort) {
             this.sort = sort;
         }
 
-        public boolean isFirst() {
-            return first;
+        public int getOffset() {
+            return offset;
         }
 
-        public void setFirst(boolean first) {
-            this.first = first;
+        public void setOffset(int offset) {
+            this.offset = offset;
         }
 
-        public int getNumberOfElements() {
-            return numberOfElements;
+        public int getPageSize() {
+            return pageSize;
         }
 
-        public void setNumberOfElements(int numberOfElements) {
-            this.numberOfElements = numberOfElements;
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
         }
 
-        public List<ContentBean> getContent() {
-            return content;
+        public int getPageNumber() {
+            return pageNumber;
         }
 
-        public void setContent(List<ContentBean> content) {
-            this.content = content;
+        public void setPageNumber(int pageNumber) {
+            this.pageNumber = pageNumber;
         }
 
-        public static class PageableBean {
+        public boolean isUnpaged() {
+            return unpaged;
+        }
+
+        public void setUnpaged(boolean unpaged) {
+            this.unpaged = unpaged;
+        }
+
+        public boolean isPaged() {
+            return paged;
+        }
+
+        public void setPaged(boolean paged) {
+            this.paged = paged;
+        }
+
+        public static class SortBean {
             /**
-             * sort : {"sorted":false,"unsorted":true}
-             * offset : 0
-             * pageSize : 20
-             * pageNumber : 0
-             * unpaged : false
-             * paged : true
-             */
-
-            private SortBean sort;
-            private int offset;
-            private int pageSize;
-            private int pageNumber;
-            private boolean unpaged;
-            private boolean paged;
-
-            public SortBean getSort() {
-                return sort;
-            }
-
-            public void setSort(SortBean sort) {
-                this.sort = sort;
-            }
-
-            public int getOffset() {
-                return offset;
-            }
-
-            public void setOffset(int offset) {
-                this.offset = offset;
-            }
-
-            public int getPageSize() {
-                return pageSize;
-            }
-
-            public void setPageSize(int pageSize) {
-                this.pageSize = pageSize;
-            }
-
-            public int getPageNumber() {
-                return pageNumber;
-            }
-
-            public void setPageNumber(int pageNumber) {
-                this.pageNumber = pageNumber;
-            }
-
-            public boolean isUnpaged() {
-                return unpaged;
-            }
-
-            public void setUnpaged(boolean unpaged) {
-                this.unpaged = unpaged;
-            }
-
-            public boolean isPaged() {
-                return paged;
-            }
-
-            public void setPaged(boolean paged) {
-                this.paged = paged;
-            }
-
-            public static class SortBean {
-                /**
-                 * sorted : false
-                 * unsorted : true
-                 */
-
-                private boolean sorted;
-                private boolean unsorted;
-
-                public boolean isSorted() {
-                    return sorted;
-                }
-
-                public void setSorted(boolean sorted) {
-                    this.sorted = sorted;
-                }
-
-                public boolean isUnsorted() {
-                    return unsorted;
-                }
-
-                public void setUnsorted(boolean unsorted) {
-                    this.unsorted = unsorted;
-                }
-            }
-        }
-
-        public static class SortBeanX {
-            /**
-             * sorted : false
              * unsorted : true
+             * sorted : false
              */
 
-            private boolean sorted;
             private boolean unsorted;
-
-            public boolean isSorted() {
-                return sorted;
-            }
-
-            public void setSorted(boolean sorted) {
-                this.sorted = sorted;
-            }
+            private boolean sorted;
 
             public boolean isUnsorted() {
                 return unsorted;
@@ -283,60 +192,180 @@ public class DemandManagementBean{
             public void setUnsorted(boolean unsorted) {
                 this.unsorted = unsorted;
             }
+
+            public boolean isSorted() {
+                return sorted;
+            }
+
+            public void setSorted(boolean sorted) {
+                this.sorted = sorted;
+            }
+        }
+    }
+
+    public static class SortBeanX {
+        /**
+         * unsorted : true
+         * sorted : false
+         */
+
+        private boolean unsorted;
+        private boolean sorted;
+
+        public boolean isUnsorted() {
+            return unsorted;
         }
 
-        public static class ContentBean {
+        public void setUnsorted(boolean unsorted) {
+            this.unsorted = unsorted;
+        }
+
+        public boolean isSorted() {
+            return sorted;
+        }
+
+        public void setSorted(boolean sorted) {
+            this.sorted = sorted;
+        }
+    }
+
+    public static class ContentBean {
+        /**
+         * id : 5b3d944ddae5c52e48678a37
+         * matchingIndex : null
+         * project : {"id":"5b231348f8aa411a1cafa4f6","name":"刚刚","summary":null,"organizerDepartment":null,"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"location":{"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null},"contacts":[],"cooperationStyles":null,"industries":[],"typesOfAvailableDox":null,"icr":{"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null},"utilityFee":{"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null},"resourceFeeInfo":[],"advantages":[],"detail":null,"photos":[],"relatedFiles":[],"stage":0,"createdBy":null,"createdOn":null,"updatedBy":null,"updatedOn":null,"recommended":null,"tenant":null}
+         * tenant : 1528798005945
+         * events : ["5b225b06f8aa411990e1e01f","5b22599d1233c52010ad1725"]
+         * investmentPlan : ["5b20c6581233c5226c392c57","5b223908f8aa411990e70d25"]
+         * businessPlan : ["5b28714ff8aa411a1cafa52b","5b2884d5f8aa411a1cafa532"]
+         * timestamp : null
+         */
+
+        private String id;
+        private Object matchingIndex;
+        private ProjectBean project;
+        private String tenant;
+        private Object timestamp;
+        private List<String> events;
+        private List<String> investmentPlan;
+        private List<String> businessPlan;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public Object getMatchingIndex() {
+            return matchingIndex;
+        }
+
+        public void setMatchingIndex(Object matchingIndex) {
+            this.matchingIndex = matchingIndex;
+        }
+
+        public ProjectBean getProject() {
+            return project;
+        }
+
+        public void setProject(ProjectBean project) {
+            this.project = project;
+        }
+
+        public String getTenant() {
+            return tenant;
+        }
+
+        public void setTenant(String tenant) {
+            this.tenant = tenant;
+        }
+
+        public Object getTimestamp() {
+            return timestamp;
+        }
+
+        public void setTimestamp(Object timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public List<String> getEvents() {
+            return events;
+        }
+
+        public void setEvents(List<String> events) {
+            this.events = events;
+        }
+
+        public List<String> getInvestmentPlan() {
+            return investmentPlan;
+        }
+
+        public void setInvestmentPlan(List<String> investmentPlan) {
+            this.investmentPlan = investmentPlan;
+        }
+
+        public List<String> getBusinessPlan() {
+            return businessPlan;
+        }
+
+        public void setBusinessPlan(List<String> businessPlan) {
+            this.businessPlan = businessPlan;
+        }
+
+        public static class ProjectBean {
             /**
-             * id : 5b1fdda3dae69c0b5879092c
-             * name : 生态养生养老综合示范区建设项目
-             * summary :
-             * organizerDepartment : 江源区人民政府
-             * totalInvestmentRequired : 20000.0
+             * id : 5b231348f8aa411a1cafa4f6
+             * name : 刚刚
+             * summary : null
+             * organizerDepartment : null
+             * totalInvestmentRequired : null
              * phase1InvestmentRequired : null
-             * numOfInvestmentPhases : 1
-             * location : {"country":"中国","province":"吉林省","city":"白山","district":"","address":"","lon":null,"lat":null}
-             * contacts : [{"id":null,"name":"吃过家家","department":"风格化很","position":"富家女","mobile":"156636558","phone":"156636558","email":"tghjjh@qq.co\u2006m"},{"id":null,"name":"吃过家家呢吧","department":"非公经济呢","position":"复活节纠结","mobile":"55666452","phone":"55666452","email":"efhj@qq.co\u2006m"}]
+             * numOfInvestmentPhases : null
+             * location : {"country":null,"province":null,"city":null,"district":null,"address":null,"lon":null,"lat":null}
+             * contacts : []
              * cooperationStyles : null
-             * industries : [{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"铜矿采选","parent":"采矿业","level":null},{"id":null,"name":"铁矿采选","parent":"采矿业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null},{"id":null,"name":"铁路工程建筑","parent":"建筑业","level":null},{"id":null,"name":"海洋工程建筑","parent":"建筑业","level":null},{"id":null,"name":"房屋建筑业","parent":"建筑业","level":null}]
-             * typesOfAvailableDox : []
-             * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":"引资","cooperationStyles":["典当公司"],"investmentType":["独资","合作"],"investmentSize":{"caption":null,"min":5000,"max":10000},"other":"许不能买"}
-             * utilityFee : {"waterFeeInfo":"","electricityFeeInfo":"","gasFeeInfo":"","landFeeInfo":""}
+             * industries : []
+             * typesOfAvailableDox : null
+             * icr : {"totalInvestmentRequired":null,"phase1InvestmentRequired":null,"numOfInvestmentPhases":null,"cooperationModel":null,"cooperationStyles":null,"investmentType":null,"investmentSize":null,"other":null}
+             * utilityFee : {"waterFeeInfo":null,"electricityFeeInfo":null,"gasFeeInfo":null,"landFeeInfo":null}
              * resourceFeeInfo : []
              * advantages : []
-             * detail :
+             * detail : null
              * photos : []
              * relatedFiles : []
-             * stage : 2
-             * createdBy : 5b1f9b361233c53ddc1ea1fd
+             * stage : 0
+             * createdBy : null
              * createdOn : null
-             * updatedBy : 5b1f9b361233c53ddc1ea1fd
-             * updatedOn : 1529033451833
-             * recommended : false
-             * tenant : 1528798005945
+             * updatedBy : null
+             * updatedOn : null
+             * recommended : null
+             * tenant : null
              */
 
             private String id;
             private String name;
-            private String summary;
-            private String organizerDepartment;
-            private String totalInvestmentRequired;
+            private Object summary;
+            private Object organizerDepartment;
+            private Object totalInvestmentRequired;
             private Object phase1InvestmentRequired;
-            private int numOfInvestmentPhases;
+            private Object numOfInvestmentPhases;
             private LocationBean location;
             private Object cooperationStyles;
+            private Object typesOfAvailableDox;
             private IcrBean icr;
             private UtilityFeeBean utilityFee;
-            private String detail;
+            private Object detail;
             private int stage;
-            private String createdBy;
+            private Object createdBy;
             private Object createdOn;
-            private String updatedBy;
-            private long updatedOn;
-            private boolean recommended;
-            private String tenant;
-            private List<ContactsBean> contacts;
-            private List<IndustriesBean> industries;
-            private List<?> typesOfAvailableDox;
+            private Object updatedBy;
+            private Object updatedOn;
+            private Object recommended;
+            private Object tenant;
+            private List<?> contacts;
+            private List<?> industries;
             private List<?> resourceFeeInfo;
             private List<?> advantages;
             private List<?> photos;
@@ -358,27 +387,27 @@ public class DemandManagementBean{
                 this.name = name;
             }
 
-            public String getSummary() {
+            public Object getSummary() {
                 return summary;
             }
 
-            public void setSummary(String summary) {
+            public void setSummary(Object summary) {
                 this.summary = summary;
             }
 
-            public String getOrganizerDepartment() {
+            public Object getOrganizerDepartment() {
                 return organizerDepartment;
             }
 
-            public void setOrganizerDepartment(String organizerDepartment) {
+            public void setOrganizerDepartment(Object organizerDepartment) {
                 this.organizerDepartment = organizerDepartment;
             }
 
-            public String getTotalInvestmentRequired() {
+            public Object getTotalInvestmentRequired() {
                 return totalInvestmentRequired;
             }
 
-            public void setTotalInvestmentRequired(String totalInvestmentRequired) {
+            public void setTotalInvestmentRequired(Object totalInvestmentRequired) {
                 this.totalInvestmentRequired = totalInvestmentRequired;
             }
 
@@ -390,11 +419,11 @@ public class DemandManagementBean{
                 this.phase1InvestmentRequired = phase1InvestmentRequired;
             }
 
-            public int getNumOfInvestmentPhases() {
+            public Object getNumOfInvestmentPhases() {
                 return numOfInvestmentPhases;
             }
 
-            public void setNumOfInvestmentPhases(int numOfInvestmentPhases) {
+            public void setNumOfInvestmentPhases(Object numOfInvestmentPhases) {
                 this.numOfInvestmentPhases = numOfInvestmentPhases;
             }
 
@@ -414,6 +443,14 @@ public class DemandManagementBean{
                 this.cooperationStyles = cooperationStyles;
             }
 
+            public Object getTypesOfAvailableDox() {
+                return typesOfAvailableDox;
+            }
+
+            public void setTypesOfAvailableDox(Object typesOfAvailableDox) {
+                this.typesOfAvailableDox = typesOfAvailableDox;
+            }
+
             public IcrBean getIcr() {
                 return icr;
             }
@@ -430,11 +467,11 @@ public class DemandManagementBean{
                 this.utilityFee = utilityFee;
             }
 
-            public String getDetail() {
+            public Object getDetail() {
                 return detail;
             }
 
-            public void setDetail(String detail) {
+            public void setDetail(Object detail) {
                 this.detail = detail;
             }
 
@@ -446,11 +483,11 @@ public class DemandManagementBean{
                 this.stage = stage;
             }
 
-            public String getCreatedBy() {
+            public Object getCreatedBy() {
                 return createdBy;
             }
 
-            public void setCreatedBy(String createdBy) {
+            public void setCreatedBy(Object createdBy) {
                 this.createdBy = createdBy;
             }
 
@@ -462,60 +499,52 @@ public class DemandManagementBean{
                 this.createdOn = createdOn;
             }
 
-            public String getUpdatedBy() {
+            public Object getUpdatedBy() {
                 return updatedBy;
             }
 
-            public void setUpdatedBy(String updatedBy) {
+            public void setUpdatedBy(Object updatedBy) {
                 this.updatedBy = updatedBy;
             }
 
-            public long getUpdatedOn() {
+            public Object getUpdatedOn() {
                 return updatedOn;
             }
 
-            public void setUpdatedOn(long updatedOn) {
+            public void setUpdatedOn(Object updatedOn) {
                 this.updatedOn = updatedOn;
             }
 
-            public boolean isRecommended() {
+            public Object getRecommended() {
                 return recommended;
             }
 
-            public void setRecommended(boolean recommended) {
+            public void setRecommended(Object recommended) {
                 this.recommended = recommended;
             }
 
-            public String getTenant() {
+            public Object getTenant() {
                 return tenant;
             }
 
-            public void setTenant(String tenant) {
+            public void setTenant(Object tenant) {
                 this.tenant = tenant;
             }
 
-            public List<ContactsBean> getContacts() {
+            public List<?> getContacts() {
                 return contacts;
             }
 
-            public void setContacts(List<ContactsBean> contacts) {
+            public void setContacts(List<?> contacts) {
                 this.contacts = contacts;
             }
 
-            public List<IndustriesBean> getIndustries() {
+            public List<?> getIndustries() {
                 return industries;
             }
 
-            public void setIndustries(List<IndustriesBean> industries) {
+            public void setIndustries(List<?> industries) {
                 this.industries = industries;
-            }
-
-            public List<?> getTypesOfAvailableDox() {
-                return typesOfAvailableDox;
-            }
-
-            public void setTypesOfAvailableDox(List<?> typesOfAvailableDox) {
-                this.typesOfAvailableDox = typesOfAvailableDox;
             }
 
             public List<?> getResourceFeeInfo() {
@@ -552,60 +581,60 @@ public class DemandManagementBean{
 
             public static class LocationBean {
                 /**
-                 * country : 中国
-                 * province : 吉林省
-                 * city : 白山
-                 * district :
-                 * address :
+                 * country : null
+                 * province : null
+                 * city : null
+                 * district : null
+                 * address : null
                  * lon : null
                  * lat : null
                  */
 
-                private String country;
-                private String province;
-                private String city;
-                private String district;
-                private String address;
+                private Object country;
+                private Object province;
+                private Object city;
+                private Object district;
+                private Object address;
                 private Object lon;
                 private Object lat;
 
-                public String getCountry() {
+                public Object getCountry() {
                     return country;
                 }
 
-                public void setCountry(String country) {
+                public void setCountry(Object country) {
                     this.country = country;
                 }
 
-                public String getProvince() {
+                public Object getProvince() {
                     return province;
                 }
 
-                public void setProvince(String province) {
+                public void setProvince(Object province) {
                     this.province = province;
                 }
 
-                public String getCity() {
+                public Object getCity() {
                     return city;
                 }
 
-                public void setCity(String city) {
+                public void setCity(Object city) {
                     this.city = city;
                 }
 
-                public String getDistrict() {
+                public Object getDistrict() {
                     return district;
                 }
 
-                public void setDistrict(String district) {
+                public void setDistrict(Object district) {
                     this.district = district;
                 }
 
-                public String getAddress() {
+                public Object getAddress() {
                     return address;
                 }
 
-                public void setAddress(String address) {
+                public void setAddress(Object address) {
                     this.address = address;
                 }
 
@@ -631,21 +660,21 @@ public class DemandManagementBean{
                  * totalInvestmentRequired : null
                  * phase1InvestmentRequired : null
                  * numOfInvestmentPhases : null
-                 * cooperationModel : 引资
-                 * cooperationStyles : ["典当公司"]
-                 * investmentType : ["独资","合作"]
-                 * investmentSize : {"caption":null,"min":5000,"max":10000}
-                 * other : 许不能买
+                 * cooperationModel : null
+                 * cooperationStyles : null
+                 * investmentType : null
+                 * investmentSize : null
+                 * other : null
                  */
 
                 private Object totalInvestmentRequired;
                 private Object phase1InvestmentRequired;
                 private Object numOfInvestmentPhases;
-                private String cooperationModel;
-                private InvestmentSizeBean investmentSize;
-                private String other;
-                private List<String> cooperationStyles;
-                private List<String> investmentType;
+                private Object cooperationModel;
+                private Object cooperationStyles;
+                private Object investmentType;
+                private Object investmentSize;
+                private Object other;
 
                 public Object getTotalInvestmentRequired() {
                     return totalInvestmentRequired;
@@ -671,248 +700,90 @@ public class DemandManagementBean{
                     this.numOfInvestmentPhases = numOfInvestmentPhases;
                 }
 
-                public String getCooperationModel() {
+                public Object getCooperationModel() {
                     return cooperationModel;
                 }
 
-                public void setCooperationModel(String cooperationModel) {
+                public void setCooperationModel(Object cooperationModel) {
                     this.cooperationModel = cooperationModel;
                 }
 
-                public InvestmentSizeBean getInvestmentSize() {
-                    return investmentSize;
-                }
-
-                public void setInvestmentSize(InvestmentSizeBean investmentSize) {
-                    this.investmentSize = investmentSize;
-                }
-
-                public String getOther() {
-                    return other;
-                }
-
-                public void setOther(String other) {
-                    this.other = other;
-                }
-
-                public List<String> getCooperationStyles() {
+                public Object getCooperationStyles() {
                     return cooperationStyles;
                 }
 
-                public void setCooperationStyles(List<String> cooperationStyles) {
+                public void setCooperationStyles(Object cooperationStyles) {
                     this.cooperationStyles = cooperationStyles;
                 }
 
-                public List<String> getInvestmentType() {
+                public Object getInvestmentType() {
                     return investmentType;
                 }
 
-                public void setInvestmentType(List<String> investmentType) {
+                public void setInvestmentType(Object investmentType) {
                     this.investmentType = investmentType;
                 }
 
-                public static class InvestmentSizeBean {
-                    /**
-                     * caption : null
-                     * min : 5000
-                     * max : 10000
-                     */
+                public Object getInvestmentSize() {
+                    return investmentSize;
+                }
 
-                    private Object caption;
-                    private int min;
-                    private int max;
+                public void setInvestmentSize(Object investmentSize) {
+                    this.investmentSize = investmentSize;
+                }
 
-                    public Object getCaption() {
-                        return caption;
-                    }
+                public Object getOther() {
+                    return other;
+                }
 
-                    public void setCaption(Object caption) {
-                        this.caption = caption;
-                    }
-
-                    public int getMin() {
-                        return min;
-                    }
-
-                    public void setMin(int min) {
-                        this.min = min;
-                    }
-
-                    public int getMax() {
-                        return max;
-                    }
-
-                    public void setMax(int max) {
-                        this.max = max;
-                    }
+                public void setOther(Object other) {
+                    this.other = other;
                 }
             }
 
             public static class UtilityFeeBean {
                 /**
-                 * waterFeeInfo :
-                 * electricityFeeInfo :
-                 * gasFeeInfo :
-                 * landFeeInfo :
+                 * waterFeeInfo : null
+                 * electricityFeeInfo : null
+                 * gasFeeInfo : null
+                 * landFeeInfo : null
                  */
 
-                private String waterFeeInfo;
-                private String electricityFeeInfo;
-                private String gasFeeInfo;
-                private String landFeeInfo;
+                private Object waterFeeInfo;
+                private Object electricityFeeInfo;
+                private Object gasFeeInfo;
+                private Object landFeeInfo;
 
-                public String getWaterFeeInfo() {
+                public Object getWaterFeeInfo() {
                     return waterFeeInfo;
                 }
 
-                public void setWaterFeeInfo(String waterFeeInfo) {
+                public void setWaterFeeInfo(Object waterFeeInfo) {
                     this.waterFeeInfo = waterFeeInfo;
                 }
 
-                public String getElectricityFeeInfo() {
+                public Object getElectricityFeeInfo() {
                     return electricityFeeInfo;
                 }
 
-                public void setElectricityFeeInfo(String electricityFeeInfo) {
+                public void setElectricityFeeInfo(Object electricityFeeInfo) {
                     this.electricityFeeInfo = electricityFeeInfo;
                 }
 
-                public String getGasFeeInfo() {
+                public Object getGasFeeInfo() {
                     return gasFeeInfo;
                 }
 
-                public void setGasFeeInfo(String gasFeeInfo) {
+                public void setGasFeeInfo(Object gasFeeInfo) {
                     this.gasFeeInfo = gasFeeInfo;
                 }
 
-                public String getLandFeeInfo() {
+                public Object getLandFeeInfo() {
                     return landFeeInfo;
                 }
 
-                public void setLandFeeInfo(String landFeeInfo) {
+                public void setLandFeeInfo(Object landFeeInfo) {
                     this.landFeeInfo = landFeeInfo;
-                }
-            }
-
-            public static class ContactsBean {
-                /**
-                 * id : null
-                 * name : 吃过家家
-                 * department : 风格化很
-                 * position : 富家女
-                 * mobile : 156636558
-                 * phone : 156636558
-                 * email : tghjjh@qq.co m
-                 */
-
-                private Object id;
-                private String name;
-                private String department;
-                private String position;
-                private String mobile;
-                private String phone;
-                private String email;
-
-                public Object getId() {
-                    return id;
-                }
-
-                public void setId(Object id) {
-                    this.id = id;
-                }
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getDepartment() {
-                    return department;
-                }
-
-                public void setDepartment(String department) {
-                    this.department = department;
-                }
-
-                public String getPosition() {
-                    return position;
-                }
-
-                public void setPosition(String position) {
-                    this.position = position;
-                }
-
-                public String getMobile() {
-                    return mobile;
-                }
-
-                public void setMobile(String mobile) {
-                    this.mobile = mobile;
-                }
-
-                public String getPhone() {
-                    return phone;
-                }
-
-                public void setPhone(String phone) {
-                    this.phone = phone;
-                }
-
-                public String getEmail() {
-                    return email;
-                }
-
-                public void setEmail(String email) {
-                    this.email = email;
-                }
-            }
-
-            public static class IndustriesBean {
-                /**
-                 * id : null
-                 * name : 海洋工程建筑
-                 * parent : 建筑业
-                 * level : null
-                 */
-
-                private Object id;
-                private String name;
-                private String parent;
-                private Object level;
-
-                public Object getId() {
-                    return id;
-                }
-
-                public void setId(Object id) {
-                    this.id = id;
-                }
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getParent() {
-                    return parent;
-                }
-
-                public void setParent(String parent) {
-                    this.parent = parent;
-                }
-
-                public Object getLevel() {
-                    return level;
-                }
-
-                public void setLevel(Object level) {
-                    this.level = level;
                 }
             }
         }
