@@ -89,6 +89,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             mDataAll.clear();
         }
         page = 0;//以上初始化
+        EventBus.getDefault().removeStickyEvent(IdBean.class);
         //LoadShengbao(projectId, page);
     }
 
