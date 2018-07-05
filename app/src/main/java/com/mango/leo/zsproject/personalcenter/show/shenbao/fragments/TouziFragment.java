@@ -56,7 +56,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     private ShenBaoPresenter shenBaoPresenter;
     private int page = 0;
     private ArrayList<ShenBaoBean> mData, mDataAll;
-    private String projectId = "";
+    //private String projectId = "";
     private SharedPreferences sharedPreferences;
 
 
@@ -67,7 +67,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         shenBaoPresenter = new ShenBaoPresenterImpl(this);
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
         ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
@@ -81,7 +81,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         return view;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+/*    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void IdEventBus(IdBean bean) {
         if (bean == null) {
             return;
@@ -97,7 +97,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         page = 0;//以上初始化
         EventBus.getDefault().removeStickyEvent(IdBean.class);
         //LoadShengbao(projectId, page);
-    }
+    }*/
 
     private void LoadShengbao(String projectId, int page) {
         shenBaoPresenter.visitProjects(getActivity(), type, projectId, page);
@@ -131,7 +131,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                LoadShengbao(projectId, page);
+                LoadShengbao(sharedPreferences.getString("projectId",""), page);
                 Log.v("yyyy", "***onScrollStateChanged******" + adapter.getItemCount());
             }
         }
@@ -179,7 +179,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                             mDataAll.clear();
                         }
                         page = 0;
-                        LoadShengbao(projectId, page);//请求刷新
+                        LoadShengbao(sharedPreferences.getString("projectId",""), page);//请求刷新
                     }
                 }, 2000);
             }
