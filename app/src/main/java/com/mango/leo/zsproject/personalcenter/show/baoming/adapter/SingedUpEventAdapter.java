@@ -151,7 +151,7 @@ public class SingedUpEventAdapter extends RecyclerView.Adapter<RecyclerView.View
                         ((ItemViewHolder) holder).e_title.setText("         "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getEvent().getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     } else {
-                        ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getEvent().getName());
+                        ((ItemViewHolder) holder).e_title.setText("  "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getEvent().getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEvent().getEndTime() < System.currentTimeMillis()){

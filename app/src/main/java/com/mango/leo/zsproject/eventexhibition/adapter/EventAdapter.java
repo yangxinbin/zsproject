@@ -151,7 +151,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         ((ItemViewHolder) holder).e_title.setText("         "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.VISIBLE);
                     }else {
-                        ((ItemViewHolder) holder).e_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
+                        ((ItemViewHolder) holder).e_title.setText("  "+mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
                         ((ItemViewHolder) holder).tv_state.setVisibility(View.GONE);
                     }
                     if (mData.get(pos).getResponseObject().getContent().get(pos % 20).getEndTime() < System.currentTimeMillis()){
