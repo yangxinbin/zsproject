@@ -25,7 +25,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="@dimen/sencond_textSize"
             android:text="概况"
             android:textColor="@color/black"
             android:textSize="@dimen/title" />

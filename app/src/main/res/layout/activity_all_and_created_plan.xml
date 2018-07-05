@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="@dimen/sencond_textSize"
             android:src="@drawable/common_nav_icon_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

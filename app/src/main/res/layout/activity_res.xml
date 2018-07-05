@@ -112,7 +112,7 @@
         android:layout_alignLeft="@+id/editText_verification_code_res"
         android:layout_alignStart="@+id/editText_verification_code_res"
         android:layout_below="@+id/imageView27"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="@dimen/sencond_textSize"
         android:ems="10"
         android:hint="输入密码"
         android:inputType="textPassword" />

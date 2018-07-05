@@ -350,7 +350,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="@dimen/sencond_textSize"
             android:text="其它："
             android:textColor="@color/black"
             android:textSize="@dimen/textSize" />

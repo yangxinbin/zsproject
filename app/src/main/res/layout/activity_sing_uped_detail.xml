@@ -114,8 +114,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/imageView53"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginStart="14dp"
+                        android:layout_marginLeft="@dimen/sencond_textSize"
+                        android:layout_marginStart="@dimen/sencond_textSize"
                         android:layout_toEndOf="@+id/imageView53"
                         android:layout_toRightOf="@+id/imageView53"
                         android:text="" />
@@ -142,8 +142,8 @@
                         android:id="@+id/textView_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginStart="14dp" />
+                        android:layout_marginLeft="@dimen/sencond_textSize"
+                        android:layout_marginStart="@dimen/sencond_textSize" />
 
                 </LinearLayout>
 
@@ -178,8 +178,8 @@
                                 android:id="@+id/textView65"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="14dp"
-                                android:layout_marginStart="14dp"
+                                android:layout_marginLeft="@dimen/sencond_textSize"
+                                android:layout_marginStart="@dimen/sencond_textSize"
                                 android:text="主办方：" />
 
                             <TextView
@@ -195,7 +195,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/linearLayout14"
-                            android:layout_marginLeft="14dp"
+                            android:layout_marginLeft="@dimen/sencond_textSize"
                             android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 

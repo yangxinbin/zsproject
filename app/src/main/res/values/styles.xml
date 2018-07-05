@@ -14,7 +14,7 @@
     </style>
     <style name="TabTextOther" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">@dimen/sencond_textSize</item>
         <item name="android:textColor">@color/grayBlack</item>
     </style>
     <!-- spinner -->

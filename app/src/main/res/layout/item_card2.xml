@@ -55,8 +55,8 @@
         android:layout_above="@+id/textView48"
         android:layout_alignLeft="@+id/textView_name"
         android:layout_alignStart="@+id/textView_name"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginLeft="@dimen/sencond_textSize"
+        android:layout_marginStart="@dimen/sencond_textSize"
         android:text="TextView" />-->
 
     <!--<TextView

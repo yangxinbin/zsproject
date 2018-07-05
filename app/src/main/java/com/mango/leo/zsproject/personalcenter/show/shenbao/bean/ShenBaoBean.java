@@ -298,7 +298,7 @@ public class ShenBaoBean {
 
             private String id;
             private ProjectBean project;
-            private Object description;
+            private String description;
             private String requesterType;
             private ContactInfoBean contactInfo;
             private Object requestedBy;
@@ -320,11 +320,11 @@ public class ShenBaoBean {
                 this.project = project;
             }
 
-            public Object getDescription() {
+            public String getDescription() {
                 return description;
             }
 
-            public void setDescription(Object description) {
+            public void setDescription(String description) {
                 this.description = description;
             }
 

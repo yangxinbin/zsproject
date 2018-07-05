@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/textView82"
             android:layout_width="wrap_content"

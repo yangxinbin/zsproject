@@ -62,8 +62,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="14dp"
-                android:layout_marginStart="14dp"
+                android:layout_marginLeft="@dimen/sencond_textSize"
+                android:layout_marginStart="@dimen/sencond_textSize"
                 app:srcCompat="@drawable/common_nav_icon_back" />
         </RelativeLayout>
 

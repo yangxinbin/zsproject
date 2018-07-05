@@ -42,8 +42,8 @@
             android:layout_alignBottom="@+id/t_govName"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
+            android:layout_marginEnd="@dimen/sencond_textSize"
+            android:layout_marginRight="@dimen/sencond_textSize"
             app:srcCompat="@drawable/share" />
 
     </RelativeLayout>

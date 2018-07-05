@@ -65,7 +65,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
-        LoadShengbao("",page);
+        LoadShengbao(projectId,page);
         return view;
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -75,7 +75,14 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
         }
         Log.v("iiiiiiiii","---"+bean.getProjectId());
         projectId = bean.getProjectId();
-        LoadShengbao(projectId,0);
+        if (mData != null) {
+            mData.clear();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        page = 0;//以上初始化
+        //LoadShengbao(projectId,0);
     }
     private void LoadShengbao(String projectId,int page) {
         shenBaoPresenter.visitProjects(getActivity(), type,projectId, page);
@@ -134,11 +141,12 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz",page+"----2---3------"+shengBaoBeans.size());
+        //Log.v("zzzzzzzzz",page+"----2---3------"+shengBaoBeans.size());
         if (shengBaoBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -160,7 +168,7 @@ public class XiangMuFragment extends Fragment implements ShenbaoProjectsView{
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            Log.v("zzzzzzzzz","----4---------"+mData.size());
+           // Log.v("zzzzzzzzz","--1--4---------"+mData.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

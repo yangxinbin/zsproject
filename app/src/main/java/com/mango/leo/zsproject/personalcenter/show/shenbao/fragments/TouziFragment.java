@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.personalcenter.show.shenbao.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.personalcenter.show.shenbao.ShenBaoDetailActivity;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.adapter.ShenBaoAdapter;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.IdBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.ShenBaoBean;
@@ -50,7 +52,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     private final int type = 0;
     private ShenBaoPresenter shenBaoPresenter;
     private int page = 0;
-    private ArrayList<ShenBaoBean> mData,mDataAll;
+    private ArrayList<ShenBaoBean> mData, mDataAll;
     private String projectId = "";
 
     @Nullable
@@ -63,22 +65,39 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         initRecycle();
         initHeader();
         initSwipeRefreshLayout();
-        LoadShengbao("",0);
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        if (mData != null) {
+            mData.clear();
+        }
+        LoadShengbao(projectId, 0);
         return view;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void IdEventBus(IdBean bean) {
-        if (bean == null){
+        if (bean == null) {
             return;
         }
-        Log.v("iiiiiiiii","---"+bean.getProjectId());
+        Log.v("zzzzzzzzz", "---" + bean.getProjectId());
         projectId = bean.getProjectId();
-        LoadShengbao(projectId,0);
+        if (mData != null) {
+            mData.clear();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        page = 0;//以上初始化
+        //LoadShengbao(projectId, page);
     }
-    private void LoadShengbao(String projectId,int page) {
-        shenBaoPresenter.visitProjects(getActivity(), type,projectId, page);
+
+    private void LoadShengbao(String projectId, int page) {
+        shenBaoPresenter.visitProjects(getActivity(), type, projectId, page);
     }
+
     private void initRecycle() {
+        Log.v("zzzzzzzzz", "--adapter-");
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleTouzi.setLayoutManager(mLayoutManager);
         recycleTouzi.setItemAnimator(new DefaultItemAnimator());//设置默认动画
@@ -101,14 +120,14 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            Log.v("yyyy", "***???****"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"=="+(adapter.getItemCount()==lastVisibleItem + 1)+"=="+adapter.isShowFooter());
+            Log.v("yyyy", "***???****" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "==" + (adapter.getItemCount() == lastVisibleItem + 1) + "==" + adapter.isShowFooter());
 
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                LoadShengbao(projectId,page);
-                Log.v("yyyy", "***onScrollStateChanged******"+adapter.getItemCount());
+                LoadShengbao(projectId, page);
+                Log.v("yyyy", "***onScrollStateChanged******" + adapter.getItemCount());
             }
         }
     };
@@ -119,12 +138,13 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             if (mData.size() <= 0) {
                 return;
             }
-/*            Intent intent = new Intent(getActivity(), BusinessPlanActivity.class);
-            intent.putExtra("type", adapter.getItem(position).getResponseObject().getContent().get(position).getStage());
-            startActivity(intent);*/
+            Intent intent = new Intent(getActivity(), ShenBaoDetailActivity.class);
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20));
+            startActivity(intent);
             //getActivity().finish();
         }
     };
+
     private void initHeader() {
         //渲染header布局
         ConstraintLayout h = new ConstraintLayout(getActivity());
@@ -133,10 +153,12 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         h.setLayoutParams(layoutParam);
         adapter.setHeaderView(h);
     }
+
     private int dp2px(float v) {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
+
     public void initSwipeRefreshLayout() {
         refreshTouzi.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -145,14 +167,14 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                     @Override
                     public void run() {
                         refreshTouzi.setRefreshing(false);
-                        if (mData != null){
+                        if (mData != null) {
                             mData.clear();
                         }
-                        if (mDataAll != null){
+                        if (mDataAll != null) {
                             mDataAll.clear();
                         }
                         page = 0;
-                        LoadShengbao(projectId,page);//请求刷新
+                        LoadShengbao(projectId, page);//请求刷新
                     }
                 }, 2000);
             }
@@ -164,16 +186,20 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        EventBus.getDefault().unregister(getActivity());
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
-        Log.v("zzzzzzzzz",page+"----1---3------"+shengBaoBeans.size());
+        Log.v("zzzzzzzzz", page + "----1---3------" + shengBaoBeans.size());
         if (shengBaoBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -198,7 +224,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             for (int i = 0; i < mDataAll.size(); i++) {//
                 mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
             }
-            Log.v("zzzzzzzzz","----4---------"+mData.size());
+            Log.v("zzzzzzzzz", "--1--4---------" + mData.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -243,6 +269,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             });
         }
     }
+
     public void noMoreMsg() {
         adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.shenbao));

@@ -2,6 +2,8 @@ package com.mango.leo.zsproject.personalcenter.show.shenbao;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -74,13 +76,20 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private IdBean idBean;
+    private SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         allProjectsPresenter = new AllProjectsPresenterImpl(this);
+        sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         setContentView(R.layout.activity_sheng_bao);
         ButterKnife.bind(this);
+        if (!sharedPreferences.getString("projectName","").equals("")){
+            textViewProject.setText(sharedPreferences.getString("projectName",""));
+        }
         idBean = new IdBean();
         initDatas();
         init();
@@ -124,9 +133,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         //此处可按需求为各控件设置属性
         refreshLayout = view.findViewById(R.id.refresh_items);
         recyclerView = view.findViewById(R.id.recycle_items);
-
         allProjectsPresenter.visitProjects(this, 2, 0);
-        initSwipeRefreshLayout();
         initRecyclerView();
         init();
 /*
@@ -142,7 +149,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         //设置显示位置
         window.setGravity(Gravity.BOTTOM);
         //设置动画效果
-        window.setWindowAnimations(R.style.AnimBottom);
+        //window.setWindowAnimations(R.style.AnimBottom);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
@@ -201,13 +208,6 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
 
-    public void initSwipeRefreshLayout() {
-        refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
 
     private ListShenBaoAdapter.OnItemnewsClickListener mOnItemClickListener = new ListShenBaoAdapter.OnItemnewsClickListener() {
         @Override
@@ -216,11 +216,12 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
             if (mData.size() <= 0) {
                 return;
             }
-            textViewProject.setText(adapter.getItem(position).getResponseObject().getContent().get(position%20).getName());
+            textViewProject.setText(adapter.getItem(position).getResponseObject().getContent().get(position % 20).getName());
             /*Log.v("sssssssssssss","---"+adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());*/
-            idBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
+            idBean.setProjectId(adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId());
             EventBus.getDefault().postSticky(idBean);
-            dialog.dismiss();
+            editor.putString("projectName", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getName()).commit();
+            closeDialog();
         }
     };
 
@@ -320,6 +321,15 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         IdBean idBeanAll = new IdBean();
         idBeanAll.setProjectId("");
         EventBus.getDefault().postSticky(idBeanAll);
+        editor.putString("projectName", "全部")
+                .commit();
+        closeDialog();
+    }
+
+    private void closeDialog() {
         dialog.dismiss();
+        Intent intent = new Intent(ShenBaoActivity.this, ShenBaoActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
