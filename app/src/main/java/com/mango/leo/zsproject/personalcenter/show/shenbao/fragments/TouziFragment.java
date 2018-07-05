@@ -121,7 +121,6 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
             Log.v("yyyy", "***???****" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "==" + (adapter.getItemCount() == lastVisibleItem + 1) + "==" + adapter.isShowFooter());
-
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
@@ -200,11 +199,11 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
     @Override
     public void addShengbaoSuccess(List<ShenBaoBean> shengBaoBeans) {
         Log.v("zzzzzzzzz", page + "----1---3------" + shengBaoBeans.size());
-        if (shengBaoBeans == null) {
+        if (shengBaoBeans == null || shengBaoBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.shenbao));
                     return;
                 }
             });
@@ -216,9 +215,9 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null) {
+/*        if (mData != null) {
             mData.clear();
-        }
+        }*/
         mDataAll.addAll(shengBaoBeans);
         if (page == 0) {
             for (int i = 0; i < mDataAll.size(); i++) {//

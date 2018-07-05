@@ -146,7 +146,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         dialog.setContentView(view);
         Window window = dialog.getWindow();
         //设置弹出窗口大小
-        window.setLayout(WindowManager.LayoutParams.FILL_PARENT, dp2px(400));
+        window.setLayout(WindowManager.LayoutParams.FILL_PARENT, dp2px(300));
         //设置显示位置
         window.setGravity(Gravity.BOTTOM);
         //设置动画效果
@@ -181,8 +181,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            Log.v("yyyy", "***???****" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "==" + (adapter.getItemCount() == lastVisibleItem + 1) + "==" + adapter.isShowFooter());
-
+            Log.v("zzzzzzzzz",adapter.getItemCount()+"---"+(lastVisibleItem + 1)+"---"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
@@ -228,6 +227,15 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
 
     @Override
     public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
+        if (projectsList == null || projectsList.size() == 0) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getBaseContext(), getResources().getString(R.string.no_pro));
+                    return;
+                }
+            });
+        }
         if (mData == null && mDataAll == null) {
             mData = new ArrayList<AllProjectsBean>();
             mDataAll = new ArrayList<AllProjectsBean>();

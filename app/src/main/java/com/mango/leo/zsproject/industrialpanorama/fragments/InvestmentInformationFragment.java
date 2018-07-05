@@ -179,7 +179,7 @@ public class InvestmentInformationFragment extends Fragment {
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            Log.v("zzzzzzzzz",(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
+            Log.v("zzzzzzzzz",adapter.getItemCount()+"---"+(lastVisibleItem + 1)+"---"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
             super.onScrollStateChanged(recyclerView, newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
