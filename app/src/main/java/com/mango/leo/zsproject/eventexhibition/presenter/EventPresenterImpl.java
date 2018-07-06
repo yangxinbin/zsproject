@@ -30,7 +30,7 @@ public class EventPresenterImpl implements EventPresenter, OnEventListener {
     @Override
     public void visitEvent(Context context, int type , int page, ShaiXuanEvent shaiXuanEvent) {
         String url;
-        if (shaiXuanEvent.getTimeFuture() == null || shaiXuanEvent.getTypePay()==null || shaiXuanEvent.getTimeFuture()==null || shaiXuanEvent.getCity()==null){
+        if (shaiXuanEvent.getTimeFuture() == null && shaiXuanEvent.getTypePay()==null && shaiXuanEvent.getTimeFuture()==null && shaiXuanEvent.getCity()==null){
             url = getUrl(type)+"?page="+page;
         }else {
             url = getUrl(type)+"?page="+page+"&city="+shaiXuanEvent.getCity()+"&priceType="+shaiXuanEvent.getTypePay()+"&timePast="+shaiXuanEvent.getTimePast()+"&timeFuture="+shaiXuanEvent.getTimeFuture();
