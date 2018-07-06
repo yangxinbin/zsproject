@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/action_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/white"

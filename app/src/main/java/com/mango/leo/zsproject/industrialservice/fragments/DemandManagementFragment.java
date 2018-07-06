@@ -39,6 +39,7 @@ import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.AllAndCreatedPlanActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.CardFirstItemActivity;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
+import com.mango.leo.zsproject.industrialservice.show.MatchActivity;
 import com.mango.leo.zsproject.login.bean.UserMessageBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.GlideImageLoader;
@@ -435,6 +436,8 @@ public class DemandManagementFragment extends Fragment {//
             if (mData.size() <= 0) {
                 return;
             }
+            Intent intent = new Intent(getActivity(), MatchActivity.class);
+            startActivity(intent);
         }
 
         @Override

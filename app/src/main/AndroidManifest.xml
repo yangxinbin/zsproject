@@ -150,7 +150,8 @@
             android:name=".industrialpanorama.show.ChooseActivity"
             android:theme="@style/TipDialog" />
         <activity android:name=".personalcenter.show.baoming.SingUpedDetailActivity" />
-        <activity android:name=".datacenter.show.SearchDataActivity"></activity>
+        <activity android:name=".datacenter.show.SearchDataActivity" />
+        <activity android:name=".industrialservice.show.MatchActivity"></activity>
     </application>
 
 </manifest>
