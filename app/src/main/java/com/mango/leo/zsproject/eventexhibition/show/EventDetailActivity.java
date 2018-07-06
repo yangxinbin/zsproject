@@ -55,7 +55,6 @@ public class EventDetailActivity extends BaseActivity {
     TextView textView23;
     private SharedPreferences sharedPreferences;
     private String id;
-    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class EventDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         id = getIntent().getStringExtra("id");
-        position = getIntent().getIntExtra("position", -1);
         Log.v("ssss", "" + "http://47.106.184.121/jetc/#/iosactivityDetailnobtn/:" + id);
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();

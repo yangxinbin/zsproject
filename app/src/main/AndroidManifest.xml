@@ -151,7 +151,8 @@
             android:theme="@style/TipDialog" />
         <activity android:name=".personalcenter.show.baoming.SingUpedDetailActivity" />
         <activity android:name=".datacenter.show.SearchDataActivity" />
-        <activity android:name=".industrialservice.show.MatchActivity"></activity>
+        <activity android:name=".industrialservice.show.MatchActivity" />
+        <activity android:name=".datacenter.show.InvestorDetailActivity"></activity>
     </application>
 
 </manifest>

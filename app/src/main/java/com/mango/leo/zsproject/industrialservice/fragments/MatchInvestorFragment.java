@@ -1,5 +1,6 @@
 package com.mango.leo.zsproject.industrialservice.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -21,6 +22,7 @@ import com.mango.leo.zsproject.datacenter.bean.ShaiXuanData;
 import com.mango.leo.zsproject.datacenter.bean.TouZiBean;
 import com.mango.leo.zsproject.datacenter.presenter.DataPresenter;
 import com.mango.leo.zsproject.datacenter.presenter.DataPresenterImpl;
+import com.mango.leo.zsproject.datacenter.show.InvestorDetailActivity;
 import com.mango.leo.zsproject.datacenter.view.DataView;
 import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
 import com.mango.leo.zsproject.industrialservice.adapte.MatchTouZiAdapter;
@@ -135,12 +137,9 @@ public class MatchInvestorFragment extends Fragment implements DataView {
             if (mData.size() <= 0) {
                 return;
             }
-            //EventBus.getDefault().postSticky(mDataAll.get(position));
-            /*Log.v("yxbb","_____"+mDataAll.get(position).getResponseObject().getContent().get(position).getName());
-            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
-            intent.putExtra("position",position);
-            startActivity(intent);*/
+            Intent intent = new Intent(getActivity(), InvestorDetailActivity.class);
+            intent.putExtra("Investor_Id",adapter.getItem(position).getContent().get(position).getId());
+            startActivity(intent);
         }
     };
 
