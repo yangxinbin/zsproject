@@ -13,6 +13,7 @@ import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
+import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.carditems.bean.ChangYe;
@@ -200,5 +201,20 @@ public class ProjectsJsonUtils {
         JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
         WechatPayBean bean = JsonUtils.deserialize(jsonObject, WechatPayBean.class);
         return bean;
+    }
+
+    public static List<MatchEventBean> readJsonMatchEventBean(String res, String va) {
+        List<MatchEventBean> beans = new ArrayList<MatchEventBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            //JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = jsonObject.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                MatchEventBean event = JsonUtils.deserialize(jsonObject, MatchEventBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
     }
 }

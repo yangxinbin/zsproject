@@ -1,6 +1,7 @@
 package com.mango.leo.zsproject.eventexhibition.view;
 
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 
 import java.util.List;
 
@@ -10,5 +11,6 @@ import java.util.List;
 
 public interface EventView {
     void addEventsView(List<EventBean> eventBeans);
+    void addMatchEventsView(List<MatchEventBean> eventBeans);
     void showEventFailMsg(String string);
 }

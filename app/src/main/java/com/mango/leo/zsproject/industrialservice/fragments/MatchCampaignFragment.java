@@ -19,12 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.eventexhibition.bean.ShaiXuanEvent;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenter;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenterImpl;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.eventexhibition.view.EventView;
+import com.mango.leo.zsproject.industrialservice.adapte.MatchEventAdapter;
+import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 
@@ -48,17 +50,20 @@ public class MatchCampaignFragment extends Fragment implements EventView {
     private EventPresenter eventPresenter;
     private int page = 0;
     private LinearLayoutManager mLayoutManager;
-    private EventAdapter adapter;
-    private List<EventBean> mData, mDataAll;
-
+    private MatchEventAdapter adapter;
+    private List<MatchEventBean> mData, mDataAll;
+    private final int MATCHEVENT = 4;
+    private ShaiXuanEvent shaiXuanEvent;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.cam__items, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        //eventPresenter = new EventPresenterImpl(this);
-        //eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+        initSwipeRefreshLayout();
+        eventPresenter = new EventPresenterImpl(this);
+        shaiXuanEvent = new ShaiXuanEvent("", "", "", "");//显示所有
+        eventPresenter.visitEvent(getActivity(), MATCHEVENT, page, shaiXuanEvent);
         initHeader();
         if (mDataAll != null || mData != null) {
             mDataAll.clear();
@@ -87,7 +92,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleCams.setLayoutManager(mLayoutManager);
         recycleCams.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        adapter = new EventAdapter(getActivity().getApplicationContext());
+        adapter = new MatchEventAdapter(getActivity().getApplicationContext());
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycleCams.removeAllViews();
         recycleCams.setAdapter(adapter);
@@ -115,22 +120,22 @@ public class MatchCampaignFragment extends Fragment implements EventView {
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                //eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+                eventPresenter.visitEvent(getActivity(), MATCHEVENT, page, shaiXuanEvent);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
     };
 
-    private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
+    private MatchEventAdapter.OnEventnewsClickListener mOnItemClickListener = new MatchEventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position % 20));
+            EventBus.getDefault().postSticky(mDataAll.get(position).getContent().get(position % 20));
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId());
+            intent.putExtra("id", adapter.getItem(position).getContent().get(position % 20).getId());
             startActivity(intent);
         }
     };
@@ -150,7 +155,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
                         if (NetUtil.isNetConnect(getActivity())) {
                             adapter.isShowFooter(true);
                             page = 0;
-                            //eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+                            eventPresenter.visitEvent(getActivity(), MATCHEVENT, page, shaiXuanEvent);
                         } else {
                             // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
@@ -173,18 +178,23 @@ public class MatchCampaignFragment extends Fragment implements EventView {
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
 
-        Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
+        
+    }
+
+    @Override
+    public void addMatchEventsView(List<MatchEventBean> eventBeans) {
+        Log.v("eeeee", eventBeans.get(0).getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
         if (eventBeans == null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
+                    AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
                 }
             });
         }
         if (mData == null && mDataAll == null) {
-            mData = new ArrayList<EventBean>();
-            mDataAll = new ArrayList<EventBean>();
+            mData = new ArrayList<MatchEventBean>();
+            mDataAll = new ArrayList<MatchEventBean>();
         }
         if (mDataAll != null) {
             mDataAll.clear();

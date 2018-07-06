@@ -26,13 +26,13 @@ public class Urls {
     public static final String BUYEVENT = "/event-service/event/buy/free/ticket";
     public static final String BUYEVENTPAY = "/event-service/event/buy/charge/ticket";
     public static final String REQUEST = "/business-service/project/list/request";
-
     public static final String BUSSINESSLIST = "/list/by/stage";
     public static final String CITY = "/business-service/project/city/tour";
     public static final String CITY_MES = "/business-service/project/list";
     public static final String PUBLISH = "/business-service/project/publish";
     public static final String INVESTOR_FILTER = "/business-service/project/list/investor/filter";
     public static final String PROJECT_FILTER = "/business-service/project/list/project/filter";
+    public static final String MATCH_EVENT = "/event-service/event/list/events";
 
 
     public static final String HOST_AUTH = HOST + AUTH;
@@ -60,6 +60,7 @@ public class Urls {
     public static final String HOST_REQUEST = HOST + REQUEST;
     public static final String HOST_INVESTOR_FILTER = HOST + INVESTOR_FILTER;
     public static final String HOST_PROJECT_FILTER = HOST + PROJECT_FILTER;
+    public static final String HOST_MATCH_EVENT = HOST + MATCH_EVENT;
 
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息

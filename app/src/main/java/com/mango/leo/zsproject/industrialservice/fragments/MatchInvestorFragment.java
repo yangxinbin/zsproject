@@ -2,12 +2,15 @@ package com.mango.leo.zsproject.industrialservice.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +46,9 @@ public class MatchInvestorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.touzif__items, container, false);
         ButterKnife.bind(this, view);
-        //initViews();
+        initViews();
+        initSwipeRefreshLayout();
+        initHeader();
         return view;
     }
 
@@ -64,7 +69,18 @@ public class MatchInvestorFragment extends Fragment {
         }
 
     }
-
+    private void initHeader() {
+        //渲染header布局
+        ConstraintLayout h = new ConstraintLayout(getActivity());
+        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
+        layoutParam.setMargins(0, 0, 0, 20);
+        h.setLayoutParams(layoutParam);
+        adapter.setHeaderView(h);
+    }
+    private int dp2px(float v) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
+    }
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 

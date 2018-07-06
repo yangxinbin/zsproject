@@ -437,6 +437,7 @@ public class DemandManagementFragment extends Fragment {//
                 return;
             }
             Intent intent = new Intent(getActivity(), MatchActivity.class);
+            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
             startActivity(intent);
         }
 

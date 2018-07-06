@@ -32,6 +32,7 @@ import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenter;
 import com.mango.leo.zsproject.eventexhibition.presenter.EventPresenterImpl;
 import com.mango.leo.zsproject.eventexhibition.show.EventDetailActivity;
 import com.mango.leo.zsproject.eventexhibition.view.EventView;
+import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
@@ -365,6 +366,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 }
             });
         }
+    }
+
+    @Override
+    public void addMatchEventsView(List<MatchEventBean> eventBeans) {
     }
 
     public void noMoreMsg() {

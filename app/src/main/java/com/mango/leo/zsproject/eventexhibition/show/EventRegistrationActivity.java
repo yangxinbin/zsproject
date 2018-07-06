@@ -30,6 +30,7 @@ import com.mango.leo.zsproject.bean.ErrorBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.bean.WechatPayBean;
 import com.mango.leo.zsproject.eventexhibition.util.adderView;
+import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.personalcenter.bean.MyEventBean;
 import com.mango.leo.zsproject.personalcenter.show.baoming.bean.SingUpBean;
@@ -110,6 +111,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     private SingUpBean.ResponseObjectBean.ContentBean.EventBean bean3;
     private int payType = -1;
     private IWXAPI api;
+    private MatchEventBean.ContentBean beanMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +203,38 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void eventRegistrationEventBus_for3(SingUpBean.ResponseObjectBean.ContentBean.EventBean bean) {//已报名列表值
         bean3 = bean;
+        if (bean != null) {
+            price = bean.getPrice();
+            if (String.valueOf(price).startsWith("0.0") || String.valueOf(price).startsWith("0")) {//免费
+                tickNum = 1;
+                signUp.setEnabled(true);//使能按钮
+                eventNofree.setVisibility(View.GONE);
+                howtoplay.setVisibility(View.GONE);
+                eventFree.setVisibility(View.VISIBLE);
+            } else {
+                //signUp.setEnabled(false);
+                eventFree.setVisibility(View.GONE);
+                eventNofree.setVisibility(View.VISIBLE);
+                howtoplay.setVisibility(View.VISIBLE);
+            }
+            Log.v("yxbb", bean.getPrice() + "__y___" + bean.getName());
+            textView_eN.setText(bean.getName());
+            textViewWhere.setText(bean.getLocation().getCity() + bean.getLocation().getDistrict() + bean.getLocation().getAddress());
+            textViewTime.setText(DateUtil.getDateToString(bean.getStartTime(), pattern) + "至" + DateUtil.getDateToString(bean.getEndTime(), pattern));
+            textViewZhubannf.setText(bean.getOrganizer());
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < bean.getCoorganizers().size(); i++) {
+                stringBuffer.append(bean.getCoorganizers().get(i) + " ");
+            }
+            textViewXiuban.setText(stringBuffer);
+            tvSignle.setText(String.valueOf(price) + "元");
+            tvAll.setText(String.valueOf(price) + "元");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void eventRegistrationEventBus_formatch(MatchEventBean.ContentBean bean) {//已报名列表值
+        beanMatch = bean;
         if (bean != null) {
             price = bean.getPrice();
             if (String.valueOf(price).startsWith("0.0") || String.valueOf(price).startsWith("0")) {//免费
