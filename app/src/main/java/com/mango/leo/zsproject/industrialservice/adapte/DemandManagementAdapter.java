@@ -125,11 +125,11 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                     ((ItemViewHolder) holder).itemName.setText(mData.get(pos).getContent().get(pos % 20).getProject().getName());
                 }
                 if (mData.get(pos).getContent().get(pos % 20).getEvents() != null)
-                    ((ItemViewHolder) holder).numCompany.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getEvents().size()));
+                    ((ItemViewHolder) holder).numCompany.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getInvestmentPlan().size()));
                 if (mData.get(pos).getContent().get(pos % 20).getInvestmentPlan() != null)
-                    ((ItemViewHolder) holder).numInvestmentInstitution.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getInvestmentPlan().size()));
+                    ((ItemViewHolder) holder).numInvestmentInstitution.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getBusinessPlan().size()));
                 if (mData.get(pos).getContent().get(pos % 20).getBusinessPlan() != null)
-                    ((ItemViewHolder) holder).numInvestmentActivities.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getBusinessPlan().size()));
+                    ((ItemViewHolder) holder).numInvestmentActivities.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getEvents().size()));
                 ((ItemViewHolder) holder).canceling_match.setVisibility(View.GONE);//先屏蔽
             }
         } else {

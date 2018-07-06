@@ -98,7 +98,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="3dp"
-                            android:text="企业"
+                            android:text="投资方"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize" />
                     </LinearLayout>
@@ -131,7 +131,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="3dp"
-                            android:text="投资机构"
+                            android:text="项目"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize" />
                     </LinearLayout>
@@ -164,7 +164,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="3dp"
-                            android:text="招商活动"
+                            android:text="活动"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize" />
                     </LinearLayout>
