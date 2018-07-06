@@ -121,7 +121,7 @@
         android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/textView"
         android:layout_marginTop="20dp"
-        android:text="投资类型："
+        android:text="资金类型："
         android:textColor="@color/black"
         android:textSize="@dimen/textSize" />
 

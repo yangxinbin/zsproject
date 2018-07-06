@@ -132,9 +132,9 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     ((ItemViewHolder) holder).t_money.setText("投资金额：" + mData.get(pos).getContent().get(pos % 20).getInvestmentSize().getCaption());
                 stringBuffer1 = new StringBuffer();
                 stringBuffer2 = new StringBuffer();
-                if (mData.get(pos).getContent().get(pos%20).getInvestmentMethod() != null){
-                    for (int i=0;i<mData.get(pos).getContent().get(pos%20).getInvestmentMethod().size();i++){
-                        stringBuffer1.append(mData.get(pos).getContent().get(pos%20).getInvestmentMethod().get(i) + " ");
+                if (mData.get(pos).getContent().get(pos%20).getCooperationStyles() != null){
+                    for (int i=0;i<mData.get(pos).getContent().get(pos%20).getCooperationStyles().size();i++){
+                        stringBuffer1.append(mData.get(pos).getContent().get(pos%20).getCooperationStyles().get(i) + " ");
                     }
                 }
                 if (mData.get(pos).getContent().get(pos%20).getFundType() != null){
@@ -143,7 +143,7 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 }
                 ((ItemViewHolder) holder).t_way.setText("合作方式：" + stringBuffer1);
-                ((ItemViewHolder) holder).t_type.setText("投资类型：" + stringBuffer2);
+                ((ItemViewHolder) holder).t_type.setText("资金类型：" + stringBuffer2);
                 ((ItemViewHolder) holder).circleProgressBar.setProgress(10);
 
                 if (mData.get(pos).getContent().get(pos%20).getLogo().getId() != null) {
