@@ -65,8 +65,10 @@ public class MatchCampaignFragment extends Fragment implements EventView {
         shaiXuanEvent = new ShaiXuanEvent("", "", "", "");//显示所有
         eventPresenter.visitEvent(getActivity(), MATCHEVENT, page, shaiXuanEvent);
         initHeader();
-        if (mDataAll != null || mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
         return view;
@@ -148,8 +150,10 @@ public class MatchCampaignFragment extends Fragment implements EventView {
                     @Override
                     public void run() {
                         refreshCams.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                        if (mDataAll != null){
+                            mDataAll.clear();
+                        }
+                        if (mData != null){
                             mData.clear();
                         }
                         if (NetUtil.isNetConnect(getActivity())) {
@@ -238,7 +242,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
+        AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
     }
 
     @Override
@@ -246,7 +250,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getActivity(), "没有更多活动，请您稍后刷新！");
+                AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
             }
         });
     }

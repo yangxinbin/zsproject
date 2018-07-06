@@ -37,4 +37,6 @@
     <color name="green_11B57C">#11B57C</color>
     <color name="black_333333">#333333</color>
     <color name="line_DDDDDD">#DDDDDD</color>
+    <color name="colorCirclebg">#393939</color>
+
 </resources>

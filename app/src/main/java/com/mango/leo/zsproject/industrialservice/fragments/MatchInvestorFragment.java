@@ -17,10 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.datacenter.adapter.TouZiAdapter;
+import com.mango.leo.zsproject.datacenter.bean.ShaiXuanData;
 import com.mango.leo.zsproject.datacenter.bean.TouZiBean;
+import com.mango.leo.zsproject.datacenter.presenter.DataPresenter;
+import com.mango.leo.zsproject.datacenter.presenter.DataPresenterImpl;
+import com.mango.leo.zsproject.datacenter.view.DataView;
+import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
+import com.mango.leo.zsproject.industrialservice.adapte.MatchTouZiAdapter;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,16 +37,19 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class MatchInvestorFragment extends Fragment {
+public class MatchInvestorFragment extends Fragment implements DataView {
 
     @Bind(R.id.recycle_touzi)
     RecyclerView recycleTouzi;
     @Bind(R.id.refresh_touzi)
     SwipeRefreshLayout refreshTouzi;
     private LinearLayoutManager mLayoutManager;
-    private TouZiAdapter adapter;
-    private List<TouZiBean> mData, mDataAll, eventBeans1;
+    private MatchTouZiAdapter adapter;
+    private List<MatchDataBean> mData, mDataAll;
     private int page = 0;
+    private DataPresenter dataPresenter;
+    private ShaiXuanData shaiXuanData;
+    private final int MATCHDATA = 3;
 
     @Nullable
     @Override
@@ -48,7 +58,17 @@ public class MatchInvestorFragment extends Fragment {
         ButterKnife.bind(this, view);
         initViews();
         initSwipeRefreshLayout();
+        dataPresenter = new DataPresenterImpl(this);
+        //显示所有
+        shaiXuanData = new ShaiXuanData("", "", "", "");
+        dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
         initHeader();
+        if (mDataAll != null){
+            mDataAll.clear();
+        }
+        if (mData != null){
+            mData.clear();
+        }
         return view;
     }
 
@@ -57,18 +77,21 @@ public class MatchInvestorFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleTouzi.setLayoutManager(mLayoutManager);
         recycleTouzi.setItemAnimator(new DefaultItemAnimator());//设置默认动画
-        adapter = new TouZiAdapter(getActivity().getApplicationContext());
+        adapter = new MatchTouZiAdapter(getActivity().getApplicationContext());
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycleTouzi.removeAllViews();
         recycleTouzi.setAdapter(adapter);
         recycleTouzi.addOnScrollListener(mOnScrollListener);
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
 
     }
+
     private void initHeader() {
         //渲染header布局
         ConstraintLayout h = new ConstraintLayout(getActivity());
@@ -77,10 +100,12 @@ public class MatchInvestorFragment extends Fragment {
         h.setLayoutParams(layoutParam);
         adapter.setHeaderView(h);
     }
+
     private int dp2px(float v) {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
+
     private int lastVisibleItem;
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -97,13 +122,13 @@ public class MatchInvestorFragment extends Fragment {
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                //eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
     };
 
-    private TouZiAdapter.OnEventnewsClickListener mOnItemClickListener = new TouZiAdapter.OnEventnewsClickListener() {
+    private MatchTouZiAdapter.OnEventnewsClickListener mOnItemClickListener = new MatchTouZiAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
@@ -127,14 +152,16 @@ public class MatchInvestorFragment extends Fragment {
                     @Override
                     public void run() {
                         refreshTouzi.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                        if (mDataAll != null){
+                            mDataAll.clear();
+                        }
+                        if (mData != null){
                             mData.clear();
                         }
                         if (NetUtil.isNetConnect(getActivity())) {
                             adapter.isShowFooter(true);
-                            //page = 0;
-                            //eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                            page = 0;
+                            dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
                         } else {
                             // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
@@ -168,5 +195,78 @@ public class MatchInvestorFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void addDataView(List<TouZiBean> touZiBeans) {
+
+    }
+
+    @Override
+    public void addMatchDataView(List<MatchDataBean> matchDataBeans) {
+        Log.v("eeeee", matchDataBeans.get(0).getContent().get(0).getTitle() + "======matchDataBeans======" + matchDataBeans.size());
+        if (matchDataBeans == null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
+                }
+            });
+        }
+        if (mData == null && mDataAll == null) {
+            mData = new ArrayList<MatchDataBean>();
+            mDataAll = new ArrayList<MatchDataBean>();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        mDataAll.addAll(matchDataBeans);
+        if (page == 0) {
+            for (int i = 0; i < mDataAll.size(); i++) {//
+                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mData != null) {
+                        adapter.setmDate(mData);
+                    }
+                }
+            });
+        } else {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDataAll != null) {
+                        //加载更多
+                        int i;
+                        for (i = 0; i < mDataAll.size(); i++) {
+                            if (mDataAll == null) {
+                                return;//一开始断网报空指针的情况
+                            }
+                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                noMoreMsg();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showDataFailMsg(String string) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getActivity(), "没有更多匹配投资方，请您稍后刷新！");
+            }
+        });
+    }
+    public void noMoreMsg() {
+        adapter.isShowFooter(false);
+        AppUtils.showToast(getActivity(), "没有更多匹配投资方，请您稍后刷新！");
     }
 }

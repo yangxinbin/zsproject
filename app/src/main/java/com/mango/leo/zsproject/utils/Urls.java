@@ -33,6 +33,7 @@ public class Urls {
     public static final String INVESTOR_FILTER = "/business-service/project/list/investor/filter";
     public static final String PROJECT_FILTER = "/business-service/project/list/project/filter";
     public static final String MATCH_EVENT = "/event-service/event/list/events";
+    public static final String MATCH_DATA = "/business-service/project/list/investment/plan";
 
 
     public static final String HOST_AUTH = HOST + AUTH;
@@ -61,6 +62,7 @@ public class Urls {
     public static final String HOST_INVESTOR_FILTER = HOST + INVESTOR_FILTER;
     public static final String HOST_PROJECT_FILTER = HOST + PROJECT_FILTER;
     public static final String HOST_MATCH_EVENT = HOST + MATCH_EVENT;
+    public static final String HOST_MATCH_DATA = HOST + MATCH_DATA;
 
 
     public static final String UPDATE1 = "/basicInfo";//更改基本信息

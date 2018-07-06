@@ -7,12 +7,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mango.leo.zsproject.bean.ErrorBean;
+import com.mango.leo.zsproject.datacenter.bean.TouZiBean;
 import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
 import com.mango.leo.zsproject.eventexhibition.bean.WechatPayBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ChooseBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityBean;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialservice.bean.DemandManagementBean;
+import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
 import com.mango.leo.zsproject.industrialservice.bean.MatchEventBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.AllProjectsBean;
 import com.mango.leo.zsproject.industrialservice.createrequirements.bean.ChanyLingyuBean;
@@ -211,6 +213,34 @@ public class ProjectsJsonUtils {
             JsonArray jsonArray = jsonObject.getAsJsonArray(va);
             for (int i = 0; i < jsonArray.size(); i++) {
                 MatchEventBean event = JsonUtils.deserialize(jsonObject, MatchEventBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+    public static List<TouZiBean> readJsonTouZiBean(String res, String va) {
+        List<TouZiBean> beans = new ArrayList<TouZiBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            //JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = jsonObject.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                TouZiBean event = JsonUtils.deserialize(jsonObject, TouZiBean.class);
+                beans.add(event);//这里会将所有的json对象转换为bean对象
+            }
+        } catch (Exception e) {
+        }
+        return beans;
+    }
+    public static List<MatchDataBean> readJsonMatchDataBean(String res, String va) {
+        List<MatchDataBean> beans = new ArrayList<MatchDataBean>();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            //JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = jsonObject.getAsJsonArray(va);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                MatchDataBean event = JsonUtils.deserialize(jsonObject, MatchDataBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象
             }
         } catch (Exception e) {

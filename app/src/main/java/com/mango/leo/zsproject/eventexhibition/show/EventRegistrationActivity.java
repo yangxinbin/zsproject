@@ -328,6 +328,10 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
             mapParams.put("eventId", bean3.getId());
             editor.putString("eventId", bean3.getId())
                     .commit();
+        } else if (beanMatch != null) {
+            mapParams.put("eventId", beanMatch.getId());
+            editor.putString("eventId", beanMatch.getId())
+                    .commit();
         }
         mapParams.put("registeBy", sharedPreferences.getString("userName", ""));
         mapParams.put("name", editText1.getText().toString());
@@ -384,6 +388,10 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         } else if (bean3 != null) {
             mapParams.put("eventId", bean3.getId());
             editor.putString("eventId", bean3.getId())
+                    .commit();
+        } else if (beanMatch != null) {
+            mapParams.put("eventId", beanMatch.getId());
+            editor.putString("eventId", beanMatch.getId())
                     .commit();
         }
         // mapParams.put("eventId", /*eventStr*/ bean1.getId());//这个id一样
@@ -475,7 +483,7 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
                         break;
                     case 3:
                         WechatPayBean wechatPayBean = (WechatPayBean) msg.obj;
-                        Log.v("wwwwwwwwwww",""+wechatPayBean.getResponseObject().toString());
+                        Log.v("wwwwwwwwwww", "" + wechatPayBean.getResponseObject().toString());
                         wechatPay(wechatPayBean);
                         break;
                     default:
@@ -493,14 +501,14 @@ public class EventRegistrationActivity extends AppCompatActivity implements View
         }
         PayReq req = new PayReq();
         //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
-        req.appId			= wechatPayBean.getResponseObject().getAppid();//json.getString("appid");
-        req.partnerId		= wechatPayBean.getResponseObject().getPartnerid();//json.getString("partnerid");
-        req.prepayId		= wechatPayBean.getResponseObject().getPrepayid();//json.getString("prepayid");
-        req.nonceStr		= wechatPayBean.getResponseObject().getNoncestr();//json.getString("noncestr");
-        req.timeStamp		= wechatPayBean.getResponseObject().getTimestamp();//json.getString("timestamp");
-        req.packageValue	= wechatPayBean.getResponseObject().getPackageX();//json.getString("package");
-        req.sign			= wechatPayBean.getResponseObject().getSign();//json.getString("sign");
-        req.extData			= "app data"; // optional
+        req.appId = wechatPayBean.getResponseObject().getAppid();//json.getString("appid");
+        req.partnerId = wechatPayBean.getResponseObject().getPartnerid();//json.getString("partnerid");
+        req.prepayId = wechatPayBean.getResponseObject().getPrepayid();//json.getString("prepayid");
+        req.nonceStr = wechatPayBean.getResponseObject().getNoncestr();//json.getString("noncestr");
+        req.timeStamp = wechatPayBean.getResponseObject().getTimestamp();//json.getString("timestamp");
+        req.packageValue = wechatPayBean.getResponseObject().getPackageX();//json.getString("package");
+        req.sign = wechatPayBean.getResponseObject().getSign();//json.getString("sign");
+        req.extData = "app data"; // optional
         AppUtils.showToast(this, "正在支付中...");
         // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
         api.sendReq(req);

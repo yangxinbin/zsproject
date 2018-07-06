@@ -4,7 +4,7 @@
     xmlns:cpv="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="155dp"
+    android:layout_height="145dp"
     android:layout_marginBottom="3dp"
     android:layout_marginTop="1dp"
     android:clickable="true"
@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/im_pic"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_marginRight="8dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -51,13 +51,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_alignParentTop="true"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:ellipsize="end"
-                        android:gravity="center_vertical"
                         android:lines="2"
-                        android:text="TextView"
+                        android:text="NULL"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/title" />
+                        android:textSize="@dimen/textSize" />
 
                     <TextView
                         android:id="@+id/t_moshi"
@@ -65,8 +64,10 @@
                         android:layout_height="0dp"
                         android:layout_below="@+id/t_name"
                         android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:text="TextView" />
+                        android:text="NULL" />
 
                     <TextView
                         android:id="@+id/t_money"
@@ -74,19 +75,24 @@
                         android:layout_height="0dp"
                         android:layout_below="@+id/t_name"
                         android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:text="TextView" />
+                        android:text="NULL" />
                 </LinearLayout>
 
                 <com.mango.leo.zsproject.utils.CircleProgressBar
                     android:id="@+id/circle_bar"
-                    style="0"
-                    android:layout_width="80dp"
+                    android:layout_width="65dp"
                     android:layout_height="match_parent"
-                    cpv:roundColor="@color/red"
-                    cpv:roundProgressColor="@color/red"
-                    cpv:roundWidth="5dp"
-                    cpv:textSize="@dimen/title" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    style="0"
+                    cpv:roundColor="@color/common_gray"
+                    cpv:roundWidth="4dp"
+                    cpv:textSize="@dimen/textSize"
+                    card_view:textColor="@color/secondblack"
+                    cpv:roundProgressColor="@color/red" />
             </LinearLayout>
 
             <TextView
@@ -95,8 +101,10 @@
                 android:layout_height="0dp"
                 android:layout_below="@+id/t_name"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
                 android:gravity="center_vertical"
-                android:text="TextView" />
+                android:text="NULL" />
 
             <TextView
                 android:id="@+id/t_type"
@@ -104,8 +112,10 @@
                 android:layout_height="0dp"
                 android:layout_below="@+id/t_name"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
                 android:gravity="center_vertical"
-                android:text="TextView" />
+                android:text="NULL" />
         </LinearLayout>
     </LinearLayout>
 

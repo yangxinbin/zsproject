@@ -1,15 +1,15 @@
-package com.mango.leo.zsproject.datacenter.bean;
+package com.mango.leo.zsproject.industrialservice.bean;
 
 import java.util.List;
 
 /**
- * Created by admin on 2018/6/9.
+ * Created by admin on 2018/7/6.
  */
 
-public class TouZiBean {
+public class MatchDataBean {
 
     /**
-     * content : [{"id":"5b20c6581233c5226c392c57","assetSize":null,"projectAmount":null,"planName":null,"investmentPhases":null,"cooperationStyles":null,"title":"Wed Jun 13 15:23:04 CST 2018","logo":{"id":"5b20c6581233c5226c392c55","alias":"1527564707525.png","fileName":"15288745847093317.png","contentType":"image/png","size":12947,"createdOn":1528874584709},"investmentSize":null,"fundType":null,"investmentMethod":null,"investmentPeriod":null,"investorLocation":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null},"investmentRegion":[],"riskAssuranse":null,"minProfitRatio":null,"industries":[],"description":null,"investmentCase":null,"contactInfo":{"id":null,"name":null,"department":null,"position":null,"mobile":null,"phone":null,"email":null},"createdBy":null,"createdOn":null},{"id":"5b223908f8aa411990e70d25","assetSize":"","projectAmount":null,"planName":null,"investmentPhases":["种子轮","天使轮","IPO上市","其它"],"cooperationStyles":["合资","合作"],"title":"Test for tom1","logo":{"id":"5b223908f8aa411990e70d23","alias":"test.jpg","fileName":"15289694806764488.jpg","contentType":"image/jpeg","size":13693,"createdOn":1528969480676},"investmentSize":{"caption":"（含）1000万-5000万","min":1000,"max":5000},"fundType":["个人资金"],"investmentMethod":["债权投资"],"investmentPeriod":"1000","investorLocation":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null},"investmentRegion":[{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null}],"riskAssuranse":"warafa","minProfitRatio":null,"industries":[{"id":"5b1f311581c6d52b14c953a6","name":"小麦种植","parent":"农、林、牧、渔业","level":"two"}],"description":"afdafa","investmentCase":"fsafds","contactInfo":{"id":null,"name":"fafa","department":null,"position":null,"mobile":"15617389009","phone":null,"email":"352089546@qq.com"},"createdBy":null,"createdOn":null}]
+     * content : [{"id":"5b223908f8aa411990e70d25","assetSize":"","projectAmount":null,"planName":null,"investmentPhases":["种子轮","天使轮","IPO上市","其它"],"cooperationStyles":["合资","合作"],"title":"Test for tom1","logo":{"id":"5b223908f8aa411990e70d23","alias":"test.jpg","fileName":"15289694806764488.jpg","contentType":"image/jpeg","size":13693,"createdOn":1528969480676},"investmentSize":{"caption":"（含）1000万-5000万","min":1000,"max":5000},"fundType":["个人资金"],"investmentMethod":["债权投资"],"investmentPeriod":"1000","investorLocation":{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null},"investmentRegion":[{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null}],"riskAssuranse":"warafa","minProfitRatio":null,"industries":[{"id":"5b1f311581c6d52b14c953a6","name":"小麦种植","parent":"农、林、牧、渔业","level":"two"}],"description":"afdafa","investmentCase":"fsafds","contactInfo":{"id":null,"name":"fafa","department":null,"position":null,"mobile":"15617389009","phone":null,"email":"352089546@qq.com"},"createdBy":null,"createdOn":null}]
      * pageable : {"sort":{"sorted":false,"unsorted":true},"offset":0,"pageSize":20,"pageNumber":0,"paged":true,"unpaged":false}
      * last : true
      * totalElements : 2
@@ -232,52 +232,52 @@ public class TouZiBean {
 
     public static class ContentBean {
         /**
-         * id : 5b20c6581233c5226c392c57
-         * assetSize : null
+         * id : 5b223908f8aa411990e70d25
+         * assetSize :
          * projectAmount : null
          * planName : null
-         * investmentPhases : null
-         * cooperationStyles : null
-         * title : Wed Jun 13 15:23:04 CST 2018
-         * logo : {"id":"5b20c6581233c5226c392c55","alias":"1527564707525.png","fileName":"15288745847093317.png","contentType":"image/png","size":12947,"createdOn":1528874584709}
-         * investmentSize : null
-         * fundType : null
-         * investmentMethod : null
-         * investmentPeriod : null
+         * investmentPhases : ["种子轮","天使轮","IPO上市","其它"]
+         * cooperationStyles : ["合资","合作"]
+         * title : Test for tom1
+         * logo : {"id":"5b223908f8aa411990e70d23","alias":"test.jpg","fileName":"15289694806764488.jpg","contentType":"image/jpeg","size":13693,"createdOn":1528969480676}
+         * investmentSize : {"caption":"（含）1000万-5000万","min":1000,"max":5000}
+         * fundType : ["个人资金"]
+         * investmentMethod : ["债权投资"]
+         * investmentPeriod : 1000
          * investorLocation : {"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null}
-         * investmentRegion : []
-         * riskAssuranse : null
+         * investmentRegion : [{"country":"中国","province":"广东省","city":"深圳","district":"深圳","address":null,"lon":null,"lat":null}]
+         * riskAssuranse : warafa
          * minProfitRatio : null
-         * industries : []
-         * description : null
-         * investmentCase : null
-         * contactInfo : {"id":null,"name":null,"department":null,"position":null,"mobile":null,"phone":null,"email":null}
+         * industries : [{"id":"5b1f311581c6d52b14c953a6","name":"小麦种植","parent":"农、林、牧、渔业","level":"two"}]
+         * description : afdafa
+         * investmentCase : fsafds
+         * contactInfo : {"id":null,"name":"fafa","department":null,"position":null,"mobile":"15617389009","phone":null,"email":"352089546@qq.com"}
          * createdBy : null
          * createdOn : null
          */
 
         private String id;
-        private Object assetSize;
+        private String assetSize;
         private Object projectAmount;
         private Object planName;
-        private Object investmentPhases;
-        private Object cooperationStyles;
         private String title;
         private LogoBean logo;
-        private Object investmentSize;
-        private Object fundType;
-        private Object investmentMethod;
-        private Object investmentPeriod;
+        private InvestmentSizeBean investmentSize;
+        private String investmentPeriod;
         private InvestorLocationBean investorLocation;
-        private Object riskAssuranse;
+        private String riskAssuranse;
         private Object minProfitRatio;
-        private Object description;
-        private Object investmentCase;
+        private String description;
+        private String investmentCase;
         private ContactInfoBean contactInfo;
         private Object createdBy;
         private Object createdOn;
-        private List<?> investmentRegion;
-        private List<?> industries;
+        private List<String> investmentPhases;
+        private List<String> cooperationStyles;
+        private List<String> fundType;
+        private List<String> investmentMethod;
+        private List<InvestmentRegionBean> investmentRegion;
+        private List<IndustriesBean> industries;
 
         public String getId() {
             return id;
@@ -287,11 +287,11 @@ public class TouZiBean {
             this.id = id;
         }
 
-        public Object getAssetSize() {
+        public String getAssetSize() {
             return assetSize;
         }
 
-        public void setAssetSize(Object assetSize) {
+        public void setAssetSize(String assetSize) {
             this.assetSize = assetSize;
         }
 
@@ -311,22 +311,6 @@ public class TouZiBean {
             this.planName = planName;
         }
 
-        public Object getInvestmentPhases() {
-            return investmentPhases;
-        }
-
-        public void setInvestmentPhases(Object investmentPhases) {
-            this.investmentPhases = investmentPhases;
-        }
-
-        public Object getCooperationStyles() {
-            return cooperationStyles;
-        }
-
-        public void setCooperationStyles(Object cooperationStyles) {
-            this.cooperationStyles = cooperationStyles;
-        }
-
         public String getTitle() {
             return title;
         }
@@ -343,35 +327,19 @@ public class TouZiBean {
             this.logo = logo;
         }
 
-        public Object getInvestmentSize() {
+        public InvestmentSizeBean getInvestmentSize() {
             return investmentSize;
         }
 
-        public void setInvestmentSize(Object investmentSize) {
+        public void setInvestmentSize(InvestmentSizeBean investmentSize) {
             this.investmentSize = investmentSize;
         }
 
-        public Object getFundType() {
-            return fundType;
-        }
-
-        public void setFundType(Object fundType) {
-            this.fundType = fundType;
-        }
-
-        public Object getInvestmentMethod() {
-            return investmentMethod;
-        }
-
-        public void setInvestmentMethod(Object investmentMethod) {
-            this.investmentMethod = investmentMethod;
-        }
-
-        public Object getInvestmentPeriod() {
+        public String getInvestmentPeriod() {
             return investmentPeriod;
         }
 
-        public void setInvestmentPeriod(Object investmentPeriod) {
+        public void setInvestmentPeriod(String investmentPeriod) {
             this.investmentPeriod = investmentPeriod;
         }
 
@@ -383,11 +351,11 @@ public class TouZiBean {
             this.investorLocation = investorLocation;
         }
 
-        public Object getRiskAssuranse() {
+        public String getRiskAssuranse() {
             return riskAssuranse;
         }
 
-        public void setRiskAssuranse(Object riskAssuranse) {
+        public void setRiskAssuranse(String riskAssuranse) {
             this.riskAssuranse = riskAssuranse;
         }
 
@@ -399,19 +367,19 @@ public class TouZiBean {
             this.minProfitRatio = minProfitRatio;
         }
 
-        public Object getDescription() {
+        public String getDescription() {
             return description;
         }
 
-        public void setDescription(Object description) {
+        public void setDescription(String description) {
             this.description = description;
         }
 
-        public Object getInvestmentCase() {
+        public String getInvestmentCase() {
             return investmentCase;
         }
 
-        public void setInvestmentCase(Object investmentCase) {
+        public void setInvestmentCase(String investmentCase) {
             this.investmentCase = investmentCase;
         }
 
@@ -439,30 +407,62 @@ public class TouZiBean {
             this.createdOn = createdOn;
         }
 
-        public List<?> getInvestmentRegion() {
+        public List<String> getInvestmentPhases() {
+            return investmentPhases;
+        }
+
+        public void setInvestmentPhases(List<String> investmentPhases) {
+            this.investmentPhases = investmentPhases;
+        }
+
+        public List<String> getCooperationStyles() {
+            return cooperationStyles;
+        }
+
+        public void setCooperationStyles(List<String> cooperationStyles) {
+            this.cooperationStyles = cooperationStyles;
+        }
+
+        public List<String> getFundType() {
+            return fundType;
+        }
+
+        public void setFundType(List<String> fundType) {
+            this.fundType = fundType;
+        }
+
+        public List<String> getInvestmentMethod() {
+            return investmentMethod;
+        }
+
+        public void setInvestmentMethod(List<String> investmentMethod) {
+            this.investmentMethod = investmentMethod;
+        }
+
+        public List<InvestmentRegionBean> getInvestmentRegion() {
             return investmentRegion;
         }
 
-        public void setInvestmentRegion(List<?> investmentRegion) {
+        public void setInvestmentRegion(List<InvestmentRegionBean> investmentRegion) {
             this.investmentRegion = investmentRegion;
         }
 
-        public List<?> getIndustries() {
+        public List<IndustriesBean> getIndustries() {
             return industries;
         }
 
-        public void setIndustries(List<?> industries) {
+        public void setIndustries(List<IndustriesBean> industries) {
             this.industries = industries;
         }
 
         public static class LogoBean {
             /**
-             * id : 5b20c6581233c5226c392c55
-             * alias : 1527564707525.png
-             * fileName : 15288745847093317.png
-             * contentType : image/png
-             * size : 12947
-             * createdOn : 1528874584709
+             * id : 5b223908f8aa411990e70d23
+             * alias : test.jpg
+             * fileName : 15289694806764488.jpg
+             * contentType : image/jpeg
+             * size : 13693
+             * createdOn : 1528969480676
              */
 
             private String id;
@@ -518,6 +518,42 @@ public class TouZiBean {
 
             public void setCreatedOn(long createdOn) {
                 this.createdOn = createdOn;
+            }
+        }
+
+        public static class InvestmentSizeBean {
+            /**
+             * caption : （含）1000万-5000万
+             * min : 1000
+             * max : 5000
+             */
+
+            private String caption;
+            private int min;
+            private int max;
+
+            public String getCaption() {
+                return caption;
+            }
+
+            public void setCaption(String caption) {
+                this.caption = caption;
+            }
+
+            public int getMin() {
+                return min;
+            }
+
+            public void setMin(int min) {
+                this.min = min;
+            }
+
+            public int getMax() {
+                return max;
+            }
+
+            public void setMax(int max) {
+                this.max = max;
             }
         }
 
@@ -600,21 +636,21 @@ public class TouZiBean {
         public static class ContactInfoBean {
             /**
              * id : null
-             * name : null
+             * name : fafa
              * department : null
              * position : null
-             * mobile : null
+             * mobile : 15617389009
              * phone : null
-             * email : null
+             * email : 352089546@qq.com
              */
 
             private Object id;
-            private Object name;
+            private String name;
             private Object department;
             private Object position;
-            private Object mobile;
+            private String mobile;
             private Object phone;
-            private Object email;
+            private String email;
 
             public Object getId() {
                 return id;
@@ -624,11 +660,11 @@ public class TouZiBean {
                 this.id = id;
             }
 
-            public Object getName() {
+            public String getName() {
                 return name;
             }
 
-            public void setName(Object name) {
+            public void setName(String name) {
                 this.name = name;
             }
 
@@ -648,11 +684,11 @@ public class TouZiBean {
                 this.position = position;
             }
 
-            public Object getMobile() {
+            public String getMobile() {
                 return mobile;
             }
 
-            public void setMobile(Object mobile) {
+            public void setMobile(String mobile) {
                 this.mobile = mobile;
             }
 
@@ -664,12 +700,134 @@ public class TouZiBean {
                 this.phone = phone;
             }
 
-            public Object getEmail() {
+            public String getEmail() {
                 return email;
             }
 
-            public void setEmail(Object email) {
+            public void setEmail(String email) {
                 this.email = email;
+            }
+        }
+
+        public static class InvestmentRegionBean {
+            /**
+             * country : 中国
+             * province : 广东省
+             * city : 深圳
+             * district : 深圳
+             * address : null
+             * lon : null
+             * lat : null
+             */
+
+            private String country;
+            private String province;
+            private String city;
+            private String district;
+            private Object address;
+            private Object lon;
+            private Object lat;
+
+            public String getCountry() {
+                return country;
+            }
+
+            public void setCountry(String country) {
+                this.country = country;
+            }
+
+            public String getProvince() {
+                return province;
+            }
+
+            public void setProvince(String province) {
+                this.province = province;
+            }
+
+            public String getCity() {
+                return city;
+            }
+
+            public void setCity(String city) {
+                this.city = city;
+            }
+
+            public String getDistrict() {
+                return district;
+            }
+
+            public void setDistrict(String district) {
+                this.district = district;
+            }
+
+            public Object getAddress() {
+                return address;
+            }
+
+            public void setAddress(Object address) {
+                this.address = address;
+            }
+
+            public Object getLon() {
+                return lon;
+            }
+
+            public void setLon(Object lon) {
+                this.lon = lon;
+            }
+
+            public Object getLat() {
+                return lat;
+            }
+
+            public void setLat(Object lat) {
+                this.lat = lat;
+            }
+        }
+
+        public static class IndustriesBean {
+            /**
+             * id : 5b1f311581c6d52b14c953a6
+             * name : 小麦种植
+             * parent : 农、林、牧、渔业
+             * level : two
+             */
+
+            private String id;
+            private String name;
+            private String parent;
+            private String level;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getParent() {
+                return parent;
+            }
+
+            public void setParent(String parent) {
+                this.parent = parent;
+            }
+
+            public String getLevel() {
+                return level;
+            }
+
+            public void setLevel(String level) {
+                this.level = level;
             }
         }
     }
