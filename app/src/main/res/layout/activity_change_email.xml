@@ -71,6 +71,7 @@
         android:layout_alignBottom="@+id/editText_verification_code"
         android:layout_alignEnd="@+id/button_changeemailok"
         android:layout_alignRight="@+id/button_changeemailok"
+        android:layout_marginRight="10dp"
         android:text="发送验证码"
         android:textColor="@color/blue" />
 
