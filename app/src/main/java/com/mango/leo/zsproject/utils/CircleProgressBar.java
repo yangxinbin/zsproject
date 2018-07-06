@@ -114,7 +114,10 @@ public class CircleProgressBar extends View{
         float textWidth = paint.measureText(percent +"%");//测量字体宽度，需要居中显示
 
         if(isDisplayText && style == STROKE && percent >= 0){
-            canvas.drawText(percent+"%", centerX-textWidth/2, centerX + textSize/2, paint);
+           canvas.drawText(percent+"%", centerX-textWidth/2, centerX , paint);
+/*            canvas.drawText(percent+"%", centerX-textWidth/2, certerY + textSize/4, paint);
+            canvas.drawText("匹配度", centerX-textWidth/2, certerY + textSize, paint);*/
+
         }
     }
     public Paint getPaint() {

@@ -22,11 +22,11 @@
         <ImageView
             android:id="@+id/im_pic"
             android:layout_width="100dp"
-            android:layout_marginRight="8dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
             card_view:srcCompat="@drawable/gov" />
 
         <LinearLayout
@@ -59,40 +59,57 @@
                         android:textSize="@dimen/textSize" />
 
                     <TextView
-                        android:id="@+id/t_moshi"
+                        android:id="@+id/t_mo"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_below="@+id/t_name"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:text="NULL" />
+                        android:lines="1"
+                        android:text="NULL"
+                        android:textSize="@dimen/commom_tv_size_12" />
 
                     <TextView
-                        android:id="@+id/t_money"
+                        android:id="@+id/t_t"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_below="@+id/t_name"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:text="NULL" />
+                        android:lines="1"
+                        android:text="NULL"
+                        android:textSize="@dimen/commom_tv_size_12" />
                 </LinearLayout>
 
-                <com.mango.leo.zsproject.utils.CircleProgressBar
-                    android:id="@+id/circle_bar"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    style="0"
-                    cpv:roundColor="@color/common_gray"
-                    cpv:roundWidth="4dp"
-                    cpv:textSize="@dimen/textSize"
-                    card_view:textColor="@color/secondblack"
-                    cpv:roundProgressColor="@color/red" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.mango.leo.zsproject.utils.CircleProgressBar
+                        android:id="@+id/circle_bar"
+                        style="0"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        card_view:textColor="@color/secondblack"
+                        cpv:roundColor="@color/common_gray"
+                        cpv:roundProgressColor="@color/red"
+                        cpv:roundWidth="4dp"
+                        cpv:textSize="@dimen/commom_tv_size_12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
+                        android:text="匹配度"
+                        android:textSize="@dimen/small_textSize" />
+                </RelativeLayout>
+
             </LinearLayout>
 
             <TextView
@@ -102,20 +119,22 @@
                 android:layout_below="@+id/t_name"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:lines="1"
                 android:gravity="center_vertical"
-                android:text="NULL" />
+                android:lines="1"
+                android:text="NULL"
+                android:textSize="@dimen/commom_tv_size_12" />
 
             <TextView
-                android:id="@+id/t_type"
+                android:id="@+id/t_h"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_below="@+id/t_name"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:lines="1"
                 android:gravity="center_vertical"
-                android:text="NULL" />
+                android:lines="1"
+                android:text="NULL"
+                android:textSize="@dimen/commom_tv_size_12" />
         </LinearLayout>
     </LinearLayout>
 

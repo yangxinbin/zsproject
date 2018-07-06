@@ -36,7 +36,7 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private View mHeaderView;
     private boolean hasMore;
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
-    private StringBuffer stringBuffer1, stringBuffer2;
+    private StringBuffer stringBuffer1, stringBuffer2,stringBuffer3;
 
     public void setmDate(List<MatchDataBean> data) {
         this.mData = data;
@@ -127,23 +127,28 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (((ItemViewHolder) holder) != null && mData.get(pos).getContent() != null && mData.get(pos).getContent().get(pos % 20) != null) {
                 ((ItemViewHolder) holder).t_name.setText(mData.get(pos).getContent().get(pos % 20).getTitle());
                 if (mData.get(pos).getContent().get(pos % 20).getCooperationStyles() != null)
-                    ((ItemViewHolder) holder).t_moshi.setText("招商模式：" + mData.get(pos).getContent().get(pos % 20).getCooperationStyles().get(0));
-                if (mData.get(pos).getContent().get(pos % 20).getInvestmentSize() != null)
-                    ((ItemViewHolder) holder).t_money.setText("投资金额：" + mData.get(pos).getContent().get(pos % 20).getInvestmentSize().getCaption());
+                    ((ItemViewHolder) holder).t_mo.setText("投资金额：" + mData.get(pos).getContent().get(pos % 20).getInvestmentSize().getCaption());
                 stringBuffer1 = new StringBuffer();
                 stringBuffer2 = new StringBuffer();
-                if (mData.get(pos).getContent().get(pos%20).getCooperationStyles() != null){
-                    for (int i=0;i<mData.get(pos).getContent().get(pos%20).getCooperationStyles().size();i++){
-                        stringBuffer1.append(mData.get(pos).getContent().get(pos%20).getCooperationStyles().get(i) + " ");
+                stringBuffer3 = new StringBuffer();
+                if (mData.get(pos).getContent().get(pos%20).getInvestmentMethod() != null){
+                    for (int i=0;i<mData.get(pos).getContent().get(pos%20).getInvestmentMethod().size();i++){
+                        stringBuffer1.append(mData.get(pos).getContent().get(pos%20).getInvestmentMethod().get(i) + " ");
                     }
                 }
                 if (mData.get(pos).getContent().get(pos%20).getFundType() != null){
-                    for (int i=0;i<mData.get(pos).getContent().get(pos%20).getFundType().size();i++){
-                        stringBuffer2.append(mData.get(pos).getContent().get(pos%20).getFundType().get(i) + " ");
+                    for (int j=0;j<mData.get(pos).getContent().get(pos%20).getFundType().size();j++){
+                        stringBuffer2.append(mData.get(pos).getContent().get(pos%20).getFundType().get(j) + " ");
                     }
                 }
-                ((ItemViewHolder) holder).t_way.setText("合作方式：" + stringBuffer1);
-                ((ItemViewHolder) holder).t_type.setText("资金类型：" + stringBuffer2);
+                if (mData.get(pos).getContent().get(pos%20).getIndustries() != null){
+                    for (int k=0;k<mData.get(pos).getContent().get(pos%20).getIndustries().size();k++){
+                        stringBuffer3.append(mData.get(pos).getContent().get(pos%20).getIndustries().get(k).getName() + " ");
+                    }
+                }
+                ((ItemViewHolder) holder).t_way.setText("投资方式：" + stringBuffer1);
+                ((ItemViewHolder) holder).t_t.setText("投资类型：" + stringBuffer2);
+                ((ItemViewHolder) holder).t_h.setText("投资行业：" + stringBuffer3);
                 ((ItemViewHolder) holder).circleProgressBar.setProgress(10);
 
                 if (mData.get(pos).getContent().get(pos%20).getLogo().getId() != null) {
@@ -208,7 +213,7 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView t_name, t_moshi, t_money, t_way, t_type;
+        public TextView t_name, t_mo, t_t, t_way, t_h;
         public ImageView im_pic;
         public CircleProgressBar circleProgressBar;
 
@@ -217,10 +222,10 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (v == mHeaderView)
                 return;
             t_name = (TextView) v.findViewById(R.id.t_name);
-            t_moshi = (TextView) v.findViewById(R.id.t_moshi);
-            t_money = (TextView) v.findViewById(R.id.t_money);
+            t_mo = (TextView) v.findViewById(R.id.t_mo);
+            t_t = (TextView) v.findViewById(R.id.t_t);
             t_way = (TextView) v.findViewById(R.id.t_way);
-            t_type = (TextView) v.findViewById(R.id.t_type);
+            t_h = (TextView) v.findViewById(R.id.t_h);
             circleProgressBar = (CircleProgressBar) v.findViewById(R.id.circle_bar);
             im_pic = (ImageView) v.findViewById(R.id.im_pic);
             v.setOnClickListener(this);
