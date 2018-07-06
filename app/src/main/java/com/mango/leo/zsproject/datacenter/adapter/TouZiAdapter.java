@@ -74,7 +74,7 @@ public class TouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.event_item, parent, false);
+                    .inflate(R.layout.touzi_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         }
