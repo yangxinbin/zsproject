@@ -46,6 +46,7 @@ public class MatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         ButterKnife.bind(this);
+        textViewName.setText(getIntent().getStringExtra("match_name"));
         initDatas();
         init();
     }
@@ -61,6 +62,7 @@ public class MatchActivity extends AppCompatActivity {
         mfragments.add(new MatchCampaignFragment());
         viewPager.setAdapter(vp);
         viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(2);
     }
     @Override
     public void onDestroy() {
