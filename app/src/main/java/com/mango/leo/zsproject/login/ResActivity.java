@@ -148,7 +148,9 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
     @Override
     public void responeUserMessage(UserMessageBean bean) {
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
-            token = bean.getResponseObject().getToken();
+            editor.putString("token", bean.getResponseObject().getToken())
+                    .commit();
+            //token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
             Log.v("tttttr1", "--------------" + token);
         }
@@ -195,8 +197,6 @@ public class ResActivity extends AppCompatActivity implements UserStateView {
                         break;
                     case 4:
                         //AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token", token)
-                                .commit();
                         Log.v("zzzzzz", "--------------" + token);
                         break;
                     default:

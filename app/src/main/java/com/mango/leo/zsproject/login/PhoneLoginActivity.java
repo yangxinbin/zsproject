@@ -169,7 +169,9 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
             editor.putString("type", "yes").commit();
         }
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
-            token = bean.getResponseObject().getToken();
+            editor.putString("token", bean.getResponseObject().getToken())
+                    .commit();
+            //token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(4);
         }
     }
@@ -217,8 +219,6 @@ public class PhoneLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 4:
                         //AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token", token)
-                                .commit();
                         Log.v("zzzzzz", "--------------" + token);
                         break;
                     default:

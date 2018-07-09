@@ -176,10 +176,14 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             editor.putString("type", "yes").commit();
         }
         if (bean.getResponseObject().getToken() != "" && bean.getResponseObject().getToken() != null && bean.getResponseObject() != null && bean != null) {
-            token = bean.getResponseObject().getToken();
+            Log.v("sssss111", "111token11");
+            editor.putString("token", bean.getResponseObject().getToken())
+                    .commit();
+            //token = bean.getResponseObject().getToken();
             mHandler.sendEmptyMessage(2);
         }
     }
+
     @Override
     public void responeErrorUserMessage(final ErrorBean bean) {
         if (bean != null) {
@@ -191,6 +195,7 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
             });
         }
     }
+
     private final MyHandler mHandler = new MyHandler(this);
 
     private static class MyHandler extends Handler {
@@ -215,9 +220,9 @@ public class PwdLoginActivity extends BaseActivity implements UserStateView {
                         break;
                     case 2:
                         //AppUtils.showToast(activity, "令牌保存成功");
-                        editor.putString("token", token)
-                                .commit();
-                        Log.v("zzzzzz", "--------------" + token);
+                        //editor.putString("token", token)
+                        //        .commit();
+                        Log.v("zzzzzztoken", "--------------" + token);
                         break;
                     default:
                         break;
