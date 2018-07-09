@@ -58,6 +58,7 @@ public class ShouCangActivity extends BaseActivity {
         // mfragments.add(new CustomRequirementsFragment());
         viewPager2.setAdapter(vp);
         viewPager2.setCurrentItem(0);
+        viewPager2.setOffscreenPageLimit(2);
     }
 
     @OnClick(R.id.imageView_b)

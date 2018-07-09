@@ -38,8 +38,8 @@
                     android:id="@+id/textView82"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/imageView78"
                     android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/aboutus"
                     android:textColor="@color/black"
                     android:textSize="@dimen/title"
@@ -77,7 +77,7 @@
 “网上投洽会”是在以习主席为代表的党和国家领导人及投洽会组委会多年国际投资、贸易、洽谈的国际平台资源积累基础上的科技升华，基于金融科技，互联网、资本，结合国家产业布局，产业投融需求，真正实现“永不落幕投洽会平台”，未来网上投洽会将以“一个中心、两条主线、三大产业支持”为运营方向。\n
 一个中心，就是与地方政府搭建“网上投洽会运营中心”精准招商引资、落地对接、政府合作服务外包。\n
 二条主线，是运用网上投洽会科技智能工具及线下投资万里行“引进来、走出去”，包括我们开发的智能投顾、一键ＢＰ、一键招商、投洽资讯，金融资本资源、路演投融、创业创新大赛等服务帮助政府方、企业项目方、投资机构搭建线上线下精准对接。\n
-三大产业支持，产业智库、产业基金、产业运营，适应全球化的浪潮，汇聚全球资本，驱动中国“质量经济”高速发展。"
+三大产业支持，产业智库、产业基金、产业运营，适应全球化的浪潮，汇聚全球资本，驱动中国“质量经济”高速发展。\n\n\n"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize" />
 
