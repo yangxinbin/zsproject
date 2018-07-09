@@ -243,7 +243,7 @@ public class InvestmentInformationFragment extends Fragment {
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(getActivity(), "获取招商信息失败");
+                        AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
                         break;
                     case 1:
                         AppUtils.showToast(getActivity(), "获取招商信息成功");
@@ -264,7 +264,7 @@ public class InvestmentInformationFragment extends Fragment {
 
     private void addZhaoShang(List<ZhaoShangBean> zhaoShangBeans,int page) {
         Log.v("zzzzzzzzz",page+"-------3------"+zhaoShangBeans.size());
-        if (zhaoShangBeans == null) {
+        if (zhaoShangBeans == null || zhaoShangBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

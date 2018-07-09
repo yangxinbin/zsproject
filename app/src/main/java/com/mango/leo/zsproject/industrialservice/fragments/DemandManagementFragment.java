@@ -284,7 +284,7 @@ public class DemandManagementFragment extends Fragment {//
             if (activity != null) {
                 switch (msg.what) {
                     case 0:
-                        AppUtils.showToast(getActivity(), "获取匹配信息失败");
+                        AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
                         break;
                     case 1:
                         AppUtils.showToast(getActivity(), "获取匹配信息成功");
