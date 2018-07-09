@@ -40,6 +40,7 @@ public class MatchActivity extends AppCompatActivity {
     ViewPager viewPager;
     private ArrayList<String> mDatas;
     List<Fragment> mfragments = new ArrayList<Fragment>();
+    private int which;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,14 @@ public class MatchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match);
         ButterKnife.bind(this);
         textViewName.setText(getIntent().getStringExtra("match_name"));
+        which = getIntent().getIntExtra("which",1);
         initDatas();
-        init();
+        init(which);
     }
     private void initDatas() {
         mDatas = new ArrayList<String>(Arrays.asList("    投资方    ", "    项目    ","    活动    "));
     }
-    private void init() {
+    private void init(int which) {
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         ViewPageAdapter vp = new ViewPageAdapter(getSupportFragmentManager(), mfragments, mDatas);
         tabLayout.setupWithViewPager(viewPager);
@@ -61,7 +63,7 @@ public class MatchActivity extends AppCompatActivity {
         mfragments.add(new MatchProjectFragment());
         mfragments.add(new MatchCampaignFragment());
         viewPager.setAdapter(vp);
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(which);
         viewPager.setOffscreenPageLimit(2);
     }
     @Override

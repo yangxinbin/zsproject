@@ -418,7 +418,7 @@ public class DemandManagementFragment extends Fragment {//
     private DemandManagementAdapter.OnItemnewsClickListener mOnItemClickListener = new DemandManagementAdapter.OnItemnewsClickListener() {
 
         @Override
-        public void onItemClick1(View view, int position) {
+        public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
             Log.v("oooooooooo", adapter.getItem(position).getContent().get(position%20).getId()+"****onItemClick1***点击第" + position);
             if (mData.size() <= 0) {
@@ -426,6 +426,20 @@ public class DemandManagementFragment extends Fragment {//
             }
             Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
             intent.putExtra("FavouriteId", adapter.getItem(position).getContent().get(position%20).getProject().getId());
+            startActivity(intent);
+        }
+
+        @Override
+        public void onItemClick1(View view, int position) {
+            Log.v("oooooooooo", "****onItemClick2***点击第" + position);
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), MatchActivity.class);
+            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
+            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
+            intent.putExtra("which",0);
             startActivity(intent);
         }
 
@@ -439,6 +453,21 @@ public class DemandManagementFragment extends Fragment {//
             Intent intent = new Intent(getActivity(), MatchActivity.class);
             editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
             intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
+            intent.putExtra("which",1);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onItemClick3(View view, int position) {
+            Log.v("oooooooooo", "****onItemClick2***点击第" + position);
+            position = position - 1; //配对headerView
+            if (mData.size() <= 0) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), MatchActivity.class);
+            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
+            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
+            intent.putExtra("which",2);
             startActivity(intent);
         }
 

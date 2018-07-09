@@ -145,7 +145,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                     public void run() {
                         ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
                     }
-                },1000);
+                }, 1000);
                 // }
             } else {
                 //if (mData.size() > 0) {
@@ -204,9 +204,13 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public interface OnItemnewsClickListener {
+        void onItemClick(View view, int position);
+
         void onItemClick1(View view, int position);
 
         void onItemClick2(View view, int position);
+
+        void onItemClick3(View view, int position);
 
         void onCancelingMatchClick(View view, int position);
 
@@ -216,7 +220,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView itemName, numCompany, numInvestmentInstitution, numInvestmentActivities;
-        public LinearLayout stateButton, stateButton2;
+        public LinearLayout stateButton,l1,l2,l3;
         public Button canceling_match/*, delete*/;
         public int flag = 0;
 
@@ -227,13 +231,17 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             itemName = (TextView) v.findViewById(R.id.item_name);
             numCompany = (TextView) v.findViewById(R.id.num_Company);
             stateButton = v.findViewById(R.id.stateButton);
-            stateButton2 = v.findViewById(R.id.stateButton2);
+            l1 = v.findViewById(R.id.l1);
+            l2 = v.findViewById(R.id.l2);
+            l3 = v.findViewById(R.id.l3);
             canceling_match = v.findViewById(R.id.canceling_match);
             // delete = v.findViewById(R.id.delete);
             numInvestmentInstitution = (TextView) v.findViewById(R.id.num_Investment_Institution);
             numInvestmentActivities = (TextView) v.findViewById(R.id.num_Investment_Activities);
             stateButton.setOnClickListener(this);
-            stateButton2.setOnClickListener(this);
+            l1.setOnClickListener(this);
+            l2.setOnClickListener(this);
+            l3.setOnClickListener(this);
             // delete.setOnClickListener(this);
             canceling_match.setOnClickListener(this);
             v.setOnClickListener(this);
@@ -244,10 +252,16 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
             if (mOnItemnewsClickListener != null) {
                 switch (view.getId()) {
                     case R.id.stateButton:
+                        mOnItemnewsClickListener.onItemClick(view, this.getLayoutPosition());
+                        break;
+                    case R.id.l1:
                         mOnItemnewsClickListener.onItemClick1(view, this.getLayoutPosition());
                         break;
-                    case R.id.stateButton2:
+                    case R.id.l2:
                         mOnItemnewsClickListener.onItemClick2(view, this.getLayoutPosition());
+                        break;
+                    case R.id.l3:
+                        mOnItemnewsClickListener.onItemClick3(view, this.getLayoutPosition());
                         break;
                     case R.id.canceling_match:
                         if (flag == 0) {
