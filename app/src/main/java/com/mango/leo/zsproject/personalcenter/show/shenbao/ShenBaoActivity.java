@@ -308,7 +308,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getBaseContext(), "加载失败");
+                AppUtils.showToast(getBaseContext(), getResources().getString(R.string.load_error));
             }
         });
     }

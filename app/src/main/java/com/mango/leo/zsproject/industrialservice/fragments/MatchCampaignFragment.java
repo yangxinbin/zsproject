@@ -250,7 +250,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
             }
         });
     }

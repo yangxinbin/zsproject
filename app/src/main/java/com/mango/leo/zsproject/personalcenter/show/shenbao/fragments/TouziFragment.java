@@ -265,7 +265,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "加载失败");
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
                 }
             });
         }

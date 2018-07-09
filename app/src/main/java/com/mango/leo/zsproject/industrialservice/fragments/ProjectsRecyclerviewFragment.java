@@ -533,7 +533,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getActivity(), "加载失败");
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
                 }
             });
         }
