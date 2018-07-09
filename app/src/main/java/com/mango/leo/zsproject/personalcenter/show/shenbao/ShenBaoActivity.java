@@ -246,7 +246,7 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppUtils.showToast(getBaseContext(), getResources().getString(R.string.no_pro));
+                    AppUtils.showToast(getBaseContext(), getResources().getString(R.string.no_more));
                     return;
                 }
             });
@@ -286,10 +286,10 @@ public class ShenBaoActivity extends FragmentActivity implements AllProjectsView
                             }
                             Log.v("rrrrrrrrr", "--adapter--");
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                 noMoreMsg();
                                 return;
-                            }
+                            }*/
                         }
                     }
                 }

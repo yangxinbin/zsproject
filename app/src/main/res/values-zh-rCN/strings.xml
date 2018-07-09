@@ -68,7 +68,7 @@
     <string name="draftbox">      草稿箱      </string>
     <string name="submission">已提交</string>
     <string name="audited">已审核</string>
-    <string name="no_more">没有更多的项目,请你刷新!</string>
+    <string name="no_more">请您稍后刷新!</string>
     <string name="no_more_s">没有更多的收藏活动!</string>
     <string name="mineplan">我的招商信息</string>
     <string name="saveinbox">存草稿</string>

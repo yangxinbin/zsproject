@@ -229,10 +229,10 @@ public class MatchCampaignFragment extends Fragment implements EventView {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                 noMoreMsg();
                                 return;
-                            }
+                            }*/
                         }
                     }
                 }
@@ -242,7 +242,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
 
     public void noMoreMsg() {
         adapter.isShowFooter(false);
-        AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
+        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 
     @Override
@@ -250,7 +250,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AppUtils.showToast(getActivity(), "没有更多匹配活动，请您稍后刷新！");
+                AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
             }
         });
     }
