@@ -69,8 +69,10 @@ public class InvestmentInformationFragment extends Fragment {
         loadZhaoShanMes(0);
         initSwipeRefreshLayout();
         EventBus.getDefault().register(this);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
         return view;
@@ -78,8 +80,10 @@ public class InvestmentInformationFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CityS bean) {
         Log.v("yyyyyyyyyy","------111---"+bean.getCity());
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
         beanM = bean.getCity();
@@ -198,8 +202,10 @@ public class InvestmentInformationFragment extends Fragment {
                 refreshMes.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
+                        if (mDataAll != null){
+                            mDataAll.clear();
+                        }
+                        if (mData != null){
                             mData.clear();
                         }
                         refreshMes.setRefreshing(false);
@@ -301,10 +307,10 @@ public class InvestmentInformationFragment extends Fragment {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                 noMoreMsg();
                                 return;
-                            }
+                            }*/
                         }
                     }
                 }

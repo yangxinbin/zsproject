@@ -55,7 +55,7 @@ public class InvestorWithoutSelectFragment extends Fragment implements AdapterVi
     }
 
     private void initViews() {
-        View content = LayoutInflater.from(getActivity()).inflate(R.layout.touzif__items, null);
+        View content = LayoutInflater.from(getActivity()).inflate(R.layout.touzi, null);
         refresh_touzi = content.findViewById(R.id.refresh_touzi);
         recycle_touzi = content.findViewById(R.id.recycle_touzi);
         content.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));

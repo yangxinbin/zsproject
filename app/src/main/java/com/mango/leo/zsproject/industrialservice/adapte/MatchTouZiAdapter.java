@@ -77,7 +77,7 @@ public class MatchTouZiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.touzi_item, parent, false);
+                    .inflate(R.layout.match_touzi_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {

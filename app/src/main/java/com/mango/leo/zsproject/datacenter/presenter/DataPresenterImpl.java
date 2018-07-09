@@ -37,11 +37,11 @@ public class DataPresenterImpl implements DataPresenter, OnDataListener {
         sharedPreferences = context.getSharedPreferences("CIFIT", MODE_PRIVATE);
         String url = null;
         if (type == 1) {
-            /*if (shaiXuanData.getTimeFuture() == null && shaiXuanData.getTypePay() == null && shaiXuanData.getTimeFuture() == null && shaiXuanData.getCity() == null) {
+            if (shaiXuanData.getHangye() == null && shaiXuanData.getType() == null && shaiXuanData.getMomey() == null && shaiXuanData.getWay() == null) {
                 url = getUrl(type) + "?page=" + page;
             } else {
-                url = getUrl(type) + "?page=" + page + "&city=" + shaiXuanData.getCity() + "&priceType=" + shaiXuanData.getTypePay() + "&timePast=" + shaiXuanData.getTimePast() + "&timeFuture=" + shaiXuanData.getTimeFuture();
-            }*/
+                url = getUrl(type) + "?page=" + page + "&industry=" + shaiXuanData.getHangye() + "&fundType=" + shaiXuanData.getType() + "&amount=" + shaiXuanData.getMomey() + "&method=" + shaiXuanData.getWay();
+            }
         } else if (type == 3) {
             url = getUrl(type) + "?page=" + page + "&id=" + sharedPreferences.getString("match_id", "");
         }

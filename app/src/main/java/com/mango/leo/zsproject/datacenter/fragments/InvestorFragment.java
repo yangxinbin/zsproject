@@ -1,14 +1,18 @@
 package com.mango.leo.zsproject.datacenter.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +24,15 @@ import android.widget.ListView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.ZsActivity;
 import com.mango.leo.zsproject.datacenter.adapter.TouZiAdapter;
+import com.mango.leo.zsproject.datacenter.bean.ShaiXuanData;
 import com.mango.leo.zsproject.datacenter.bean.TouZiBean;
+import com.mango.leo.zsproject.datacenter.presenter.DataPresenter;
+import com.mango.leo.zsproject.datacenter.presenter.DataPresenterImpl;
+import com.mango.leo.zsproject.datacenter.show.InvestorDetailActivity;
+import com.mango.leo.zsproject.datacenter.view.DataView;
+import com.mango.leo.zsproject.eventexhibition.bean.EventBean;
+import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
+import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
@@ -36,7 +48,7 @@ import butterknife.ButterKnife;
  * Created by admin on 2018/5/11.
  */
 
-public class InvestorFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class InvestorFragment extends Fragment implements AdapterView.OnItemClickListener,DataView {
     @Bind(R.id.dropdownmenu)
     DropdownMenuLayout dropdownmenu;
     private String headers[] = {"行业", "资金类型", "投资金额", "合作方式"};
@@ -51,16 +63,42 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
     private TouZiAdapter adapter;
     private List<TouZiBean> mData, mDataAll, eventBeans1;
     private int page = 0;
+    private DataPresenter dataPresenter;
+    private ShaiXuanData shaiXuanData;
+    private final int DATA = 1;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.investor, container, false);
         ButterKnife.bind(this, view);
+        dataPresenter = new DataPresenterImpl(this);
+        //显示所有
+        shaiXuanData = new ShaiXuanData("", "", "", "");
+        dataPresenter.visitData(getActivity(), DATA, page, shaiXuanData);
         initViews();
+        initHeader();
+        if (mDataAll != null){
+            mDataAll.clear();
+        }
+        if (mData != null){
+            mData.clear();
+        }
         return view;
     }
-
+    private void initHeader() {
+        //渲染header布局
+        ConstraintLayout h = new ConstraintLayout(getActivity());
+        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
+        layoutParam.setMargins(0, 0, 0, 20);
+        h.setLayoutParams(layoutParam);
+        adapter.setHeaderView(h);
+    }
+    private int dp2px(float v) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
+    }
     private void initViews() {
         ListView lvHangye = new ListView(getActivity());
         lvHangye.setId(0);
@@ -91,7 +129,7 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
         popViews.add(lvWhere);
         popViews.add(lvHow);
 
-        View content = LayoutInflater.from(getActivity()).inflate(R.layout.touzif__items, null);
+        View content = LayoutInflater.from(getActivity()).inflate(R.layout.touzi, null);
         refresh_touzi = content.findViewById(R.id.refresh_touzi);
         recycle_touzi = content.findViewById(R.id.recycle_touzi);
         content.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
@@ -107,8 +145,10 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
         recycle_touzi.setAdapter(adapter);
         recycle_touzi.addOnScrollListener(mOnScrollListener);
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
 
@@ -130,7 +170,7 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                //eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                dataPresenter.visitData(getActivity(), DATA, page, shaiXuanData);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
@@ -143,12 +183,9 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
             if (mData.size() <= 0) {
                 return;
             }
-            //EventBus.getDefault().postSticky(mDataAll.get(position));
-            /*Log.v("yxbb","_____"+mDataAll.get(position).getResponseObject().getContent().get(position).getName());
-            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("FavouriteId",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
-            intent.putExtra("position",position);
-            startActivity(intent);*/
+            Intent intent = new Intent(getActivity(), InvestorDetailActivity.class);
+            intent.putExtra("Investor_Id",adapter.getItem(position).getResponseObject().getContent().get(position).getId());
+            startActivity(intent);
         }
     };
 
@@ -166,8 +203,8 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
                         }
                         if (NetUtil.isNetConnect(getActivity())) {
                             adapter.isShowFooter(true);
-                            //page = 0;
-                            //eventPresenter.visitEvent(getActivity(), EVENT1, page);
+                            page = 0;
+                            dataPresenter.visitData(getActivity(), DATA, page, shaiXuanData);
                         } else {
                             // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
                         }
@@ -222,5 +259,79 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
                 return false;
             }
         });
+    }
+
+    @Override
+    public void addDataView(List<TouZiBean> touZiBeans) {
+        Log.v("eeeeeyyyyyy", touZiBeans.get(0).getResponseObject().getContent().get(0).getTitle() + "======eventBeans======" + touZiBeans.size());
+        if (touZiBeans == null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getActivity(), "请您稍后刷新！");
+                }
+            });
+        }
+        if (mData == null && mDataAll == null) {
+            mData = new ArrayList<TouZiBean>();
+            mDataAll = new ArrayList<TouZiBean>();
+        }
+        if (mDataAll != null) {
+            mDataAll.clear();
+        }
+        mDataAll.addAll(touZiBeans);
+        if (page == 0) {
+            for (int i = 0; i < mDataAll.size(); i++) {//
+                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+            }
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mData != null) {
+                        adapter.setmDate(mData);
+                    }
+                }
+            });
+        } else {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDataAll != null) {
+                        //加载更多
+                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
+                        int i;
+                        for (i = 0; i < mDataAll.size(); i++) {
+                            if (mDataAll == null) {
+                                return;//一开始断网报空指针的情况
+                            }
+                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
+                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+                                noMoreMsg();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void addMatchDataView(List<MatchDataBean> matchDataBeans) {
+
+    }
+
+    @Override
+    public void showDataFailMsg(String string) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AppUtils.showToast(getActivity(), "请您稍后刷新！");
+            }
+        });
+    }
+    public void noMoreMsg() {
+        adapter.isShowFooter(false);
+        AppUtils.showToast(getActivity(), "请您稍后刷新！");
     }
 }

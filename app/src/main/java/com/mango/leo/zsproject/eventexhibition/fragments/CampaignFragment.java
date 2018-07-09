@@ -157,8 +157,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         recycle_cam.setAdapter(adapter);
         recycle_cam.addOnScrollListener(mOnScrollListener);
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
     }
@@ -236,8 +238,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        if (mDataAll != null || mData != null) {
+        if (mDataAll != null){
             mDataAll.clear();
+        }
+        if (mData != null){
             mData.clear();
         }
         adapter.notifyDataSetChanged();
@@ -314,7 +318,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     }
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
-
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
         if (eventBeans == null) {
             getActivity().runOnUiThread(new Runnable() {

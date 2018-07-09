@@ -223,8 +223,8 @@ public class ProjectsJsonUtils {
         List<TouZiBean> beans = new ArrayList<TouZiBean>();
         try {
             JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-            //JsonObject ob = jsonObject.getAsJsonObject("responseObject");
-            JsonArray jsonArray = jsonObject.getAsJsonArray(va);
+            JsonObject ob = jsonObject.getAsJsonObject("responseObject");
+            JsonArray jsonArray = ob.getAsJsonArray(va);
             for (int i = 0; i < jsonArray.size(); i++) {
                 TouZiBean event = JsonUtils.deserialize(jsonObject, TouZiBean.class);
                 beans.add(event);//这里会将所有的json对象转换为bean对象

@@ -20,17 +20,13 @@ import android.view.ViewGroup;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.ShenBaoDetailActivity;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.adapter.ShenBaoAdapter;
-import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.IdBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.bean.ShenBaoBean;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.presenter.ShenBaoPresenter;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.presenter.ShenBaoPresenterImpl;
 import com.mango.leo.zsproject.personalcenter.show.shenbao.view.ShenbaoProjectsView;
 import com.mango.leo.zsproject.utils.AppUtils;
-import com.mango.leo.zsproject.utils.SwipeItemLayout;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +73,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
         if (mData != null) {
             mData.clear();
         }
-        LoadShengbao(sharedPreferences.getString("projectId",""), 0);
+        LoadShengbao(sharedPreferences.getString("projectId", ""), 0);
         return view;
     }
 
@@ -131,7 +127,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
-                LoadShengbao(sharedPreferences.getString("projectId",""), page);
+                LoadShengbao(sharedPreferences.getString("projectId", ""), page);
                 Log.v("yyyy", "***onScrollStateChanged******" + adapter.getItemCount());
             }
         }
@@ -144,7 +140,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                 return;
             }
             Intent intent = new Intent(getActivity(), ShenBaoDetailActivity.class);
-            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20));
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position % 20));
             startActivity(intent);
             //getActivity().finish();
         }
@@ -179,7 +175,7 @@ public class TouziFragment extends Fragment implements ShenbaoProjectsView {
                             mDataAll.clear();
                         }
                         page = 0;
-                        LoadShengbao(sharedPreferences.getString("projectId",""), page);//请求刷新
+                        LoadShengbao(sharedPreferences.getString("projectId", ""), page);//请求刷新
                     }
                 }, 2000);
             }

@@ -56,7 +56,7 @@ public class MatchInvestorFragment extends Fragment implements DataView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.touzif__items, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.touzi, container, false);
         ButterKnife.bind(this, view);
         initViews();
         initSwipeRefreshLayout();
