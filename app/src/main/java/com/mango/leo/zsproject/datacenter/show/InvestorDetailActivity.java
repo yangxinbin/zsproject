@@ -113,5 +113,16 @@ public class InvestorDetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        if( webview!=null) {
+            webview.setVisibility(View.GONE);
+            webview.removeAllViews();
+            webview.stopLoading();
+            webview.clearHistory();
+            webview.clearCache(true);
+            webview.loadUrl("about:blank");
+            webview.pauseTimers();
+            webview.destroy();
+            webview = null;
+        }
     }
 }

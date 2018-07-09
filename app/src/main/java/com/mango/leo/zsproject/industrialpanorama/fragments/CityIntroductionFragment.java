@@ -164,6 +164,17 @@ public class CityIntroductionFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+        if( webview!=null) {
+            webview.setVisibility(View.GONE);
+            webview.removeAllViews();
+            webview.stopLoading();
+            webview.clearHistory();
+            webview.clearCache(true);
+            webview.loadUrl("about:blank");
+            webview.pauseTimers();
+            webview.destroy();
+            webview = null;
+        }
     }
 
    /* private void initRecycle() {
