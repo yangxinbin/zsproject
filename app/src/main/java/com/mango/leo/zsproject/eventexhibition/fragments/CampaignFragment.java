@@ -319,7 +319,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void addEventsView(List<EventBean> eventBeans) {
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
-        if (eventBeans == null) {
+        if (eventBeans == null || eventBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
