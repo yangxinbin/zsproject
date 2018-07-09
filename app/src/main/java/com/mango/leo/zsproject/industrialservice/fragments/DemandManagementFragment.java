@@ -214,7 +214,7 @@ public class DemandManagementFragment extends Fragment {//
 
     private void addTenant(List<DemandManagementBean> beanList, int page) {
         Log.v("zzzzzzzzz",page+"-------3------"+beanList.size());
-        if (beanList == null) {
+        if (beanList == null || beanList.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

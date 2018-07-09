@@ -264,7 +264,7 @@ public class InvestorFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void addDataView(List<TouZiBean> touZiBeans) {
         Log.v("eeeeeyyyyyy", touZiBeans.get(0).getResponseObject().getContent().get(0).getTitle() + "======eventBeans======" + touZiBeans.size());
-        if (touZiBeans == null) {
+        if (touZiBeans == null || touZiBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -162,6 +162,30 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     };
 
     public void initSwipeRefreshLayout() {
+        refreshItems.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshItems.setRefreshing(false);
+                        if (mDataAll != null){
+                            mDataAll.clear();
+                        }
+                        if (mData != null){
+                            mData.clear();
+                        }
+                        if (NetUtil.isNetConnect(getActivity())) {
+                            adapter.isShowFooter(true);
+                            page = 0;
+                            allProjectsPresenter.visitProjects(getActivity(), mType, page);
+                        } else {
+                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
+                        }
+                    }
+                }, 2000);
+            }
+        });
         refreshItems.setOnRefreshListener(this);
         refreshItems.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -438,6 +462,15 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
     @Override
     public void addProjectsSuccess(List<AllProjectsBean> projectsList) {
+        Log.v("yxb",""+projectsList.size());
+        if (projectsList == null || projectsList.size() == 0) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                }
+            });
+        }
         if (mData == null && mDataAll == null) {
             mData = new ArrayList<AllProjectsBean>();
             mDataAll = new ArrayList<AllProjectsBean>();
@@ -460,7 +493,6 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                     }
                 });
             }
-
         } else {
             if (getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -477,10 +509,10 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                                 Log.v("rrrrrrrrr", "--adapter--");
 
                                 adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-                                if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
+/*                                if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
                                     noMoreMsg();
                                     return;
-                                }
+                                }*/
                             }
                         }
                     }

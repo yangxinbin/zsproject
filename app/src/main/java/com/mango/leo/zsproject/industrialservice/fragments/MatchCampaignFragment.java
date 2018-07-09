@@ -188,7 +188,7 @@ public class MatchCampaignFragment extends Fragment implements EventView {
     @Override
     public void addMatchEventsView(List<MatchEventBean> eventBeans) {
         Log.v("eeeee", eventBeans.get(0).getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
-        if (eventBeans == null) {
+        if (eventBeans == null || eventBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

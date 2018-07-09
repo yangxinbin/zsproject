@@ -144,7 +144,7 @@ public class ShouCang3Fragment extends Fragment {
     }
 
     public void addEventsView(List<MyEventBean> eventBeans) {
-        if (eventBeans == null) {
+        if (eventBeans == null || eventBeans.size() == 0) {
             Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getEntity().getName() + "======eventBeans======" + eventBeans.size());
             getActivity().runOnUiThread(new Runnable() {
                 @Override

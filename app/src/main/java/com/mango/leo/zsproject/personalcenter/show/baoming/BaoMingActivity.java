@@ -168,7 +168,7 @@ public class BaoMingActivity extends BaseActivity {
     };
 
     public void addEventsView(List<SingUpBean> eventBeans) {
-        if (eventBeans == null) {
+        if (eventBeans == null || eventBeans.size() == 0) {
             Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getEvent().getName() + "======eventBeans======" + eventBeans.size());
             runOnUiThread(new Runnable() {
                 @Override

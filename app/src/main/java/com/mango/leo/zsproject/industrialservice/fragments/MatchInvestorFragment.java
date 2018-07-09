@@ -204,7 +204,7 @@ public class MatchInvestorFragment extends Fragment implements DataView {
     @Override
     public void addMatchDataView(List<MatchDataBean> matchDataBeans) {
         Log.v("eeeee", matchDataBeans.get(0).getContent().get(0).getTitle() + "======matchDataBeans======" + matchDataBeans.size());
-        if (matchDataBeans == null) {
+        if (matchDataBeans == null || matchDataBeans.size() == 0) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
