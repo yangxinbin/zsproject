@@ -67,6 +67,7 @@ public class EventDetailActivity extends BaseActivity {
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
         //webview.loadUrl("http://www.baidu.com");
         webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:" + id);
         webview.setWebViewClient(new WebViewClient() {

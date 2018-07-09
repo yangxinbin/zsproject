@@ -91,7 +91,7 @@ public class CityIntroductionFragment extends Fragment {
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
+        webSettings.setDomStorageEnabled(true);
 
 /*        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         webSettings.setUserAgentString("User-Agent:Android");

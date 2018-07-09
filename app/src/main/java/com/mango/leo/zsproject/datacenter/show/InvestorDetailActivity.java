@@ -46,12 +46,13 @@ public class InvestorDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CIFIT", MODE_PRIVATE);
         id = getIntent().getStringExtra("Investor_Id");
-        Log.v("ssss", "" + "http://cms.jetc.vc/jetc/#/iosinvestDetail/:" + id);
+        Log.v("ssss", "http://47.106.184.121/jetc/#/iosinvestDetail/:" + id);
         webview.setVisibility(View.VISIBLE);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
         //webview.loadUrl("http://www.baidu.com");
-        webview.loadUrl("http://cms.jetc.vc/jetc/#/iosinvestDetail/:" + id);
+        webview.loadUrl("http://47.106.184.121/jetc/#/iosinvestDetail/:" + id);
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -102,7 +103,7 @@ public class InvestorDetailActivity extends AppCompatActivity {
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImageUrl(Urls.HOST + "/user-service/user/get/file?fileId=5b1f70641233c531ec362024");//确保SDcard下面存在此张图片
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://cms.jetc.vc/jetc/#/iosinvestDetail/:" + id);
+        oks.setUrl("http://47.106.184.121/jetc/#/iosinvestDetail/:" + id);
         // comment是我对这条分享的评论，仅在人人网使用
         oks.setComment("评论");
         // 启动分享GUI
