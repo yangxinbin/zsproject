@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
+import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.utils.DateUtil;
 import com.mango.leo.zsproject.utils.Urls;
@@ -135,8 +136,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ((ItemViewHolder) holder).im.setVisibility(View.GONE);
                 }
             }
-        }/*else {
-            //if (mData.size() > 0) {
+        }else {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
 
@@ -145,15 +145,13 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void run() {
                     // 隐藏提示条
-                    ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.INVISIBLE);
+                    ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
                     // 将fadeTips设置true
-                    fadeTips = true;
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
-            }, 5000);
-            //}
-        }*/
+            }, 1000);
+        }
     }
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
