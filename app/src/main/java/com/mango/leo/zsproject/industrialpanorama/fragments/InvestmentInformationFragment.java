@@ -269,6 +269,7 @@ public class InvestmentInformationFragment extends Fragment {
                 @Override
                 public void run() {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+                    adapter.hasMore(false);//显示没有更多
                     return;
                 }
             });

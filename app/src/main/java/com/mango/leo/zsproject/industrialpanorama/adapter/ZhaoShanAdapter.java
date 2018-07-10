@@ -8,15 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.eventexhibition.adapter.EventAdapter;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
-import com.mango.leo.zsproject.utils.DateUtil;
-import com.mango.leo.zsproject.utils.Urls;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean mShowFooter = true;
     private boolean mShowHeader = true;
     private View mHeaderView;
-    private boolean hasMore;
+    private boolean hasMore = true;
     private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
@@ -43,7 +38,8 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mData = data;
         this.notifyDataSetChanged();
     }
-    public void reMove(){
+
+    public void reMove() {
         List<ZhaoShangBean> m = new ArrayList<ZhaoShangBean>();
         this.mData = m;
         this.notifyDataSetChanged();
@@ -58,17 +54,21 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     public void addItem(ZhaoShangBean bean) {
         isShowFooter(false);
-        if (mData != null){
+        if (mData != null) {
             mData.add(bean);
-            hasMore = true;
-
+            hasMore(true);
         }
         this.notifyDataSetChanged();
+    }
+
+    public void hasMore(Boolean b) {
+        this.hasMore = b;
     }
 
     public ZhaoShanAdapter(Context context) {
         this.context = context;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
@@ -79,9 +79,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .inflate(R.layout.zhaoshang_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
-        }
-        else
-        {
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.footer, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -89,6 +87,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new FooterViewHolder(view);
         }
     }
+
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
@@ -104,6 +103,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return TYPE_ITEM;
         }
     }
+
     public void isShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
         this.notifyDataSetChanged();
@@ -117,6 +117,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mShowHeader = showHeader;
         this.notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) return;//add header
@@ -124,39 +125,57 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof ItemViewHolder) {
 //            AllItemBean dm = mData.get(pos);//add header
 //            if (dm == null) {
- //               return;
- //           }
-            if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject()  != null) {
-                Log.v("yyyyy", "====pos======"+pos%20);//
-                ((ItemViewHolder) holder).z_title.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getName());
-                ((ItemViewHolder) holder).z_content.setText(mData.get(pos).getResponseObject().getContent().get(pos%20).getSummary());
-                if (mData.get(pos).getResponseObject().getContent().get(pos%20).isRecommended()) {
+            //               return;
+            //           }
+            if (((ItemViewHolder) holder) != null && mData.get(pos).getResponseObject() != null) {
+                Log.v("yyyyy", "====pos======" + pos % 20);//
+                ((ItemViewHolder) holder).z_title.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getName());
+                ((ItemViewHolder) holder).z_content.setText(mData.get(pos).getResponseObject().getContent().get(pos % 20).getSummary());
+                if (mData.get(pos).getResponseObject().getContent().get(pos % 20).isRecommended()) {
                     ((ItemViewHolder) holder).im.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ((ItemViewHolder) holder).im.setVisibility(View.GONE);
                 }
             }
-        }/*else {
-            // 如果查询数据发现并没有增加时，就显示没有更多数据了
-            ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
-
-            // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-            mHandler.postDelayed(new Runnable() {
+        } else {
+            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
+            if (hasMore == true) {
+                // 不隐藏footView提示
+                Log.v("rrrrrrrrr", "--???--");
+                // 如果查询数据发现增加之后，就显示正在加载更多
+                ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+                ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("正在加载...");
+                //hasMore = false;
+                // }
+            } else {
+                // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+                ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 隐藏提示条
+                        ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
+                    }
+                }, 2000);
+            }
+/*            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // 隐藏提示条
                     ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                    // 将fadeTips设置true
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
-            }, 1000);
-        }*/
+            }, 3000);*/
+        }
     }
+
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
     }
+
     @Override
     public int getItemCount() {
         int isFooter = mShowFooter ? 1 : 0;
@@ -167,9 +186,11 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         return mData.size() + isFooter + isHeader;
     }
+
     public void setOnZhaoShanClickListener(OnZhaoShanClickListener onItemnewsClickListener) {
         this.mOnZhaoShanClickListener = onItemnewsClickListener;
     }
+
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public TextView footTv;
@@ -181,22 +202,25 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public ZhaoShangBean getItem(int position) {
-        Log.v("oooooooooo","--oo--"+mData.get(position).getResponseObject().getContent().get(position%20).getName());
+        Log.v("oooooooooo", "--oo--" + mData.get(position).getResponseObject().getContent().get(position % 20).getName());
         return mData == null ? null : mData.get(position);
     }
+
     public interface OnZhaoShanClickListener {
         public void onItemClick(View view, int position);
     }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView z_title,z_content,im;
+        public TextView z_title, z_content, im;
+
         public ItemViewHolder(View v) {
             super(v);
-            if(v == mHeaderView)
+            if (v == mHeaderView)
                 return;
             z_title = (TextView) v.findViewById(R.id.tv_zhaoshang);
             z_content = (TextView) v.findViewById(R.id.textView_zhaoshangC);
-            im = (TextView)v.findViewById(R.id.imageView_flag);
+            im = (TextView) v.findViewById(R.id.imageView_flag);
             v.setOnClickListener(this);
         }
 
@@ -204,7 +228,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void onClick(View view) {
             if (mOnZhaoShanClickListener != null) {
                 mOnZhaoShanClickListener.onItemClick(view, this.getLayoutPosition());
-                Log.v("oooooooo","---onb---"+this.getLayoutPosition());
+                Log.v("oooooooo", "---onb---" + this.getLayoutPosition());
             }
         }
     }

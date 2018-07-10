@@ -172,45 +172,28 @@ public class AllProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         } else {
             // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
-            //((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+            if (hasMore == true) {
+                // 不隐藏footView提示
+                Log.v("rrrrrrrrr","----");
+                hasMore = false;
+                // 如果查询数据发现增加之后，就显示正在加载更多
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("正在加载...");
+                // }
+            } else {
+                // 如果查询数据发现并没有增加时，就显示没有更多数据了
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
+                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
+            }
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // 隐藏提示条
                     ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                    // 将fadeTips设置true
-                    fadeTips = true;
                     // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
                     hasMore = true;
                 }
             }, 2000);
-            if (hasMore == true) {
-                // 不隐藏footView提示
-                Log.v("rrrrrrrrr","----");
-                hasMore = false;
-                //if (mData.size() > 0) {
-                // 如果查询数据发现增加之后，就显示正在加载更多
-                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("正在加载...");
-                // }
-            } else {
-                //if (mData.size() > 0) {
-                // 如果查询数据发现并没有增加时，就显示没有更多数据了
-                ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
-
-                // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 隐藏提示条
-                        ((AllProjectsAdapter.FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                        // 将fadeTips设置true
-                        fadeTips = true;
-                        // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                        hasMore = true;
-                    }
-                }, 1000);
-                //}
-            }
         }
     }
 
