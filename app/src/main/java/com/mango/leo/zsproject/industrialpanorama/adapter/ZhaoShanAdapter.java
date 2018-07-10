@@ -136,7 +136,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ((ItemViewHolder) holder).im.setVisibility(View.GONE);
                 }
             }
-        }else {
+        }/*else {
             // 如果查询数据发现并没有增加时，就显示没有更多数据了
             ((ZhaoShanAdapter.FooterViewHolder) holder).footTv.setText("没有更多数据了");
 
@@ -151,7 +151,7 @@ public class ZhaoShanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     hasMore = true;
                 }
             }, 1000);
-        }
+        }*/
     }
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();

@@ -177,16 +177,32 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            Log.v("0000000",""+lastVisibleItem);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
+                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
+                page++;//lastVisibleItem - 1 > 10 大于 20 才有分页
                 eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                 Log.v("yyyy", "***onScrollStateChanged******");
             }
         }
     };
-
+/*    public static boolean isVisBottom(RecyclerView recyclerView){
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = recyclerView.getScrollState();
+        if(visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == recyclerView.SCROLL_STATE_IDLE){
+            return true;
+        }else {
+            return false;
+        }
+    }*/
     private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
@@ -385,6 +401,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.v("111111111111111","====e====");
                 AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
             }
         });

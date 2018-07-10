@@ -153,7 +153,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
 
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
                 allProjectsPresenter.visitProjects(getActivity(), mType, page);
                 Log.v("yyyy", "***onScrollStateChanged******"+adapter.getItemCount());

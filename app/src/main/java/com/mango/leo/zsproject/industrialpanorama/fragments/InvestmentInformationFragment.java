@@ -187,7 +187,7 @@ public class InvestmentInformationFragment extends Fragment {
             super.onScrollStateChanged(recyclerView, newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
+                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
                 page++;
                 Log.v("zzzzzzzzz","-------2-------"+page);
                 loadZhaoShanMes(page);
