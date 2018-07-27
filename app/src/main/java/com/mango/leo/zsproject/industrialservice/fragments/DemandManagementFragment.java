@@ -91,7 +91,7 @@ public class DemandManagementFragment extends Fragment {//
     private ArrayList<DemandManagementBean> mData, mDataAll;
     private String nowCity, nowDistrict;
     private int page = 0;
-    private boolean isFirstEnter;
+    private boolean isFirstEnter = true;
 
     @Nullable
     @Override

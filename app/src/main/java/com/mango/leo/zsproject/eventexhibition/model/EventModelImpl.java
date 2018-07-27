@@ -50,6 +50,7 @@ public class EventModelImpl implements EventModel {
                     HttpUtils.doGet(url, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            Log.v("eeeee", "??"+url);
                             listener.onFailure("FAILURE", e);
                         }
 
@@ -59,8 +60,8 @@ public class EventModelImpl implements EventModel {
                                 List<MatchEventBean> beanList = ProjectsJsonUtils.readJsonMatchEventBean(response.body().string(), "content");//data是json字段获得data的值即对象数组
                                 listener.onMatchSuccess(beanList);
                             } catch (Exception e) {
+                                Log.v("eeeee", response.body().string()+"Exception = " + response.code());
                                 listener.onFailure("FAILURE", e);
-//                    Log.e("eeeee", response.body().string()+"Exception = " + e);
                             }
                         }
                     });

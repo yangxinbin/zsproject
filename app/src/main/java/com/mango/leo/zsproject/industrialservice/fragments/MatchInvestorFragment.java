@@ -2,16 +2,13 @@ package com.mango.leo.zsproject.industrialservice.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +21,14 @@ import com.mango.leo.zsproject.datacenter.presenter.DataPresenter;
 import com.mango.leo.zsproject.datacenter.presenter.DataPresenterImpl;
 import com.mango.leo.zsproject.datacenter.show.InvestorDetailActivity;
 import com.mango.leo.zsproject.datacenter.view.DataView;
-import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
 import com.mango.leo.zsproject.industrialservice.adapte.MatchTouZiAdapter;
+import com.mango.leo.zsproject.industrialservice.bean.MatchDataBean;
 import com.mango.leo.zsproject.utils.AppUtils;
-import com.mango.leo.zsproject.utils.NetUtil;
+import com.mango.leo.zsproject.utils.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class MatchInvestorFragment extends Fragment implements DataView {
     @Bind(R.id.recycle_touzi)
     RecyclerView recycleTouzi;
     @Bind(R.id.refresh_touzi)
-    SwipeRefreshLayout refreshTouzi;
+    SmartRefreshLayout refreshTouzi;
     private LinearLayoutManager mLayoutManager;
     private MatchTouZiAdapter adapter;
     private List<MatchDataBean> mData, mDataAll;
@@ -52,6 +53,7 @@ public class MatchInvestorFragment extends Fragment implements DataView {
     private DataPresenter dataPresenter;
     private ShaiXuanData shaiXuanData;
     private final int MATCHDATA = 3;
+    private boolean isFirstEnter = true;
 
     @Nullable
     @Override
@@ -59,21 +61,66 @@ public class MatchInvestorFragment extends Fragment implements DataView {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.touzi, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        initSwipeRefreshLayout();
         dataPresenter = new DataPresenterImpl(this);
         //显示所有
         shaiXuanData = new ShaiXuanData("", "", "", "");
         dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
-        initHeader();
-        if (mDataAll != null){
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
+        refreshAndLoadMore();
         return view;
     }
+    private void refreshAndLoadMore() {
+        refreshTouzi.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            mDataAll.clear();
+                        }
+                        if (mData != null) {
+                            mData.clear();
+                        }
+                        page = 0;
+                        Log.v("zzzzzzzzz", "-------onRefresh-------" + page);
+                        dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
+                        refreshLayout.finishRefresh();
+                    }
+                }, 500);
+            }
+        });
+        refreshTouzi.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        Log.v("zzzzzzzzz", "-------onLoadMore-------" + page);
+                        dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
+                        refreshLayout.finishLoadMore();
 
+                    }
+                }, 500);
+            }
+        });
+        refreshTouzi.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshTouzi.setHeaderHeight(50);
+
+        //触发自动刷新
+        if (isFirstEnter) {
+            isFirstEnter = false;
+            //refresh.autoRefresh();
+        } else {
+            //mAdapter.refresh(initData());
+        }
+    }
     private void initViews() {
         recycleTouzi.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -83,96 +130,27 @@ public class MatchInvestorFragment extends Fragment implements DataView {
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycleTouzi.removeAllViews();
         recycleTouzi.setAdapter(adapter);
-        recycleTouzi.addOnScrollListener(mOnScrollListener);
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null){
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
 
     }
 
-    private void initHeader() {
-        //渲染header布局
-        ConstraintLayout h = new ConstraintLayout(getActivity());
-        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
-        layoutParam.setMargins(0, 0, 0, 20);
-        h.setLayoutParams(layoutParam);
-        adapter.setHeaderView(h);
-    }
-
-    private int dp2px(float v) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
-    }
-
-    private int lastVisibleItem;
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
-                dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
-                Log.v("yyyy", "***onScrollStateChanged******");
-            }
-        }
-    };
-
     private MatchTouZiAdapter.OnEventnewsClickListener mOnItemClickListener = new MatchTouZiAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
             Intent intent = new Intent(getActivity(), InvestorDetailActivity.class);
-            intent.putExtra("Investor_Id",adapter.getItem(position).getContent().get(position).getId());
+            intent.putExtra("Investor_Id", adapter.getItem(position).getContent().get(position).getId());
             startActivity(intent);
         }
     };
-
-    public void initSwipeRefreshLayout() {
-        refreshTouzi.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshTouzi.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshTouzi.setRefreshing(false);
-                        if (mDataAll != null){
-                            mDataAll.clear();
-                        }
-                        if (mData != null){
-                            mData.clear();
-                        }
-                        if (NetUtil.isNetConnect(getActivity())) {
-                            adapter.isShowFooter(true);
-                            page = 0;
-                            dataPresenter.visitData(getActivity(), MATCHDATA, page, shaiXuanData);
-                        } else {
-                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
-                        }
-                    }
-                }, 2000);
-            }
-        });
-        refreshTouzi.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
 
     @Override
     public void onDestroyView() {
@@ -202,40 +180,30 @@ public class MatchInvestorFragment extends Fragment implements DataView {
     }
 
     @Override
-    public void addMatchDataView(List<MatchDataBean> matchDataBeans) {
+    public void addMatchDataView(final List<MatchDataBean> matchDataBeans) {
         Log.v("eeeee", matchDataBeans.get(0).getContent().get(0).getTitle() + "======matchDataBeans======" + matchDataBeans.size());
-        if (matchDataBeans == null || matchDataBeans.size() == 0) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (matchDataBeans == null || matchDataBeans.size() == 0) {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
                 }
-            });
-        }
-        if (mData == null && mDataAll == null) {
-            mData = new ArrayList<MatchDataBean>();
-            mDataAll = new ArrayList<MatchDataBean>();
-        }
-        if (mDataAll != null) {
-            mDataAll.clear();
-        }
-        mDataAll.addAll(matchDataBeans);
-        if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {//
-                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
-            }
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                if (mData == null && mDataAll == null) {
+                    mData = new ArrayList<MatchDataBean>();
+                    mDataAll = new ArrayList<MatchDataBean>();
+                }
+                if (mDataAll != null) {
+                    mDataAll.clear();
+                }
+                mDataAll.addAll(matchDataBeans);
+                if (page == 0) {
+                    for (int i = 0; i < mDataAll.size(); i++) {//
+                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                    }
                     if (mData != null) {
                         adapter.setmDate(mData);
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                } else {
                     if (mDataAll != null) {
                         //加载更多
                         int i;
@@ -244,15 +212,11 @@ public class MatchInvestorFragment extends Fragment implements DataView {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
-                            }*/
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -264,8 +228,8 @@ public class MatchInvestorFragment extends Fragment implements DataView {
             }
         });
     }
+
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }
