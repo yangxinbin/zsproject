@@ -145,7 +145,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                         allProjectsPresenter.visitProjects(getActivity(), mType, page);
                         refreshLayout.finishRefresh();
                     }
-                }, 1000);
+                }, 500);
             }
         });
         refreshItems.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -160,7 +160,7 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
                         refreshLayout.finishLoadMore();
 
                     }
-                }, 1000);
+                }, 500);
             }
         });
         refreshItems.setRefreshHeader(new ClassicsHeader(getActivity()));
