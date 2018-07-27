@@ -38,7 +38,6 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean mShowHeader = true;
     private View mHeaderView;
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
-    private boolean hasMore;
 
     public void setmDate(List<DemandManagementBean> data) {
         this.mData = data;
@@ -72,18 +71,10 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
             return new ItemViewHolder(mHeaderView);
         }
-        if (viewType == TYPE_ITEM) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.demandmanagement_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.footer, null);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            return new FooterViewHolder(view);
-        }
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.demandmanagement_item, parent, false);
+        ItemViewHolder vh = new ItemViewHolder(v);
+        return vh;
     }
 
     @Override
@@ -95,24 +86,11 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (position == 0) {
             return TYPE_HEADER;//add header
         }
-        if ((position + 1 == getItemCount() || mHeaderView == null) && isShowFooter()) { //加载到最后不显示footter
+        if ((position + 1 == getItemCount() || mHeaderView == null)) { //加载到最后不显示footter
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
         }
-    }
-
-    public void isShowFooter(boolean showFooter) {
-        this.mShowFooter = showFooter;
-    }
-
-    public boolean isShowFooter() {
-        return this.mShowFooter;
-    }
-
-    public void isShowHeader(boolean showHeader) {
-        this.mShowHeader = showHeader;
-        this.notifyDataSetChanged();
     }
 
     @Override
@@ -132,39 +110,6 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
                     ((ItemViewHolder) holder).numInvestmentActivities.setText(String.valueOf(mData.get(pos).getContent().get(pos % 20).getEvents().size()));
                 ((ItemViewHolder) holder).canceling_match.setVisibility(View.GONE);//先屏蔽
             }
-        } else {
-            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
-            ((FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
-            if (hasMore == true) {
-                ((FooterViewHolder) holder).footTv.setText("正在加载...");
-                // 不隐藏footView提示
-                //if (mData.size() > 0) {
-                // 如果查询数据发现增加之后，就显示正在加载更多
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                    }
-                }, 1000);
-                // }
-            } else {
-                //if (mData.size() > 0) {
-                // 如果查询数据发现并没有增加时，就显示没有更多数据了
-                ((FooterViewHolder) holder).footTv.setText("没有更多数据了");
-
-                // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 隐藏提示条
-                        ((FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                        // 将fadeTips设置true
-                        // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                        hasMore = true;
-                    }
-                }, 1000);
-                //}
-            }
         }
     }
 
@@ -175,25 +120,10 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        int isFooter = mShowFooter ? 1 : 0;
         int isHeader = mShowHeader ? 1 : 0;
-
-        if (mData == null) {
-            return isFooter + isHeader;
-        }
-        return mData.size() + isFooter + isHeader;
-        //return 6;
+        return mData.size() + isHeader;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-        public TextView footTv;
-
-        public FooterViewHolder(View view) {
-            super(view);
-            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
-
-        }
-    }
 
     public DemandManagementBean getItem(int position) {
         return mData == null ? null : mData.get(position);
@@ -220,7 +150,7 @@ public class DemandManagementAdapter extends RecyclerView.Adapter<RecyclerView.V
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView itemName, numCompany, numInvestmentInstitution, numInvestmentActivities;
-        public LinearLayout stateButton,l1,l2,l3;
+        public LinearLayout stateButton, l1, l2, l3;
         public Button canceling_match/*, delete*/;
         public int flag = 0;
 

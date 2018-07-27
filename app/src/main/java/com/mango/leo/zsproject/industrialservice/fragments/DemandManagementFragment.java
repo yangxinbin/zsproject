@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -46,6 +47,11 @@ import com.mango.leo.zsproject.utils.GlideImageLoader;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
+import com.mango.leo.zsproject.utils.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -74,20 +80,18 @@ public class DemandManagementFragment extends Fragment {//
     @Bind(R.id.recycle_view11)
     RecyclerView recycleView11;
     @Bind(R.id.refresh11)
-    SwipeRefreshLayout refresh11;
+    SmartRefreshLayout refresh11;
     private LinearLayoutManager mLayoutManager;
     private DemandManagementAdapter adapter;
-    private Spinner mSpinner;
-    //private Button createButton;
     private ConstraintLayout h;
     private LinearLayout allPlanLayout, addPlanLayout;
     private Banner banner, banner2;
     private SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    private ArrayList<DemandManagementBean> mData,mDataAll;
-    private String nowCity,nowDistrict;
-    private int lastVisibleItem;
+    private ArrayList<DemandManagementBean> mData, mDataAll;
+    private String nowCity, nowDistrict;
     private int page = 0;
+    private boolean isFirstEnter;
 
     @Nullable
     @Override
@@ -130,7 +134,6 @@ public class DemandManagementFragment extends Fragment {//
                     .start();
             return view1;
         }
-        initSwipeRefreshLayout();
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycleView11.setLayoutManager(mLayoutManager);
         recycleView11.setItemAnimator(new DefaultItemAnimator());//设置默认动画
@@ -143,8 +146,55 @@ public class DemandManagementFragment extends Fragment {//
         initHeader();
         initAllPlanButton();
         recycleView11.setAdapter(adapter);
-        recycleView11.addOnScrollListener(mOnScrollListener);
+        refreshAndLoadMore();
         return view;
+    }
+    private void refreshAndLoadMore() {
+        refresh11.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            mDataAll.clear();
+                        }
+                        if (mData != null) {
+                            mData.clear();
+                        }
+                        page = 0;
+                        Log.v("zzzzzzzzz", "-------onRefresh-------" + page);
+                        loadTenantMes(page);
+                        refreshLayout.finishRefresh();
+                    }
+                }, 500);
+            }
+        });
+        refresh11.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        Log.v("zzzzzzzzz", "-------onLoadMore-------" + page);
+                        loadTenantMes(page);
+                        refreshLayout.finishLoadMore();
+
+                    }
+                }, 500);
+            }
+        });
+        refresh11.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refresh11.setHeaderHeight(50);
+
+        //触发自动刷新
+        if (isFirstEnter) {
+            isFirstEnter = false;
+            //refresh.autoRefresh();
+        } else {
+            //mAdapter.refresh(initData());
+        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void userMessageEventBus(UserMessageBean bean) {
@@ -152,33 +202,13 @@ public class DemandManagementFragment extends Fragment {//
         nowCity = String.valueOf(bean.getResponseObject().getLocation().getCity());
         nowDistrict = String.valueOf(bean.getResponseObject().getLocation().getDistrict());
     }
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
-                loadTenantMes(page);
-                Log.v("yyyy", "***onScrollStateChanged******");
-            }
-        }
-    };
 
     private void loadTenantMes(final int page) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.v("zzzzzzzzz", "----url-------" + Urls.HOST + "/business-service/tool/list/matching/indexes"+"?token="+sharedPreferences.getString("token", "")+"&page="+page);
-                HttpUtils.doGet(Urls.HOST + "/business-service/tool/list/matching/indexes"+"?token="+sharedPreferences.getString("token", "")+"&page="+page, new Callback() {
+                Log.v("zzzzzzzzz", "----url-------" + Urls.HOST + "/business-service/tool/list/matching/indexes" + "?token=" + sharedPreferences.getString("token", "") + "&page=" + page);
+                HttpUtils.doGet(Urls.HOST + "/business-service/tool/list/matching/indexes" + "?token=" + sharedPreferences.getString("token", "") + "&page=" + page, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
@@ -212,60 +242,45 @@ public class DemandManagementFragment extends Fragment {//
         }).start();
     }
 
-    private void addTenant(List<DemandManagementBean> beanList, int page) {
-        Log.v("zzzzzzzzz",page+"-------3------"+beanList.size());
-        if (beanList == null || beanList.size() == 0) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+    private void addTenant(final List<DemandManagementBean> beanList, final int page) {
+        Log.v("zzzzzzzzz", page + "-------3------" + beanList.size());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (beanList == null || beanList.size() == 0) {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+
                 }
-            });
-        }
-        if (mData == null && mDataAll == null) {
-            mData = new ArrayList<DemandManagementBean>();
-            mDataAll = new ArrayList<DemandManagementBean>();
-        }
-        if (mDataAll != null) {
-            mDataAll.clear();
-        }
-        mDataAll.addAll(beanList);
-        if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {//
-                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
-            }
-            Log.v("zzzzzzzzz","----4---------"+mData.size());
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                if (mData == null && mDataAll == null) {
+                    mData = new ArrayList<DemandManagementBean>();
+                    mDataAll = new ArrayList<DemandManagementBean>();
+                }
+                if (mDataAll != null) {
+                    mDataAll.clear();
+                }
+                mDataAll.addAll(beanList);
+                if (page == 0) {
+                    for (int i = 0; i < mDataAll.size(); i++) {//
+                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                    }
+                    Log.v("zzzzzzzzz", "----4---------" + mData.size());
                     if (mData != null) {
                         adapter.setmDate(mData);
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                } else {
                     if (mDataAll != null) {
                         //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
-                            }*/
                         }
                     }
                 }
-            });
-        }
-        adapter.isShowFooter(true);
+            }
+        });
     }
 
     private final DemandManagementFragment.MyHandler mHandler = new DemandManagementFragment.MyHandler(this);
@@ -340,30 +355,6 @@ public class DemandManagementFragment extends Fragment {//
         });
     }
 
-    public void initSwipeRefreshLayout() {
-        refresh11.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh11.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                            mData.clear();
-                        }
-                        refresh11.setRefreshing(false);
-                        page = 0;
-                        loadTenantMes(page);//请求刷新
-                    }
-                }, 2000);
-            }
-        });
-        refresh11.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
-
     private void initHeader() {
         //渲染header布局
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.header, null);
@@ -372,7 +363,7 @@ public class DemandManagementFragment extends Fragment {//
         allPlanLayout = (LinearLayout) header.findViewById(R.id.r2);
         banner = (Banner) header.findViewById(R.id.imageView);
         TextView t_mes = (TextView) header.findViewById(R.id.textView_city_zhaoshang);
-        t_mes.setText(nowCity+nowDistrict+"招商信息");
+        t_mes.setText(nowCity + nowDistrict + "招商信息");
         List<String> pathsImage = new ArrayList<>();
         List<String> pathsTitle = new ArrayList<>();
         pathsImage.add(getResourcesUri(R.drawable.wechat));
@@ -420,12 +411,12 @@ public class DemandManagementFragment extends Fragment {//
         @Override
         public void onItemClick(View view, int position) {
             position = position - 1; //配对headerView
-            Log.v("oooooooooo", adapter.getItem(position).getContent().get(position%20).getId()+"****onItemClick1***点击第" + position);
+            Log.v("oooooooooo", adapter.getItem(position).getContent().get(position % 20).getId() + "****onItemClick1***点击第" + position);
             if (mData.size() <= 0) {
                 return;
             }
             Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getContent().get(position%20).getProject().getId());
+            intent.putExtra("FavouriteId", adapter.getItem(position).getContent().get(position % 20).getProject().getId());
             startActivity(intent);
         }
 
@@ -437,9 +428,9 @@ public class DemandManagementFragment extends Fragment {//
                 return;
             }
             Intent intent = new Intent(getActivity(), MatchActivity.class);
-            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
-            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
-            intent.putExtra("which",0);
+            editor.putString("match_id", adapter.getItem(position).getContent().get(position % 20).getId()).commit();
+            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position % 20).getProject().getName());
+            intent.putExtra("which", 0);
             startActivity(intent);
         }
 
@@ -451,9 +442,9 @@ public class DemandManagementFragment extends Fragment {//
                 return;
             }
             Intent intent = new Intent(getActivity(), MatchActivity.class);
-            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
-            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
-            intent.putExtra("which",1);
+            editor.putString("match_id", adapter.getItem(position).getContent().get(position % 20).getId()).commit();
+            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position % 20).getProject().getName());
+            intent.putExtra("which", 1);
             startActivity(intent);
         }
 
@@ -465,9 +456,9 @@ public class DemandManagementFragment extends Fragment {//
                 return;
             }
             Intent intent = new Intent(getActivity(), MatchActivity.class);
-            editor.putString("match_id",adapter.getItem(position).getContent().get(position%20).getId()).commit();
-            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position%20).getProject().getName());
-            intent.putExtra("which",2);
+            editor.putString("match_id", adapter.getItem(position).getContent().get(position % 20).getId()).commit();
+            intent.putExtra("match_name", adapter.getItem(position).getContent().get(position % 20).getProject().getName());
+            intent.putExtra("which", 2);
             startActivity(intent);
         }
 
@@ -524,10 +515,11 @@ public class DemandManagementFragment extends Fragment {//
         intent.setData(data);
         startActivity(intent);
     }
+
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -536,10 +528,10 @@ public class DemandManagementFragment extends Fragment {//
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button
                     // 处理fragment的返回事件
-                    Log.v("iiiiiiiiiii","-----------1");
+                    Log.v("iiiiiiiiiii", "-----------1");
                     exitDialog(true);
                     return true;
                 }
@@ -547,6 +539,7 @@ public class DemandManagementFragment extends Fragment {//
             }
         });
     }
+
     private void exitDialog(boolean b) {
         // 创建退出对话框
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
