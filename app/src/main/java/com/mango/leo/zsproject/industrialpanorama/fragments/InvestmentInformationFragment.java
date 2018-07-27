@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -19,7 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mango.leo.zsproject.R;
-import com.mango.leo.zsproject.industrialpanorama.adapter.ZhaoShanAdapter;
+import com.mango.leo.zsproject.industrialpanorama.adapter.SmartZhaoShanAdapter;
 import com.mango.leo.zsproject.industrialpanorama.bean.CityS;
 import com.mango.leo.zsproject.industrialpanorama.bean.ZhaoShangBean;
 import com.mango.leo.zsproject.industrialpanorama.show.ZhaoShanDetailActivity;
@@ -28,6 +29,11 @@ import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
+import com.mango.leo.zsproject.utils.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,12 +58,13 @@ public class InvestmentInformationFragment extends Fragment {
     @Bind(R.id.recycle_mes)
     RecyclerView recycleMes;
     @Bind(R.id.refresh_mes)
-    SwipeRefreshLayout refreshMes;
+    SmartRefreshLayout refreshMes;
     private LinearLayoutManager mLayoutManager;
-    private ZhaoShanAdapter adapter;
-    private ArrayList<ZhaoShangBean> mData,mDataAll;
+    private SmartZhaoShanAdapter adapter;
+    private ArrayList<ZhaoShangBean> mData, mDataAll;
     private int page = 0;
     private String beanM = "深圳";
+    private boolean isFirstEnter = true;
 
     @Nullable
     @Override
@@ -65,41 +72,75 @@ public class InvestmentInformationFragment extends Fragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.investmentinformation, container, false);
         ButterKnife.bind(this, view);
         initRecycle();
-        initHeader();
         loadZhaoShanMes(0);
-        initSwipeRefreshLayout();
         EventBus.getDefault().register(this);
-        if (mDataAll != null){
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
+        refreshAndLoadMore();
         return view;
+    }
+    private void refreshAndLoadMore() {
+        refreshMes.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            mDataAll.clear();
+                        }
+                        if (mData != null) {
+                            mData.clear();
+                        }
+                        page = 0;
+                        Log.v("zzzzzzzzz", "-------onRefresh-------" + page);
+                        loadZhaoShanMes(page);
+                        refreshLayout.finishRefresh();
+                    }
+                }, 500);
+            }
+        });
+        refreshMes.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        Log.v("zzzzzzzzz", "-------onLoadMore-------" + page);
+                        loadZhaoShanMes(page);
+                        refreshLayout.finishLoadMore();
+
+                    }
+                }, 500);
+            }
+        });
+        refreshMes.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshMes.setHeaderHeight(50);
+
+        //触发自动刷新
+        if (isFirstEnter) {
+            isFirstEnter = false;
+            //refresh.autoRefresh();
+        } else {
+            //mAdapter.refresh(initData());
+        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void card1EventBus(CityS bean) {
-        Log.v("yyyyyyyyyy","------111---"+bean.getCity());
-        if (mDataAll != null){
+        Log.v("yyyyyyyyyy", "------111---" + bean.getCity());
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
         beanM = bean.getCity();
         loadZhaoShanMes(0);
-    }
-    private void initHeader() {
-        //渲染header布局
-        ConstraintLayout h = new ConstraintLayout(getActivity());
-        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
-        layoutParam.setMargins(0, 0, 0, 20);
-        h.setLayoutParams(layoutParam);
-        adapter.setHeaderView(h);
-    }
-    private int dp2px(float v) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
     @Override
     public void onDestroy() {
@@ -109,36 +150,34 @@ public class InvestmentInformationFragment extends Fragment {
     }
 
     private void loadZhaoShanMes(final int page) {
-        Log.v("zzzzzzzzz","-----0--------"+Urls.HOST_CITY_MES + "?city=" +beanM+"&page="+page);
+        Log.v("zzzzzzzzz", "-----0--------" + Urls.HOST_CITY_MES + "?city=" + beanM + "&page=" + page);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + beanM+"&page="+page, new Callback() {
+                HttpUtils.doGet(Urls.HOST_CITY_MES + "?city=" + beanM + "&page=" + page, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
                     }
+
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
-                            final List<ZhaoShangBean> beanList = ProjectsJsonUtils.readJsonZhaoShangBeans(response.body().string(),"content");//data是json字段获得data的值即对象数组
-                            Log.v("zzzzzzzzz","-----1--------"+beanList.size());
-                            if (beanList.size() == 0){
+                            final List<ZhaoShangBean> beanList = ProjectsJsonUtils.readJsonZhaoShangBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
+                            Log.v("zzzzzzzzz", "-----1--------" + beanList.size());
+                            if (beanList.size() == 0) {
                                 mHandler.sendEmptyMessage(2);
-                            }else {
+                            } else {
                                 mHandler.sendEmptyMessage(1);
                             }
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    addZhaoShang(beanList,page);
+                                    addZhaoShang(beanList, page);
                                 }
                             });
-                    /*zhaoShangBeanList.clear();
-                    zhaoShangBeanList.addAll(beanList);*/
                         } catch (Exception e) {
                             mHandler.sendEmptyMessage(0);
-//                    Log.e("eeeee", response.body().string()+"Exception = " + e);
                         }
                     }
                 });
@@ -152,74 +191,24 @@ public class InvestmentInformationFragment extends Fragment {
         recycleMes.setLayoutManager(mLayoutManager);
         recycleMes.setItemAnimator(new DefaultItemAnimator());//设置默认动画
         recycleMes.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
-        adapter = new ZhaoShanAdapter(getActivity().getApplicationContext());
+        adapter = new SmartZhaoShanAdapter(getActivity().getApplicationContext());
         adapter.setOnZhaoShanClickListener(mOnItemClickListener);
-        recycleMes.addOnScrollListener(mOnScrollListener);
-        //recycleMes.setAdapter(adapter);
         recycleMes.removeAllViews();
         recycleMes.setAdapter(adapter);
     }
-    private ZhaoShanAdapter.OnZhaoShanClickListener mOnItemClickListener = new ZhaoShanAdapter.OnZhaoShanClickListener() {
+
+    private SmartZhaoShanAdapter.OnZhaoShanClickListener mOnItemClickListener = new SmartZhaoShanAdapter.OnZhaoShanClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            position = position - 1; //配对headerView
-            Log.v("oooooooo",adapter.getItem(position)+"---true---"+position);
+            Log.v("oooooooo", adapter.getItem(position) + "---true---" + position);
             if (mData.size() <= 0) {
                 return;
             }
             Intent intent = new Intent(getActivity(), ZhaoShanDetailActivity.class);
-            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
+            intent.putExtra("FavouriteId", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId());
             startActivity(intent);
         }
     };
-    private int lastVisibleItem;
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            Log.v("zzzzzzzzz",adapter.getItemCount()+"---"+(lastVisibleItem + 1)+"---"+(newState == RecyclerView.SCROLL_STATE_IDLE)+"==="+(lastVisibleItem + 1 == adapter.getItemCount())+"-------?-----"+adapter.isShowFooter());
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
-                Log.v("zzzzzzzzz","-------2-------"+page);
-                loadZhaoShanMes(page);
-                Log.v("yyyy", "***onScrollStateChanged******");
-            }
-        }
-    };
-    public void initSwipeRefreshLayout() {
-        refreshMes.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshMes.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mDataAll != null){
-                            mDataAll.clear();
-                        }
-                        if (mData != null){
-                            mData.clear();
-                        }
-                        refreshMes.setRefreshing(false);
-                        page = 0;
-                        loadZhaoShanMes(page);//请求刷新
-                    }
-                }, 2000);
-            }
-        });
-        refreshMes.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
 
     @Override
     public void onDestroyView() {
@@ -246,15 +235,9 @@ public class InvestmentInformationFragment extends Fragment {
                         AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
                         break;
                     case 1:
-                        AppUtils.showToast(getActivity(), "获取招商信息成功");
-                        /*List<IntroductionBean> list = new ArrayList<>();
-                        for (int i=0;i<cityBean.getResponseObject().getIntroduction().size();i++){
-                            list.add(cityBean.getResponseObject().getIntroduction().get(i));
-                        }*/
-                        //addZhaoShang();
+                        //AppUtils.showToast(getActivity(), "获取招商信息成功");
                         break;
                     case 2:
-                        //AppUtils.showToast(getActivity(), "没有更多的招商信息");
                     default:
                         break;
                 }
@@ -262,65 +245,48 @@ public class InvestmentInformationFragment extends Fragment {
         }
     }
 
-    private void addZhaoShang(List<ZhaoShangBean> zhaoShangBeans,int page) {
-        Log.v("zzzzzzzzz",page+"-------3------"+zhaoShangBeans.size());
-        if (zhaoShangBeans == null || zhaoShangBeans.size() == 0) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+    private void addZhaoShang(final List<ZhaoShangBean> zhaoShangBeans, final int page) {
+        Log.v("zzzzzzzzz", page + "-------3------" + zhaoShangBeans.size());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (zhaoShangBeans == null || zhaoShangBeans.size() == 0) {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
-                    adapter.hasMore(false);//显示没有更多
                     return;
                 }
-            });
-        }
-        if (mData == null && mDataAll == null) {
-            mData = new ArrayList<ZhaoShangBean>();
-            mDataAll = new ArrayList<ZhaoShangBean>();
-        }
-        if (mDataAll != null) {
-            mDataAll.clear();
-        }
-        mDataAll.addAll(zhaoShangBeans);
-        if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {//
-                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
-            }
-            Log.v("zzzzzzzzz","----4---------"+mData.size());
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                if (mData == null && mDataAll == null) {
+                    mData = new ArrayList<ZhaoShangBean>();
+                    mDataAll = new ArrayList<ZhaoShangBean>();
+                }
+                if (mDataAll != null) {
+                    mDataAll.clear();
+                }
+                mDataAll.addAll(zhaoShangBeans);
+                if (page == 0) {
+                    for (int i = 0; i < mDataAll.size(); i++) {//
+                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                    }
+                    Log.v("zzzzzzzzz", "----4---------" + mData.size());
                     if (mData != null) {
                         adapter.setmDate(mData);
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                } else {
                     if (mDataAll != null) {
                         //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
-                            }*/
                         }
                     }
                 }
-            });
-        }
-        adapter.isShowFooter(true);
+            }
+        });
     }
+
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }
