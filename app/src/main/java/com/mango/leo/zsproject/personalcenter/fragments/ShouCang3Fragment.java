@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,11 @@ import com.mango.leo.zsproject.utils.HttpUtils;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.utils.SwipeItemLayout;
 import com.mango.leo.zsproject.utils.Urls;
+import com.mango.leo.zsproject.utils.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,24 +60,71 @@ public class ShouCang3Fragment extends Fragment {
     @Bind(R.id.recycle_cams)
     RecyclerView recycle_cam;
     @Bind(R.id.refresh_cams)
-    SwipeRefreshLayout refresh_cam;
+    SmartRefreshLayout refresh_cam;
     private LinearLayoutManager mLayoutManager;
     private ShouCangEventAdapter adapter;
     private int page = 0;
     private List<MyEventBean> mData, mDataAll;
     private SharedPreferences sharedPreferences;
+    private boolean isFirstEnter = true;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.shou_cang3, container, false);
         ButterKnife.bind(this, view);
-        initSwipeRefreshLayout();
         sharedPreferences = getActivity().getSharedPreferences("CIFIT", MODE_PRIVATE);
-        initView();
-        initHeader();
         vivistEvent(page);
+        initView();
         return view;
+    }
+
+    private void refreshAndLoadMore() {
+        refresh_cam.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            mDataAll.clear();
+                        }
+                        if (mData != null) {
+                            mData.clear();
+                        }
+                        page = 0;
+                        Log.v("zzzzzzzzz", "-------onRefresh-------" + page);
+                        vivistEvent(page);
+                        refreshLayout.finishRefresh();
+                    }
+                }, 500);
+            }
+        });
+        refresh_cam.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        Log.v("zzzzzzzzz", "-------onLoadMore-------" + page);
+                        vivistEvent(page);
+                        refreshLayout.finishLoadMore();
+
+                    }
+                }, 500);
+            }
+        });
+        refresh_cam.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refresh_cam.setHeaderHeight(50);
+
+        //触发自动刷新
+        if (isFirstEnter) {
+            isFirstEnter = false;
+            //refresh.autoRefresh();
+        } else {
+            //mAdapter.refresh(initData());
+        }
     }
 
     private void vivistEvent(final int page) {
@@ -84,10 +137,11 @@ public class ShouCang3Fragment extends Fragment {
                     public void onFailure(Call call, IOException e) {
                         mHandler.sendEmptyMessage(0);
                     }
+
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
-                           // Log.v("ssssssssssssss",""+response.body().string());
+                            // Log.v("ssssssssssssss",""+response.body().string());
                             List<MyEventBean> beanList = ProjectsJsonUtils.readJsonMyEventBeans(response.body().string(), "content");//data是json字段获得data的值即对象数组
                             Message msg = mHandler.obtainMessage();
                             msg.obj = beanList;
@@ -115,12 +169,7 @@ public class ShouCang3Fragment extends Fragment {
                     break;
                 case 2:
                     List<MyEventBean> beanList = (List<MyEventBean>) msg.obj;
-                    Log.v("sssssssssss","----"+beanList.size());
-                    /*if (beanList.size() == 0){
-                        noMoreMsg();
-                    }else {
-                        adapter.isShowFooter(true);
-                    }*/
+                    Log.v("sssssssssss", "----" + beanList.size());
                     addEventsView(beanList);
                     break;
                 case 3:
@@ -143,58 +192,42 @@ public class ShouCang3Fragment extends Fragment {
         }
     }
 
-    public void addEventsView(List<MyEventBean> eventBeans) {
-        if (eventBeans == null || eventBeans.size() == 0) {
-            Log.v("vvvv", eventBeans.get(0).getResponseObject().getContent().get(0).getEntity().getName() + "======eventBeans======" + eventBeans.size());
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+    public void addEventsView(final List<MyEventBean> eventBeans) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (eventBeans == null || eventBeans.size() == 0) {
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
                 }
-            });
-        }
-        if (mData == null && mDataAll == null) {
-            mData = new ArrayList<MyEventBean>();
-            mDataAll = new ArrayList<MyEventBean>();
-        }
-        if (mDataAll != null) {
-            mDataAll.clear();
-        }
-        mDataAll.addAll(eventBeans);
-        if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {//
-                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
-            }
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                if (mData == null && mDataAll == null) {
+                    mData = new ArrayList<MyEventBean>();
+                    mDataAll = new ArrayList<MyEventBean>();
+                }
+                if (mDataAll != null) {
+                    mDataAll.clear();
+                }
+                mDataAll.addAll(eventBeans);
+                if (page == 0) {
+                    for (int i = 0; i < mDataAll.size(); i++) {//
+                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                    }
                     if (mData != null) {
                         adapter.setmDate(mData);
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                } else {
                     if (mDataAll != null) {
                         //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
-                            }*/
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
     private void initView() {
@@ -207,10 +240,12 @@ public class ShouCang3Fragment extends Fragment {
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycle_cam.removeAllViews();
         recycle_cam.setAdapter(adapter);
-        recycle_cam.addOnScrollListener(mOnScrollListener);
+        refreshAndLoadMore();
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null) {
             mDataAll.clear();
+        }
+        if (mData != null) {
             mData.clear();
         }
     }
@@ -218,11 +253,10 @@ public class ShouCang3Fragment extends Fragment {
     private ShouCangEventAdapter.OnEventnewsClickListener mOnItemClickListener = new ShouCangEventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position%20).getEntity());
+            EventBus.getDefault().postSticky(adapter.getItem(position).getResponseObject().getContent().get(position % 20).getEntity());
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position).getEntity().getId());
             startActivity(intent);
@@ -230,7 +264,7 @@ public class ShouCang3Fragment extends Fragment {
 
         @Override
         public void onCancelingShouCangClick(View view, final int position) {
-            canCelShpuCang(position-1);
+            canCelShpuCang(position - 1);
             /*+*/
         }
     };
@@ -244,7 +278,7 @@ public class ShouCang3Fragment extends Fragment {
         HttpUtils.doDelete(Urls.HOST_FAVOURITE, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("eeeee", "eeeee = "+e.getMessage());
+                Log.e("eeeee", "eeeee = " + e.getMessage());
                 mHandler.sendEmptyMessage(4);
             }
 
@@ -261,73 +295,6 @@ public class ShouCang3Fragment extends Fragment {
         });
     }
 
-    private int lastVisibleItem;
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            Log.v("yyyy", "***???****" + (newState == RecyclerView.SCROLL_STATE_IDLE) + "==" + (adapter.getItemCount() == lastVisibleItem + 1) + "==" + adapter.isShowFooter());
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
-                vivistEvent(page);
-                Log.v("yyyy", "***onScrollStateChanged******");
-            }
-        }
-    };
-
-    public void initSwipeRefreshLayout() {
-        refresh_cam.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh_cam.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh_cam.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            Log.v("mmmmmmm","2");
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                            mData.clear();
-                        }
-                        if (NetUtil.isNetConnect(getActivity())) {
-                            adapter.isShowFooter(true);
-                            page = 0;
-                            vivistEvent(page);
-                        } else {
-                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
-                        }
-                    }
-                }, 2000);
-            }
-        });
-        refresh_cam.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
-
-    private void initHeader() {
-        //渲染header布局
-        ConstraintLayout h = new ConstraintLayout(getActivity());
-        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
-        layoutParam.setMargins(0, 0, 0, 20);
-        h.setLayoutParams(layoutParam);
-        adapter.setHeaderView(h);
-    }
-
-    private int dp2px(float v) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -335,7 +302,6 @@ public class ShouCang3Fragment extends Fragment {
     }
 
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 }

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/refresh_cams"
     android:background="@color/common_gray"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_cams"
         android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-</android.support.v4.widget.SwipeRefreshLayout>
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srlClassicsSpinnerStyle="Translate"/>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
