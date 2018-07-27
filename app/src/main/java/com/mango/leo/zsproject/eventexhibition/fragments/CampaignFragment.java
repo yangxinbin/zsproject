@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,12 @@ import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.DropDownAdapter;
 import com.mango.leo.zsproject.utils.NetUtil;
 import com.mango.leo.zsproject.utils.URLEncoderURI;
+import com.mango.leo.zsproject.utils.header.ClassicsHeader;
 import com.mango.leo.zsproject.viewutil.DropdownMenuLayout;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -65,7 +71,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     private String times[] = {"全部", "近一月", "近三个月", "已过期"};
     private String wheres[] = {"全部", "北京", "上海", "广州", "深圳", "厦门"};
     private String whats[] = {"全部", "免费", "付费"};
-    private SwipeRefreshLayout refresh_cam;
+    private SmartRefreshLayout refresh_cam;
     private RecyclerView recycle_cam;
     private DropDownAdapter timeAdapter;
     private DropDownAdapter whereAdapter;
@@ -80,6 +86,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     Calendar calendar;
     private ShaiXuanEvent shaiXuanEvent;
     private Date da;
+    private boolean isFirstEnter = true;
 
     @Nullable
     @Override
@@ -90,26 +97,13 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         shaiXuanEvent = new ShaiXuanEvent("", "", "", "");
         eventPresenter = new EventPresenterImpl(this);
         eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
-        initHeader();
-        if (mDataAll != null || mData != null) {
+        if (mDataAll != null) {
             mDataAll.clear();
+        }
+        if (mData != null) {
             mData.clear();
         }
         return view;
-    }
-
-    private void initHeader() {
-        //渲染header布局
-        ConstraintLayout h = new ConstraintLayout(getActivity());
-        ConstraintLayout.LayoutParams layoutParam = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(1.0f));
-        layoutParam.setMargins(0, 0, 0, 20);
-        h.setLayoutParams(layoutParam);
-        adapter.setHeaderView(h);
-    }
-
-    private int dp2px(float v) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, dm);
     }
 
     @SuppressLint("ResourceType")
@@ -146,7 +140,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         recycle_cam = content.findViewById(R.id.recycle_cams);
         content.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         dropdownmenu.setDropDownMemu(Arrays.asList(headers), popViews, content);
-        initSwipeRefreshLayout();
         recycle_cam.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycle_cam.setLayoutManager(mLayoutManager);
@@ -155,96 +148,75 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycle_cam.removeAllViews();
         recycle_cam.setAdapter(adapter);
-        recycle_cam.addOnScrollListener(mOnScrollListener);
+        refreshAndLoadMore();
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null){
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
     }
-
-    private int lastVisibleItem;
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            Log.v("0000000",""+lastVisibleItem);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter() && lastVisibleItem - 1 > 10) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;//lastVisibleItem - 1 > 10 大于 20 才有分页
-                eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
-                Log.v("yyyy", "***onScrollStateChanged******");
+    private void refreshAndLoadMore() {
+        refresh_cam.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDataAll != null) {
+                            mDataAll.clear();
+                        }
+                        if (mData != null) {
+                            mData.clear();
+                        }
+                        page = 0;
+                        Log.v("zzzzzzzzz", "-------onRefresh-------" + page);
+                        eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+                        refreshLayout.finishRefresh();
+                    }
+                }, 500);
             }
+        });
+        refresh_cam.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        Log.v("zzzzzzzzz", "-------onLoadMore-------" + page);
+                        eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+                        refreshLayout.finishLoadMore();
+
+                    }
+                }, 500);
+            }
+        });
+        refresh_cam.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refresh_cam.setHeaderHeight(50);
+
+        //触发自动刷新
+        if (isFirstEnter) {
+            isFirstEnter = false;
+            //refresh.autoRefresh();
+        } else {
+            //mAdapter.refresh(initData());
         }
-    };
-/*    public static boolean isVisBottom(RecyclerView recyclerView){
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        //屏幕中最后一个可见子项的position
-        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-        //当前屏幕所看到的子项个数
-        int visibleItemCount = layoutManager.getChildCount();
-        //当前RecyclerView的所有子项个数
-        int totalItemCount = layoutManager.getItemCount();
-        //RecyclerView的滑动状态
-        int state = recyclerView.getScrollState();
-        if(visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == recyclerView.SCROLL_STATE_IDLE){
-            return true;
-        }else {
-            return false;
-        }
-    }*/
+    }
     private EventAdapter.OnEventnewsClickListener mOnItemClickListener = new EventAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
-            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position%20));
+            EventBus.getDefault().postSticky(mDataAll.get(position).getResponseObject().getContent().get(position % 20));
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position%20).getId());
+            intent.putExtra("id", adapter.getItem(position).getResponseObject().getContent().get(position % 20).getId());
             startActivity(intent);
         }
     };
 
-    public void initSwipeRefreshLayout() {
-        refresh_cam.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                        refresh_cam.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh_cam.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                            mData.clear();
-                        }
-                        if (NetUtil.isNetConnect(getActivity())) {
-                            adapter.isShowFooter(true);
-                            page = 0;
-                            eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
-                        } else {
-                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
-                        }
-                    }
-                }, 2000);
-            }
-        });
-        refresh_cam.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
 
     @Override
     public void onDestroyView() {
@@ -254,10 +226,10 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        if (mDataAll != null){
+        if (mDataAll != null) {
             mDataAll.clear();
         }
-        if (mData != null){
+        if (mData != null) {
             mData.clear();
         }
         adapter.notifyDataSetChanged();
@@ -293,7 +265,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
                 }
                 if (position == 3) {
                 }
-               // eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
+                // eventPresenter.visitEvent(getActivity(), EVENT1, page, shaiXuanEvent);
                 timeAdapter.setCheckItem(position);
                 dropdownmenu.setTableTitle(times[position]);
                 dropdownmenu.closeMenu();
@@ -332,59 +304,47 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         Log.v("zzzzzyyybb", "----" + shaiXuanEvent.toString());
         eventPresenter.visitEvent(getActivity(), EVENT1, 0, shaiXuanEvent);
     }
+
     @Override
-    public void addEventsView(List<EventBean> eventBeans) {
+    public void addEventsView(final List<EventBean> eventBeans) {
         Log.v("eeeee", eventBeans.get(0).getResponseObject().getContent().get(0).getName() + "======eventBeans======" + eventBeans.size());
-        if (eventBeans == null || eventBeans.size() == 0) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (eventBeans == null || eventBeans.size() == 0) {
+
                     AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
+
                 }
-            });
-        }
-        if (mData == null && mDataAll == null) {
-            mData = new ArrayList<EventBean>();
-            mDataAll = new ArrayList<EventBean>();
-        }
-        if (mDataAll != null) {
-            mDataAll.clear();
-        }
-        mDataAll.addAll(eventBeans);
-        if (page == 0) {
-            for (int i = 0; i < mDataAll.size(); i++) {//
-                mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
-            }
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                if (mData == null && mDataAll == null) {
+                    mData = new ArrayList<EventBean>();
+                    mDataAll = new ArrayList<EventBean>();
+                }
+                if (mDataAll != null) {
+                    mDataAll.clear();
+                }
+                mDataAll.addAll(eventBeans);
+                if (page == 0) {
+                    for (int i = 0; i < mDataAll.size(); i++) {//
+                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                    }
                     if (mData != null) {
                         adapter.setmDate(mData);
                     }
-                }
-            });
-        } else {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                } else {
                     if (mDataAll != null) {
                         //加载更多
-                        int count = adapter.getItemCount() - 2;//增加item数减去头部和尾部
                         int i;
                         for (i = 0; i < mDataAll.size(); i++) {
                             if (mDataAll == null) {
                                 return;//一开始断网报空指针的情况
                             }
                             adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
-/*                            if (mDataAll != null && i >= mDataAll.size() - 1) {//到最后
-                                noMoreMsg();
-                                return;
-                            }*/
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -392,7 +352,6 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     public void noMoreMsg() {
-        adapter.isShowFooter(false);
         AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
     }
 
@@ -401,7 +360,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.v("111111111111111","====e====");
+                Log.v("111111111111111", "====e====");
                 AppUtils.showToast(getActivity(), getResources().getString(R.string.load_error));
             }
         });
@@ -415,7 +374,7 @@ public class CampaignFragment extends Fragment implements AdapterView.OnItemClic
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button
                     // 处理fragment的返回事件
                     dropdownmenu.closeMenu();
