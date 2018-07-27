@@ -24,22 +24,9 @@ import java.util.List;
 public class ShenBaoAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private OnClickListener mOnClickListener;//自注册的接口给调用者用于点击逻辑
-    private List<ShenBaoBean> mData;
-    public static final int TYPE_ITEM = 0;
-    public static final int TYPE_FOOTER = 1;
-    public static final int TYPE_HEADER = 2;
-    private boolean mShowFooter = true;
-    private boolean mShowHeader = true;
-    private View mHeaderView;
-    private int type;
-    private boolean hasMore = false;
-    private boolean fadeTips = false; // 变量，是否隐藏了底部的提示
-    private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
-
+    private List<ShenBaoBean> mData = new ArrayList<>();
     public ShenBaoAdapter (Context applicationContext, int mType ) {
         this.context = applicationContext;
-        this.type = mType;
-
     }
 
     public void setmDate(List<ShenBaoBean> data) {
@@ -53,24 +40,18 @@ public class ShenBaoAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.notifyDataSetChanged();
     }
 
-    public void setHeaderView(View headerView) {//add header
-        mHeaderView = headerView;
-    }
 
     /**
      * 添加列表项     * @param item
      */
     public void addItem(ShenBaoBean bean) {
-        isShowFooter(false);
         if (mData != null) {
             mData.add(bean);
-            hasMore = true;
         }
         this.notifyDataSetChanged();
     }
 
     public void deleteItem(int position) {
-        isShowFooter(false);
         if (mData != null) {
             //mData.remove(position);
             /*for (int i = 0; i < mData.size(); i++) {
@@ -90,56 +71,13 @@ public class ShenBaoAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (mHeaderView != null && viewType == TYPE_HEADER) {//add header
-            return new ItemViewHolder(mHeaderView);
-        }
-        if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.plan_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.footer, null);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            return new FooterViewHolder(view);
-        }
     }
-
-    @Override
-    public int getItemViewType(int position) {
-        // 最后一个item设置为footerView
-        if (!mShowFooter && !mShowHeader) {
-            return TYPE_ITEM;
-        }
-        if (position == 0) {
-            return TYPE_HEADER;//add header
-        }
-        if ((position + 1 == getItemCount() || mHeaderView == null) && isShowFooter()) { //加载到最后不显示footter
-            return TYPE_FOOTER;
-        } else {
-            return TYPE_ITEM;
-        }
-    }
-
-    public void isShowFooter(boolean showFooter) {
-        this.mShowFooter = showFooter;
-        //this.notifyDataSetChanged();
-    }
-
-    public boolean isShowFooter() {
-        return this.mShowFooter;
-    }
-
-    public void isShowHeader(boolean showHeader) {
-        this.mShowHeader = showHeader;
-        this.notifyDataSetChanged();
-    }
-
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_HEADER) return;//add header
         final int pos = getRealPosition(holder);
         if (holder instanceof ItemViewHolder) {
 //            AllItemBean dm = mData.get(pos);//add header
@@ -157,78 +95,21 @@ public class ShenBaoAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
             }
-        } else {
-            // 之所以要设置可见，是因为我在没有更多数据时会隐藏了这个footView
-            //((ShenBaoAdapter .FooterViewHolder) holder).footTv.setVisibility(View.VISIBLE);
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // 隐藏提示条
-                    ((ShenBaoAdapter .FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                    // 将fadeTips设置true
-                    fadeTips = true;
-                    // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                    hasMore = true;
-                }
-            }, 2000);
-            if (hasMore == true) {
-                // 不隐藏footView提示
-                Log.v("rrrrrrrrr","----");
-                hasMore = false;
-                //if (mData.size() > 0) {
-                // 如果查询数据发现增加之后，就显示正在加载更多
-                ((ShenBaoAdapter .FooterViewHolder) holder).footTv.setText("正在加载...");
-                // }
-            } else {
-                //if (mData.size() > 0) {
-                // 如果查询数据发现并没有增加时，就显示没有更多数据了
-                ((ShenBaoAdapter .FooterViewHolder) holder).footTv.setText("没有更多数据了");
-
-                // 然后通过延时加载模拟网络请求的时间，在500ms后执行
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 隐藏提示条
-                        ((ShenBaoAdapter .FooterViewHolder) holder).footTv.setVisibility(View.GONE);
-                        // 将fadeTips设置true
-                        fadeTips = true;
-                        // hasMore设为true是为了让再次拉到底时，会先显示正在加载更多
-                        hasMore = true;
-                    }
-                }, 1000);
-                //}
-            }
         }
     }
 
     private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
-        return mHeaderView == null ? position : position - 1;
+        return position;
     }
 
     @Override
     public int getItemCount() {
-        int isFooter = mShowFooter ? 1 : 0;
-        int isHeader = mShowHeader ? 1 : 0;
-
-        if (mData == null) {
-            return isFooter + isHeader;
-        }
-        return mData.size() + isFooter + isHeader;
+        return mData.size();
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.mOnClickListener = onClickListener;
-    }
-
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-        private TextView footTv;
-
-        public FooterViewHolder(View view) {
-            super(view);
-            footTv = (TextView) itemView.findViewById(R.id.more_data_msg);
-
-        }
     }
 
     public ShenBaoBean getItem(int position) {
@@ -247,8 +128,6 @@ public class ShenBaoAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public ItemViewHolder(View v) {
             super(v);
-            if (v == mHeaderView)
-                return;
             tv_title = itemView.findViewById(R.id.textView_title);
             tv_p = itemView.findViewById(R.id.textView_p);
             plan_shenbao = itemView.findViewById(R.id.plan_shenbao);
