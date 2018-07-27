@@ -59,7 +59,6 @@ public class InvestorWithoutSelectFragment extends Fragment implements AdapterVi
         refresh_touzi = content.findViewById(R.id.refresh_touzi);
         recycle_touzi = content.findViewById(R.id.recycle_touzi);
         content.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        initSwipeRefreshLayout();
         recycle_touzi.setHasFixedSize(true);//固定宽高
         mLayoutManager = new LinearLayoutManager(getActivity());
         recycle_touzi.setLayoutManager(mLayoutManager);
@@ -68,41 +67,18 @@ public class InvestorWithoutSelectFragment extends Fragment implements AdapterVi
         adapter.setOnEventnewsClickListener(mOnItemClickListener);
         recycle_touzi.removeAllViews();
         recycle_touzi.setAdapter(adapter);
-        recycle_touzi.addOnScrollListener(mOnScrollListener);
         Log.v("yyyyy", "====onCreateView======" + page);
-        if (mDataAll != null && mData != null) {
+        if (mDataAll != null) {
             mDataAll.clear();
+        }
+        if (mData != null) {
             mData.clear();
         }
 
     }
-
-    private int lastVisibleItem;
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();//可见的最后一个item
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == adapter.getItemCount()
-                    && adapter.isShowFooter()) {//加载判断条件 手指离开屏幕 到了footeritem
-                page++;
-                //eventPresenter.visitEvent(getActivity(), EVENT1, page);
-                Log.v("yyyy", "***onScrollStateChanged******");
-            }
-        }
-    };
-
     private TouZiAdapter.OnEventnewsClickListener mOnItemClickListener = new TouZiAdapter.OnEventnewsClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            position = position - 1; //配对headerView
             if (mData.size() <= 0) {
                 return;
             }
@@ -114,35 +90,6 @@ public class InvestorWithoutSelectFragment extends Fragment implements AdapterVi
             startActivity(intent);*/
         }
     };
-
-    public void initSwipeRefreshLayout() {
-        refresh_touzi.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh_touzi.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh_touzi.setRefreshing(false);
-                        if (mData != null && mDataAll != null) {
-                            mDataAll.clear();//一定要加上否则会报越界异常 不执行代码加载的if判断
-                            mData.clear();
-                        }
-                        if (NetUtil.isNetConnect(getActivity())) {
-                            adapter.isShowFooter(true);
-                            //page = 0;
-                            //eventPresenter.visitEvent(getActivity(), EVENT1, page);
-                        } else {
-                            // mNewsPresenter.visitProjects(getActivity(),mType);//缓存
-                        }
-                    }
-                }, 2000);
-            }
-        });
-        refresh_touzi.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-    }
 
     @Override
     public void onDestroyView() {
@@ -176,7 +123,7 @@ public class InvestorWithoutSelectFragment extends Fragment implements AdapterVi
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button
                     // 处理fragment的返回事件
                     dropdownmenu.closeMenu();
