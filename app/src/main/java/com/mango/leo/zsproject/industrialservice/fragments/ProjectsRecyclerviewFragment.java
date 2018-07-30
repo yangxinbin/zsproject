@@ -390,40 +390,41 @@ public class ProjectsRecyclerviewFragment extends Fragment implements AllProject
     @Override
     public void addProjectsSuccess(final List<AllProjectsBean> projectsList) {
         Log.v("yxb", "" + projectsList.size());
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (projectsList == null || projectsList.size() == 0) {
-                    AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
-                }
-                if (mData == null && mDataAll == null) {
-                    mData = new ArrayList<AllProjectsBean>();
-                    mDataAll = new ArrayList<AllProjectsBean>();
-                }
-                if (mDataAll != null) {
-                    mDataAll.clear();
-                }
-                mDataAll.addAll(projectsList);
-                if (page == 0) {
-                    for (int i = 0; i < mDataAll.size(); i++) {//
-                        mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+        if (getActivity() != null)
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (projectsList == null || projectsList.size() == 0) {
+                        AppUtils.showToast(getActivity(), getResources().getString(R.string.no_more));
                     }
-                    adapter.setmDate(mData);
-                } else {
+                    if (mData == null && mDataAll == null) {
+                        mData = new ArrayList<AllProjectsBean>();
+                        mDataAll = new ArrayList<AllProjectsBean>();
+                    }
                     if (mDataAll != null) {
-                        //加载更多
-                        int i;
-                        for (i = 0; i < mDataAll.size(); i++) {
-                            if (mDataAll == null) {
-                                return;//一开始断网报空指针的情况
+                        mDataAll.clear();
+                    }
+                    mDataAll.addAll(projectsList);
+                    if (page == 0) {
+                        for (int i = 0; i < mDataAll.size(); i++) {//
+                            mData.add(mDataAll.get(i)); //一次显示page= ? 20条数据
+                        }
+                        adapter.setmDate(mData);
+                    } else {
+                        if (mDataAll != null) {
+                            //加载更多
+                            int i;
+                            for (i = 0; i < mDataAll.size(); i++) {
+                                if (mDataAll == null) {
+                                    return;//一开始断网报空指针的情况
+                                }
+                                Log.v("rrrrrrrrr", "--adapter--");
+                                adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                             }
-                            Log.v("rrrrrrrrr", "--adapter--");
-                            adapter.addItem(mDataAll.get(i));//addItem里面记得要notifyDataSetChanged 否则第一次加载不会显示数据
                         }
                     }
                 }
-            }
-        });
+            });
 
     }
 
