@@ -65,8 +65,6 @@ public class AllAndCreatedPlanActivity extends BaseActivity{//
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.allAndCreated_image_back:
-                Intent intent = new Intent(this, ZsActivity.class);
-                startActivity(intent);
                 finish();
                 break;
         }
