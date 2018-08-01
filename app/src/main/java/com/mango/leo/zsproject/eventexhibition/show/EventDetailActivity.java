@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.mango.leo.zsproject.R;
 import com.mango.leo.zsproject.base.BaseActivity;
 import com.mango.leo.zsproject.bean.ErrorBean;
+import com.mango.leo.zsproject.eventexhibition.util.FoundWebView;
 import com.mango.leo.zsproject.industrialservice.createrequirements.util.ProjectsJsonUtils;
 import com.mango.leo.zsproject.utils.AppUtils;
 import com.mango.leo.zsproject.utils.HttpUtils;
@@ -46,7 +47,7 @@ public class EventDetailActivity extends BaseActivity {
     @Bind(R.id.imageView_love)
     ImageView imageViewLove;
     @Bind(R.id.webview)
-    WebView webview;
+    FoundWebView webview;
     @Bind(R.id.sign_up)
     Button signUp;
     @Bind(R.id.loading)
@@ -70,6 +71,7 @@ public class EventDetailActivity extends BaseActivity {
         webSettings.setDomStorageEnabled(true);
         //webview.loadUrl("http://www.baidu.com");
         webview.loadUrl("http://47.106.184.121/jetc/#/iosactivityDetail/:" + id);
+        //webview.loadUrl("https://news.qq.com/a/20180801/008860.htm");
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -89,14 +91,37 @@ public class EventDetailActivity extends BaseActivity {
                 } else {
                     loading.setVisibility(View.VISIBLE);
                     textView23.setVisibility(View.VISIBLE);
-                    signUp.setVisibility(View.GONE);
-                    //loading.setProgress(newProgress);
+                    //signUp.setVisibility(View.GONE);
+                    loading.setProgress(newProgress);
                 }
                 super.onProgressChanged(view, newProgress);
             }
         });
+       // webViewScroolChangeListener();
     }
+    //核心代码
 
+    private void webViewScroolChangeListener() {
+        Log.v("ccccccccccc","-----webViewScroolChangeListener");
+
+        webview.setOnCustomScroolChangeListener(new FoundWebView.ScrollInterface() {
+            @Override
+            public void onSChanged(int l, int t, int oldl, int oldt) {
+                //WebView的总高度
+                Log.v("ccccccccccc","-----o");
+                float webViewContentHeight=webview.getContentHeight() * webview.getScale();
+                //WebView的现高度
+                float webViewCurrentHeight=(webview.getHeight() + webview.getScrollY());
+                signUp.setVisibility(View.GONE);
+                if ((webViewContentHeight-webViewCurrentHeight) == 0) {
+                    Log.v("ccccccccccc","----==");
+                    signUp.setVisibility(View.VISIBLE);
+                }
+                
+            }
+
+        });
+    }
     @OnClick({R.id.imageView_back, R.id.imageView_share, R.id.imageView_love, R.id.sign_up})
     public void onViewClicked(View view) {
         Intent intent;

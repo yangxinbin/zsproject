@@ -63,7 +63,7 @@
     </RelativeLayout>
 
 
-    <WebView
+    <com.mango.leo.zsproject.eventexhibition.util.FoundWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
